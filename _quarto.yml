@@ -1,0 +1,54 @@
+project:
+  type: website
+execute:
+  freeze: auto
+  
+website:
+  title: "Traffic Simulation Models"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+    right:
+      - href: https://fenix.tecnico.ulisboa.pt/disciplinas/MST/2023-2024/1-semestre
+        text: Corse IST 
+    tools:
+      - icon: github
+        menu:
+          - text: Code
+            href:  https://code.com
+          - text: Issues
+            href:  https://bugs.com
+  sidebar:
+    style: docked
+    search: true
+    contents:
+      - section: Software
+        href: software.qmd
+        contents:
+          - href: sumo.qmd
+            text: SUMO
+          - href: visim.qmd
+            text: VISIM
+          - href: matsim.qmd
+            text: MATSIM
+          - href: visum.qmd
+            text: VISUM
+          - href: https://a-b-street.github.io/docs/software/abstreet.html
+            text: A/B Streets
+      - section: Macro simulation
+        href: macro.qmd
+      - section: Micro simulation
+        href: micro.qmd
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    css: styles.css
+    toc: true
+
+editor: visual
+
