@@ -7,7 +7,7 @@ author:
    roles:
      - Course Responsible
      - Associated Professor
- - name: Maurício Orozco-Fontalfo
+ - name: Maurício Orozco-Fontalvo
    orcid: 0000-0003-0514-4647
    email: mauricio.orozco@tecnico.pt
    roles:
