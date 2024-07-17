@@ -42,11 +42,20 @@ website:
       - section: Micro simulation
         href: micro.qmd
 
+  page-footer:
+    left: "Instituto Superior Técnico - University of Lisbon"
+    center: "Traffic Simulation Models"
+    right: "2024-2014"
+    
+  repo-url: https://github.com/U-Shift/Traffic-Simulation-Models
+  repo-actions: [edit, issue]
+
 format:
   html:
     theme:
       light: flatly
       dark: darkly
+    fontsize: 1.5em
     css: styles.css
     toc: true
 
