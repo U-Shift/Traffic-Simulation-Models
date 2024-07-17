@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Traffic Simulation Models",
     "section": "",
-    "text": "This is website with materials, data and tutorials to use at the Modelling of Transport Systems course at Instituto Superior Técnico - University of Lisbon.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "This is website with materials, data and tutorials to use at the Modelling of Transport Systems course at Instituto Superior Técnico - University of Lisbon."
   },
   {
     "objectID": "visum.html",
@@ -113,6 +113,6 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site"
+    "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites."
   }
 ]
