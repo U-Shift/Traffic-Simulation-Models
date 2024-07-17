@@ -12,5 +12,47 @@
     "title": "Traffic Simulation Models",
     "section": "",
     "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "software.html",
+    "href": "software.html",
+    "title": "Software",
+    "section": "",
+    "text": "There are several software options for modeling transportation systems.\nTo choose a traffic simulation software to work with can depend on different things to consider. You may use more than one software, depending on the scale you are working with, and on other characteristics."
+  },
+  {
+    "objectID": "software.html#macro-vs.-micro",
+    "href": "software.html#macro-vs.-micro",
+    "title": "Software",
+    "section": "Macro vs. Micro",
+    "text": "Macro vs. Micro\n\nMacro simulators\nSome softwares can be more appropriated if using a large scale, such as regional or city-wide area. For instance, the traffic impacts on the development of a new centrality (hospital, airport), or in the introduction of a new bridge or freeway can be simulated with macro simulator software.\nPTV Visum, Aimsun, and MatSim are examples of software to deal with a large scale simulation.\nFor macro simulations it is essential do consider zoning, flows, etc.\nUsually this type of simulators can smoothly integrate Public Transport information, such as GTFS files.\n\n\nMicro simulators\nWant to simulate changes at a street or neighbourhood level? Then micro simulator software should be used.\nPTV Visim, SUMO, and A/B Street are examples of software to deal with a micro scale simulation."
+  },
+  {
+    "objectID": "software.html#paid-licence-vs.-free",
+    "href": "software.html#paid-licence-vs.-free",
+    "title": "Software",
+    "section": "Paid (Licence) vs. Free",
+    "text": "Paid (Licence) vs. Free\n\nPaid\nAvailable commercial software is largely used at many companies and consultants. Universities also usually offer licence access to students and researchers. At IST we provide access to PTV Visum licence for registered students1.\nSome groups provide a student version, which typically does not include all the features.\nPTV Vissim and Visum, and Aimsum are examples of commercial simulation software.\n\n\nFree\nFree and open source software is getting more robust, and should not be overlooked.\nMatSim and SUMO are examples of free and open source simulation software."
+  },
+  {
+    "objectID": "software.html#operating-system",
+    "href": "software.html#operating-system",
+    "title": "Software",
+    "section": "Operating System",
+    "text": "Operating System\nTo choose a software to work with, you should also consider the operation system of your personal computer (Windows, MacOS, Linux based).\nYou may always use virtual machines to have another OS in your PC, but that comes with memory and performance cost.\n\nFor MacOS users, UTM is a good free option. Keep in mind that the University of Lisbon provides Windows stutent’s licences.\nFor Linux (Ubuntu or Debian) users, Gnome Boxes are an interesting option to run Windows.\nFor Windows users, you should have no problem using any software.\n\nPTV Visum and Visim are only available for Windows."
+  },
+  {
+    "objectID": "software.html#footnotes",
+    "href": "software.html#footnotes",
+    "title": "Software",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nContact Filipe Moura or Rosa Félix to access Visum.↩︎\nIf you use other traffic simulation software, you may contribute to this website and create another tutorial :) Fork and Pull Request in this Github repo.↩︎"
+  },
+  {
+    "objectID": "software.html#instalation-and-usage",
+    "href": "software.html#instalation-and-usage",
+    "title": "Software",
+    "section": "Instalation and Usage",
+    "text": "Instalation and Usage\nWe only offer guidance to setup some of the available software2.\nPlease see each software page for more details."
   }
 ]
