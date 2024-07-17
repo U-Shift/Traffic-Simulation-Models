@@ -1,27 +1,5 @@
 ---
 title: "Traffic Simulation Models"
-date: 07/17/2024
-date-format: "MMMM YYYY"
-author:
- - name: Filipe Moura
-   orcid: 0000-0001-7749-8490
-   email: fmoura@tecnico.pt
-   roles:
-    - Course Responsible
-    - Associated Professor
- - name: Maurício Orozco-Fontalvo
-   orcid: 0000-0003-0514-4647
-   email: mauricio.orozco@tecnico.pt
-   roles:
-    - Invited Professor
- - name: Rosa Félix
-   orcid: 0000-0002-5642-6006
-   email: rosamfelix@tecnico.pt
-   roles:
-    - Mantainer
-    - Invited Professor
 ---
 
 This is website with materials, data and tutorials to use at the [Modelling of Transport Systems](https://fenix.tecnico.ulisboa.pt/disciplinas/MST/2023-2024/1-semestre) course at Instituto Superior Técnico - University of Lisbon.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
