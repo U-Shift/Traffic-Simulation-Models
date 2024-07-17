@@ -1,19 +1,5 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Traffic Simulation Models",
-    "section": "",
-    "text": "This is website with materials, data and tutorials to use at the Modelling of Transport Systems course at Instituto Superior Técnico - University of Lisbon."
-  },
-  {
     "objectID": "software.html",
     "href": "software.html",
     "title": "Software",
@@ -42,6 +28,13 @@
     "text": "Operating System\nTo choose a software to work with, you should also consider the operation system of your personal computer (Windows, MacOS, Linux based).\nYou may always use virtual machines to have another OS in your PC, but that comes with memory and performance cost.\n\nFor MacOS users, UTM is a good free option. Keep in mind that the University of Lisbon provides Windows stutent’s licences.\nFor Linux (Ubuntu or Debian) users, Gnome Boxes are an interesting option to run Windows.\nFor Windows users, you should have no problem using any software.\n\nPTV Visum and Visim are only available for Windows."
   },
   {
+    "objectID": "software.html#instalation-and-usage",
+    "href": "software.html#instalation-and-usage",
+    "title": "Software",
+    "section": "Instalation and Usage",
+    "text": "Instalation and Usage\nWe only offer guidance to setup some of the available software2.\nPlease see each software page for more details."
+  },
+  {
     "objectID": "software.html#footnotes",
     "href": "software.html#footnotes",
     "title": "Software",
@@ -49,11 +42,11 @@
     "text": "Footnotes\n\n\nContact Filipe Moura or Rosa Félix to access Visum.↩︎\nIf you use other traffic simulation software, you may contribute to this website and create another tutorial :) Fork and Pull Request in this Github repo.↩︎"
   },
   {
-    "objectID": "software.html#instalation-and-usage",
-    "href": "software.html#instalation-and-usage",
-    "title": "Software",
-    "section": "Instalation and Usage",
-    "text": "Instalation and Usage\nWe only offer guidance to setup some of the available software2.\nPlease see each software page for more details."
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites."
   },
   {
     "objectID": "visum.html",
@@ -75,5 +68,12 @@
     "title": "Visum",
     "section": "Getting started",
     "text": "Getting started\n\nData\n\n\nSimulation"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Traffic Simulation Models",
+    "section": "",
+    "text": "This is website with materials, data and tutorials to use at the Modelling of Transport Systems course at Instituto Superior Técnico - University of Lisbon."
   }
 ]
