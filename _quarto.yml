@@ -36,16 +36,15 @@ website:
           - href: visum.qmd
             text: VISUM
           - href: https://a-b-street.github.io/docs/software/abstreet.html
-            text: A/B Streets
-      - section: Macro simulation
-        href: macro.qmd
-      - section: Micro simulation
-        href: micro.qmd
+            text: A/B Street
+      - macro.qmd
+      - micro.qmd
+      - casestudy.qmd
 
   page-footer:
     left: "Instituto Superior Técnico - University of Lisbon"
     center: "Traffic Simulation Models"
-    right: "2024-2014"
+    right: "2024-2025"
     
   repo-url: https://github.com/U-Shift/Traffic-Simulation-Models
   repo-actions: [edit, issue]
@@ -55,7 +54,7 @@ format:
     theme:
       light: flatly
       dark: darkly
-    fontsize: 1.5em
+    fontsize: 1.2em
     css: styles.css
     toc: true
 

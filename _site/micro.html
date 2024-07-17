@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="R Felix">
+<meta name="author" content="F">
 
-<title>Traffic Simulation Models - Visum</title>
+<title>Traffic Simulation Models - Micro Simulation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -124,7 +124,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./software.html">Software</a></li><li class="breadcrumb-item"><a href="./visum.html">VISUM</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./micro.html">Micro Simulation</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -155,7 +155,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sumo.qmd" class="sidebar-item-text sidebar-link">
+  <a href="./sumo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SUMO</span></a>
   </div>
 </li>
@@ -173,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./visum.html" class="sidebar-item-text sidebar-link active">
+  <a href="./visum.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">VISUM</span></a>
   </div>
 </li>
@@ -185,42 +185,38 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Macro simulation</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Micro simulation</span></span>
-  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./macro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Macro Simulation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./micro.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Micro Simulation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./casestudy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a>
-  <ul class="collapse">
-  <li><a href="#licence-activation" id="toc-licence-activation" class="nav-link" data-scroll-target="#licence-activation">Licence activation</a></li>
-  </ul></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a>
-  <ul class="collapse">
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="#simulation" id="toc-simulation" class="nav-link" data-scroll-target="#simulation">Simulation</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/visum.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Visum</h1>
+<h1 class="title">Micro Simulation</h1>
 </div>
 
 
@@ -230,7 +226,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>R Felix </p>
+             <p>F </p>
           </div>
   </div>
     
@@ -241,38 +237,8 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<blockquote class="blockquote">
-<p>Note: This tutorial is only for Windows. If you do not use Windows, you need to have a Virtual Machine.</p>
-</blockquote>
-<p>In this tutorial we will guide you to install and start using Visum.</p>
-<p><a href="https://www.ptvgroup.com/en/products/ptv-visum">PTV Visum</a> is a macro simulation software, non-free, available only for Windows OS.</p>
-<section id="installation" class="level2">
-<h2 class="anchored" data-anchor-id="installation">Installation</h2>
-<p>PTV Visum is available to download at: <a href="https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Visum" class="uri">https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Visum</a></p>
-<p>Choose the most recent version. The file may be more than 1.3 GB.</p>
-<p>If you don’t have Python installed already in your PC, don’t worry, you can opt to install it along the Visum setup.</p>
-<p>The <a href="https://us-resources.ptvgroup.com/en-us/ptv-support/ptv-visum-installation">available instructions</a> are very straight forward.</p>
-<section id="licence-activation" class="level3">
-<h3 class="anchored" data-anchor-id="licence-activation">Licence activation</h3>
-<p>You should have received a path to where the licence lives in our server.</p>
-<p>To activate Visum, prior to use it, you need to download another tiny software: <a href="https://us-resources.ptvgroup.com/en-us/ptv-support/ptv-visum-installation">CodeMeter Runtime</a></p>
-<p>After install it, open CodeMeter Control Center, and go to “Web Admin”</p>
-<p><img src="images/clipboard-3861114307.png" class="img-fluid" width="431"></p>
-<p>Here, you need to go do Configuration -&gt; Basic &gt; Server Search List &gt; add new server, and add the server’s name that was sent to you. Apply.</p>
-<p>Relaunch CodeMeter, and see if you now have the PTV Visum licence available and running. It should look like this:</p>
-</section>
-</section>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
-<section id="data" class="level3">
-<h3 class="anchored" data-anchor-id="data">Data</h3>
-</section>
-<section id="simulation" class="level3">
-<h3 class="anchored" data-anchor-id="simulation">Simulation</h3>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -627,7 +593,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">Instituto Superior Técnico - University of Lisbon</div>   
-    <div class="nav-footer-center">Traffic Simulation Models</div>
+    <div class="nav-footer-center">Traffic Simulation Models<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/micro.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action">Report an issue</a></p></div></div></div>
     <div class="nav-footer-right">2024-2025</div>
   </div>
 </footer>
