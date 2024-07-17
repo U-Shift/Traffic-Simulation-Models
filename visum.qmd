@@ -1,0 +1,40 @@
+---
+title: "Visum"
+author: "R Felix"
+---
+
+> Note: This tutorial is only for Windows. If you do not use Windows, you need to have a Virtual Machine.
+
+In this tutorial we will guide you to install and start using Visum.
+
+[PTV Visum](https://www.ptvgroup.com/en/products/ptv-visum) is a macro simulation software, non-free, available only for Windows OS.
+
+## Installation
+
+PTV Visum is available to download at: <https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Visum>
+
+Choose the most recent version. The file may be more than 1.3 GB.
+
+If you don't have Python installed already in your PC, don't worry, you can opt to install it along the Visum setup.
+
+The [available instructions](https://us-resources.ptvgroup.com/en-us/ptv-support/ptv-visum-installation) are very straight forward.
+
+### Licence activation
+
+You should have received a path to where the licence lives in our server.
+
+To activate Visum, prior to use it, you need to download another tiny software: [CodeMeter Runtime](https://us-resources.ptvgroup.com/en-us/ptv-support/ptv-visum-installation)
+
+After install it, open CodeMeter Control Center, and go to "Web Admin"
+
+![](images/clipboard-3861114307.png){width="431"}
+
+Here, you need to go do Configuration -\> Basic \> Server Search List \> add new server, and add the server's name that was sent to you. Apply.
+
+Relaunch CodeMeter, and see if you now have the PTV Visum licence available and running. It should look like this:
+
+## Getting started
+
+### Data
+
+### Simulation
