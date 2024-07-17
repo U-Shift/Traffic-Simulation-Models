@@ -43,7 +43,7 @@ Free and open source software is getting more robust, and should not be overlook
 
 **MatSim** and **SUMO** are examples of free and open source simulation software.
 
-## Operating System
+## Operating System {#operating-system}
 
 To choose a software to work with, you should also consider the operation system of your personal computer (Windows, MacOS, Linux based).
 

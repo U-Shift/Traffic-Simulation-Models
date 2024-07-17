@@ -3,7 +3,7 @@ title: "Visum"
 author: "R Felix"
 ---
 
-> Note: This tutorial is only for Windows. If you do not use Windows, you need to have a Virtual Machine.
+> Note: This tutorial is only for Windows. If you do not use Windows, you need to have a [Virtual Machine](software.qmd#operating-system).
 
 In this tutorial we will guide you to install and start using Visum.
 
