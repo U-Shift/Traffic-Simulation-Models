@@ -1,5 +1,7 @@
 ---
 title: "Traffic Simulation Models"
+date: 07/17/2024
+date-format: "MMMM YYYY"
 author:
  - name: Filipe Moura
    orcid: 0000-0001-7749-8490
@@ -20,6 +22,6 @@ author:
     - Invited Professor
 ---
 
-This is a Quarto website.
+This is website with materials, data and tutorials to use at the [Modelling of Transport Systems](https://fenix.tecnico.ulisboa.pt/disciplinas/MST/2023-2024/1-semestre) course at Instituto Superior Técnico - University of Lisbon.
 
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
