@@ -17,9 +17,9 @@ website:
       - icon: github
         menu:
           - text: Code
-            href:  https://code.com
+            href:  https://github.com/U-Shift/Traffic-Simulation-Models
           - text: Issues
-            href:  https://bugs.com
+            href:  https://github.com/U-Shift/Traffic-Simulation-Models/issues
   sidebar:
     style: docked
     search: true
