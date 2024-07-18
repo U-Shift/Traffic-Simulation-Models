@@ -21,19 +21,33 @@ The [available instructions](https://us-resources.ptvgroup.com/en-us/ptv-support
 
 ### Licence activation
 
-You should have received a path to where the licence lives in our server.
+> You should have received a server address of where the CERIS licence lives. If not, contact the course teacher.
 
-To activate Visum, prior to use it, you need to download another tiny software: [CodeMeter Runtime](https://us-resources.ptvgroup.com/en-us/ptv-support/ptv-visum-installation)
+To use Visum with the CERIS licence, you need to download [PTV Licence Manager (Standard)](https://cgi.ptvgroup.com/visionSetups/Setups/LICENSEMANAGER/LicenseManager.exe).
 
-After install it, open CodeMeter Control Center, and go to "Web Admin"
+![](images/clipboard-2536119485.png){width="610"}
 
-![](images/clipboard-3861114307.png){width="431"}
+It will ask you to download also another tiny software [CodeMeter Runtime](https://us-resources.ptvgroup.com/en-us/ptv-support/ptv-visum-installation). Say yes!
 
-Here, you need to go do Configuration -\> Basic \> Server Search List \> add new server, and add the server's name that was sent to you. Apply.
+After install it, open PTV Licence Manager, and click on ⚙️ Edit CodeMeter settings:
 
-Relaunch CodeMeter, and see if you now have the PTV Visum licence available and running. It should look like this:
+![](images/clipboard-4116598095.png){width="600"}
+
+Add ➕ CodeMeter server, and insert the server address that was sent to you.
+
+![](images/clipboard-2675991208.png){width="231"}
+
+Press close (go back) and now 🔍 **Find Licences**.
+
+![](images/clipboard-1159052615.png){width="376"}
+
+An available licence row should now appear on the list 🎉. Close it.
 
 ## Getting started
+
+When launching Visum for the first time, you should have something like this. This is a good signal, it means that the connection to the licence server is running smoothly and that you are ready to start working on your projects! 🚀
+
+![](images/clipboard-89661704.png)
 
 ### Data
 
