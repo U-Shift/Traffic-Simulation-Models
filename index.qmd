@@ -2,6 +2,6 @@
 title: "Traffic Simulation Models"
 ---
 
-This is website with materials, data and tutorials to use at the [Modelling of Transport Systems](https://fenix.tecnico.ulisboa.pt/disciplinas/MST/2023-2024/1-semestre) course at Instituto Superior Técnico - University of Lisbon.
+This website makes avaliable materials, data and tutorials to use at the [Modelling of Transport Systems](https://fenix.tecnico.ulisboa.pt/disciplinas/MST/2023-2024/1-semestre) course at Instituto Superior Técnico - University of Lisbon.
 
 See the [Macro](macro.qmd) and [Micro](micro.qmd) modelling home assignments.
