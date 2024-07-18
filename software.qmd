@@ -7,7 +7,7 @@ There are several software options for modeling transportation systems.
 
 To choose a traffic simulation software to work with can depend on different things to consider. You may use more than one software, depending on the scale you are working with, and on other characteristics.
 
-## Macro vs. Micro 
+## Macro vs. Micro
 
 ### Macro simulators
 
