@@ -13,7 +13,7 @@ In this tutorial we will guide you to install and start using Visum.
 
 PTV Visum is available to download at: <https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Visum>
 
-Choose the most recent version. The file may be more than 1.3 GB.
+Choose the most recent version (recommended). The file may be more than 1.3 GB.
 
 If you don't have Python installed already in your PC, don't worry, you can opt to install it along the Visum setup.
 
@@ -48,6 +48,14 @@ An available licence row should now appear on the list 🎉. Close it.
 When launching Visum for the first time, you should have something like this. This is a good signal, it means that the connection to the licence server is running smoothly and that you are ready to start working on your projects! 🚀
 
 ![](images/clipboard-89661704.png)
+
+The "Tutorial First Steps" may be wise to follow if you are not familiar with the software. It covers the following topics:
+
+-   Network editing (private and public transport)
+-   Procedure sequence
+-   Graphic parameters
+
+PTV also offers [online tutorials](https://www.youtube.com/watch?v=Azo8dFDKaxY&list=PLm_ftxJv3rZ1VlAQfZK33lh_uYyLKJmpe) to get familiar with the software.
 
 ### Data
 
