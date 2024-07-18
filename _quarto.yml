@@ -24,22 +24,23 @@ website:
     style: docked
     search: true
     contents:
+      - macro.qmd
+      - micro.qmd
+      - casestudy.qmd
       - section: Software
         href: software.qmd
         contents:
-          - href: sumo.qmd
-            text: SUMO
-          - href: vissim.qmd
-            text: VISSIM
           - href: matsim.qmd
             text: MATSIM
           - href: visum.qmd
             text: VISUM
+          - href: vissim.qmd
+            text: VISSIM
+          - href: sumo.qmd
+            text: SUMO
           - href: https://a-b-street.github.io/docs/software/abstreet.html
             text: A/B Street
-      - macro.qmd
-      - micro.qmd
-      - casestudy.qmd
+
 
   page-footer:
     left: "Instituto Superior Técnico - University of Lisbon"
