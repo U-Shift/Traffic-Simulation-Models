@@ -61,6 +61,6 @@ PTV Visum and Visim are only available for Windows.
 
 We only offer guidance to setup some of the available software[^2].
 
-[^2]: If you use other traffic simulation software, you may contribute to this website and create another tutorial :) Fork and Pull Request in this [Github](https://github.com/U-Shift/Traffic-Simulation-Models) repo.
+[^2]: If you use other traffic simulation software, you may contribute to this website and create another tutorial 🙂. Fork and Pull Request in this [Github](https://github.com/U-Shift/Traffic-Simulation-Models) repo.
 
 Please see each software page for more details.
