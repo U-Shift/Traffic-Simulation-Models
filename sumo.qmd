@@ -1,4 +1,143 @@
 ---
 title: "SUMO"
 author: "R Félix"
+bibliography: references.bib
 ---
+
+In this tutorial we will guide you to install and start using SUMO.
+
+[SUMO](https://eclipse.dev/sumo/about/) is a free and open source traffic simulation suite. It is available since 2001 and allows modelling of intermodal traffic systems - including road vehicles, public transport and pedestrians. Included with SUMO is a wealth of supporting tools which automate core tasks for the creation, the execution and evaluation of traffic simulations, such as network import, route calculations, visualization and emission calculation [@SUMO2018].
+
+SUMO is available for any operating system.
+
+## Installation
+
+### Windows
+
+The installation of SUMO in Windows is pretty straightforward.
+
+Visit <https://eclipse.dev/sumo/> and download the installation file (137 MB).
+
+![](images/clipboard-3306613480.png)
+
+Open the downloaded file and execute in your computer. Accept the defaults and install.
+
+### Mac OS
+
+> soon. 🐼
+
+### Linux
+
+In debian based (ubuntu, kubuntu, popOS, debian) follow this instructions.
+
+## Getting started
+
+Open SUMO-gui (Graphic User Interface). You should have a window like this:
+
+![](images/clipboard-3165483734.png){width="615"}
+
+Several tutorials are available. Try these ones:
+
+-   [Hello World](https://sumo.dlr.de/docs/Tutorials/Hello_World.html) - Creating a simple network and demand scenario with [netedit](https://sumo.dlr.de/docs/Netedit/index.html) and visualizing it using [sumo-gui](https://sumo.dlr.de/docs/sumo-gui.html)
+
+-   [OSMWebWizard](https://sumo.dlr.de/docs/Tutorials/OSMWebWizard.html) - Setting up a scenario with just a few clicks using osmWebWizard.py; getting a network from **OpenStreetMap**
+
+-   [Quick Start](https://sumo.dlr.de/docs/Tutorials/quick_start.html) - A more complex tutorial with [netedit](https://sumo.dlr.de/docs/Netedit/index.html); first steps in SUMO
+
+-   [Driving in Circles](https://sumo.dlr.de/docs/Tutorials/Driving_in_Circles.html) - Work with [netedit](https://sumo.dlr.de/docs/Netedit/index.html); define a flow; let vehicles drive in circles using rerouters
+
+-   [SUMOlympics](https://sumo.dlr.de/docs/Tutorials/SUMOlympics.html) - Create special lanes and simple traffic lights in netedit, more about flows and vehicle types, working with vehicle
+
+-   [Autobahn](https://sumo.dlr.de/docs/Tutorials/Autobahn.html) - Build a highway, create a mixed highway flow, visualize vehicle speed, save view settings
+
+-   [Importing GTFS](https://sumo.dlr.de/docs/Tutorials/GTFS.html) - Importing public transport schedules from public sources using the General Transit Feed Specification
+
+{{< video https://www.youtube.com/watch?v=9WCGxJDdY9s >}}
+
+### Import from OpenStreetMap
+
+This requires having [Python](https://www.python.org/downloads/) installed.
+
+-   Windows: *Start -\>* *All Programs -\> OSM Web Wizard*
+
+-   MacOS: 🐼
+
+-   Linux (terminal):
+
+``` sh
+cd ~/sumo/tools
+python3 osmWebWizard.py
+```
+
+And a window will open in your browser.
+
+![](images/clipboard-2247596800.png)
+
+You may zoom and pan to the area of your interest[^1]. Click on "Select Area" and draw a rectangle with your mouse for which you wish to generate the simulation scenario.
+
+[^1]: Caution: if the map excerpt covers a very large area, the simulation might become slow or
+    even unresponsive. We suggest choosing a similar zoom level as in the initial view.
+
+#### Network Generation
+
+The infrastructure import from OSM into the SUMO simulation are affected by different Wizard options
+
+-   by default the "Add Polygon" checkbox is checked and a road traffic simulation is generated but all types of roads and rails will be imported as well (cycle paths, footpaths, railways etc)
+-   if the checkbox "left-hand Traffic" is enabled, the network will be built with left hand traffic rules. For most geographic regions where this is required, this feature will be enabled automatically but if it does not work, this option can be used as a remedy.
+-   if the checkbox "Car-only Network" is enabled, then only roads that permit passenger car traffic will be included. This can be used to reduce the network size and also helps to reduce intersection complexity
+-   if the checkbox "Import Public Transport" is enabled, then busStops and trainStops will be exported. Also busses, trams and trains will be generated that follow the public transport routes defined in OSM (but they will follow synthetic schedules).
+-   if the Demand-checkbox "Bicycles" is active, then extra bicycle lanes will be added to roads where OSM contains this information
+-   if the Demand-checkbox "Pedestrians" is active, then sidewalks and pedestrian crossings will be generated
+
+#### Demand Generation
+
+The demand is defined by the demand generation panel. You activate this
+panel by clicking on the car pictogram.
+
+![](images/clipboard-1645183866.png){width="284"}
+
+SUMO supports various modes of transport. At the demand generation panel, you can activate/deactivate the individual modes of transport by clicking the corresponding checkboxes. For each mode of transport, the OSM Web Wizard generates random demand based on a certain probability distribution, which is influenced by two parameters:
+
+-   Every time a new vehicle is generated, the OSM Web Wizard randomly chooses a departure and arrival edge for the vehicle. The *Through Traffic Factor* defines how many times it is more likely for an edge at the boundary of the simulation area being chosen, compared to an edge entirely located inside the simulation area. A big value for the *Through Traffic Factor* implies that many vehicles depart and arrive at the boundary of the simulation area, which corresponds to a scenario with a lot of through traffic.
+-   The *Count* parameter defines how many vehicles are generated per
+    hour and lane-kilometer. Assuming
+    -   the network contains 3 edges with a combined length of 5 km
+
+    -   that each has 2 lanes which allows the current traffic mode
+
+    -   and the count value is set to 90,
+
+    -   then 5 \* 2 \* 90 = 900 vehicles per hour will be generated.
+
+This translates to a [randomTrips](https://sumo.dlr.de/docs/Tools/Trip.html#randomtripspy) parameter of p=4 which means a new vehicle is inserted every 4 seconds somewhere in the network.
+
+The next step is generating and running the scenario.
+
+#### Road-Type Selection
+
+In the Road-Type tab of the OSM Web Wizard one can define which road types to be downloaded and rendered.
+
+![](images/clipboard-1076186910.png){width="225"}
+
+For example, one can only choose motorways, primary, secondary and tertiary to simulate major traffic. This impacts the file size of the OSM map data.
+
+By default, all road types are checked which implies downloading and rendering all roads.
+
+Unchecking the "Add Polygon" checkbox in the Demand Generation section disables downloading and rendering non-road objects like buildings, waterways, etc. resulting in a smaller file size.
+
+#### Generating and Running the scenario
+
+The complete scenario will be generated automatically once *Generate Scenario* in the control panel has been clicked. The scenario generation takes a couple of seconds or minutes (depending, among other factors, on the size of the scenario).
+
+Once the scenario generation process has finished, the sumo-gui starts and the simulation can be started by pressing the *Play* button.
+
+![](images/clipboard-725212682.png)
+You will see agents making their trips. Adjust the *Delay* to make it faster or slower.
+
+![](images/clipboard-2442094165.png){width="603"}
+
+A new directory under your user folder *`~/SUMO/yyyy-mm-dd-hh-mm-ss`* will be created to host the data and results. You may now edit those files and re-run the simulation (open `run` file).
+
+### Use the case study data
+
+> Soon 🥽
