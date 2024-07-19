@@ -88,7 +88,7 @@
     "href": "sumo.html#installation",
     "title": "SUMO",
     "section": "Installation",
-    "text": "Installation\n\nWindows\nThe installation of SUMO in Windows is pretty straightforward.\nVisit https://eclipse.dev/sumo/ and download the installation file (137 MB).\n\nOpen the downloaded file and execute in your computer. Accept the defaults and install.\n\n\nMac OS\n\nsoon. 🐼\n\n\n\nLinux\nIn debian based (ubuntu, kubuntu, popOS, debian) follow this instructions."
+    "text": "Installation\n\nWindows\nThe installation of SUMO in Windows is pretty straightforward.\nVisit https://eclipse.dev/sumo/ and download the installation file (137 MB).\n\nOpen the downloaded file and execute in your computer. Accept the defaults and install.\n\n\nMac OS\n\nsoon. 🐼\n\n\n\nLinux\nIn debian based (ubuntu, kubuntu, popOS, debian) follow this instructions.\n\nsoon. 🐧"
   },
   {
     "objectID": "sumo.html#getting-started",

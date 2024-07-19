@@ -30,6 +30,8 @@ Open the downloaded file and execute in your computer. Accept the defaults and i
 
 In debian based (ubuntu, kubuntu, popOS, debian) follow this instructions.
 
+> soon. 🐧
+
 ## Getting started
 
 Open SUMO-gui (Graphic User Interface). You should have a window like this:
