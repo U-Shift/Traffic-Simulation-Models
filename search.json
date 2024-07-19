@@ -132,7 +132,7 @@
     "href": "visum.html",
     "title": "Visum",
     "section": "",
-    "text": "Note: This tutorial is only for Windows. If you do not use Windows, you need to have a Virtual Machine.\nIn this tutorial we will guide you to install and start using Visum.\nPTV Visum is a macro simulation software, non-free, available only for Windows OS.",
+    "text": "❗ This tutorial is only for Windows. If you do not use Windows, you need to have a Virtual Machine. If you have an Arm processor this won’t work, even with a VM.\nIn this tutorial we will guide you to install and start using Visum.\nPTV Visum is a macro simulation software, non-free, available only for Windows OS.",
     "crumbs": [
       "Home",
       "Software",
