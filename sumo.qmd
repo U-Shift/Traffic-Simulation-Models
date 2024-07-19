@@ -75,8 +75,7 @@ And a window will open in your browser.
 
 You may zoom and pan to the area of your interest[^1]. Click on "Select Area" and draw a rectangle with your mouse for which you wish to generate the simulation scenario.
 
-[^1]: Caution: if the map excerpt covers a very large area, the simulation might become slow or
-    even unresponsive. We suggest choosing a similar zoom level as in the initial view.
+[^1]: Caution: if the map excerpt covers a very large area, the simulation might become slow or even unresponsive. We suggest choosing a similar zoom level as in the initial view.
 
 #### Network Generation
 
@@ -91,16 +90,14 @@ The infrastructure import from OSM into the SUMO simulation are affected by diff
 
 #### Demand Generation
 
-The demand is defined by the demand generation panel. You activate this
-panel by clicking on the car pictogram.
+The demand is defined by the demand generation panel. You activate this panel by clicking on the car pictogram.
 
 ![](images/clipboard-1645183866.png){width="284"}
 
 SUMO supports various modes of transport. At the demand generation panel, you can activate/deactivate the individual modes of transport by clicking the corresponding checkboxes. For each mode of transport, the OSM Web Wizard generates random demand based on a certain probability distribution, which is influenced by two parameters:
 
 -   Every time a new vehicle is generated, the OSM Web Wizard randomly chooses a departure and arrival edge for the vehicle. The *Through Traffic Factor* defines how many times it is more likely for an edge at the boundary of the simulation area being chosen, compared to an edge entirely located inside the simulation area. A big value for the *Through Traffic Factor* implies that many vehicles depart and arrive at the boundary of the simulation area, which corresponds to a scenario with a lot of through traffic.
--   The *Count* parameter defines how many vehicles are generated per
-    hour and lane-kilometer. Assuming
+-   The *Count* parameter defines how many vehicles are generated per hour and lane-kilometer. Assuming
     -   the network contains 3 edges with a combined length of 5 km
 
     -   that each has 2 lanes which allows the current traffic mode
@@ -131,8 +128,7 @@ The complete scenario will be generated automatically once *Generate Scenario* i
 
 Once the scenario generation process has finished, the sumo-gui starts and the simulation can be started by pressing the *Play* button.
 
-![](images/clipboard-725212682.png)
-You will see agents making their trips. Adjust the *Delay* to make it faster or slower.
+![](images/clipboard-725212682.png) You will see agents making their trips. Adjust the *Delay* to make it faster or slower.
 
 ![](images/clipboard-2442094165.png){width="603"}
 
