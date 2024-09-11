@@ -6,7 +6,9 @@ bibliography: references.bib
 
 In this tutorial we will guide you to install and start using SUMO.
 
-[SUMO](https://eclipse.dev/sumo/about/) is a free and open source traffic simulation suite. It is available since 2001 and allows modelling of intermodal traffic systems - including road vehicles, public transport and pedestrians. Included with SUMO is a wealth of supporting tools which automate core tasks for the creation, the execution and evaluation of traffic simulations, such as network import, route calculations, visualization and emission calculation [@SUMO2018].
+[SUMO](https://eclipse.dev/sumo/about/) is a free and open source traffic simulation suite.
+It is available since 2001 and allows modelling of intermodal traffic systems - including road vehicles, public transport and pedestrians.
+Included with SUMO is a wealth of supporting tools which automate core tasks for the creation, the execution and evaluation of traffic simulations, such as network import, route calculations, visualization and emission calculation [@SUMO2018].
 
 SUMO is available for any operating system.
 
@@ -20,25 +22,30 @@ Visit <https://eclipse.dev/sumo/> and download the installation file (137 MB).
 
 ![](images/clipboard-3306613480.png)
 
-Open the downloaded file and execute in your computer. Accept the defaults and install.
+Open the downloaded file and execute in your computer.
+Accept the defaults and install.
 
 ### Mac OS
 
-> soon. 🐼
+> soon.
+> 🐼
 
 ### Linux
 
 In debian based (ubuntu, kubuntu, popOS, debian) follow this instructions.
 
-> soon. 🐧
+> soon.
+> 🐧
 
 ## Getting started
 
-Open SUMO-gui (Graphic User Interface). You should have a window like this:
+Open SUMO-gui (Graphic User Interface).
+You should have a window like this:
 
 ![](images/clipboard-3165483734.png){width="615"}
 
-Several tutorials are available. Try these ones:
+Several tutorials are available.
+Try these ones:
 
 -   [Hello World](https://sumo.dlr.de/docs/Tutorials/Hello_World.html) - Creating a simple network and demand scenario with [netedit](https://sumo.dlr.de/docs/Netedit/index.html) and visualizing it using [sumo-gui](https://sumo.dlr.de/docs/sumo-gui.html)
 
@@ -75,9 +82,11 @@ And a window will open in your browser.
 
 ![](images/clipboard-2247596800.png)
 
-You may zoom and pan to the area of your interest[^1]. Click on "Select Area" and draw a rectangle with your mouse for which you wish to generate the simulation scenario.
+You may zoom and pan to the area of your interest[^1].
+Click on "Select Area" and draw a rectangle with your mouse for which you wish to generate the simulation scenario.
 
-[^1]: Caution: if the map excerpt covers a very large area, the simulation might become slow or even unresponsive. We suggest choosing a similar zoom level as in the initial view.
+[^1]: Caution: if the map excerpt covers a very large area, the simulation might become slow or even unresponsive.
+    We suggest choosing a similar zoom level as in the initial view.
 
 #### Network Generation
 
@@ -92,11 +101,14 @@ The infrastructure import from OSM into the SUMO simulation are affected by diff
 
 #### Demand Generation
 
-The demand is defined by the demand generation panel. You activate this panel by clicking on the car pictogram.
+The demand is defined by the demand generation panel.
+You activate this panel by clicking on the car pictogram.
 
 ![](images/clipboard-1645183866.png){width="284"}
 
-SUMO supports various modes of transport. At the demand generation panel, you can activate/deactivate the individual modes of transport by clicking the corresponding checkboxes. For each mode of transport, the OSM Web Wizard generates random demand based on a certain probability distribution, which is influenced by two parameters:
+SUMO supports various modes of transport.
+At the demand generation panel, you can activate/deactivate the individual modes of transport by clicking the corresponding checkboxes.
+For each mode of transport, the OSM Web Wizard generates random demand based on a certain probability distribution, which is influenced by two parameters:
 
 -   Every time a new vehicle is generated, the OSM Web Wizard randomly chooses a departure and arrival edge for the vehicle. The *Through Traffic Factor* defines how many times it is more likely for an edge at the boundary of the simulation area being chosen, compared to an edge entirely located inside the simulation area. A big value for the *Through Traffic Factor* implies that many vehicles depart and arrive at the boundary of the simulation area, which corresponds to a scenario with a lot of through traffic.
 -   The *Count* parameter defines how many vehicles are generated per hour and lane-kilometer. Assuming
@@ -118,7 +130,8 @@ In the Road-Type tab of the OSM Web Wizard one can define which road types to be
 
 ![](images/clipboard-1076186910.png){width="225"}
 
-For example, one can only choose motorways, primary, secondary and tertiary to simulate major traffic. This impacts the file size of the OSM map data.
+For example, one can only choose motorways, primary, secondary and tertiary to simulate major traffic.
+This impacts the file size of the OSM map data.
 
 By default, all road types are checked which implies downloading and rendering all roads.
 
@@ -126,15 +139,18 @@ Unchecking the "Add Polygon" checkbox in the Demand Generation section disables 
 
 #### Generating and Running the scenario
 
-The complete scenario will be generated automatically once *Generate Scenario* in the control panel has been clicked. The scenario generation takes a couple of seconds or minutes (depending, among other factors, on the size of the scenario).
+The complete scenario will be generated automatically once *Generate Scenario* in the control panel has been clicked.
+The scenario generation takes a couple of seconds or minutes (depending, among other factors, on the size of the scenario).
 
 Once the scenario generation process has finished, the sumo-gui starts and the simulation can be started by pressing the *Play* button.
 
-![](images/clipboard-725212682.png) You will see agents making their trips. Adjust the *Delay* to make it faster or slower.
+![](images/clipboard-725212682.png) You will see agents making their trips.
+Adjust the *Delay* to make it faster or slower.
 
 ![](images/clipboard-2442094165.png){width="603"}
 
-A new directory under your user folder *`~/SUMO/yyyy-mm-dd-hh-mm-ss`* will be created to host the data and results. You may now edit those files and re-run the simulation (open `run` file).
+A new directory under your user folder *`~/SUMO/yyyy-mm-dd-hh-mm-ss`* will be created to host the data and results.
+You may now edit those files and re-run the simulation (open `run` file).
 
 ### Use the case study data
 
