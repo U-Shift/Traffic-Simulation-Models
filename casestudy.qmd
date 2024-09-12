@@ -5,21 +5,21 @@ author: "R Félix"
 
 # Data
 
-Please download the VISUM project file (`.ver`) with the base data that you will need.
+Please [download](https://github.com/U-Shift/Traffic-Simulation-Models/raw/main/data/Alfragide2024_HA.ver) the VISUM project file (`.ver`) with the base data that you will need.
 
 ## Road Network
 
-We are using a road network exported from OpenStreetMap.
+We are using a road network exported from [OpenStreetMap](https://www.openstreetmap.org).
 
 We already imported that network to this project as follows:
 
-Select only Urban Road Network (to keep the principal roads)
+-   Select only Urban Road Network (to keep the principal roads)
 
 ![](images/import_osm.PNG){width="572"}
 
-![](images/clipboard-37336422.png)
+This is what it looks like when importing from OSM.
 
-Network before cleaning process (imported from OSM)
+![](images/clipboard-37336422.png)
 
 ### Check network integrity
 
@@ -31,32 +31,37 @@ Start by these ones (General, and links not connected to the network)
 
 *ignore warnings*
 
-set to active the ones you want to have a look.
+Set to active the ones you want to have a look.
+They are now active/selected.
 Delete if needed (`DEL` button)
 
 ![](images/clipboard-2775584904.png)
 
 ## Zones
 
-These are the zones to consider
+These are the zones to consider in the area.
+
+They are from census 2021 sections, and aggregated in larger TAZ.
 
 ![](images/clipboard-1301163512.png)
 
-## 
+This is how it looks like after importing the shapefile of zones to the project.
 
 ![With zones from census 21 (aggregation of sub-sections)](images/clipboard-3818747415.png)
 
-We already added the external zones (rest of the world) and the associated connectors to the road network.
+::: {.callout-note icon="false"}
+We already added the **external zones** (rest of the world) and the associated **connectors** to the road network.
+:::
 
 ![](images/clipboard-1712052008.png)
-
-With external connectors now
 
 ## OD Matrix
 
 Create an OD matrix
 
 ![![](images/clipboard-1930862873.png)](images/clipboard-3868299757.png)
+
+Give it a proper name.
 
 And copy-paste data from excel
 
@@ -68,7 +73,7 @@ Now you have your OD matrix with data for your HA Group
 
 # Procedures
 
-After creating all Zones' Connectors
+After creating **all Zones' Connectors**
 
 ![](images/clipboard-2686935511.png)
 
@@ -79,7 +84,7 @@ Create PrT[^1] assignment
 ![](images/clipboard-4248181563.png)
 
 And then you need to explicit where the data comes from (your matrix).
-Go to menu: Demand Demand Data
+Go to menu: Demand ⟶ Demand Data
 
 ![](images/clipboard-768515232.png)
 
@@ -93,7 +98,8 @@ It is a good practice to add a *Delete assignment results* in the beginning of y
 
 ![](images/clipboard-2432550039.png)
 
-Then run
+Then run!
+🏃
 
 ![](images/clipboard-469912596.png)
 
@@ -146,7 +152,7 @@ See the opposite direction
 
 Reset for a new one.
 
-## Selection
+## Selection Mode
 
 ![](images/clipboard-1558298406.png)
 
