@@ -3,9 +3,12 @@ title: "Visum"
 author: "R Felix"
 ---
 
-> ❗ This tutorial is only for Windows.
-> If you do not use Windows, you need to have a [Virtual Machine](software.qmd#operating-system).
-> If you have an Arm processor this [won't work](https://us-resources.ptvgroup.com/en-us/ptv-support/system-requirements), even with a VM.
+::: callout-important
+## This tutorial is only for Windows
+
+If you do not use Windows, you need to have a [Virtual Machine](software.qmd#operating-system).
+If you have an Arm processor this [won't work](https://us-resources.ptvgroup.com/en-us/ptv-support/system-requirements), even with a VM.
+:::
 
 In this tutorial we will guide you to install and start using Visum.
 

@@ -26,12 +26,12 @@ website:
     contents:
       # - macro.qmd
       - casestudy.qmd
-      - micro.qmd
+      # - micro.qmd
       - section: Software
         href: software.qmd
         contents:
-          - href: matsim.qmd
-            text: MATSIM
+          # - href: matsim.qmd
+          #   text: MATSIM
           - href: visum.qmd
             text: VISUM
           - href: vissim.qmd

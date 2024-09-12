@@ -8,5 +8,7 @@ This website makes avaliable materials, data and tutorials to use at the [Modell
 
 See the [Macro](macro.qmd) and [Micro](micro.qmd) modelling home assignments.
 
-> Note: This website is under construction.
-> If you have any suggestions, please contact the course teacher.
+::: {.callout-caution appearance="simple"}
+This website is under construction.
+If you have any suggestions, please contact the course teacher.
+:::
