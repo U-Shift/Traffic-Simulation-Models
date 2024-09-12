@@ -18,7 +18,7 @@
     "href": "casestudy.html",
     "title": "Case Study Macro",
     "section": "",
-    "text": "Please download the VISUM project file (.ver) with the base data that you will need.\n\n\nWe are using a road network exported from OpenStreetMap.\nWe already imported that network to this project as follows:\nSelect only Urban Road Network (to keep the principal roads)\n\n\nNetwork before cleaning process (imported from OSM)\n\n\n\nStart by these ones (General, and links not connected to the network)\n\nignore warnings\nset to active the ones you want to have a look. Delete if needed (DEL button)\n\n\n\n\n\nThese are the zones to consider\n\n\n\n\n\n\n\nWith zones from census 21 (aggregation of sub-sections)\n\n\nWe already added the external zones (rest of the world) and the associated connectors to the road network.\n\nWith external connectors now\n\n\n\nCreate an OD matrix\n\n\n\n\n\n\nAnd copy-paste data from excel\n\nNow you have your OD matrix with data for your HA Group",
+    "text": "Please download the VISUM project file (.ver) with the base data that you will need.\n\n\nWe are using a road network exported from OpenStreetMap.\nWe already imported that network to this project as follows:\n\nSelect only Urban Road Network (to keep the principal roads)\n\n\nThis is what it looks like when importing from OSM.\n\n\n\n\nStart by these ones (General, and links not connected to the network)\n\nignore warnings\nSet to active the ones you want to have a look. They are now active/selected. Delete if needed (DEL button)\n\n\n\n\n\nThese are the zones to consider in the area.\nThey are from census 2021 sections, and aggregated in larger TAZ.\n\nThis is how it looks like after importing the shapefile of zones to the project.\n\n\n\nWith zones from census 21 (aggregation of sub-sections)\n\n\n\n\n\n\n\n\nNote\n\n\n\nWe already added the external zones (rest of the world) and the associated connectors to the road network.\n\n\n\n\n\n\nCreate an OD matrix\n\n\n\n\n\n\nGive it a proper name.\nAnd copy-paste data from excel\n\nNow you have your OD matrix with data for your HA Group",
     "crumbs": [
       "Home",
       "Case Study Macro"
@@ -29,7 +29,7 @@
     "href": "casestudy.html#road-network",
     "title": "Case Study Macro",
     "section": "",
-    "text": "We are using a road network exported from OpenStreetMap.\nWe already imported that network to this project as follows:\nSelect only Urban Road Network (to keep the principal roads)\n\n\nNetwork before cleaning process (imported from OSM)\n\n\n\nStart by these ones (General, and links not connected to the network)\n\nignore warnings\nset to active the ones you want to have a look. Delete if needed (DEL button)",
+    "text": "We are using a road network exported from OpenStreetMap.\nWe already imported that network to this project as follows:\n\nSelect only Urban Road Network (to keep the principal roads)\n\n\nThis is what it looks like when importing from OSM.\n\n\n\n\nStart by these ones (General, and links not connected to the network)\n\nignore warnings\nSet to active the ones you want to have a look. They are now active/selected. Delete if needed (DEL button)",
     "crumbs": [
       "Home",
       "Case Study Macro"
@@ -40,18 +40,7 @@
     "href": "casestudy.html#zones",
     "title": "Case Study Macro",
     "section": "",
-    "text": "These are the zones to consider",
-    "crumbs": [
-      "Home",
-      "Case Study Macro"
-    ]
-  },
-  {
-    "objectID": "casestudy.html#section",
-    "href": "casestudy.html#section",
-    "title": "Case Study Macro",
-    "section": "",
-    "text": "With zones from census 21 (aggregation of sub-sections)\n\n\nWe already added the external zones (rest of the world) and the associated connectors to the road network.\n\nWith external connectors now",
+    "text": "These are the zones to consider in the area.\nThey are from census 2021 sections, and aggregated in larger TAZ.\n\nThis is how it looks like after importing the shapefile of zones to the project.\n\n\n\nWith zones from census 21 (aggregation of sub-sections)\n\n\n\n\n\n\n\n\nNote\n\n\n\nWe already added the external zones (rest of the world) and the associated connectors to the road network.",
     "crumbs": [
       "Home",
       "Case Study Macro"
@@ -62,7 +51,7 @@
     "href": "casestudy.html#od-matrix",
     "title": "Case Study Macro",
     "section": "",
-    "text": "Create an OD matrix\n\n\n\n\n\n\nAnd copy-paste data from excel\n\nNow you have your OD matrix with data for your HA Group",
+    "text": "Create an OD matrix\n\n\n\n\n\n\nGive it a proper name.\nAnd copy-paste data from excel\n\nNow you have your OD matrix with data for your HA Group",
     "crumbs": [
       "Home",
       "Case Study Macro"
@@ -91,11 +80,11 @@
     ]
   },
   {
-    "objectID": "casestudy.html#selection",
-    "href": "casestudy.html#selection",
+    "objectID": "casestudy.html#selection-mode",
+    "href": "casestudy.html#selection-mode",
     "title": "Case Study Macro",
-    "section": "Selection",
-    "text": "Selection",
+    "section": "Selection Mode",
+    "text": "Selection Mode",
     "crumbs": [
       "Home",
       "Case Study Macro"

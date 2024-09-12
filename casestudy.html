@@ -222,7 +222,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#check-network-integrity" id="toc-check-network-integrity" class="nav-link" data-scroll-target="#check-network-integrity">Check network integrity</a></li>
   </ul></li>
   <li><a href="#zones" id="toc-zones" class="nav-link" data-scroll-target="#zones">Zones</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   <li><a href="#od-matrix" id="toc-od-matrix" class="nav-link" data-scroll-target="#od-matrix">OD Matrix</a></li>
   </ul></li>
   <li><a href="#procedures" id="toc-procedures" class="nav-link" data-scroll-target="#procedures">Procedures</a></li>
@@ -230,7 +229,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#create-a-link" id="toc-create-a-link" class="nav-link" data-scroll-target="#create-a-link">Create a link</a></li>
   <li><a href="#shortest-path" id="toc-shortest-path" class="nav-link" data-scroll-target="#shortest-path">Shortest path</a></li>
-  <li><a href="#selection" id="toc-selection" class="nav-link" data-scroll-target="#selection">Selection</a></li>
+  <li><a href="#selection-mode" id="toc-selection-mode" class="nav-link" data-scroll-target="#selection-mode">Selection Mode</a></li>
   <li><a href="#labels" id="toc-labels" class="nav-link" data-scroll-target="#labels">Labels</a></li>
   </ul></li>
   </ul>
@@ -266,41 +265,53 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="data" class="level1">
 <h1>Data</h1>
-<p>Please download the VISUM project file (<code>.ver</code>) with the base data that you will need.</p>
+<p>Please <a href="https://github.com/U-Shift/Traffic-Simulation-Models/raw/main/data/Alfragide2024_HA.ver">download</a> the VISUM project file (<code>.ver</code>) with the base data that you will need.</p>
 <section id="road-network" class="level2">
 <h2 class="anchored" data-anchor-id="road-network">Road Network</h2>
-<p>We are using a road network exported from OpenStreetMap.</p>
+<p>We are using a road network exported from <a href="https://www.openstreetmap.org">OpenStreetMap</a>.</p>
 <p>We already imported that network to this project as follows:</p>
-<p>Select only Urban Road Network (to keep the principal roads)</p>
+<ul>
+<li>Select only Urban Road Network (to keep the principal roads)</li>
+</ul>
 <p><img src="images/import_osm.PNG" class="img-fluid" width="572"></p>
+<p>This is what it looks like when importing from OSM.</p>
 <p><img src="images/clipboard-37336422.png" class="img-fluid"></p>
-<p>Network before cleaning process (imported from OSM)</p>
 <section id="check-network-integrity" class="level3">
 <h3 class="anchored" data-anchor-id="check-network-integrity">Check network integrity</h3>
 <p><img src="images/clipboard-3808614396.png" class="img-fluid" width="319"></p>
 <p>Start by these ones (General, and links not connected to the network)</p>
 <p><img src="images/clipboard-2361827747.png" class="img-fluid"></p>
 <p><em>ignore warnings</em></p>
-<p>set to active the ones you want to have a look. Delete if needed (<code>DEL</code> button)</p>
+<p>Set to active the ones you want to have a look. They are now active/selected. Delete if needed (<code>DEL</code> button)</p>
 <p><img src="images/clipboard-2775584904.png" class="img-fluid"></p>
 </section>
 </section>
 <section id="zones" class="level2">
 <h2 class="anchored" data-anchor-id="zones">Zones</h2>
-<p>These are the zones to consider</p>
+<p>These are the zones to consider in the area.</p>
+<p>They are from census 2021 sections, and aggregated in larger TAZ.</p>
 <p><img src="images/clipboard-1301163512.png" class="img-fluid"></p>
-</section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section"></h2>
+<p>This is how it looks like after importing the shapefile of zones to the project.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-3818747415.png" class="img-fluid figure-img"></p>
 <figcaption>With zones from census 21 (aggregation of sub-sections)</figcaption>
 </figure>
 </div>
-<p>We already added the external zones (rest of the world) and the associated connectors to the road network.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We already added the <strong>external zones</strong> (rest of the world) and the associated <strong>connectors</strong> to the road network.</p>
+</div>
+</div>
 <p><img src="images/clipboard-1712052008.png" class="img-fluid"></p>
-<p>With external connectors now</p>
 </section>
 <section id="od-matrix" class="level2">
 <h2 class="anchored" data-anchor-id="od-matrix">OD Matrix</h2>
@@ -311,6 +322,7 @@ ul.task-list li input[type="checkbox"] {
 <figcaption><img src="images/clipboard-1930862873.png" class="img-fluid figure-img"></figcaption>
 </figure>
 </div>
+<p>Give it a proper name.</p>
 <p>And copy-paste data from excel</p>
 <p><img src="images/clipboard-26627273.png" class="img-fluid"></p>
 <p>Now you have your OD matrix with data for your HA Group</p>
@@ -319,11 +331,11 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="procedures" class="level1">
 <h1>Procedures</h1>
-<p>After creating all Zones’ Connectors</p>
+<p>After creating <strong>all Zones’ Connectors</strong></p>
 <p><img src="images/clipboard-2686935511.png" class="img-fluid"></p>
 <p>Create PrT<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> assignment</p>
 <p><img src="images/clipboard-4248181563.png" class="img-fluid"></p>
-<p>And then you need to explicit where the data comes from (your matrix). Go to menu: Demand Demand Data</p>
+<p>And then you need to explicit where the data comes from (your matrix). Go to menu: Demand ⟶ Demand Data</p>
 <p><img src="images/clipboard-768515232.png" class="img-fluid"></p>
 <p><img src="images/clipboard-428810323.png" class="img-fluid"></p>
 <p>Select <strong>your matrix</strong>.</p>
@@ -341,7 +353,7 @@ Tip
 </div>
 </div>
 <p><img src="images/clipboard-2432550039.png" class="img-fluid"></p>
-<p>Then run</p>
+<p>Then run! 🏃</p>
 <p><img src="images/clipboard-469912596.png" class="img-fluid"></p>
 </section>
 <section id="other-things-you-can-do" class="level1">
@@ -372,8 +384,8 @@ Tip
 <p><img src="images/clipboard-2862225576.png" class="img-fluid"></p>
 <p>Reset for a new one.</p>
 </section>
-<section id="selection" class="level2">
-<h2 class="anchored" data-anchor-id="selection">Selection</h2>
+<section id="selection-mode" class="level2">
+<h2 class="anchored" data-anchor-id="selection-mode">Selection Mode</h2>
 <p><img src="images/clipboard-1558298406.png" class="img-fluid"></p>
 </section>
 <section id="labels" class="level2">
