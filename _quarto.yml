@@ -24,9 +24,9 @@ website:
     style: docked
     search: true
     contents:
-      - macro.qmd
-      - micro.qmd
+      # - macro.qmd
       - casestudy.qmd
+      - micro.qmd
       - section: Software
         href: software.qmd
         contents:

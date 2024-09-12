@@ -1,4 +1,163 @@
 ---
-title: "Case Study"
+title: "Case Study Macro"
 author: "R Félix"
 ---
+
+# Data
+
+Please download the VISUM project file (`.ver`) with the base data that you will need.
+
+## Road Network
+
+We are using a road network exported from OpenStreetMap.
+
+We already imported that network to this project as follows:
+
+Select only Urban Road Network (to keep the principal roads)
+
+![](images/import_osm.PNG){width="572"}
+
+![](images/clipboard-37336422.png)
+
+Network before cleaning process (imported from OSM)
+
+### Check network integrity
+
+![](images/clipboard-3808614396.png){width="319"}
+
+Start by these ones (General, and links not connected to the network)
+
+![](images/clipboard-2361827747.png)
+
+*ignore warnings*
+
+set to active the ones you want to have a look.
+Delete if needed (`DEL` button)
+
+![](images/clipboard-2775584904.png)
+
+## Zones
+
+These are the zones to consider
+
+![](images/clipboard-1301163512.png)
+
+## 
+
+![With zones from census 21 (aggregation of sub-sections)](images/clipboard-3818747415.png)
+
+We already added the external zones (rest of the world) and the associated connectors to the road network.
+
+![](images/clipboard-1712052008.png)
+
+With external connectors now
+
+## OD Matrix
+
+Create an OD matrix
+
+![![](images/clipboard-1930862873.png)](images/clipboard-3868299757.png)
+
+And copy-paste data from excel
+
+![](images/clipboard-26627273.png)
+
+Now you have your OD matrix with data for your HA Group
+
+![](images/clipboard-1424626828.png)
+
+# Procedures
+
+After creating all Zones' Connectors
+
+![](images/clipboard-2686935511.png)
+
+Create PrT[^1] assignment
+
+[^1]: Private Transport
+
+![](images/clipboard-4248181563.png)
+
+And then you need to explicit where the data comes from (your matrix).
+Go to menu: Demand Demand Data
+
+![](images/clipboard-768515232.png)
+
+![](images/clipboard-428810323.png)
+
+Select **your matrix**.
+
+::: callout-tip
+It is a good practice to add a *Delete assignment results* in the beginning of your procedure sequence.
+:::
+
+![](images/clipboard-2432550039.png)
+
+Then run
+
+![](images/clipboard-469912596.png)
+
+# Other things you can do
+
+## Create a link
+
+![](images/clipboard-3247333808.png)
+
+I will first check the characteristics of the previous link that I'm connecting to, by double-click the link in the editor, and see the details.
+The Quick View panel also shows some of its information.
+
+![](images/clipboard-1068049222.png)
+
+This is a Type no `50`.
+
+Create a link by connecting both nodes.
+
+![](images/clipboard-1812728369.png)
+
+When creating a link, a window will popup to define some of the link parameters.
+In this case I will also make it a type 50 link.
+
+![](images/clipboard-3053698979.png)
+
+![](images/clipboard-832922992.png)
+
+Clicking 2 times in the new link, you can change some of the parameters.
+It will highlight the ones that are not mirrored to the opposite direction - you should also transfer the new modifications.
+
+![](images/clipboard-3757390393.png)
+
+To make realistic links, activate background map before proceeding.
+
+![](images/clipboard-3137847083.png)
+
+Verify if the link is well connected with [Check network integrity], or estimating a [shortest path] between zones (with connectors).
+
+## Shortest path
+
+![](images/clipboard-2105325129.png){width="351"}
+
+Click on 2 zones and run.
+
+![](images/clipboard-2328021961.png){width="530"}
+
+See the opposite direction
+
+![](images/clipboard-2862225576.png)
+
+Reset for a new one.
+
+## Selection
+
+![](images/clipboard-1558298406.png)
+
+## Labels
+
+Change the zone label to name:
+
+![![](images/clipboard-3732879755.png)](images/clipboard-3116914154.png)
+
+The same if you want to remove the symbol representation of links
+
+![](images/clipboard-3764395377.png)
+
+You can save these visualization as a **Graphic parameter file**, so you can shift between one or more, depending on the assessment you are doing.
