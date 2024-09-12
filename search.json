@@ -7,120 +7,11 @@
     "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites."
   },
   {
-    "objectID": "Oeiras2024/Alfragide_Seccoes_Census21_3857.html",
-    "href": "Oeiras2024/Alfragide_Seccoes_Census21_3857.html",
+    "objectID": "index.html",
+    "href": "index.html",
     "title": "Traffic Simulation Models",
     "section": "",
-    "text": "&lt;!DOCTYPE qgis PUBLIC ‘http://mrcc.com/qgis.dtd’ ‘SYSTEM’&gt;     \n\n\n         0 0     false"
-  },
-  {
-    "objectID": "Oeiras2024/Alfragide_Seccoes_Census21.html",
-    "href": "Oeiras2024/Alfragide_Seccoes_Census21.html",
-    "title": "Traffic Simulation Models",
-    "section": "",
-    "text": "&lt;!DOCTYPE qgis PUBLIC ‘http://mrcc.com/qgis.dtd’ ‘SYSTEM’&gt;     \n\n\n         0 0     false"
-  },
-  {
-    "objectID": "software.html",
-    "href": "software.html",
-    "title": "Software",
-    "section": "",
-    "text": "There are several software options for modeling transportation systems.\nTo choose a traffic simulation software to work with can depend on different things to consider. You may use more than one software, depending on the scale you are working with, and on other characteristics.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#macro-vs.-micro",
-    "href": "software.html#macro-vs.-micro",
-    "title": "Software",
-    "section": "Macro vs. Micro",
-    "text": "Macro vs. Micro\n\nMacro simulators\nSome softwares can be more appropriated if using a large scale, such as regional or city-wide area. For instance, the traffic impacts on the development of a new centrality (hospital, airport), or in the introduction of a new bridge or freeway can be simulated with macro simulator software.\nPTV Visum, Aimsun, and MatSim are examples of software to deal with a large scale simulation.\nFor macro simulations it is essential do consider zoning, flows, etc.\nUsually this type of simulators can smoothly integrate Public Transport information, such as GTFS files.\n\n\nMicro simulators\nWant to simulate changes at a street or neighbourhood level? Then micro simulator software should be used.\nPTV Visim, SUMO, and A/B Street are examples of software to deal with a micro scale simulation.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#paid-licence-vs.-free",
-    "href": "software.html#paid-licence-vs.-free",
-    "title": "Software",
-    "section": "Paid (Licence) vs. Free",
-    "text": "Paid (Licence) vs. Free\n\nPaid\nAvailable commercial software is largely used at many companies and consultants. Universities also usually offer licence access to students and researchers. At IST we provide access to PTV Visum licence for registered students1.\nSome groups provide a student version, which typically does not include all the features.\nPTV Vissim and Visum, and Aimsum are examples of commercial simulation software.\n\n\nFree\nFree and open source software is getting more robust, and should not be overlooked.\nMatSim and SUMO are examples of free and open source simulation software.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#operating-system",
-    "href": "software.html#operating-system",
-    "title": "Software",
-    "section": "Operating System",
-    "text": "Operating System\nTo choose a software to work with, you should also consider the operation system of your personal computer (Windows, MacOS, Linux based).\nYou may always use virtual machines to have another OS in your PC, but that comes with memory and performance cost.\n\nFor MacOS users, UTM is a good free option. Keep in mind that the University of Lisbon provides Windows stutent’s licences.\nFor Linux (Ubuntu or Debian) users, Gnome Boxes are an interesting option to run Windows.\nFor Windows users, you should have no problem using any software.\n\nPTV Visum and Visim are only available for Windows.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#instalation-and-usage",
-    "href": "software.html#instalation-and-usage",
-    "title": "Software",
-    "section": "Instalation and Usage",
-    "text": "Instalation and Usage\nWe only offer guidance to setup some of the available software2.\nPlease see each software page for more details.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#footnotes",
-    "href": "software.html#footnotes",
-    "title": "Software",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nContact Filipe Moura or Rosa Félix to access Visum.↩︎\nIf you use other traffic simulation software, you may contribute to this website and create another tutorial 🙂. Fork and Pull Request in this Github repo.↩︎",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "visum.html",
-    "href": "visum.html",
-    "title": "Visum",
-    "section": "",
-    "text": "❗ This tutorial is only for Windows. If you do not use Windows, you need to have a Virtual Machine. If you have an Arm processor this won’t work, even with a VM.\nIn this tutorial we will guide you to install and start using Visum.\nPTV Visum is a macro simulation software, non-free, available only for Windows OS.",
-    "crumbs": [
-      "Home",
-      "Software",
-      "VISUM"
-    ]
-  },
-  {
-    "objectID": "visum.html#installation",
-    "href": "visum.html#installation",
-    "title": "Visum",
-    "section": "Installation",
-    "text": "Installation\nPTV Visum is available to download at: https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Visum\nChoose the most recent version (recommended). The file may be more than 1.3 GB.\nIf you don’t have Python installed already in your PC, don’t worry, you can opt to install it along the Visum setup.\nThe available instructions are very straight forward.\n\nLicence activation\n\nYou should have received a server address of where the CERIS licence lives. If not, contact the course teacher.\n\nTo use Visum with the CERIS licence, you need to download PTV Licence Manager (Standard).\n\nIt will ask you to download also another tiny software CodeMeter Runtime. Say yes!\nAfter install it, open PTV Licence Manager, and click on ⚙️ Edit CodeMeter settings:\n\nAdd ➕ CodeMeter server, and insert the server address that was sent to you.\n\nPress close (go back) and now 🔍 Find Licences.\n\nAn available licence row should now appear on the list 🎉. Close it.",
-    "crumbs": [
-      "Home",
-      "Software",
-      "VISUM"
-    ]
-  },
-  {
-    "objectID": "visum.html#getting-started",
-    "href": "visum.html#getting-started",
-    "title": "Visum",
-    "section": "Getting started",
-    "text": "Getting started\nWhen launching Visum for the first time, you should have something like this. This is a good signal, it means that the connection to the licence server is running smoothly and that you are ready to start working on your projects! 🚀\n\nThe “Tutorial First Steps” may be wise to follow if you are not familiar with the software. It covers the following topics:\n\nNetwork editing (private and public transport)\nProcedure sequence\nGraphic parameters\n\nPTV also offers online tutorials to get familiar with the software.\n\nData\n\n\nSimulation",
-    "crumbs": [
-      "Home",
-      "Software",
-      "VISUM"
-    ]
+    "text": "This website makes avaliable materials, data and tutorials to use at the Modelling of Transport Systems course of the Master in Transportation Systems at Instituto Superior Técnico - University of Lisbon.\n \nSee the Macro and Micro modelling home assignments.\n\nNote: This website is under construction. If you have any suggestions, please contact the course teacher."
   },
   {
     "objectID": "casestudy.html",
@@ -233,18 +124,106 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Traffic Simulation Models",
+    "objectID": "visum.html",
+    "href": "visum.html",
+    "title": "Visum",
     "section": "",
-    "text": "This website makes avaliable materials, data and tutorials to use at the Modelling of Transport Systems course of the Master in Transportation Systems at Instituto Superior Técnico - University of Lisbon.\n \nSee the Macro and Micro modelling home assignments.\n\nNote: This website is under construction. If you have any suggestions, please contact the course teacher."
+    "text": "❗ This tutorial is only for Windows. If you do not use Windows, you need to have a Virtual Machine. If you have an Arm processor this won’t work, even with a VM.\nIn this tutorial we will guide you to install and start using Visum.\nPTV Visum is a macro simulation software, non-free, available only for Windows OS.",
+    "crumbs": [
+      "Home",
+      "Software",
+      "VISUM"
+    ]
   },
   {
-    "objectID": "Oeiras2024/Alfragide_correct.html",
-    "href": "Oeiras2024/Alfragide_correct.html",
-    "title": "Traffic Simulation Models",
+    "objectID": "visum.html#installation",
+    "href": "visum.html#installation",
+    "title": "Visum",
+    "section": "Installation",
+    "text": "Installation\nPTV Visum is available to download at: https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Visum\nChoose the most recent version (recommended). The file may be more than 1.3 GB.\nIf you don’t have Python installed already in your PC, don’t worry, you can opt to install it along the Visum setup.\nThe available instructions are very straight forward.\n\nLicence activation\n\nYou should have received a server address of where the CERIS licence lives. If not, contact the course teacher.\n\nTo use Visum with the CERIS licence, you need to download PTV Licence Manager (Standard).\n\nIt will ask you to download also another tiny software CodeMeter Runtime. Say yes!\nAfter install it, open PTV Licence Manager, and click on ⚙️ Edit CodeMeter settings:\n\nAdd ➕ CodeMeter server, and insert the server address that was sent to you.\n\nPress close (go back) and now 🔍 Find Licences.\n\nAn available licence row should now appear on the list 🎉. Close it.",
+    "crumbs": [
+      "Home",
+      "Software",
+      "VISUM"
+    ]
+  },
+  {
+    "objectID": "visum.html#getting-started",
+    "href": "visum.html#getting-started",
+    "title": "Visum",
+    "section": "Getting started",
+    "text": "Getting started\nWhen launching Visum for the first time, you should have something like this. This is a good signal, it means that the connection to the licence server is running smoothly and that you are ready to start working on your projects! 🚀\n\nThe “Tutorial First Steps” may be wise to follow if you are not familiar with the software. It covers the following topics:\n\nNetwork editing (private and public transport)\nProcedure sequence\nGraphic parameters\n\nPTV also offers online tutorials to get familiar with the software.\n\nData\n\n\nSimulation",
+    "crumbs": [
+      "Home",
+      "Software",
+      "VISUM"
+    ]
+  },
+  {
+    "objectID": "software.html",
+    "href": "software.html",
+    "title": "Software",
     "section": "",
-    "text": "&lt;!DOCTYPE qgis PUBLIC ‘http://mrcc.com/qgis.dtd’ ‘SYSTEM’&gt;     \n\n\n         0 0     false"
+    "text": "There are several software options for modeling transportation systems.\nTo choose a traffic simulation software to work with can depend on different things to consider. You may use more than one software, depending on the scale you are working with, and on other characteristics.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#macro-vs.-micro",
+    "href": "software.html#macro-vs.-micro",
+    "title": "Software",
+    "section": "Macro vs. Micro",
+    "text": "Macro vs. Micro\n\nMacro simulators\nSome softwares can be more appropriated if using a large scale, such as regional or city-wide area. For instance, the traffic impacts on the development of a new centrality (hospital, airport), or in the introduction of a new bridge or freeway can be simulated with macro simulator software.\nPTV Visum, Aimsun, and MatSim are examples of software to deal with a large scale simulation.\nFor macro simulations it is essential do consider zoning, flows, etc.\nUsually this type of simulators can smoothly integrate Public Transport information, such as GTFS files.\n\n\nMicro simulators\nWant to simulate changes at a street or neighbourhood level? Then micro simulator software should be used.\nPTV Visim, SUMO, and A/B Street are examples of software to deal with a micro scale simulation.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#paid-licence-vs.-free",
+    "href": "software.html#paid-licence-vs.-free",
+    "title": "Software",
+    "section": "Paid (Licence) vs. Free",
+    "text": "Paid (Licence) vs. Free\n\nPaid\nAvailable commercial software is largely used at many companies and consultants. Universities also usually offer licence access to students and researchers. At IST we provide access to PTV Visum licence for registered students1.\nSome groups provide a student version, which typically does not include all the features.\nPTV Vissim and Visum, and Aimsum are examples of commercial simulation software.\n\n\nFree\nFree and open source software is getting more robust, and should not be overlooked.\nMatSim and SUMO are examples of free and open source simulation software.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#operating-system",
+    "href": "software.html#operating-system",
+    "title": "Software",
+    "section": "Operating System",
+    "text": "Operating System\nTo choose a software to work with, you should also consider the operation system of your personal computer (Windows, MacOS, Linux based).\nYou may always use virtual machines to have another OS in your PC, but that comes with memory and performance cost.\n\nFor MacOS users, UTM is a good free option. Keep in mind that the University of Lisbon provides Windows stutent’s licences.\nFor Linux (Ubuntu or Debian) users, Gnome Boxes are an interesting option to run Windows.\nFor Windows users, you should have no problem using any software.\n\nPTV Visum and Visim are only available for Windows.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#instalation-and-usage",
+    "href": "software.html#instalation-and-usage",
+    "title": "Software",
+    "section": "Instalation and Usage",
+    "text": "Instalation and Usage\nWe only offer guidance to setup some of the available software2.\nPlease see each software page for more details.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#footnotes",
+    "href": "software.html#footnotes",
+    "title": "Software",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nContact Filipe Moura or Rosa Félix to access Visum.↩︎\nIf you use other traffic simulation software, you may contribute to this website and create another tutorial 🙂. Fork and Pull Request in this Github repo.↩︎",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
   },
   {
     "objectID": "sumo.html",
