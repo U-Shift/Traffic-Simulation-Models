@@ -8,7 +8,7 @@
 
 <meta name="author" content="R Félix">
 
-<title>Case Study – Traffic Simulation Models</title>
+<title>Case Study Macro – Traffic Simulation Models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -132,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./casestudy.html">Case Study</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./casestudy.html">Case Study Macro</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -154,20 +154,14 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./macro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Macro Simulation</span></a>
+  <a href="./casestudy.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Case Study Macro</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./micro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Micro Simulation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./casestudy.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Case Study</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -216,15 +210,38 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a>
+  <ul class="collapse">
+  <li><a href="#road-network" id="toc-road-network" class="nav-link" data-scroll-target="#road-network">Road Network</a>
+  <ul class="collapse">
+  <li><a href="#check-network-integrity" id="toc-check-network-integrity" class="nav-link" data-scroll-target="#check-network-integrity">Check network integrity</a></li>
+  </ul></li>
+  <li><a href="#zones" id="toc-zones" class="nav-link" data-scroll-target="#zones">Zones</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#od-matrix" id="toc-od-matrix" class="nav-link" data-scroll-target="#od-matrix">OD Matrix</a></li>
+  </ul></li>
+  <li><a href="#procedures" id="toc-procedures" class="nav-link" data-scroll-target="#procedures">Procedures</a></li>
+  <li><a href="#other-things-you-can-do" id="toc-other-things-you-can-do" class="nav-link" data-scroll-target="#other-things-you-can-do">Other things you can do</a>
+  <ul class="collapse">
+  <li><a href="#create-a-link" id="toc-create-a-link" class="nav-link" data-scroll-target="#create-a-link">Create a link</a></li>
+  <li><a href="#shortest-path" id="toc-shortest-path" class="nav-link" data-scroll-target="#shortest-path">Shortest path</a></li>
+  <li><a href="#selection" id="toc-selection" class="nav-link" data-scroll-target="#selection">Selection</a></li>
+  <li><a href="#labels" id="toc-labels" class="nav-link" data-scroll-target="#labels">Labels</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/casestudy.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Case Study</h1>
+<h1 class="title">Case Study Macro</h1>
 </div>
 
 
@@ -247,10 +264,142 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="data" class="level1">
+<h1>Data</h1>
+<p>Please download the VISUM project file (<code>.ver</code>) with the base data that you will need.</p>
+<section id="road-network" class="level2">
+<h2 class="anchored" data-anchor-id="road-network">Road Network</h2>
+<p>We are using a road network exported from OpenStreetMap.</p>
+<p>We already imported that network to this project as follows:</p>
+<p>Select only Urban Road Network (to keep the principal roads)</p>
+<p><img src="images/import_osm.PNG" class="img-fluid" width="572"></p>
+<p><img src="images/clipboard-37336422.png" class="img-fluid"></p>
+<p>Network before cleaning process (imported from OSM)</p>
+<section id="check-network-integrity" class="level3">
+<h3 class="anchored" data-anchor-id="check-network-integrity">Check network integrity</h3>
+<p><img src="images/clipboard-3808614396.png" class="img-fluid" width="319"></p>
+<p>Start by these ones (General, and links not connected to the network)</p>
+<p><img src="images/clipboard-2361827747.png" class="img-fluid"></p>
+<p><em>ignore warnings</em></p>
+<p>set to active the ones you want to have a look. Delete if needed (<code>DEL</code> button)</p>
+<p><img src="images/clipboard-2775584904.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="zones" class="level2">
+<h2 class="anchored" data-anchor-id="zones">Zones</h2>
+<p>These are the zones to consider</p>
+<p><img src="images/clipboard-1301163512.png" class="img-fluid"></p>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3818747415.png" class="img-fluid figure-img"></p>
+<figcaption>With zones from census 21 (aggregation of sub-sections)</figcaption>
+</figure>
+</div>
+<p>We already added the external zones (rest of the world) and the associated connectors to the road network.</p>
+<p><img src="images/clipboard-1712052008.png" class="img-fluid"></p>
+<p>With external connectors now</p>
+</section>
+<section id="od-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="od-matrix">OD Matrix</h2>
+<p>Create an OD matrix</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3868299757.png" class="img-fluid figure-img"></p>
+<figcaption><img src="images/clipboard-1930862873.png" class="img-fluid figure-img"></figcaption>
+</figure>
+</div>
+<p>And copy-paste data from excel</p>
+<p><img src="images/clipboard-26627273.png" class="img-fluid"></p>
+<p>Now you have your OD matrix with data for your HA Group</p>
+<p><img src="images/clipboard-1424626828.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="procedures" class="level1">
+<h1>Procedures</h1>
+<p>After creating all Zones’ Connectors</p>
+<p><img src="images/clipboard-2686935511.png" class="img-fluid"></p>
+<p>Create PrT<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> assignment</p>
+<p><img src="images/clipboard-4248181563.png" class="img-fluid"></p>
+<p>And then you need to explicit where the data comes from (your matrix). Go to menu: Demand Demand Data</p>
+<p><img src="images/clipboard-768515232.png" class="img-fluid"></p>
+<p><img src="images/clipboard-428810323.png" class="img-fluid"></p>
+<p>Select <strong>your matrix</strong>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is a good practice to add a <em>Delete assignment results</em> in the beginning of your procedure sequence.</p>
+</div>
+</div>
+<p><img src="images/clipboard-2432550039.png" class="img-fluid"></p>
+<p>Then run</p>
+<p><img src="images/clipboard-469912596.png" class="img-fluid"></p>
+</section>
+<section id="other-things-you-can-do" class="level1">
+<h1>Other things you can do</h1>
+<section id="create-a-link" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-link">Create a link</h2>
+<p><img src="images/clipboard-3247333808.png" class="img-fluid"></p>
+<p>I will first check the characteristics of the previous link that I’m connecting to, by double-click the link in the editor, and see the details. The Quick View panel also shows some of its information.</p>
+<p><img src="images/clipboard-1068049222.png" class="img-fluid"></p>
+<p>This is a Type no <code>50</code>.</p>
+<p>Create a link by connecting both nodes.</p>
+<p><img src="images/clipboard-1812728369.png" class="img-fluid"></p>
+<p>When creating a link, a window will popup to define some of the link parameters. In this case I will also make it a type 50 link.</p>
+<p><img src="images/clipboard-3053698979.png" class="img-fluid"></p>
+<p><img src="images/clipboard-832922992.png" class="img-fluid"></p>
+<p>Clicking 2 times in the new link, you can change some of the parameters. It will highlight the ones that are not mirrored to the opposite direction - you should also transfer the new modifications.</p>
+<p><img src="images/clipboard-3757390393.png" class="img-fluid"></p>
+<p>To make realistic links, activate background map before proceeding.</p>
+<p><img src="images/clipboard-3137847083.png" class="img-fluid"></p>
+<p>Verify if the link is well connected with <a href="#check-network-integrity">Check network integrity</a>, or estimating a <a href="#shortest-path">shortest path</a> between zones (with connectors).</p>
+</section>
+<section id="shortest-path" class="level2">
+<h2 class="anchored" data-anchor-id="shortest-path">Shortest path</h2>
+<p><img src="images/clipboard-2105325129.png" class="img-fluid" width="351"></p>
+<p>Click on 2 zones and run.</p>
+<p><img src="images/clipboard-2328021961.png" class="img-fluid" width="530"></p>
+<p>See the opposite direction</p>
+<p><img src="images/clipboard-2862225576.png" class="img-fluid"></p>
+<p>Reset for a new one.</p>
+</section>
+<section id="selection" class="level2">
+<h2 class="anchored" data-anchor-id="selection">Selection</h2>
+<p><img src="images/clipboard-1558298406.png" class="img-fluid"></p>
+</section>
+<section id="labels" class="level2">
+<h2 class="anchored" data-anchor-id="labels">Labels</h2>
+<p>Change the zone label to name:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3116914154.png" class="img-fluid figure-img"></p>
+<figcaption><img src="images/clipboard-3732879755.png" class="img-fluid figure-img"></figcaption>
+</figure>
+</div>
+<p>The same if you want to remove the symbol representation of links</p>
+<p><img src="images/clipboard-3764395377.png" class="img-fluid"></p>
+<p>You can save these visualization as a <strong>Graphic parameter file</strong>, so you can shift between one or more, depending on the assessment you are doing.</p>
 
 
+</section>
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Private Transport<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -823,7 +972,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
 <p>Traffic Simulation Models</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/casestudy.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/casestudy.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>2024-2025</p>
 </div>

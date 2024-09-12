@@ -123,6 +123,116 @@
     ]
   },
   {
+    "objectID": "casestudy.html",
+    "href": "casestudy.html",
+    "title": "Case Study Macro",
+    "section": "",
+    "text": "Please download the VISUM project file (.ver) with the base data that you will need.\n\n\nWe are using a road network exported from OpenStreetMap.\nWe already imported that network to this project as follows:\nSelect only Urban Road Network (to keep the principal roads)\n\n\nNetwork before cleaning process (imported from OSM)\n\n\n\nStart by these ones (General, and links not connected to the network)\n\nignore warnings\nset to active the ones you want to have a look. Delete if needed (DEL button)\n\n\n\n\n\nThese are the zones to consider\n\n\n\n\n\n\n\nWith zones from census 21 (aggregation of sub-sections)\n\n\nWe already added the external zones (rest of the world) and the associated connectors to the road network.\n\nWith external connectors now\n\n\n\nCreate an OD matrix\n\n\n\n\n\n\nAnd copy-paste data from excel\n\nNow you have your OD matrix with data for your HA Group",
+    "crumbs": [
+      "Home",
+      "Case Study Macro"
+    ]
+  },
+  {
+    "objectID": "casestudy.html#road-network",
+    "href": "casestudy.html#road-network",
+    "title": "Case Study Macro",
+    "section": "",
+    "text": "We are using a road network exported from OpenStreetMap.\nWe already imported that network to this project as follows:\nSelect only Urban Road Network (to keep the principal roads)\n\n\nNetwork before cleaning process (imported from OSM)\n\n\n\nStart by these ones (General, and links not connected to the network)\n\nignore warnings\nset to active the ones you want to have a look. Delete if needed (DEL button)",
+    "crumbs": [
+      "Home",
+      "Case Study Macro"
+    ]
+  },
+  {
+    "objectID": "casestudy.html#zones",
+    "href": "casestudy.html#zones",
+    "title": "Case Study Macro",
+    "section": "",
+    "text": "These are the zones to consider",
+    "crumbs": [
+      "Home",
+      "Case Study Macro"
+    ]
+  },
+  {
+    "objectID": "casestudy.html#section",
+    "href": "casestudy.html#section",
+    "title": "Case Study Macro",
+    "section": "",
+    "text": "With zones from census 21 (aggregation of sub-sections)\n\n\nWe already added the external zones (rest of the world) and the associated connectors to the road network.\n\nWith external connectors now",
+    "crumbs": [
+      "Home",
+      "Case Study Macro"
+    ]
+  },
+  {
+    "objectID": "casestudy.html#od-matrix",
+    "href": "casestudy.html#od-matrix",
+    "title": "Case Study Macro",
+    "section": "",
+    "text": "Create an OD matrix\n\n\n\n\n\n\nAnd copy-paste data from excel\n\nNow you have your OD matrix with data for your HA Group",
+    "crumbs": [
+      "Home",
+      "Case Study Macro"
+    ]
+  },
+  {
+    "objectID": "casestudy.html#create-a-link",
+    "href": "casestudy.html#create-a-link",
+    "title": "Case Study Macro",
+    "section": "Create a link",
+    "text": "Create a link\n\nI will first check the characteristics of the previous link that I’m connecting to, by double-click the link in the editor, and see the details. The Quick View panel also shows some of its information.\n\nThis is a Type no 50.\nCreate a link by connecting both nodes.\n\nWhen creating a link, a window will popup to define some of the link parameters. In this case I will also make it a type 50 link.\n\n\nClicking 2 times in the new link, you can change some of the parameters. It will highlight the ones that are not mirrored to the opposite direction - you should also transfer the new modifications.\n\nTo make realistic links, activate background map before proceeding.\n\nVerify if the link is well connected with Check network integrity, or estimating a shortest path between zones (with connectors).",
+    "crumbs": [
+      "Home",
+      "Case Study Macro"
+    ]
+  },
+  {
+    "objectID": "casestudy.html#shortest-path",
+    "href": "casestudy.html#shortest-path",
+    "title": "Case Study Macro",
+    "section": "Shortest path",
+    "text": "Shortest path\n\nClick on 2 zones and run.\n\nSee the opposite direction\n\nReset for a new one.",
+    "crumbs": [
+      "Home",
+      "Case Study Macro"
+    ]
+  },
+  {
+    "objectID": "casestudy.html#selection",
+    "href": "casestudy.html#selection",
+    "title": "Case Study Macro",
+    "section": "Selection",
+    "text": "Selection",
+    "crumbs": [
+      "Home",
+      "Case Study Macro"
+    ]
+  },
+  {
+    "objectID": "casestudy.html#labels",
+    "href": "casestudy.html#labels",
+    "title": "Case Study Macro",
+    "section": "Labels",
+    "text": "Labels\nChange the zone label to name:\n\n\n\n\n\n\nThe same if you want to remove the symbol representation of links\n\nYou can save these visualization as a Graphic parameter file, so you can shift between one or more, depending on the assessment you are doing.",
+    "crumbs": [
+      "Home",
+      "Case Study Macro"
+    ]
+  },
+  {
+    "objectID": "casestudy.html#footnotes",
+    "href": "casestudy.html#footnotes",
+    "title": "Case Study Macro",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nPrivate Transport↩︎",
+    "crumbs": [
+      "Home",
+      "Case Study Macro"
+    ]
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Traffic Simulation Models",
