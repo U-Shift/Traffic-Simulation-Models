@@ -26,7 +26,7 @@ website:
     contents:
       # - macro.qmd
       - casestudy.qmd
-      # - micro.qmd
+      - micro.qmd
       - section: Software
         href: software.qmd
         contents:
