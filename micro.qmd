@@ -1,4 +1,6 @@
 ---
-title: "Micro Simulation"
-author: "F"
+title: "Micro Simulation Case Study"
+author: "Mauricio Orozco"
 ---
+
+# Case Study
