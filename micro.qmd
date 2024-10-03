@@ -1,5 +1,5 @@
 ---
-title: "Micro Simulation Case Study"
+title: "Case Study Micro"
 author: "Mauricio Orozco"
 ---
 
