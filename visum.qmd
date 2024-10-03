@@ -69,6 +69,4 @@ It covers the following topics:
 
 PTV also offers [online tutorials](https://www.youtube.com/watch?v=Azo8dFDKaxY&list=PLm_ftxJv3rZ1VlAQfZK33lh_uYyLKJmpe) to get familiar with the software.
 
-### Data
-
-### Simulation
+### 
