@@ -152,6 +152,12 @@ See the opposite direction
 
 Reset for a new one.
 
+## Flow Bundle
+
+The Flow Bundle function can be useful for quantifying the traffic volume in a single link, **broken down by the origins/destinations** which have the most weight **in that link**.
+
+Graphics ⟶ Flow Bundle ⟶ choose the link ⟶ Play ⟶ go to matrices and see the new Formula Matrices/ Flow Bundle ⟶ list view ⟶ sort by volume.
+
 ## Selection Mode
 
 ![](images/clipboard-1558298406.png)
