@@ -19,8 +19,8 @@
     ]
   },
   {
-    "objectID": "vissim.html#installation",
-    "href": "vissim.html#installation",
+    "objectID": "vissim.html#vissim-install",
+    "href": "vissim.html#vissim-install",
     "title": "Vissim",
     "section": "Installation",
     "text": "Installation\nPTV Vissim is available to download at: https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Vissim\n\nChoose the most recent version (recommended). The file may be more than 1.3 GB.\nIf you don’t have Python installed already in your PC, don’t worry, you can opt to install it along the Vissim setup.\nThe available instructions are very straight forward.\n\nLicence activation\n\nYou should have received a server address of where the CERIS licence lives. If not, contact the course teacher.\n\nTo use Vissim with the CERIS licence, you need to download PTV Licence Manager (Standard).\n\nIt will ask you to download also another tiny software CodeMeter Runtime. Say yes!\nAfter install it, open PTV Licence Manager, and click on ⚙️ Edit CodeMeter settings:\n\nAdd ➕ CodeMeter server, and insert the server address that was sent to you.\n\nPress close (go back) and now 🔍 Find Licences.\n\nAn available licence row should now appear on the list 🎉. Close it.",
@@ -48,6 +48,27 @@
     "title": "About",
     "section": "",
     "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "macro.html",
+    "href": "macro.html",
+    "title": "Case Study for Macro Simulation",
+    "section": "",
+    "text": "You may use an intersection file already prepared to be used with VISSIM, like this one:\nThis file is available at Fenix, for registered students.\nHow did this file was converted from OpenStreetMap? 🧐"
+  },
+  {
+    "objectID": "macro.html#from-openstreetmap-to-vissim",
+    "href": "macro.html#from-openstreetmap-to-vissim",
+    "title": "Case Study for Macro Simulation",
+    "section": "From OpenStreetMap to VISSIM",
+    "text": "From OpenStreetMap to VISSIM\n\nRequirements\nThis will require:\n\nVISSIM installed with an active license\nPython 3.x, and the following packages\n\nwin32com\ngdal\n\nMicrosoft Visual C++ build tools\nOptional: OSGeo4W1\n\n\n\nOpenStreetMap\nGo to OpenStreetMap and zoom into your area.\nSelect Export and save the map.osm file.\n\nYou don’t need to open that file now.\n\n\nOSM2VISSIM tool\n\nGo to the OSM2VISSIM tool Github page, and download this OSM2VISSIM_v0.1.py file.\n\n\n\nCreate a folder (wherever you want) and put there this .py file and the .osm file exported before. Now copy your folder path!\n\n\n\nIf you have OSGeo4W installed2, open the shell. It will look like this:\n\n\n\nNavigate to your created folder, using cd yourfolderpath\nNow, run python OSM2VISSIM_v0.1.py\n\n\n\nThis will open a dialogue window where you are supposed to type your .osm file name.\nMine is gago\n\n\n\nPress Set.\n\n\n\n\n\n\n\nDon’t worry! Things are happening even if you don’t notice. Just be patient and wait.\n\n\n\nThis will create a new file, and open VISSIM automatically.\nNote: If you go to the Network tab and don’t see anything, even after clicking on zoom to network button, close VISSIM, and close the Shell. This happened to me every first time.\n\nRepeat again the steps from 1 to 7.\n\nThis will open VISSIM automatically and now the shell will show things happening:\n\nWait until VISSIM it closes automatically - don’t click anything.\n\nYou may now close the OSGeo4W shell.\n\nA few more files were created now:\n\n\n\nAt VISSIM\nOpen the file name.inpx and close the Start Page.\nAt Network Editor panel, click Show entire network:\n\nAs you may note, your network is not exactly in place, when comparing to a basemap. 🥴\n\nTo adjust this, you may either move the basemap or the network.\nFirst, with the distance tool, measure the distance of one reference point of the network to where it should be placed, in both X and Y directions.\n\nThen Edit ⟶ Move Network\n\nRepeat the process until the network intersection is centred with the intersection in the basemap.\nSave your network file! 🎉\nThis process resulted in the abovementioned file.\nNo go on and adjust the details that require some attention."
+  },
+  {
+    "objectID": "macro.html#footnotes",
+    "href": "macro.html#footnotes",
+    "title": "Case Study for Macro Simulation",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nThis installation already comes with all the required packages.↩︎\nYou may do everything on the cmd (command line prompt terminal), but some errors may be output.↩︎"
   },
   {
     "objectID": "micro.html",
