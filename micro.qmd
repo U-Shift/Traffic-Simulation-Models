@@ -1,6 +1,127 @@
 ---
-title: "Case Study Micro"
-author: "Mauricio Orozco"
+title: "Case Study for Micro Simulation"
+author: "R Félix"
 ---
 
-# Case Study
+You may use an intersection file already prepared to be used with VISSIM, like this one:
+
+![](images/clipboard-2674834530.png)
+
+This file is available at [Fenix](https://fenix.tecnico.ulisboa.pt/downloadFile/845043405615934/GagoCoutinho_moved.zip), for registered students.
+
+::: {.callout-important appearance="simple"}
+Watch out that the CRS of this file may not be adjusted to the basemap!
+
+Also, some adjustments to the network (such as the **connectors**) may be needed.
+:::
+
+How did this file was converted from OpenStreetMap?
+🧐
+
+## From OpenStreetMap to VISSIM
+
+### Requirements
+
+This will require:
+
+-   VISSIM [installed](vissim.qmd#vissim-install) with an active license
+-   [Python](https://www.python.org/downloads/) 3.x, and the following packages
+    -   [win32com](https://pypi.org/project/pywin32/)
+    -   [gdal](https://gdal.org/en/latest/api/python_bindings.html)
+-   [Microsoft Visual C++ build tools](https://stackoverflow.com/a/54136652)
+-   Optional: [OSGeo4W](https://trac.osgeo.org/osgeo4w/)[^1]
+
+[^1]: This installation already comes with all the required packages.
+
+### OpenStreetMap
+
+Go to OpenStreetMap and zoom into your area.\
+Select Export and save the `map.osm` file.
+
+![](images/clipboard-560841291.png)
+
+You don't need to open that file now.
+
+### OSM2VISSIM tool
+
+1.  Go to the [OSM2VISSIM tool](https://github.com/bmetrafficlab/OSM2VISSIM/) Github page, and download this `OSM2VISSIM_v0.1.py` [file](https://github.com/bmetrafficlab/OSM2VISSIM/blob/main/OSM2VISSIM%20tool/OSM2VISSIM_v0.1.py).
+
+![](images/clipboard-3354929018.png){width="193"}
+
+2.  Create a folder (wherever you want) and put there this `.py` file and the `.osm` file exported before. Now **copy your folder path**!
+
+![](images/clipboard-789558749.png)
+
+3.  If you have OSGeo4W installed[^2], open the shell. It will look like this:
+
+[^2]: You may do everything on the cmd (command line prompt terminal), but some errors may be output.
+
+![](images/clipboard-1368820168.png)
+
+4.  Navigate to your created folder, using `cd yourfolderpath`
+5.  Now, run `python OSM2VISSIM_v0.1.py`
+
+![](images/clipboard-1335430846.png)
+
+6.  This will open a dialogue window where you are supposed to type your `.osm` file name.\
+    Mine is `gago`
+
+![](images/clipboard-1386225607.png)
+
+7.  Press Set.
+
+::: {.callout-note appearance="simple"}
+Don't worry!
+Things are happening even if you don't notice.
+Just be patient and wait.
+:::
+
+This will create a new file, and open VISSIM automatically.
+
+Note: If you go to the Network tab and don't see anything, even after clicking on zoom to network button, close VISSIM, and close the Shell.
+This happened to me every first time.
+
+8.  Repeat again the steps from 1 to 7.
+
+This will open VISSIM automatically and now the shell will show things happening:
+
+![](images/clipboard-2046495721.png)\
+Wait until VISSIM it closes automatically - don't click anything.
+
+9.  You may now close the OSGeo4W shell.
+
+A few more files were created now:
+
+![](images/clipboard-638341654.png)
+
+### At VISSIM
+
+Open the file `name.inpx` and close the Start Page.
+
+At Network Editor panel, click Show entire network:
+
+![](images/clipboard-3426944487.png)
+
+As you may note, your network is not exactly in place, when comparing to a basemap.
+🥴
+
+![](images/clipboard-3625359455.png)
+
+To adjust this, you may either move the basemap or the network.
+
+First, with the distance tool, measure the distance of one reference point of the network to where it should be placed, in both X and Y directions.
+
+![](images/clipboard-1628707682.png)
+
+Then Edit ⟶ Move Network
+
+![](images/clipboard-1913791636.png)
+
+Repeat the process until the network intersection is centred with the intersection in the basemap.
+
+Save your network file!
+🎉
+
+This process resulted in the abovementioned file.
+
+No go on and **adjust** the details that require some attention.
