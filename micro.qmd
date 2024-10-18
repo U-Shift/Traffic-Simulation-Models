@@ -1,5 +1,5 @@
 ---
-title: "Case Study for Micro Simulation"
+title: "Case Study Micro"
 author: "R Félix"
 ---
 
