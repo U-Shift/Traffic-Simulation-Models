@@ -166,34 +166,34 @@
   {
     "objectID": "micro.html",
     "href": "micro.html",
-    "title": "Case Study for Micro Simulation",
+    "title": "Case Study Micro",
     "section": "",
     "text": "You may use an intersection file already prepared to be used with VISSIM, like this one:\nThis file is available at Fenix, for registered students.\nHow did this file was converted from OpenStreetMap? 🧐",
     "crumbs": [
       "Home",
-      "Case Study for Micro Simulation"
+      "Case Study Micro"
     ]
   },
   {
     "objectID": "micro.html#from-openstreetmap-to-vissim",
     "href": "micro.html#from-openstreetmap-to-vissim",
-    "title": "Case Study for Micro Simulation",
+    "title": "Case Study Micro",
     "section": "From OpenStreetMap to VISSIM",
     "text": "From OpenStreetMap to VISSIM\n\nRequirements\nThis will require:\n\nVISSIM installed with an active license\nPython 3.x, and the following packages\n\nwin32com\ngdal\n\nMicrosoft Visual C++ build tools\nOptional: OSGeo4W1\n\n\n\nOpenStreetMap\nGo to OpenStreetMap and zoom into your area.\nSelect Export and save the map.osm file.\n\nYou don’t need to open that file now.\n\n\nOSM2VISSIM tool\n\nGo to the OSM2VISSIM tool Github page, and download this OSM2VISSIM_v0.1.py file.\n\n\n\nCreate a folder (wherever you want) and put there this .py file and the .osm file exported before. Now copy your folder path!\n\n\n\nIf you have OSGeo4W installed2, open the shell. It will look like this:\n\n\n\nNavigate to your created folder, using cd yourfolderpath\nNow, run python OSM2VISSIM_v0.1.py\n\n\n\nThis will open a dialogue window where you are supposed to type your .osm file name.\nMine is gago\n\n\n\nPress Set.\n\n\n\n\n\n\n\nDon’t worry! Things are happening even if you don’t notice. Just be patient and wait.\n\n\n\nThis will create a new file, and open VISSIM automatically.\nNote: If you go to the Network tab and don’t see anything, even after clicking on zoom to network button, close VISSIM, and close the Shell. This happened to me every first time.\n\nRepeat again the steps from 1 to 7.\n\nThis will open VISSIM automatically and now the shell will show things happening:\n\nWait until VISSIM it closes automatically - don’t click anything.\n\nYou may now close the OSGeo4W shell.\n\nA few more files were created now:\n\n\n\nAt VISSIM\nOpen the file name.inpx and close the Start Page.\nAt Network Editor panel, click Show entire network:\n\nAs you may note, your network is not exactly in place, when comparing to a basemap. 🥴\n\nTo adjust this, you may either move the basemap or the network.\nFirst, with the distance tool, measure the distance of one reference point of the network to where it should be placed, in both X and Y directions.\n\nThen Edit ⟶ Move Network\n\nRepeat the process until the network intersection is centred with the intersection in the basemap.\nSave your network file! 🎉\nThis process resulted in the abovementioned file.\nNo go on and adjust the details that require some attention.",
     "crumbs": [
       "Home",
-      "Case Study for Micro Simulation"
+      "Case Study Micro"
     ]
   },
   {
     "objectID": "micro.html#footnotes",
     "href": "micro.html#footnotes",
-    "title": "Case Study for Micro Simulation",
+    "title": "Case Study Micro",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nThis installation already comes with all the required packages.↩︎\nYou may do everything on the cmd (command line prompt terminal), but some errors may be output.↩︎",
     "crumbs": [
       "Home",
-      "Case Study for Micro Simulation"
+      "Case Study Micro"
     ]
   },
   {
