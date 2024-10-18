@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Mauricio Orozco">
+<meta name="author" content="R Félix">
 
-<title>Case Study Micro – Traffic Simulation Models</title>
+<title>Case Study for Micro Simulation – Traffic Simulation Models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -132,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./micro.html">Case Study Micro</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./micro.html">Case Study for Micro Simulation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -161,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./micro.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Case Study Micro</span></a>
+ <span class="menu-text">Case Study for Micro Simulation</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -209,7 +209,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#case-study" id="toc-case-study" class="nav-link active" data-scroll-target="#case-study">Case Study</a></li>
+  <li><a href="#from-openstreetmap-to-vissim" id="toc-from-openstreetmap-to-vissim" class="nav-link active" data-scroll-target="#from-openstreetmap-to-vissim">From OpenStreetMap to VISSIM</a>
+  <ul class="collapse">
+  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
+  <li><a href="#openstreetmap" id="toc-openstreetmap" class="nav-link" data-scroll-target="#openstreetmap">OpenStreetMap</a></li>
+  <li><a href="#osm2vissim-tool" id="toc-osm2vissim-tool" class="nav-link" data-scroll-target="#osm2vissim-tool">OSM2VISSIM tool</a></li>
+  <li><a href="#at-vissim" id="toc-at-vissim" class="nav-link" data-scroll-target="#at-vissim">At VISSIM</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/micro.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -218,7 +224,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Case Study Micro</h1>
+<h1 class="title">Case Study for Micro Simulation</h1>
 </div>
 
 
@@ -228,7 +234,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Mauricio Orozco </p>
+             <p>R Félix </p>
           </div>
   </div>
     
@@ -241,13 +247,124 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="case-study" class="level1">
-<h1>Case Study</h1>
+<p>You may use an intersection file already prepared to be used with VISSIM, like this one:</p>
+<p><img src="images/clipboard-2674834530.png" class="img-fluid"></p>
+<p>This file is available at <a href="https://fenix.tecnico.ulisboa.pt/downloadFile/845043405615934/GagoCoutinho_moved.zip">Fenix</a>, for registered students.</p>
+<div class="callout callout-style-simple callout-important">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Watch out that the CRS of this file may not be adjusted to the basemap!</p>
+<p>Also, some adjustments to the network (such as the <strong>connectors</strong>) may be needed.</p>
+</div>
+</div>
+</div>
+<p>How did this file was converted from OpenStreetMap? 🧐</p>
+<section id="from-openstreetmap-to-vissim" class="level2">
+<h2 class="anchored" data-anchor-id="from-openstreetmap-to-vissim">From OpenStreetMap to VISSIM</h2>
+<section id="requirements" class="level3">
+<h3 class="anchored" data-anchor-id="requirements">Requirements</h3>
+<p>This will require:</p>
+<ul>
+<li>VISSIM <a href="./vissim.html#vissim-install">installed</a> with an active license</li>
+<li><a href="https://www.python.org/downloads/">Python</a> 3.x, and the following packages
+<ul>
+<li><a href="https://pypi.org/project/pywin32/">win32com</a></li>
+<li><a href="https://gdal.org/en/latest/api/python_bindings.html">gdal</a></li>
+</ul></li>
+<li><a href="https://stackoverflow.com/a/54136652">Microsoft Visual C++ build tools</a></li>
+<li>Optional: <a href="https://trac.osgeo.org/osgeo4w/">OSGeo4W</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+</ul>
+</section>
+<section id="openstreetmap" class="level3">
+<h3 class="anchored" data-anchor-id="openstreetmap">OpenStreetMap</h3>
+<p>Go to OpenStreetMap and zoom into your area.<br>
+Select Export and save the <code>map.osm</code> file.</p>
+<p><img src="images/clipboard-560841291.png" class="img-fluid"></p>
+<p>You don’t need to open that file now.</p>
+</section>
+<section id="osm2vissim-tool" class="level3">
+<h3 class="anchored" data-anchor-id="osm2vissim-tool">OSM2VISSIM tool</h3>
+<ol type="1">
+<li>Go to the <a href="https://github.com/bmetrafficlab/OSM2VISSIM/">OSM2VISSIM tool</a> Github page, and download this <code>OSM2VISSIM_v0.1.py</code> <a href="https://github.com/bmetrafficlab/OSM2VISSIM/blob/main/OSM2VISSIM%20tool/OSM2VISSIM_v0.1.py">file</a>.</li>
+</ol>
+<p><img src="images/clipboard-3354929018.png" class="img-fluid" width="193"></p>
+<ol start="2" type="1">
+<li>Create a folder (wherever you want) and put there this <code>.py</code> file and the <code>.osm</code> file exported before. Now <strong>copy your folder path</strong>!</li>
+</ol>
+<p><img src="images/clipboard-789558749.png" class="img-fluid"></p>
+<ol start="3" type="1">
+<li>If you have OSGeo4W installed<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, open the shell. It will look like this:</li>
+</ol>
+<p><img src="images/clipboard-1368820168.png" class="img-fluid"></p>
+<ol start="4" type="1">
+<li>Navigate to your created folder, using <code>cd yourfolderpath</code></li>
+<li>Now, run <code>python OSM2VISSIM_v0.1.py</code></li>
+</ol>
+<p><img src="images/clipboard-1335430846.png" class="img-fluid"></p>
+<ol start="6" type="1">
+<li>This will open a dialogue window where you are supposed to type your <code>.osm</code> file name.<br>
+Mine is <code>gago</code></li>
+</ol>
+<p><img src="images/clipboard-1386225607.png" class="img-fluid"></p>
+<ol start="7" type="1">
+<li>Press Set.</li>
+</ol>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Don’t worry! Things are happening even if you don’t notice. Just be patient and wait.</p>
+</div>
+</div>
+</div>
+<p>This will create a new file, and open VISSIM automatically.</p>
+<p>Note: If you go to the Network tab and don’t see anything, even after clicking on zoom to network button, close VISSIM, and close the Shell. This happened to me every first time.</p>
+<ol start="8" type="1">
+<li>Repeat again the steps from 1 to 7.</li>
+</ol>
+<p>This will open VISSIM automatically and now the shell will show things happening:</p>
+<p><img src="images/clipboard-2046495721.png" class="img-fluid"><br>
+Wait until VISSIM it closes automatically - don’t click anything.</p>
+<ol start="9" type="1">
+<li>You may now close the OSGeo4W shell.</li>
+</ol>
+<p>A few more files were created now:</p>
+<p><img src="images/clipboard-638341654.png" class="img-fluid"></p>
+</section>
+<section id="at-vissim" class="level3">
+<h3 class="anchored" data-anchor-id="at-vissim">At VISSIM</h3>
+<p>Open the file <code>name.inpx</code> and close the Start Page.</p>
+<p>At Network Editor panel, click Show entire network:</p>
+<p><img src="images/clipboard-3426944487.png" class="img-fluid"></p>
+<p>As you may note, your network is not exactly in place, when comparing to a basemap. 🥴</p>
+<p><img src="images/clipboard-3625359455.png" class="img-fluid"></p>
+<p>To adjust this, you may either move the basemap or the network.</p>
+<p>First, with the distance tool, measure the distance of one reference point of the network to where it should be placed, in both X and Y directions.</p>
+<p><img src="images/clipboard-1628707682.png" class="img-fluid"></p>
+<p>Then Edit ⟶ Move Network</p>
+<p><img src="images/clipboard-1913791636.png" class="img-fluid"></p>
+<p>Repeat the process until the network intersection is centred with the intersection in the basemap.</p>
+<p>Save your network file! 🎉</p>
+<p>This process resulted in the abovementioned file.</p>
+<p>No go on and <strong>adjust</strong> the details that require some attention.</p>
 
 
 </section>
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>This installation already comes with all the required packages.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>You may do everything on the cmd (command line prompt terminal), but some errors may be output.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
