@@ -18,7 +18,7 @@ In this tutorial we will guide you to install and start using Visum.
 
 PTV Visum is available to download at: <https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Visum>
 
-Choose the most recent version (recommended).
+Choose the most recent version (recommended) ≤ 2024.
 The file may be more than 1.3 GB.
 
 If you don't have Python installed already in your PC, don't worry, you can opt to install it along the Visum setup.

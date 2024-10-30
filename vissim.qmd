@@ -20,7 +20,7 @@ PTV Vissim is available to download at: <https://cgi.ptvgroup.com/visionSetups/e
 
 ![](images/clipboard-1433786646.png)
 
-Choose the most recent version (recommended).
+Choose the most recent version (recommended) ≤ 2024.
 The file may be more than 1.3 GB.
 
 If you don't have Python installed already in your PC, don't worry, you can opt to install it along the Vissim setup.
