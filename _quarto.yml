@@ -11,7 +11,7 @@ website:
         text: Home
       - about.qmd
     right:
-      - href: https://fenix.tecnico.ulisboa.pt/disciplinas/MST11/2024-2025/1-semestre
+      - href: https://fenix.tecnico.ulisboa.pt/disciplinas/MST11/2025-2026/1-semestre
         text: Course IST 
     tools:
       - icon: github
@@ -36,6 +36,8 @@ website:
             text: VISUM
           - href: vissim.qmd
             text: VISSIM
+          - href: rr5r.qmd
+            text: R & r5r
           - href: sumo.qmd
             text: SUMO
           - href: https://a-b-street.github.io/docs/software/abstreet.html
@@ -45,7 +47,7 @@ website:
   page-footer:
     left: "Instituto Superior Técnico - University of Lisbon"
     center: "Traffic Simulation Models"
-    right: "2024-2025"
+    right: "2025-2026"
     
   repo-url: https://github.com/U-Shift/Traffic-Simulation-Models
   repo-actions: [edit, issue]
