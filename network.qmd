@@ -1,0 +1,33 @@
+---
+title: "r5r network setup"
+author: "R Félix"
+eval: false
+code-fold: false
+engine: knitr
+---
+
+In this chapter we will guide you through the data requirements, data collection, and setting up a multi-modal network with r5r.
+
+## Data requirements
+
+You will need **R** and [`r5r`](https://ipeagit.github.io/r5r/index.html) [@Pereira2021r5r] package installed on your computer.
+
+`r5r` set-ups a network file `.dat` by combining the following datasets:
+
+-   Road Network (*OpenStreetMap*[^1] as `.osm.pbf`)
+-   GTFS[^2] from PTransit operators (a single `.zip` or several)
+-   Digital Elevation Model[^3] (`.tiff`), to consider impedances for walking and cycling
+
+[^1]: Ver como exportar em [HOT export tool](https://rosamfelix.github.io/PGmob360/road-networks.qmd#hot-export-tool).
+
+[^2]: Opcional.
+
+[^3]: Opcional.
+
+::: callout-note
+Ver o código [`code/r5r.R`](https://github.com/rosamfelix/PGmob360/blob/main/code/r5r.R)
+:::
+
+## Data collection
+
+## Setting up a multi-modal network
