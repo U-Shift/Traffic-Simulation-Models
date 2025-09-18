@@ -1,5 +1,5 @@
 ---
-title: "Case Study Macro"
+title: "Macro Case Study"
 author: "R Félix"
 ---
 

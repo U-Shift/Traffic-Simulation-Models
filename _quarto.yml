@@ -58,6 +58,8 @@ website:
   repo-url: https://github.com/U-Shift/Traffic-Simulation-Models
   repo-actions: [edit, issue]
 
+bibliography: references.bib
+
 format:
   html:
     theme:

@@ -1,5 +1,5 @@
 ---
-title: "Case Study Micro"
+title: "Micro Case Study"
 author: "R Félix"
 ---
 
