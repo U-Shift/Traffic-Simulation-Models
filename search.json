@@ -434,7 +434,7 @@
     "href": "pois.html",
     "title": "POIs",
     "section": "",
-    "text": "Different categories\n\n\n\nRandom points",
+    "text": "Different categories, based on Büttner et al. (2022) : www.flowersofproximity.com\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024):\nhttps://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146\n\n\n\nRandom points",
     "crumbs": [
       "Home",
       "Exercises",
@@ -442,11 +442,11 @@
     ]
   },
   {
-    "objectID": "pois.html#openstreetmap",
-    "href": "pois.html#openstreetmap",
+    "objectID": "pois.html#points-of-interest",
+    "href": "pois.html#points-of-interest",
     "title": "POIs",
     "section": "",
-    "text": "Different categories",
+    "text": "Different categories, based on Büttner et al. (2022) : www.flowersofproximity.com\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024):\nhttps://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146\n\n\n\nRandom points",
     "crumbs": [
       "Home",
       "Exercises",
@@ -454,11 +454,11 @@
     ]
   },
   {
-    "objectID": "pois.html#jittering",
-    "href": "pois.html#jittering",
+    "objectID": "pois.html#grids",
+    "href": "pois.html#grids",
     "title": "POIs",
-    "section": "",
-    "text": "Random points",
+    "section": "Grids",
+    "text": "Grids\n\n\n\n\n\nYou can also use the universal h3 hexagon grid",
     "crumbs": [
       "Home",
       "Exercises",

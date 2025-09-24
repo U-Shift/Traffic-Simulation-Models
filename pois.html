@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -254,6 +274,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#openstreetmap" id="toc-openstreetmap" class="nav-link" data-scroll-target="#openstreetmap">OpenStreetMap</a></li>
   <li><a href="#jittering" id="toc-jittering" class="nav-link" data-scroll-target="#jittering">Jittering</a></li>
   </ul></li>
+  <li><a href="#grids" id="toc-grids" class="nav-link" data-scroll-target="#grids">Grids</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/pois.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -279,21 +300,59 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="points-of-interest" class="level1">
-<h1>Points of Interest</h1>
-<section id="openstreetmap" class="level2">
-<h2 class="anchored" data-anchor-id="openstreetmap">OpenStreetMap</h2>
-<p>Different categories</p>
+<section id="points-of-interest" class="level2">
+<h2 class="anchored" data-anchor-id="points-of-interest">Points of Interest</h2>
+<section id="openstreetmap" class="level3">
+<h3 class="anchored" data-anchor-id="openstreetmap">OpenStreetMap</h3>
+<p>Different categories, based on <span class="citation" data-cites="flowers2022">Büttner et al. (<a href="#ref-flowers2022" role="doc-biblioref">2022</a>)</span> : <a href="https://www.flowersofproximity.com/">www.flowersofproximity.com</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://www.flowersofproximity.com"><img src="https://www.flowersofproximity.com/flower_of_proximity_large.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="400" alt="The Flowers of Proximity"></a></p>
+</figure>
+</div>
+<figcaption>The Flowers of Proximity</figcaption>
+</figure>
+</div>
+<p>For the <a href="https://streets4all.tecnico.ulisboa.pt/">Streets4All</a> project, and <a href="https://u-shift.github.io/SiteSelection/">SiteSelection</a> package <span class="citation" data-cites="siteselection2024">(<a href="#ref-siteselection2024" role="doc-biblioref">Rosa Félix and Gabriel Valença 2024</a>)</span>, we divided in:</p>
+<ul>
+<li><p>Amenities</p></li>
+<li><p>Healthcare</p></li>
+<li><p>Leisure</p></li>
+<li><p>Shop</p></li>
+<li><p>Sport</p></li>
+<li><p>Tourism</p></li>
+</ul>
+<p>See the script we did for <a href="https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_landuse.gpkg">all Portugal</a>, and the dataset for <a href="https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_lisbon.geojson">Lisbon</a> (2024):</p>
+<p><a href="https://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146" class="uri">https://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146</a></p>
 </section>
-<section id="jittering" class="level2">
-<h2 class="anchored" data-anchor-id="jittering">Jittering</h2>
+<section id="jittering" class="level3">
+<h3 class="anchored" data-anchor-id="jittering">Jittering</h3>
 <p>Random points</p>
+</section>
+</section>
+<section id="grids" class="level2">
+<h2 class="anchored" data-anchor-id="grids">Grids</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://u-shift.github.io/SiteSelection/reference/figures/hex_grid.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>You can also use the universal <a href="https://h3geo.org/">h3 hexagon grid</a></p>
+
 
 
 </section>
-</section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-flowers2022" class="csl-entry" role="listitem">
+Büttner, Benjamin, Sebastian Seisenberger, María Teresa Baquero Larriva, Ana Graciela Rivas De Gante, Sindi Haxhija, Alba Ramirez, and Bartosz McCormick. 2022. <span>“<span class="nocase">±15-Minute City: Human-centred planning in action - Mobility for more liveable urban spaces</span>.”</span> Munich: <span>EIT Urban Mobility, Technical University of Munich</span>. <a href="https://www.eiturbanmobility.eu/wp-content/uploads/2022/11/EIT-UrbanMobilityNext9_15-min-City_144dpi.pdf">https://www.eiturbanmobility.eu/wp-content/uploads/2022/11/EIT-UrbanMobilityNext9_15-min-City_144dpi.pdf</a>.
+</div>
+<div id="ref-siteselection2024" class="csl-entry" role="listitem">
+Rosa Félix, and Gabriel Valença. 2024. <em>SiteSelection: An r Script to Find Complex Areas for the Streets4All Project</em>. <a href="https://u-shift.github.io/SiteSelection/">https://u-shift.github.io/SiteSelection/</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
