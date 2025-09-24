@@ -39,10 +39,13 @@ piggyback::pb_upload("data/r5r/REDEbase_Lx.gpkg", "REDEbase_Lx.gpkg", repo = "U-
 # preciso de declives
 # copia de /media/rosa/Dados/GIS/R5R/data/LisboaIST_clip_r1.tif
 
-# coloquei tudo em original/r5r
-r5r_lisboa = setup_r5(data_path = "original/r5r/")
+# coloquei tudo em data/r5r
+r5r_lisboa = setup_r5(data_path = "data/r5r/")
 # fiz um r5r_lisboa.zip só com os ficheiros network
-piggyback::pb_upload("original/r5r/r5r_lisboa.zip", "r5r_lisboa.zip", repo = "U-Shift/Traffic-Simulation-Models", tag = "2025")
+# Rede modelada com r5r
+r5r_url = "https://github.com/rosamfelix/PGmob360/releases/download/2024.11/r5r_lisboa.zip" # 57MB
+download.file(r5r_url, destfile = "data/r5r/r5r_lisboa.zip")
+piggyback::pb_upload("data/r5r/r5r_lisboa.zip", "r5r_lisboa.zip", repo = "U-Shift/Traffic-Simulation-Models", tag = "2025")
 
 
 
