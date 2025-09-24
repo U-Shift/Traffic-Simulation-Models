@@ -8,7 +8,7 @@
 
 <meta name="author" content="R Félix">
 
-<title>SUMO – Modelling of Tranport Systems</title>
+<title>r5r network setup – Modelling of Tranport Systems</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -355,7 +355,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./software.html">Software</a></li><li class="breadcrumb-item"><a href="./sumo.html">SUMO</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./casestudy.html">Exercises</a></li><li class="breadcrumb-item"><a href="./network.html">r5r network setup</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -408,7 +408,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sumo.html" class="sidebar-item-text sidebar-link active">
+  <a href="./sumo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SUMO</span></a>
   </div>
 </li>
@@ -443,7 +443,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./network.html" class="sidebar-item-text sidebar-link">
+  <a href="./network.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">r5r network setup</span></a>
   </div>
 </li>
@@ -477,27 +477,20 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a>
-  <ul class="collapse">
-  <li><a href="#windows" id="toc-windows" class="nav-link" data-scroll-target="#windows">Windows</a></li>
-  <li><a href="#mac-os" id="toc-mac-os" class="nav-link" data-scroll-target="#mac-os">Mac OS</a></li>
-  <li><a href="#linux" id="toc-linux" class="nav-link" data-scroll-target="#linux">Linux</a></li>
-  </ul></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a>
-  <ul class="collapse">
-  <li><a href="#import-from-openstreetmap" id="toc-import-from-openstreetmap" class="nav-link" data-scroll-target="#import-from-openstreetmap">Import from OpenStreetMap</a></li>
-  <li><a href="#use-the-case-study-data" id="toc-use-the-case-study-data" class="nav-link" data-scroll-target="#use-the-case-study-data">Use the case study data</a></li>
-  </ul></li>
+  <li><a href="#data-requirements" id="toc-data-requirements" class="nav-link active" data-scroll-target="#data-requirements">Data requirements</a></li>
+  <li><a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection">Data collection</a></li>
+  <li><a href="#setting-up-a-routable-transport-network" id="toc-setting-up-a-routable-transport-network" class="nav-link" data-scroll-target="#setting-up-a-routable-transport-network">Setting up a routable transport network</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/sumo.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/network.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./software.html">Software</a></li><li class="breadcrumb-item"><a href="./sumo.html">SUMO</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./casestudy.html">Exercises</a></li><li class="breadcrumb-item"><a href="./network.html">r5r network setup</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">SUMO</h1>
+<h1 class="title">r5r network setup</h1>
 </div>
 
 
@@ -520,127 +513,61 @@ div.csl-indent {
 </header>
 
 
-<p>In this tutorial we will guide you to install and start using SUMO.</p>
-<p><a href="https://eclipse.dev/sumo/about/">SUMO</a> is a free and open source traffic simulation suite. It is available since 2001 and allows modelling of intermodal traffic systems - including road vehicles, public transport and pedestrians. Included with SUMO is a wealth of supporting tools which automate core tasks for the creation, the execution and evaluation of traffic simulations, such as network import, route calculations, visualization and emission calculation <span class="citation" data-cites="SUMO2018">(<a href="#ref-SUMO2018" role="doc-biblioref">Lopez et al. 2018</a>)</span>.</p>
-<p>SUMO is available for any operating system.</p>
-<section id="installation" class="level2">
-<h2 class="anchored" data-anchor-id="installation">Installation</h2>
-<section id="windows" class="level3">
-<h3 class="anchored" data-anchor-id="windows">Windows</h3>
-<p>The installation of SUMO in Windows is pretty straightforward.</p>
-<p>Visit <a href="https://eclipse.dev/sumo/" class="uri">https://eclipse.dev/sumo/</a> and download the installation file (137 MB).</p>
-<p><img src="images/clipboard-3306613480.png" class="img-fluid"></p>
-<p>Open the downloaded file and execute in your computer. Accept the defaults and install.</p>
-</section>
-<section id="mac-os" class="level3">
-<h3 class="anchored" data-anchor-id="mac-os">Mac OS</h3>
-<blockquote class="blockquote">
-<p>soon. 🐼</p>
-</blockquote>
-</section>
-<section id="linux" class="level3">
-<h3 class="anchored" data-anchor-id="linux">Linux</h3>
-<p>In debian based (ubuntu, kubuntu, popOS, debian) follow this instructions.</p>
-<blockquote class="blockquote">
-<p>soon. 🐧</p>
-</blockquote>
-</section>
-</section>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
-<p>Open SUMO-gui (Graphic User Interface). You should have a window like this:</p>
-<p><img src="images/clipboard-3165483734.png" class="img-fluid" width="615"></p>
-<p>Several tutorials are available. Try these ones:</p>
+<p>In this chapter we will guide you through the data requirements, data collection, and setting up a multi-modal network with r5r.</p>
+<section id="data-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="data-requirements">Data requirements</h2>
+<p>You will need <strong>R</strong> and <a href="https://ipeagit.github.io/r5r/index.html"><code>r5r</code></a> <span class="citation" data-cites="pereira2021">(<a href="#ref-pereira2021" role="doc-biblioref">Pereira et al. 2021</a>)</span> package installed on your computer.</p>
+<p><code>r5r</code> set-ups a network file <code>.dat</code> by combining the following datasets:</p>
 <ul>
-<li><p><a href="https://sumo.dlr.de/docs/Tutorials/Hello_World.html">Hello World</a> - Creating a simple network and demand scenario with <a href="https://sumo.dlr.de/docs/Netedit/index.html">netedit</a> and visualizing it using <a href="https://sumo.dlr.de/docs/sumo-gui.html">sumo-gui</a></p></li>
-<li><p><a href="https://sumo.dlr.de/docs/Tutorials/OSMWebWizard.html">OSMWebWizard</a> - Setting up a scenario with just a few clicks using osmWebWizard.py; getting a network from <strong>OpenStreetMap</strong></p></li>
-<li><p><a href="https://sumo.dlr.de/docs/Tutorials/quick_start.html">Quick Start</a> - A more complex tutorial with <a href="https://sumo.dlr.de/docs/Netedit/index.html">netedit</a>; first steps in SUMO</p></li>
-<li><p><a href="https://sumo.dlr.de/docs/Tutorials/Driving_in_Circles.html">Driving in Circles</a> - Work with <a href="https://sumo.dlr.de/docs/Netedit/index.html">netedit</a>; define a flow; let vehicles drive in circles using rerouters</p></li>
-<li><p><a href="https://sumo.dlr.de/docs/Tutorials/SUMOlympics.html">SUMOlympics</a> - Create special lanes and simple traffic lights in netedit, more about flows and vehicle types, working with vehicle</p></li>
-<li><p><a href="https://sumo.dlr.de/docs/Tutorials/Autobahn.html">Autobahn</a> - Build a highway, create a mixed highway flow, visualize vehicle speed, save view settings</p></li>
-<li><p><a href="https://sumo.dlr.de/docs/Tutorials/GTFS.html">Importing GTFS</a> - Importing public transport schedules from public sources using the General Transit Feed Specification</p></li>
+<li>Road Network (<em>OpenStreetMap</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> as <code>.osm.pbf</code>)</li>
+<li>GTFS<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> from PTransit operators (a single <code>.zip</code> or several)</li>
+<li>Digital Elevation Model<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> (<code>.tiff</code>), to consider impedances for walking and cycling</li>
 </ul>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/9WCGxJDdY9s" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-<section id="import-from-openstreetmap" class="level3">
-<h3 class="anchored" data-anchor-id="import-from-openstreetmap">Import from OpenStreetMap</h3>
-<p>This requires having <a href="https://www.python.org/downloads/">Python</a> installed.</p>
-<ul>
-<li><p>Windows: <em>Start -&gt;</em> <em>All Programs -&gt; OSM Web Wizard</em></p></li>
-<li><p>MacOS: 🐼</p></li>
-<li><p>Linux (terminal):</p></li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/sumo/tools</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> osmWebWizard.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>And a window will open in your browser.</p>
-<p><img src="images/clipboard-2247596800.png" class="img-fluid"></p>
-<p>You may zoom and pan to the area of your interest<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Click on “Select Area” and draw a rectangle with your mouse for which you wish to generate the simulation scenario.</p>
-<section id="network-generation" class="level4">
-<h4 class="anchored" data-anchor-id="network-generation">Network Generation</h4>
-<p>The infrastructure import from OSM into the SUMO simulation are affected by different Wizard options</p>
-<ul>
-<li>by default the “Add Polygon” checkbox is checked and a road traffic simulation is generated but all types of roads and rails will be imported as well (cycle paths, footpaths, railways etc)</li>
-<li>if the checkbox “left-hand Traffic” is enabled, the network will be built with left hand traffic rules. For most geographic regions where this is required, this feature will be enabled automatically but if it does not work, this option can be used as a remedy.</li>
-<li>if the checkbox “Car-only Network” is enabled, then only roads that permit passenger car traffic will be included. This can be used to reduce the network size and also helps to reduce intersection complexity</li>
-<li>if the checkbox “Import Public Transport” is enabled, then busStops and trainStops will be exported. Also busses, trams and trains will be generated that follow the public transport routes defined in OSM (but they will follow synthetic schedules).</li>
-<li>if the Demand-checkbox “Bicycles” is active, then extra bicycle lanes will be added to roads where OSM contains this information</li>
-<li>if the Demand-checkbox “Pedestrians” is active, then sidewalks and pedestrian crossings will be generated</li>
-</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ver o código <a href="https://github.com/rosamfelix/PGmob360/blob/main/code/r5r.R"><code>code/r5r.R</code></a></p>
+</div>
+</div>
 </section>
-<section id="demand-generation" class="level4">
-<h4 class="anchored" data-anchor-id="demand-generation">Demand Generation</h4>
-<p>The demand is defined by the demand generation panel. You activate this panel by clicking on the car pictogram.</p>
-<p><img src="images/clipboard-1645183866.png" class="img-fluid" width="284"></p>
-<p>SUMO supports various modes of transport. At the demand generation panel, you can activate/deactivate the individual modes of transport by clicking the corresponding checkboxes. For each mode of transport, the OSM Web Wizard generates random demand based on a certain probability distribution, which is influenced by two parameters:</p>
-<ul>
-<li>Every time a new vehicle is generated, the OSM Web Wizard randomly chooses a departure and arrival edge for the vehicle. The <em>Through Traffic Factor</em> defines how many times it is more likely for an edge at the boundary of the simulation area being chosen, compared to an edge entirely located inside the simulation area. A big value for the <em>Through Traffic Factor</em> implies that many vehicles depart and arrive at the boundary of the simulation area, which corresponds to a scenario with a lot of through traffic.</li>
-<li>The <em>Count</em> parameter defines how many vehicles are generated per hour and lane-kilometer. Assuming
-<ul>
-<li><p>the network contains 3 edges with a combined length of 5 km</p></li>
-<li><p>that each has 2 lanes which allows the current traffic mode</p></li>
-<li><p>and the count value is set to 90,</p></li>
-<li><p>then 5 * 2 * 90 = 900 vehicles per hour will be generated.</p></li>
-</ul></li>
-</ul>
-<p>This translates to a <a href="https://sumo.dlr.de/docs/Tools/Trip.html#randomtripspy">randomTrips</a> parameter of p=4 which means a new vehicle is inserted every 4 seconds somewhere in the network.</p>
-<p>The next step is generating and running the scenario.</p>
+<section id="data-collection" class="level2">
+<h2 class="anchored" data-anchor-id="data-collection">Data collection</h2>
 </section>
-<section id="road-type-selection" class="level4">
-<h4 class="anchored" data-anchor-id="road-type-selection">Road-Type Selection</h4>
-<p>In the Road-Type tab of the OSM Web Wizard one can define which road types to be downloaded and rendered.</p>
-<p><img src="images/clipboard-1076186910.png" class="img-fluid" width="225"></p>
-<p>For example, one can only choose motorways, primary, secondary and tertiary to simulate major traffic. This impacts the file size of the OSM map data.</p>
-<p>By default, all road types are checked which implies downloading and rendering all roads.</p>
-<p>Unchecking the “Add Polygon” checkbox in the Demand Generation section disables downloading and rendering non-road objects like buildings, waterways, etc. resulting in a smaller file size.</p>
+<section id="setting-up-a-routable-transport-network" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-a-routable-transport-network">Setting up a routable transport network</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">java.parameters =</span> <span class="st">'-Xmx8G'</span>) <span class="co"># allocate memory for 8GB </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(r5r)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="generating-and-running-the-scenario" class="level4">
-<h4 class="anchored" data-anchor-id="generating-and-running-the-scenario">Generating and Running the scenario</h4>
-<p>The complete scenario will be generated automatically once <em>Generate Scenario</em> in the control panel has been clicked. The scenario generation takes a couple of seconds or minutes (depending, among other factors, on the size of the scenario).</p>
-<p>Once the scenario generation process has finished, the sumo-gui starts and the simulation can be started by pressing the <em>Play</em> button.</p>
-<p><img src="images/clipboard-725212682.png" class="img-fluid"> You will see agents making their trips. Adjust the <em>Delay</em> to make it faster or slower.</p>
-<p><img src="images/clipboard-2442094165.png" class="img-fluid" width="603"></p>
-<p>A new directory under your user folder <em><code>~/SUMO/yyyy-mm-dd-hh-mm-ss</code></em> will be created to host the data and results. You may now edit those files and re-run the simulation (open <code>run</code> file).</p>
-</section>
-</section>
-<section id="use-the-case-study-data" class="level3">
-<h3 class="anchored" data-anchor-id="use-the-case-study-data">Use the case study data</h3>
-<blockquote class="blockquote">
-<p>Soon 🥽</p>
-</blockquote>
+<section id="references" class="level2">
 
 
 
-</section>
+
 </section>
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-SUMO2018" class="csl-entry" role="listitem">
-Lopez, Pablo Alvarez, Michael Behrisch, Laura Bieker-Walz, Jakob Erdmann, Yun-Pang Flötteröd, Robert Hilbrich, Leonhard Lücken, Johannes Rummel, Peter Wagner, and Evamarie Wießner. 2018. <span>“Microscopic Traffic Simulation Using SUMO.”</span> In <em>The 21st IEEE International Conference on Intelligent Transportation Systems</em>. IEEE. <a href="https://elib.dlr.de/124092/">https://elib.dlr.de/124092/</a>.
+<div id="ref-pereira2021" class="csl-entry" role="listitem">
+Pereira, Rafael H. M., Marcus Saraiva, Daniel Herszenhut, Carlos Kaue Vieira Braga, and Matthew Wigginton Conway. 2021. <span>“R5r: Rapid Realistic Routing on Multimodal Transport Networks with r ⁵ in r.”</span> <em>Findings</em>, March. <a href="https://doi.org/10.32866/001c.21262">https://doi.org/10.32866/001c.21262</a>.
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Caution: if the map excerpt covers a very large area, the simulation might become slow or even unresponsive. We suggest choosing a similar zoom level as in the initial view.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>See how to export an area with <a href="#0">HOT export tool</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Optional.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Optional.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1064,7 +991,7 @@ Lopez, Pablo Alvarez, Michael Behrisch, Laura Bieker-Walz, Jakob Erdmann, Yun-Pa
 </div>   
     <div class="nav-footer-center">
 <p>TModelling of Tranport Systems</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/sumo.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/network.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>2025-2026</p>
 </div>
