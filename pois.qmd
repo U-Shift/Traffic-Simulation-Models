@@ -31,9 +31,11 @@ See the script we did for [all Portugal](https://github.com/U-Shift/SiteSelectio
 
 <https://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146>
 
+See other OpenStreetMap categories at [their Wiki](https://wiki.openstreetmap.org/wiki/Map_features).
+
 ### Jittering
 
-Random points
+Random points from
 
 ## Grids
 

@@ -12,7 +12,7 @@ In this chapter we will guide you through the data requirements, data collection
 
 You will need **R** and [`r5r`](https://ipeagit.github.io/r5r/index.html) [@pereira2021] package installed on your computer.
 
-`r5r` set-ups a network file `.dat` by combining the following datasets:
+`r5r` sets-up a network file `.dat` by combining the following datasets in the same folder:
 
 -   Road Network (*OpenStreetMap*[^1] as `.osm.pbf`)
 -   GTFS[^2] from PTransit operators (a single `.zip` or several)
@@ -28,6 +28,8 @@ You will need **R** and [`r5r`](https://ipeagit.github.io/r5r/index.html) [@pere
 Ver o código [`code/r5r.R`](https://github.com/rosamfelix/PGmob360/blob/main/code/r5r.R)
 :::
 
+For the documentation of data needed, see [`r5r::build_network`](https://ipeagit.github.io/r5r/reference/build_network.html)
+
 ## Data collection
 
 ## Setting up a routable transport network
@@ -39,5 +41,17 @@ library(sf)
 options(java.parameters = '-Xmx8G') # allocate memory for 8GB 
 library(r5r)
 ```
+
+```{r}
+data_path= "data/r5r" # relative path to your folder containing the required data
+network = build_network(
+  data_path,
+  elevation = "TOBLER" # optional. MINETTI or NONE
+)
+```
+
+::: {.callout-note appearance="simple"}
+If you already have a `network.dat` file, it will use that pre-build network.
+:::
 
 ## References
