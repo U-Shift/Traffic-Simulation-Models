@@ -10,7 +10,7 @@ In this chapter we will guide you through the data requirements, data collection
 
 ## Data requirements
 
-You will need **R** and [`r5r`](https://ipeagit.github.io/r5r/index.html) [@Pereira2021r5r] package installed on your computer.
+You will need **R** and [`r5r`](https://ipeagit.github.io/r5r/index.html) [@pereira2021] package installed on your computer.
 
 `r5r` set-ups a network file `.dat` by combining the following datasets:
 
@@ -18,11 +18,11 @@ You will need **R** and [`r5r`](https://ipeagit.github.io/r5r/index.html) [@Pere
 -   GTFS[^2] from PTransit operators (a single `.zip` or several)
 -   Digital Elevation Model[^3] (`.tiff`), to consider impedances for walking and cycling
 
-[^1]: Ver como exportar em [HOT export tool](https://rosamfelix.github.io/PGmob360/road-networks.qmd#hot-export-tool).
+[^1]: See how to export an area with [HOT export tool](#0).
 
-[^2]: Opcional.
+[^2]: Optional.
 
-[^3]: Opcional.
+[^3]: Optional.
 
 ::: callout-note
 Ver o código [`code/r5r.R`](https://github.com/rosamfelix/PGmob360/blob/main/code/r5r.R)
@@ -30,4 +30,14 @@ Ver o código [`code/r5r.R`](https://github.com/rosamfelix/PGmob360/blob/main/co
 
 ## Data collection
 
-## Setting up a multi-modal network
+## Setting up a routable transport network
+
+```{r}
+# Load packages
+library(tidyverse)
+library(sf)
+options(java.parameters = '-Xmx8G') # allocate memory for 8GB 
+library(r5r)
+```
+
+## References

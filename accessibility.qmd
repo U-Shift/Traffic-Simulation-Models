@@ -7,12 +7,6 @@ engine: knitr
 
 # Isochrones
 
-In this chapter we will guide you through the installation of R, RStudio and the packages you will need for this course, for the macro network models.
-
-**R** and **RStudio**[^1] are separate downloads.
-
-[^1]: We will use RStudio, although if you already use other studio such as VScode, that's also fine.
-
 # Accessibility
 
 ## Scenarios
@@ -20,3 +14,7 @@ In this chapter we will guide you through the installation of R, RStudio and the
 ### Work day vs. weekend
 
 ### With and without a metro station
+
+### Pedestrian access with opening hours
+
+Example: Urban park, cemetery, university

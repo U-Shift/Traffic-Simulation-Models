@@ -9,6 +9,7 @@ This website makes available materials, data and tutorials to use at the [Modell
 See the [Micro](micro.qmd) modelling home assignment.
 
 ::: {.callout-caution appearance="simple"}
-This website is under construction.
+## This website is under construction
+
 If you have any suggestions, please contact the course teacher.
 :::
