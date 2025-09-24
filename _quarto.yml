@@ -4,14 +4,15 @@ execute:
   freeze: auto
   
 website:
-  title: "Traffic Simulation Models"
+  title: "Modelling of Tranport Systems"
+  description: "Transport Simulation and Network Modelling Tools"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - about.qmd
     right:
-      - href: https://fenix.tecnico.ulisboa.pt/disciplinas/MST11/2024-2025/1-semestre
+      - href: https://fenix.tecnico.ulisboa.pt/disciplinas/MST112/2025-2026/1-semestre
         text: Course IST 
     tools:
       - icon: github
@@ -24,31 +25,40 @@ website:
     style: docked
     search: true
     contents:
-      # - macro.qmd
-      - casestudy.qmd
-      - micro.qmd
-      - section: Software
+      - section: "Software"
         href: software.qmd
         contents:
           # - href: matsim.qmd
           #   text: MATSIM
           - href: visum.qmd
-            text: VISUM
+            text: "VISUM"
           - href: vissim.qmd
-            text: VISSIM
+            text: "VISSIM"
+          - href: rr5r.qmd
+            text: "R & r5r"
           - href: sumo.qmd
-            text: SUMO
+            text: "SUMO"
           - href: https://a-b-street.github.io/docs/software/abstreet.html
-            text: A/B Street
-
+            text: "A/B Street"
+      - section: "Exercises"
+        contents:
+          - casestudy.qmd
+          - micro.qmd
+          - network.qmd
+          - routing.qmd
+          - pois.qmd
+          - accessibility.qmd
+          # - macro.qmd
 
   page-footer:
     left: "Instituto Superior Técnico - University of Lisbon"
-    center: "Traffic Simulation Models"
-    right: "2024-2025"
+    center: "TModelling of Tranport Systems"
+    right: "2025-2026"
     
   repo-url: https://github.com/U-Shift/Traffic-Simulation-Models
   repo-actions: [edit, issue]
+
+bibliography: references.bib
 
 format:
   html:

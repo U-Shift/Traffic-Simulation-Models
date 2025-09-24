@@ -1,0 +1,20 @@
+---
+title: "Acessibility"
+eval: false
+code-fold: false
+engine: knitr
+---
+
+# Isochrones
+
+# Accessibility
+
+## Scenarios
+
+### Work day vs. weekend
+
+### With and without a metro station
+
+### Pedestrian access with opening hours
+
+Example: Urban park, cemetery, university

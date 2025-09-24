@@ -15,7 +15,7 @@ You may use more than one software, depending on the scale you are working with,
 Some softwares can be more appropriated if using a large scale, such as regional or city-wide area.
 For instance, the traffic impacts on the development of a new centrality (hospital, airport), or in the introduction of a new bridge or freeway can be simulated with macro simulator software.
 
-[PTV Visum](visum.qmd), Aimsun, and [MatSim](matsim.qmq) are examples of software to deal with a large scale simulation.
+[PTV Visum](visum.qmd), Aimsun, [r5r](rr5r.qmd), and [MatSim](matsim.qmq) are examples of software to deal with a large scale simulation.
 
 For macro simulations it is essential do consider zoning, flows, etc.
 
@@ -46,11 +46,13 @@ Some groups provide a student version, which typically does not include all the 
 
 Free and open source software is getting more robust, and should not be overlooked.
 
-**MatSim** and **SUMO** are examples of free and open source simulation software.
+**MatSim, r5r,** and **SUMO** are examples of free and open source simulation software.
 
 ## Operating System {#operating-system}
 
 To choose a software to work with, you should also consider the operation system of your personal computer (Windows, MacOS, Linux based).
+
+PTV Visum and Visim are only available for Windows.
 
 You may always use virtual machines to have another OS in your PC, but that comes with memory and performance cost.
 
@@ -60,8 +62,6 @@ You may always use virtual machines to have another OS in your PC, but that come
 -   For **Linux** (Ubuntu or Debian) users, [Gnome Boxes](https://apps.gnome.org/Boxes/) are an interesting option to run Windows.
 
 -   For **Windows** users, you should have no problem using any software.
-
-PTV Visum and Visim are only available for Windows.
 
 ## Instalation and Usage
 

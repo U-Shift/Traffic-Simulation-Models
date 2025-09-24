@@ -1,0 +1,21 @@
+---
+title: "Routing"
+subtitle: "Distances, Times, and Fares"
+eval: false
+code-fold: false
+engine: knitr
+---
+
+## Origins and Destinations
+
+## Uni-modal
+
+## Multi-modal
+
+### Egress mode
+
+## Pareto frontier
+
+### Create rules for an operator
+
+Create `fare_rules.txt` and `fare_attributes.txt` for Carris based on Metropolitano Lisboa.
