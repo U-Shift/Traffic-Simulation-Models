@@ -432,73 +432,37 @@
   {
     "objectID": "pois.html",
     "href": "pois.html",
-    "title": "R, RStudio and r5r",
+    "title": "POIs",
     "section": "",
-    "text": "In this chapter we will guide you through the installation of R, RStudio and the packages you will need for this course, for the macro network models.\nR and RStudio1 are separate downloads.\n\n\nYou will need R installed on your computer. R stats (how it is also known) is a programming language and free software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing.\nThe download links live at The Comprehensive R Archive Network (aka CRAN). The most recent version is 4.5.1, but you can use &gt;= 4.1.x if you already have it installed.\n\nWindowsMacUbuntu\n\n\nDownload R-4.5.1 for Windows and run the executable file.\n\n\n\n\n\n\nImportant\n\n\n\nYou will also need to install Rtools, which is a collection of tools necessary to build R packages in Windows.\n\n\n\n\nDownload R-4.5.1 for MacOX. You will have to choose between the arm64 or the x86-64 version.\nDownload the .pkg file and install it as usual.\n\n\n\nThese are instructions for Ubuntu. If you use other linux distribution, please follow the instructions on The Comprehensive R Archive Network - CRAN.\n\nYou can look for R in the Ubuntu Software Center or install it via the terminal:\n\n# sudo apt update && sudo apt upgrade -y\nsudo apt install r-base\n\nOr, if you prefer, you can install the latest version of R from CRAN:\n\n# update indices\nsudo apt update -qq\n# install two helper packages we need\nsudo apt install --no-install-recommends software-properties-common dirmngr\n# add the signing key (by Michael Rutter) for these repos\nwget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc\n# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed\nsudo add-apt-repository \"deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/\"\n\nThen run:\n\nsudo apt install r-base r-base-core r-recommended r-base-dev\n\n[Optional] To keep up-to-date r version and packages, you can follow the instructions at r2u\n\n\n\nAfter this installation, you don’t need to open R base. Please proceed to install RStudio.\n\n\n\nRStudio Desktop is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.\nRStudio is available for free download from Posit RStudio.\n\nWindows 10/11MacOSUbuntu\n\n\nDownload RStudio 2025.09 and run the executable file.\n\n\nDownload RStudio 2025.09 and install it as usual.\n\n\n\nThese are instructions for Ubuntu 24. If you use other linux distribution, please follow the instructions on Posit RStudio.\n\nInstall it via the terminal:\n\nsudo apt install libssl-dev libclang-dev\nwget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2025.09.0-387-amd64.deb\nsudo dpkg -i rstudio*\nrm -v rstudio*\n\n\n\n\n\n\n\nYou will need to install some packages to work with the data and scripts in this course.\nYou can install them in RStudio by searching for them in the Packages tab:\n\nor by running the following code in the console:\n\ninstall.packages(\"tidyverse\")\n\ninstall.packages(\"sf\")\ninstall.packages(\"mapview\")\ninstall.packages(\"osmextract\")\ninstall.packages(\"stplanr\")\n\ninstall.packages(c(\"remotes\", \"devtools\", \"usethis\")) # optional\n\n\n\n\nThe simplest way to install r5r is by running the code below on RStudio Console. This might take a few minutes if this is the first time you install these packages.\n\npkgs = c(\"r5r\", \"accessibility\", \"rJavaEnv\", \"h3jsr\", \"quantreg\")\n\ninstall.packages(pkgs)\n\n# dev version with latest features - optional\nutils::remove.packages('r5r')\ndevtools::install_github(\"ipeaGIT/r5r\", subdir = \"r-package\")\n\n\n\nTo use the {r5r} package (version v2.0 or higher), you will need to have Java Development Kit (JDK) 21 installed on your computer. There are numerous open-source JDK implementations. The easiest way to install JDK is using the new {rJavaEnv} package in R.\n\n# check version of Java currently installed (if any) \nrJavaEnv::java_check_version_rjava()\n\n## if this is the first time you use {rJavaEnv}, you might need to run this code\n## below to consent the installation of Java.\n# rJavaEnv::rje_consent(provided = TRUE)\n\n# install Java 21\nrJavaEnv::java_quick_install(version = 21)\n\n# check if Java was successfully installed\nrJavaEnv::java_check_version_rjava()\n\nAlternatively, you can manually download and install JDK 21.\n\nWindows and MacOSUbuntu\n\n\nGo to Java Development Kit 21, download the latest 21 build corresponding to your operating system and run the executable file.\n\n\nInstall it via the terminal:\n\nsudo apt install -y openjdk-21-jdk openjdk-21-jre\njava -version",
+    "text": "Different categories\n\n\n\nRandom points",
     "crumbs": [
       "Home",
       "Exercises",
-      "R, RStudio and r5r"
+      "POIs"
     ]
   },
   {
-    "objectID": "pois.html#r",
-    "href": "pois.html#r",
-    "title": "R, RStudio and r5r",
+    "objectID": "pois.html#openstreetmap",
+    "href": "pois.html#openstreetmap",
+    "title": "POIs",
     "section": "",
-    "text": "You will need R installed on your computer. R stats (how it is also known) is a programming language and free software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing.\nThe download links live at The Comprehensive R Archive Network (aka CRAN). The most recent version is 4.5.1, but you can use &gt;= 4.1.x if you already have it installed.\n\nWindowsMacUbuntu\n\n\nDownload R-4.5.1 for Windows and run the executable file.\n\n\n\n\n\n\nImportant\n\n\n\nYou will also need to install Rtools, which is a collection of tools necessary to build R packages in Windows.\n\n\n\n\nDownload R-4.5.1 for MacOX. You will have to choose between the arm64 or the x86-64 version.\nDownload the .pkg file and install it as usual.\n\n\n\nThese are instructions for Ubuntu. If you use other linux distribution, please follow the instructions on The Comprehensive R Archive Network - CRAN.\n\nYou can look for R in the Ubuntu Software Center or install it via the terminal:\n\n# sudo apt update && sudo apt upgrade -y\nsudo apt install r-base\n\nOr, if you prefer, you can install the latest version of R from CRAN:\n\n# update indices\nsudo apt update -qq\n# install two helper packages we need\nsudo apt install --no-install-recommends software-properties-common dirmngr\n# add the signing key (by Michael Rutter) for these repos\nwget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc\n# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed\nsudo add-apt-repository \"deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/\"\n\nThen run:\n\nsudo apt install r-base r-base-core r-recommended r-base-dev\n\n[Optional] To keep up-to-date r version and packages, you can follow the instructions at r2u\n\n\n\nAfter this installation, you don’t need to open R base. Please proceed to install RStudio.",
+    "text": "Different categories",
     "crumbs": [
       "Home",
       "Exercises",
-      "R, RStudio and r5r"
+      "POIs"
     ]
   },
   {
-    "objectID": "pois.html#rstudio",
-    "href": "pois.html#rstudio",
-    "title": "R, RStudio and r5r",
+    "objectID": "pois.html#jittering",
+    "href": "pois.html#jittering",
+    "title": "POIs",
     "section": "",
-    "text": "RStudio Desktop is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.\nRStudio is available for free download from Posit RStudio.\n\nWindows 10/11MacOSUbuntu\n\n\nDownload RStudio 2025.09 and run the executable file.\n\n\nDownload RStudio 2025.09 and install it as usual.\n\n\n\nThese are instructions for Ubuntu 24. If you use other linux distribution, please follow the instructions on Posit RStudio.\n\nInstall it via the terminal:\n\nsudo apt install libssl-dev libclang-dev\nwget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2025.09.0-387-amd64.deb\nsudo dpkg -i rstudio*\nrm -v rstudio*",
+    "text": "Random points",
     "crumbs": [
       "Home",
       "Exercises",
-      "R, RStudio and r5r"
-    ]
-  },
-  {
-    "objectID": "pois.html#r-packages",
-    "href": "pois.html#r-packages",
-    "title": "R, RStudio and r5r",
-    "section": "",
-    "text": "You will need to install some packages to work with the data and scripts in this course.\nYou can install them in RStudio by searching for them in the Packages tab:\n\nor by running the following code in the console:\n\ninstall.packages(\"tidyverse\")\n\ninstall.packages(\"sf\")\ninstall.packages(\"mapview\")\ninstall.packages(\"osmextract\")\ninstall.packages(\"stplanr\")\n\ninstall.packages(c(\"remotes\", \"devtools\", \"usethis\")) # optional",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "R, RStudio and r5r"
-    ]
-  },
-  {
-    "objectID": "pois.html#r5r",
-    "href": "pois.html#r5r",
-    "title": "R, RStudio and r5r",
-    "section": "",
-    "text": "The simplest way to install r5r is by running the code below on RStudio Console. This might take a few minutes if this is the first time you install these packages.\n\npkgs = c(\"r5r\", \"accessibility\", \"rJavaEnv\", \"h3jsr\", \"quantreg\")\n\ninstall.packages(pkgs)\n\n# dev version with latest features - optional\nutils::remove.packages('r5r')\ndevtools::install_github(\"ipeaGIT/r5r\", subdir = \"r-package\")\n\n\n\nTo use the {r5r} package (version v2.0 or higher), you will need to have Java Development Kit (JDK) 21 installed on your computer. There are numerous open-source JDK implementations. The easiest way to install JDK is using the new {rJavaEnv} package in R.\n\n# check version of Java currently installed (if any) \nrJavaEnv::java_check_version_rjava()\n\n## if this is the first time you use {rJavaEnv}, you might need to run this code\n## below to consent the installation of Java.\n# rJavaEnv::rje_consent(provided = TRUE)\n\n# install Java 21\nrJavaEnv::java_quick_install(version = 21)\n\n# check if Java was successfully installed\nrJavaEnv::java_check_version_rjava()\n\nAlternatively, you can manually download and install JDK 21.\n\nWindows and MacOSUbuntu\n\n\nGo to Java Development Kit 21, download the latest 21 build corresponding to your operating system and run the executable file.\n\n\nInstall it via the terminal:\n\nsudo apt install -y openjdk-21-jdk openjdk-21-jre\njava -version",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "R, RStudio and r5r"
-    ]
-  },
-  {
-    "objectID": "pois.html#footnotes",
-    "href": "pois.html#footnotes",
-    "title": "R, RStudio and r5r",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nWe will use RStudio, although if you already use other studio such as VScode, that’s also fine.↩︎",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "R, RStudio and r5r"
+      "POIs"
     ]
   },
   {
