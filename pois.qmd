@@ -5,12 +5,38 @@ code-fold: false
 engine: knitr
 ---
 
-# Points of Interest
+## Points of Interest
 
-## OpenStreetMap
+### OpenStreetMap
 
-Different categories
+Different categories, based on @flowers2022 : [www.flowersofproximity.com](https://www.flowersofproximity.com/)
 
-## Jittering
+[![The Flowers of Proximity](https://www.flowersofproximity.com/flower_of_proximity_large.svg){fig-align="center" width="400"}](https://www.flowersofproximity.com)
+
+For the [Streets4All](https://streets4all.tecnico.ulisboa.pt/) project, and [SiteSelection](https://u-shift.github.io/SiteSelection/) package [@siteselection2024], we divided in:
+
+-   Amenities
+
+-   Healthcare
+
+-   Leisure
+
+-   Shop
+
+-   Sport
+
+-   Tourism
+
+See the script we did for [all Portugal](https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_landuse.gpkg), and the dataset for [Lisbon](https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_lisbon.geojson) (2024):
+
+<https://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146>
+
+### Jittering
 
 Random points
+
+## Grids
+
+![](https://u-shift.github.io/SiteSelection/reference/figures/hex_grid.png){fig-align="center"}
+
+You can also use the universal [h3 hexagon grid](https://h3geo.org/)
