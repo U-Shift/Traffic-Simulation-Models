@@ -1,5 +1,6 @@
 ---
 title: "Scenarios"
+author: "R Félix"
 eval: false
 code-fold: false
 engine: knitr
@@ -7,7 +8,7 @@ engine: knitr
 
 ## Work day vs. weekend
 
-## With and without a metro station or metro line
+## New metro station or metro line
 
 Let's create a new metro line or a new station in your city.
 
@@ -21,7 +22,7 @@ For that, an easy graphic interface software is the PTV Lines.
 2.  Create a new scenario, and import an existing subway gtfs (`.zip`) - **max 60 lines**!
 3.  Edit that scenario by creating stops and lines.
 4.  Export the GTFS file.
-5.  Duplicate your r5r folder (baseline scenario) and delete the `network.dat` file inside. Rename it as `..._sen1` and replace the `gtfs.zip` by the one you just exported.
+5.  Duplicate your r5r folder (baseline scenario) and delete the `network.dat` file inside. Rename it as `..._ver1` and replace the `gtfs.zip` by the one you just exported.
 6.  Build a new network with that folder path.
 
 ### Create a metro line with PTV Lines
@@ -59,5 +60,7 @@ Your scenario will be saved in your dashboard. You can edit or duplicate them la
 
 Run some routing and accessibility analysis, and compare with the baseline scenario.
 :::
+
+See @accessibility [Chapter 6](https://ipeagit.github.io/intro_access_book/6_cenarios_transporte.en.html) for an example.
 
 If you do multi-modal analysis, you **may need** to use [`GTFShift::unify()`](https://u-shift.github.io/GTFShift/reference/unify.html) to merge the new gtfs with other modes and create new transfers.
