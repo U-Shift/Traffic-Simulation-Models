@@ -1,60 +1,195 @@
 [
   {
-    "objectID": "routing.html#uni-modal",
-    "href": "routing.html#uni-modal",
-    "title": "Routing",
-    "section": "Uni-modal",
-    "text": "Uni-modal",
+    "objectID": "visum.html",
+    "href": "visum.html",
+    "title": "Visum",
+    "section": "",
+    "text": "This tutorial is only for Windows\n\n\n\nIf you do not use Windows, you need to have a Virtual Machine. If you have an Arm processor this won’t work, even with a VM.\nIn this tutorial we will guide you to install and start using Visum.\nPTV Visum is a macro simulation software, non-free, available only for Windows OS.",
     "crumbs": [
       "Home",
-      "Exercises",
-      "Routing"
+      "Software",
+      "VISUM"
     ]
   },
   {
-    "objectID": "routing.html#multi-modal",
-    "href": "routing.html#multi-modal",
-    "title": "Routing",
-    "section": "Multi-modal",
-    "text": "Multi-modal\n\nEgress mode",
+    "objectID": "visum.html#installation",
+    "href": "visum.html#installation",
+    "title": "Visum",
+    "section": "Installation",
+    "text": "Installation\nPTV Visum is available to download at: https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Visum\nChoose the most recent version (recommended) ≤ 2024. The file may be more than 1.3 GB.\nIf you don’t have Python installed already in your PC, don’t worry, you can opt to install it along the Visum setup.\nThe available instructions are very straight forward.\n\nLicence activation\n\nYou should have received a server address of where the CERIS licence lives. If not, contact the course teacher.\n\nTo use Visum with the CERIS licence, you need to download PTV Licence Manager (Standard).\n\nIt will ask you to download also another tiny software CodeMeter Runtime. Say yes!\nAfter install it, open PTV Licence Manager, and click on ⚙️ Edit CodeMeter settings:\n\nAdd ➕ CodeMeter server, and insert the server address that was sent to you.\n\nPress close (go back) and now 🔍 Find Licences.\n\nAn available licence row should now appear on the list 🎉. Close it.\n\n\n\n\n\n\nFor any reason 🧙‍♂️ the licence is not accessed if you are connected to the IST DECivil ethernet network.",
     "crumbs": [
       "Home",
-      "Exercises",
-      "Routing"
+      "Software",
+      "VISUM"
     ]
   },
   {
-    "objectID": "routing.html#pareto-frontier",
-    "href": "routing.html#pareto-frontier",
-    "title": "Routing",
-    "section": "Pareto frontier",
-    "text": "Pareto frontier\n\nCreate rules for an operator\nCreate fare_rules.txt and fare_attributes.txt for Carris based on Metropolitano Lisboa.",
+    "objectID": "visum.html#getting-started",
+    "href": "visum.html#getting-started",
+    "title": "Visum",
+    "section": "Getting started",
+    "text": "Getting started\nWhen launching Visum for the first time, you should have something like this. This is a good signal, it means that the connection to the licence server is running smoothly and that you are ready to start working on your projects! 🚀\n\nThe “Tutorial First Steps” may be wise to follow if you are not familiar with the software. It covers the following topics:\n\nNetwork editing (private and public transport)\nProcedure sequence\nGraphic parameters\n\nPTV also offers online tutorials to get familiar with the software.",
     "crumbs": [
       "Home",
-      "Exercises",
-      "Routing"
+      "Software",
+      "VISUM"
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Modelling of Tranport Systems",
+    "objectID": "sumo.html",
+    "href": "sumo.html",
+    "title": "SUMO",
     "section": "",
-    "text": "This website makes available materials, data and tutorials to use at the Modelling of Transport Systems course of the Master in Transportation Systems at Instituto Superior Técnico - University of Lisbon.\n \nSee the Micro modelling home assignment.\n\n\n\n\n\n\nThis website is under construction\n\n\n\nIf you have any suggestions, please contact the course teacher."
+    "text": "In this tutorial we will guide you to install and start using SUMO.\nSUMO is a free and open source traffic simulation suite. It is available since 2001 and allows modelling of intermodal traffic systems - including road vehicles, public transport and pedestrians. Included with SUMO is a wealth of supporting tools which automate core tasks for the creation, the execution and evaluation of traffic simulations, such as network import, route calculations, visualization and emission calculation (Lopez et al. 2018).\nSUMO is available for any operating system.",
+    "crumbs": [
+      "Home",
+      "Software",
+      "SUMO"
+    ]
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "objectID": "sumo.html#installation",
+    "href": "sumo.html#installation",
+    "title": "SUMO",
+    "section": "Installation",
+    "text": "Installation\n\nWindows\nThe installation of SUMO in Windows is pretty straightforward.\nVisit https://eclipse.dev/sumo/ and download the installation file (137 MB).\n\nOpen the downloaded file and execute in your computer. Accept the defaults and install.\n\n\nMac OS\n\nsoon. 🐼\n\n\n\nLinux\nIn debian based (ubuntu, kubuntu, popOS, debian) follow this instructions.\n\nsoon. 🐧",
+    "crumbs": [
+      "Home",
+      "Software",
+      "SUMO"
+    ]
   },
   {
-    "objectID": "import_osm/OSM2VISSIM-main/LICENSE.html",
-    "href": "import_osm/OSM2VISSIM-main/LICENSE.html",
-    "title": "Modelling of Tranport Systems",
+    "objectID": "sumo.html#getting-started",
+    "href": "sumo.html#getting-started",
+    "title": "SUMO",
+    "section": "Getting started",
+    "text": "Getting started\nOpen SUMO-gui (Graphic User Interface). You should have a window like this:\n\nSeveral tutorials are available. Try these ones:\n\nHello World - Creating a simple network and demand scenario with netedit and visualizing it using sumo-gui\nOSMWebWizard - Setting up a scenario with just a few clicks using osmWebWizard.py; getting a network from OpenStreetMap\nQuick Start - A more complex tutorial with netedit; first steps in SUMO\nDriving in Circles - Work with netedit; define a flow; let vehicles drive in circles using rerouters\nSUMOlympics - Create special lanes and simple traffic lights in netedit, more about flows and vehicle types, working with vehicle\nAutobahn - Build a highway, create a mixed highway flow, visualize vehicle speed, save view settings\nImporting GTFS - Importing public transport schedules from public sources using the General Transit Feed Specification\n\n\n\nImport from OpenStreetMap\nThis requires having Python installed.\n\nWindows: Start -&gt; All Programs -&gt; OSM Web Wizard\nMacOS: 🐼\nLinux (terminal):\n\ncd ~/sumo/tools\npython3 osmWebWizard.py\nAnd a window will open in your browser.\n\nYou may zoom and pan to the area of your interest1. Click on “Select Area” and draw a rectangle with your mouse for which you wish to generate the simulation scenario.\n\nNetwork Generation\nThe infrastructure import from OSM into the SUMO simulation are affected by different Wizard options\n\nby default the “Add Polygon” checkbox is checked and a road traffic simulation is generated but all types of roads and rails will be imported as well (cycle paths, footpaths, railways etc)\nif the checkbox “left-hand Traffic” is enabled, the network will be built with left hand traffic rules. For most geographic regions where this is required, this feature will be enabled automatically but if it does not work, this option can be used as a remedy.\nif the checkbox “Car-only Network” is enabled, then only roads that permit passenger car traffic will be included. This can be used to reduce the network size and also helps to reduce intersection complexity\nif the checkbox “Import Public Transport” is enabled, then busStops and trainStops will be exported. Also busses, trams and trains will be generated that follow the public transport routes defined in OSM (but they will follow synthetic schedules).\nif the Demand-checkbox “Bicycles” is active, then extra bicycle lanes will be added to roads where OSM contains this information\nif the Demand-checkbox “Pedestrians” is active, then sidewalks and pedestrian crossings will be generated\n\n\n\nDemand Generation\nThe demand is defined by the demand generation panel. You activate this panel by clicking on the car pictogram.\n\nSUMO supports various modes of transport. At the demand generation panel, you can activate/deactivate the individual modes of transport by clicking the corresponding checkboxes. For each mode of transport, the OSM Web Wizard generates random demand based on a certain probability distribution, which is influenced by two parameters:\n\nEvery time a new vehicle is generated, the OSM Web Wizard randomly chooses a departure and arrival edge for the vehicle. The Through Traffic Factor defines how many times it is more likely for an edge at the boundary of the simulation area being chosen, compared to an edge entirely located inside the simulation area. A big value for the Through Traffic Factor implies that many vehicles depart and arrive at the boundary of the simulation area, which corresponds to a scenario with a lot of through traffic.\nThe Count parameter defines how many vehicles are generated per hour and lane-kilometer. Assuming\n\nthe network contains 3 edges with a combined length of 5 km\nthat each has 2 lanes which allows the current traffic mode\nand the count value is set to 90,\nthen 5 * 2 * 90 = 900 vehicles per hour will be generated.\n\n\nThis translates to a randomTrips parameter of p=4 which means a new vehicle is inserted every 4 seconds somewhere in the network.\nThe next step is generating and running the scenario.\n\n\nRoad-Type Selection\nIn the Road-Type tab of the OSM Web Wizard one can define which road types to be downloaded and rendered.\n\nFor example, one can only choose motorways, primary, secondary and tertiary to simulate major traffic. This impacts the file size of the OSM map data.\nBy default, all road types are checked which implies downloading and rendering all roads.\nUnchecking the “Add Polygon” checkbox in the Demand Generation section disables downloading and rendering non-road objects like buildings, waterways, etc. resulting in a smaller file size.\n\n\nGenerating and Running the scenario\nThe complete scenario will be generated automatically once Generate Scenario in the control panel has been clicked. The scenario generation takes a couple of seconds or minutes (depending, among other factors, on the size of the scenario).\nOnce the scenario generation process has finished, the sumo-gui starts and the simulation can be started by pressing the Play button.\n You will see agents making their trips. Adjust the Delay to make it faster or slower.\n\nA new directory under your user folder ~/SUMO/yyyy-mm-dd-hh-mm-ss will be created to host the data and results. You may now edit those files and re-run the simulation (open run file).\n\n\n\nUse the case study data\n\nSoon 🥽",
+    "crumbs": [
+      "Home",
+      "Software",
+      "SUMO"
+    ]
+  },
+  {
+    "objectID": "sumo.html#footnotes",
+    "href": "sumo.html#footnotes",
+    "title": "SUMO",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nCaution: if the map excerpt covers a very large area, the simulation might become slow or even unresponsive. We suggest choosing a similar zoom level as in the initial view.↩︎",
+    "crumbs": [
+      "Home",
+      "Software",
+      "SUMO"
+    ]
+  },
+  {
+    "objectID": "rr5r.html",
+    "href": "rr5r.html",
+    "title": "R, RStudio and r5r",
     "section": "",
-    "text": "MIT License\nCopyright (c) 2023 BME Road Traffic Control Laboratory\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+    "text": "In this chapter we will guide you through the installation of R, RStudio and the packages you will need for this course, for the macro network models.\nR and RStudio1 are separate downloads.\n\n\nYou will need R installed on your computer. R stats (how it is also known) is a programming language and free software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing.\nThe download links live at The Comprehensive R Archive Network (aka CRAN). The most recent version is 4.5.1, but you can use &gt;= 4.1.x if you already have it installed.\n\nWindowsMacUbuntu\n\n\nDownload R-4.5.1 for Windows and run the executable file.\n\n\n\n\n\n\nImportant\n\n\n\nYou will also need to install Rtools, which is a collection of tools necessary to build R packages in Windows.\n\n\n\n\nDownload R-4.5.1 for MacOX. You will have to choose between the arm64 or the x86-64 version.\nDownload the .pkg file and install it as usual.\n\n\n\nThese are instructions for Ubuntu. If you use other linux distribution, please follow the instructions on The Comprehensive R Archive Network - CRAN.\n\nYou can look for R in the Ubuntu Software Center or install it via the terminal:\n\n# sudo apt update && sudo apt upgrade -y\nsudo apt install r-base\n\nOr, if you prefer, you can install the latest version of R from CRAN:\n\n# update indices\nsudo apt update -qq\n# install two helper packages we need\nsudo apt install --no-install-recommends software-properties-common dirmngr\n# add the signing key (by Michael Rutter) for these repos\nwget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc\n# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed\nsudo add-apt-repository \"deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/\"\n\nThen run:\n\nsudo apt install r-base r-base-core r-recommended r-base-dev\n\n[Optional] To keep up-to-date r version and packages, you can follow the instructions at r2u\n\n\n\nAfter this installation, you don’t need to open R base. Please proceed to install RStudio.\n\n\n\nRStudio Desktop is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.\nRStudio is available for free download from Posit RStudio.\n\nWindows 10/11MacOSUbuntu\n\n\nDownload RStudio 2025.09 and run the executable file.\n\n\nDownload RStudio 2025.09 and install it as usual.\n\n\n\nThese are instructions for Ubuntu 24. If you use other linux distribution, please follow the instructions on Posit RStudio.\n\nInstall it via the terminal:\n\nsudo apt install libssl-dev libclang-dev\nwget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2025.09.0-387-amd64.deb\nsudo dpkg -i rstudio*\nrm -v rstudio*\n\n\n\n\n\n\n\nYou will need to install some packages to work with the data and scripts in this course.\nYou can install them in RStudio by searching for them in the Packages tab:\n\nor by running the following code in the console:\n\ninstall.packages(\"tidyverse\")\n\ninstall.packages(\"sf\")\ninstall.packages(\"mapview\")\ninstall.packages(\"osmextract\")\ninstall.packages(\"stplanr\")\n\ninstall.packages(c(\"remotes\", \"devtools\", \"usethis\")) # optional\n\n\n\n\nThe simplest way to install r5r is by running the code below on RStudio Console. This might take a few minutes if this is the first time you install these packages.\n\npkgs = c(\"r5r\", \"accessibility\", \"rJavaEnv\", \"h3jsr\", \"quantreg\")\n\ninstall.packages(pkgs)\n\n# dev version with latest features - optional\nutils::remove.packages('r5r')\ndevtools::install_github(\"ipeaGIT/r5r\", subdir = \"r-package\")\n\n\n\nTo use the {r5r} package (version v2.0 or higher), you will need to have Java Development Kit (JDK) 21 installed on your computer. There are numerous open-source JDK implementations. The easiest way to install JDK is using the new {rJavaEnv} package in R.\n\n# check version of Java currently installed (if any) \nrJavaEnv::java_check_version_rjava()\n\n## if this is the first time you use {rJavaEnv}, you might need to run this code\n## below to consent the installation of Java.\n# rJavaEnv::rje_consent(provided = TRUE)\n\n# install Java 21\nrJavaEnv::java_quick_install(version = 21)\n\n# check if Java was successfully installed\nrJavaEnv::java_check_version_rjava()\n\nAlternatively, you can manually download and install JDK 21.\n\nWindows and MacOSUbuntu\n\n\nGo to Java Development Kit 21, download the latest 21 build corresponding to your operating system and run the executable file.\n\n\nInstall it via the terminal:\n\nsudo apt install -y openjdk-21-jdk openjdk-21-jre\njava -version",
+    "crumbs": [
+      "Home",
+      "Software",
+      "R & r5r"
+    ]
+  },
+  {
+    "objectID": "rr5r.html#r",
+    "href": "rr5r.html#r",
+    "title": "R, RStudio and r5r",
+    "section": "",
+    "text": "You will need R installed on your computer. R stats (how it is also known) is a programming language and free software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing.\nThe download links live at The Comprehensive R Archive Network (aka CRAN). The most recent version is 4.5.1, but you can use &gt;= 4.1.x if you already have it installed.\n\nWindowsMacUbuntu\n\n\nDownload R-4.5.1 for Windows and run the executable file.\n\n\n\n\n\n\nImportant\n\n\n\nYou will also need to install Rtools, which is a collection of tools necessary to build R packages in Windows.\n\n\n\n\nDownload R-4.5.1 for MacOX. You will have to choose between the arm64 or the x86-64 version.\nDownload the .pkg file and install it as usual.\n\n\n\nThese are instructions for Ubuntu. If you use other linux distribution, please follow the instructions on The Comprehensive R Archive Network - CRAN.\n\nYou can look for R in the Ubuntu Software Center or install it via the terminal:\n\n# sudo apt update && sudo apt upgrade -y\nsudo apt install r-base\n\nOr, if you prefer, you can install the latest version of R from CRAN:\n\n# update indices\nsudo apt update -qq\n# install two helper packages we need\nsudo apt install --no-install-recommends software-properties-common dirmngr\n# add the signing key (by Michael Rutter) for these repos\nwget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc\n# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed\nsudo add-apt-repository \"deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/\"\n\nThen run:\n\nsudo apt install r-base r-base-core r-recommended r-base-dev\n\n[Optional] To keep up-to-date r version and packages, you can follow the instructions at r2u\n\n\n\nAfter this installation, you don’t need to open R base. Please proceed to install RStudio.",
+    "crumbs": [
+      "Home",
+      "Software",
+      "R & r5r"
+    ]
+  },
+  {
+    "objectID": "rr5r.html#rstudio",
+    "href": "rr5r.html#rstudio",
+    "title": "R, RStudio and r5r",
+    "section": "",
+    "text": "RStudio Desktop is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.\nRStudio is available for free download from Posit RStudio.\n\nWindows 10/11MacOSUbuntu\n\n\nDownload RStudio 2025.09 and run the executable file.\n\n\nDownload RStudio 2025.09 and install it as usual.\n\n\n\nThese are instructions for Ubuntu 24. If you use other linux distribution, please follow the instructions on Posit RStudio.\n\nInstall it via the terminal:\n\nsudo apt install libssl-dev libclang-dev\nwget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2025.09.0-387-amd64.deb\nsudo dpkg -i rstudio*\nrm -v rstudio*",
+    "crumbs": [
+      "Home",
+      "Software",
+      "R & r5r"
+    ]
+  },
+  {
+    "objectID": "rr5r.html#r-packages",
+    "href": "rr5r.html#r-packages",
+    "title": "R, RStudio and r5r",
+    "section": "",
+    "text": "You will need to install some packages to work with the data and scripts in this course.\nYou can install them in RStudio by searching for them in the Packages tab:\n\nor by running the following code in the console:\n\ninstall.packages(\"tidyverse\")\n\ninstall.packages(\"sf\")\ninstall.packages(\"mapview\")\ninstall.packages(\"osmextract\")\ninstall.packages(\"stplanr\")\n\ninstall.packages(c(\"remotes\", \"devtools\", \"usethis\")) # optional",
+    "crumbs": [
+      "Home",
+      "Software",
+      "R & r5r"
+    ]
+  },
+  {
+    "objectID": "rr5r.html#r5r",
+    "href": "rr5r.html#r5r",
+    "title": "R, RStudio and r5r",
+    "section": "",
+    "text": "The simplest way to install r5r is by running the code below on RStudio Console. This might take a few minutes if this is the first time you install these packages.\n\npkgs = c(\"r5r\", \"accessibility\", \"rJavaEnv\", \"h3jsr\", \"quantreg\")\n\ninstall.packages(pkgs)\n\n# dev version with latest features - optional\nutils::remove.packages('r5r')\ndevtools::install_github(\"ipeaGIT/r5r\", subdir = \"r-package\")\n\n\n\nTo use the {r5r} package (version v2.0 or higher), you will need to have Java Development Kit (JDK) 21 installed on your computer. There are numerous open-source JDK implementations. The easiest way to install JDK is using the new {rJavaEnv} package in R.\n\n# check version of Java currently installed (if any) \nrJavaEnv::java_check_version_rjava()\n\n## if this is the first time you use {rJavaEnv}, you might need to run this code\n## below to consent the installation of Java.\n# rJavaEnv::rje_consent(provided = TRUE)\n\n# install Java 21\nrJavaEnv::java_quick_install(version = 21)\n\n# check if Java was successfully installed\nrJavaEnv::java_check_version_rjava()\n\nAlternatively, you can manually download and install JDK 21.\n\nWindows and MacOSUbuntu\n\n\nGo to Java Development Kit 21, download the latest 21 build corresponding to your operating system and run the executable file.\n\n\nInstall it via the terminal:\n\nsudo apt install -y openjdk-21-jdk openjdk-21-jre\njava -version",
+    "crumbs": [
+      "Home",
+      "Software",
+      "R & r5r"
+    ]
+  },
+  {
+    "objectID": "rr5r.html#footnotes",
+    "href": "rr5r.html#footnotes",
+    "title": "R, RStudio and r5r",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nWe will use RStudio, although if you already use other studio such as VScode, that’s also fine.↩︎",
+    "crumbs": [
+      "Home",
+      "Software",
+      "R & r5r"
+    ]
+  },
+  {
+    "objectID": "pois.html",
+    "href": "pois.html",
+    "title": "POIs",
+    "section": "",
+    "text": "Different categories, based on Büttner et al. (2022) : www.flowersofproximity.com\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024):\nhttps://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146\nSee other OpenStreetMap categories at their Wiki.\n\n\n\nRandom points from",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "POIs"
+    ]
+  },
+  {
+    "objectID": "pois.html#points-of-interest",
+    "href": "pois.html#points-of-interest",
+    "title": "POIs",
+    "section": "",
+    "text": "Different categories, based on Büttner et al. (2022) : www.flowersofproximity.com\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024):\nhttps://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146\nSee other OpenStreetMap categories at their Wiki.\n\n\n\nRandom points from",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "POIs"
+    ]
+  },
+  {
+    "objectID": "pois.html#grids",
+    "href": "pois.html#grids",
+    "title": "POIs",
+    "section": "Grids",
+    "text": "Grids\n\n\n\n\n\nYou can also use the universal h3 hexagon grid",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "POIs"
+    ]
   },
   {
     "objectID": "micro.html",
@@ -93,137 +228,18 @@
     ]
   },
   {
-    "objectID": "network.html",
-    "href": "network.html",
-    "title": "r5r network setup",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Modelling of Tranport Systems",
     "section": "",
-    "text": "In this chapter we will guide you through the data requirements, data collection, and setting up a multi-modal network with r5r.",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "r5r network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#data-requirements",
-    "href": "network.html#data-requirements",
-    "title": "r5r network setup",
-    "section": "Data requirements",
-    "text": "Data requirements\nYou will need R and r5r (Pereira et al. 2021) package installed on your computer.\nr5r sets-up a network file .dat by combining the following datasets in the same folder:\n\nRoad Network (OpenStreetMap1 as .osm.pbf)\nGTFS2 from PTransit operators (a single .zip or several)\nDigital Elevation Model3 (.tiff), to consider impedances for walking and cycling\n\n\n\n\n\n\n\nNote\n\n\n\nVer o código code/r5r.R\n\n\nFor the documentation of data needed, see r5r::build_network",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "r5r network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#data-collection",
-    "href": "network.html#data-collection",
-    "title": "r5r network setup",
-    "section": "Data collection",
-    "text": "Data collection",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "r5r network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#setting-up-a-routable-transport-network",
-    "href": "network.html#setting-up-a-routable-transport-network",
-    "title": "r5r network setup",
-    "section": "Setting up a routable transport network",
-    "text": "Setting up a routable transport network\n\n# Load packages\nlibrary(tidyverse)\nlibrary(sf)\noptions(java.parameters = '-Xmx8G') # allocate memory for 8GB \nlibrary(r5r)\n\n\ndata_path= \"data/r5r\" # relative path to your folder containing the required data\nnetwork = build_network(\n  data_path,\n  elevation = \"TOBLER\" # optional. MINETTI or NONE\n)\n\n\n\n\n\n\n\nIf you already have a network.dat file, it will use that pre-build network.",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "r5r network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#footnotes",
-    "href": "network.html#footnotes",
-    "title": "r5r network setup",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nSee how to export an area with HOT export tool.↩︎\nOptional.↩︎\nOptional.↩︎",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "r5r network setup"
-    ]
-  },
-  {
-    "objectID": "software.html",
-    "href": "software.html",
-    "title": "Software",
-    "section": "",
-    "text": "There are several software options for modeling transportation systems.\nTo choose a traffic simulation software to work with can depend on different things to consider. You may use more than one software, depending on the scale you are working with, and on other characteristics.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#macro-vs.-micro",
-    "href": "software.html#macro-vs.-micro",
-    "title": "Software",
-    "section": "Macro vs. Micro",
-    "text": "Macro vs. Micro\n\nMacro simulators\nSome softwares can be more appropriated if using a large scale, such as regional or city-wide area. For instance, the traffic impacts on the development of a new centrality (hospital, airport), or in the introduction of a new bridge or freeway can be simulated with macro simulator software.\nPTV Visum, Aimsun, r5r, and MatSim are examples of software to deal with a large scale simulation.\nFor macro simulations it is essential do consider zoning, flows, etc.\nUsually this type of simulators can smoothly integrate Public Transport information, such as GTFS files.\n\n\nMicro simulators\nWant to simulate changes at a street or neighbourhood level? Then micro simulator software should be used.\nPTV Visim, SUMO, and A/B Street are examples of software to deal with a micro scale simulation.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#paid-licence-vs.-free",
-    "href": "software.html#paid-licence-vs.-free",
-    "title": "Software",
-    "section": "Paid (Licence) vs. Free",
-    "text": "Paid (Licence) vs. Free\n\nPaid\nAvailable commercial software is largely used at many companies and consultants. Universities also usually offer licence access to students and researchers. At IST we provide access to PTV Visum licence for registered students1.\nSome groups provide a student version, which typically does not include all the features.\nPTV Vissim and Visum, and Aimsum are examples of commercial simulation software.\n\n\nFree\nFree and open source software is getting more robust, and should not be overlooked.\nMatSim, r5r, and SUMO are examples of free and open source simulation software.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#operating-system",
-    "href": "software.html#operating-system",
-    "title": "Software",
-    "section": "Operating System",
-    "text": "Operating System\nTo choose a software to work with, you should also consider the operation system of your personal computer (Windows, MacOS, Linux based).\nPTV Visum and Visim are only available for Windows.\nYou may always use virtual machines to have another OS in your PC, but that comes with memory and performance cost.\n\nFor MacOS users, UTM is a good free option. Keep in mind that the University of Lisbon provides Windows stutent’s licences.\nFor Linux (Ubuntu or Debian) users, Gnome Boxes are an interesting option to run Windows.\nFor Windows users, you should have no problem using any software.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#instalation-and-usage",
-    "href": "software.html#instalation-and-usage",
-    "title": "Software",
-    "section": "Instalation and Usage",
-    "text": "Instalation and Usage\nWe only offer guidance to setup some of the available software2.\nPlease see each software page for more details.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#footnotes",
-    "href": "software.html#footnotes",
-    "title": "Software",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nContact Filipe Moura or Rosa Félix to access Visum.↩︎\nIf you use other traffic simulation software, you may contribute to this website and create another tutorial 🙂. Fork and Pull Request in this Github repo.↩︎",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
+    "text": "This website makes available materials, data and tutorials to use at the Modelling of Transport Systems course of the Master in Transportation Systems at Instituto Superior Técnico - University of Lisbon.\n \nSee the Micro modelling home assignment.\n\n\n\n\n\n\nThis website is under construction\n\n\n\nIf you have any suggestions, please contact the course teacher."
   },
   {
     "objectID": "accessibility.html#scenarios",
     "href": "accessibility.html#scenarios",
     "title": "Acessibility",
     "section": "Scenarios",
-    "text": "Scenarios\n\nWork day vs. weekend\n\n\nWith and without a metro station\n\n\nPedestrian access with opening hours\nExample: Urban park, cemetery, university",
+    "text": "Scenarios\n\nWork day vs. weekend\n\n\nWith and without a metro station or metro line\nLet’s create a new metro line or a new station in your city.\n\n\n\nNew pink line (expansion in Lisbon)\n\n\n\nMethodology\nFor that, an easy graphic interface software is the PTV Lines.\n\nLogin into PTV Lines (upper right corner) with the credentials that were sent to you.\nCreate a new scenario, and import an existing subway gtfs (.zip) - max 60 lines!\nEdit that scenario by creating stops and lines.\nExport the GTFS file.\nDuplicate your r5r folder (baseline scenario) and delete the network.dat file inside. Rename it as ..._sen1 and replace the gtfs.zip by the one you just exported.\nBuild a new network with that folder path.\n\n\n\nCreate a metro line with PTV Lines\nFirst, create new station points (S) and name them. As many as you need.\n\n\n\n\n\n\n\n\n\n\nThen, create a new line (L), name it something like “Expansion”, and create a new route (R). Name it 0 (you can edit later) and draw that line roughly by selecting an existing start station and connecting to your new stations.\n\n\n\n\n\nAdd trips to it (T), with a proper headway.\n\n\n\n\n\nAfter defining the weekday and weekend trips, go to the Outbound route and “Create opposite direction”, so you can have both directions now. Rename the line routes, something as “Start station - End station”.\n\n\n\n\n\nGo to Connections, and click on a connecting station to visualize the time diagram of connections with other routes.\n\n\n\n\n\nAfter all your edits, go back to the dashboard, and click on “Export supply”. Export as GTFS (.zip)\n\nYour scenario will be saved in your dashboard. You can edit or duplicate them later.\n\n\n\n\n\n\nYour task\n\n\n\nRun some routing and accessibility analysis, and compare with the baseline scenario.",
     "crumbs": [
       "Home",
       "Exercises",
@@ -231,11 +247,11 @@
     ]
   },
   {
-    "objectID": "Oeiras2024/Alfragide_Zonas_2021.html",
-    "href": "Oeiras2024/Alfragide_Zonas_2021.html",
-    "title": "Modelling of Tranport Systems",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "&lt;!DOCTYPE qgis PUBLIC ‘http://mrcc.com/qgis.dtd’ ‘SYSTEM’&gt;     dataset\n\n\n                PROJCRS[“ETRS89 / Portugal TM06”,BASEGEOGCRS[“ETRS89”,ENSEMBLE[“European Terrestrial Reference System 1989 ensemble”,MEMBER[“European Terrestrial Reference Frame 1989”],MEMBER[“European Terrestrial Reference Frame 1990”],MEMBER[“European Terrestrial Reference Frame 1991”],MEMBER[“European Terrestrial Reference Frame 1992”],MEMBER[“European Terrestrial Reference Frame 1993”],MEMBER[“European Terrestrial Reference Frame 1994”],MEMBER[“European Terrestrial Reference Frame 1996”],MEMBER[“European Terrestrial Reference Frame 1997”],MEMBER[“European Terrestrial Reference Frame 2000”],MEMBER[“European Terrestrial Reference Frame 2005”],MEMBER[“European Terrestrial Reference Frame 2014”],ELLIPSOID[“GRS 1980”,6378137,298.257222101,LENGTHUNIT[“metre”,1]],ENSEMBLEACCURACY[0.1]],PRIMEM[“Greenwich”,0,ANGLEUNIT[“degree”,0.0174532925199433]],ID[“EPSG”,4258]],CONVERSION[“Portugual TM06”,METHOD[“Transverse Mercator”,ID[“EPSG”,9807]],PARAMETER[“Latitude of natural origin”,39.6682583333333,ANGLEUNIT[“degree”,0.0174532925199433],ID[“EPSG”,8801]],PARAMETER[“Longitude of natural origin”,-8.13310833333333,ANGLEUNIT[“degree”,0.0174532925199433],ID[“EPSG”,8802]],PARAMETER[“Scale factor at natural origin”,1,SCALEUNIT[“unity”,1],ID[“EPSG”,8805]],PARAMETER[“False easting”,0,LENGTHUNIT[“metre”,1],ID[“EPSG”,8806]],PARAMETER[“False northing”,0,LENGTHUNIT[“metre”,1],ID[“EPSG”,8807]]],CS[Cartesian,2],AXIS[“easting (X)”,east,ORDER[1],LENGTHUNIT[“metre”,1]],AXIS[“northing (Y)”,north,ORDER[2],LENGTHUNIT[“metre”,1]],USAGE[SCOPE[“Topographic mapping (medium scale).”],AREA[“Portugal - mainland - onshore.”],BBOX[36.95,-9.56,42.16,-6.19]],ID[“EPSG”,3763]] +proj=tmerc +lat_0=39.6682583333333 +lon_0=-8.13310833333333 +k=1 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 1721 3763 EPSG:3763 ETRS89 / Portugal TM06 tmerc EPSG:7019 false"
+    "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites."
   },
   {
     "objectID": "casestudy.html",
@@ -358,111 +374,165 @@
     ]
   },
   {
-    "objectID": "rr5r.html",
-    "href": "rr5r.html",
-    "title": "R, RStudio and r5r",
+    "objectID": "network.html",
+    "href": "network.html",
+    "title": "r5r network setup",
     "section": "",
-    "text": "In this chapter we will guide you through the installation of R, RStudio and the packages you will need for this course, for the macro network models.\nR and RStudio1 are separate downloads.\n\n\nYou will need R installed on your computer. R stats (how it is also known) is a programming language and free software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing.\nThe download links live at The Comprehensive R Archive Network (aka CRAN). The most recent version is 4.5.1, but you can use &gt;= 4.1.x if you already have it installed.\n\nWindowsMacUbuntu\n\n\nDownload R-4.5.1 for Windows and run the executable file.\n\n\n\n\n\n\nImportant\n\n\n\nYou will also need to install Rtools, which is a collection of tools necessary to build R packages in Windows.\n\n\n\n\nDownload R-4.5.1 for MacOX. You will have to choose between the arm64 or the x86-64 version.\nDownload the .pkg file and install it as usual.\n\n\n\nThese are instructions for Ubuntu. If you use other linux distribution, please follow the instructions on The Comprehensive R Archive Network - CRAN.\n\nYou can look for R in the Ubuntu Software Center or install it via the terminal:\n\n# sudo apt update && sudo apt upgrade -y\nsudo apt install r-base\n\nOr, if you prefer, you can install the latest version of R from CRAN:\n\n# update indices\nsudo apt update -qq\n# install two helper packages we need\nsudo apt install --no-install-recommends software-properties-common dirmngr\n# add the signing key (by Michael Rutter) for these repos\nwget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc\n# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed\nsudo add-apt-repository \"deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/\"\n\nThen run:\n\nsudo apt install r-base r-base-core r-recommended r-base-dev\n\n[Optional] To keep up-to-date r version and packages, you can follow the instructions at r2u\n\n\n\nAfter this installation, you don’t need to open R base. Please proceed to install RStudio.\n\n\n\nRStudio Desktop is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.\nRStudio is available for free download from Posit RStudio.\n\nWindows 10/11MacOSUbuntu\n\n\nDownload RStudio 2025.09 and run the executable file.\n\n\nDownload RStudio 2025.09 and install it as usual.\n\n\n\nThese are instructions for Ubuntu 24. If you use other linux distribution, please follow the instructions on Posit RStudio.\n\nInstall it via the terminal:\n\nsudo apt install libssl-dev libclang-dev\nwget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2025.09.0-387-amd64.deb\nsudo dpkg -i rstudio*\nrm -v rstudio*\n\n\n\n\n\n\n\nYou will need to install some packages to work with the data and scripts in this course.\nYou can install them in RStudio by searching for them in the Packages tab:\n\nor by running the following code in the console:\n\ninstall.packages(\"tidyverse\")\n\ninstall.packages(\"sf\")\ninstall.packages(\"mapview\")\ninstall.packages(\"osmextract\")\ninstall.packages(\"stplanr\")\n\ninstall.packages(c(\"remotes\", \"devtools\", \"usethis\")) # optional\n\n\n\n\nThe simplest way to install r5r is by running the code below on RStudio Console. This might take a few minutes if this is the first time you install these packages.\n\npkgs = c(\"r5r\", \"accessibility\", \"rJavaEnv\", \"h3jsr\", \"quantreg\")\n\ninstall.packages(pkgs)\n\n# dev version with latest features - optional\nutils::remove.packages('r5r')\ndevtools::install_github(\"ipeaGIT/r5r\", subdir = \"r-package\")\n\n\n\nTo use the {r5r} package (version v2.0 or higher), you will need to have Java Development Kit (JDK) 21 installed on your computer. There are numerous open-source JDK implementations. The easiest way to install JDK is using the new {rJavaEnv} package in R.\n\n# check version of Java currently installed (if any) \nrJavaEnv::java_check_version_rjava()\n\n## if this is the first time you use {rJavaEnv}, you might need to run this code\n## below to consent the installation of Java.\n# rJavaEnv::rje_consent(provided = TRUE)\n\n# install Java 21\nrJavaEnv::java_quick_install(version = 21)\n\n# check if Java was successfully installed\nrJavaEnv::java_check_version_rjava()\n\nAlternatively, you can manually download and install JDK 21.\n\nWindows and MacOSUbuntu\n\n\nGo to Java Development Kit 21, download the latest 21 build corresponding to your operating system and run the executable file.\n\n\nInstall it via the terminal:\n\nsudo apt install -y openjdk-21-jdk openjdk-21-jre\njava -version",
+    "text": "In this chapter we will guide you through the data requirements, data collection, and setting up a multi-modal network with r5r.",
     "crumbs": [
       "Home",
-      "Software",
-      "R & r5r"
+      "Exercises",
+      "r5r network setup"
     ]
   },
   {
-    "objectID": "rr5r.html#r",
-    "href": "rr5r.html#r",
-    "title": "R, RStudio and r5r",
-    "section": "",
-    "text": "You will need R installed on your computer. R stats (how it is also known) is a programming language and free software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing.\nThe download links live at The Comprehensive R Archive Network (aka CRAN). The most recent version is 4.5.1, but you can use &gt;= 4.1.x if you already have it installed.\n\nWindowsMacUbuntu\n\n\nDownload R-4.5.1 for Windows and run the executable file.\n\n\n\n\n\n\nImportant\n\n\n\nYou will also need to install Rtools, which is a collection of tools necessary to build R packages in Windows.\n\n\n\n\nDownload R-4.5.1 for MacOX. You will have to choose between the arm64 or the x86-64 version.\nDownload the .pkg file and install it as usual.\n\n\n\nThese are instructions for Ubuntu. If you use other linux distribution, please follow the instructions on The Comprehensive R Archive Network - CRAN.\n\nYou can look for R in the Ubuntu Software Center or install it via the terminal:\n\n# sudo apt update && sudo apt upgrade -y\nsudo apt install r-base\n\nOr, if you prefer, you can install the latest version of R from CRAN:\n\n# update indices\nsudo apt update -qq\n# install two helper packages we need\nsudo apt install --no-install-recommends software-properties-common dirmngr\n# add the signing key (by Michael Rutter) for these repos\nwget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc\n# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed\nsudo add-apt-repository \"deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/\"\n\nThen run:\n\nsudo apt install r-base r-base-core r-recommended r-base-dev\n\n[Optional] To keep up-to-date r version and packages, you can follow the instructions at r2u\n\n\n\nAfter this installation, you don’t need to open R base. Please proceed to install RStudio.",
+    "objectID": "network.html#data-requirements",
+    "href": "network.html#data-requirements",
+    "title": "r5r network setup",
+    "section": "Data requirements",
+    "text": "Data requirements\nYou will need R and r5r (Pereira et al. 2021) package installed on your computer.\nr5r sets-up a network file .dat by combining the following datasets in the same folder:\n\nRoad Network (OpenStreetMap1 as .osm.pbf)\nGTFS2 from PTransit operators (a single .zip or several)\nDigital Elevation Model3 (.tiff), to consider impedances for walking and cycling\n\n\n\n\n\n\n\nNote\n\n\n\nVer o código code/r5r.R\n\n\nFor the documentation of data needed, see r5r::build_network",
     "crumbs": [
       "Home",
-      "Software",
-      "R & r5r"
+      "Exercises",
+      "r5r network setup"
     ]
   },
   {
-    "objectID": "rr5r.html#rstudio",
-    "href": "rr5r.html#rstudio",
-    "title": "R, RStudio and r5r",
-    "section": "",
-    "text": "RStudio Desktop is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.\nRStudio is available for free download from Posit RStudio.\n\nWindows 10/11MacOSUbuntu\n\n\nDownload RStudio 2025.09 and run the executable file.\n\n\nDownload RStudio 2025.09 and install it as usual.\n\n\n\nThese are instructions for Ubuntu 24. If you use other linux distribution, please follow the instructions on Posit RStudio.\n\nInstall it via the terminal:\n\nsudo apt install libssl-dev libclang-dev\nwget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2025.09.0-387-amd64.deb\nsudo dpkg -i rstudio*\nrm -v rstudio*",
+    "objectID": "network.html#data-collection",
+    "href": "network.html#data-collection",
+    "title": "r5r network setup",
+    "section": "Data collection",
+    "text": "Data collection",
     "crumbs": [
       "Home",
-      "Software",
-      "R & r5r"
+      "Exercises",
+      "r5r network setup"
     ]
   },
   {
-    "objectID": "rr5r.html#r-packages",
-    "href": "rr5r.html#r-packages",
-    "title": "R, RStudio and r5r",
-    "section": "",
-    "text": "You will need to install some packages to work with the data and scripts in this course.\nYou can install them in RStudio by searching for them in the Packages tab:\n\nor by running the following code in the console:\n\ninstall.packages(\"tidyverse\")\n\ninstall.packages(\"sf\")\ninstall.packages(\"mapview\")\ninstall.packages(\"osmextract\")\ninstall.packages(\"stplanr\")\n\ninstall.packages(c(\"remotes\", \"devtools\", \"usethis\")) # optional",
+    "objectID": "network.html#setting-up-a-routable-transport-network",
+    "href": "network.html#setting-up-a-routable-transport-network",
+    "title": "r5r network setup",
+    "section": "Setting up a routable transport network",
+    "text": "Setting up a routable transport network\n\n# Load packages\nlibrary(tidyverse)\nlibrary(sf)\noptions(java.parameters = '-Xmx8G') # allocate memory for 8GB \nlibrary(r5r)\n\n\ndata_path= \"data/r5r\" # relative path to your folder containing the required data\nnetwork = build_network(\n  data_path,\n  elevation = \"TOBLER\" # optional. MINETTI or NONE\n)\n\n\n\n\n\n\n\nIf you already have a network.dat file, it will use that pre-build network.",
     "crumbs": [
       "Home",
-      "Software",
-      "R & r5r"
+      "Exercises",
+      "r5r network setup"
     ]
   },
   {
-    "objectID": "rr5r.html#r5r",
-    "href": "rr5r.html#r5r",
-    "title": "R, RStudio and r5r",
-    "section": "",
-    "text": "The simplest way to install r5r is by running the code below on RStudio Console. This might take a few minutes if this is the first time you install these packages.\n\npkgs = c(\"r5r\", \"accessibility\", \"rJavaEnv\", \"h3jsr\", \"quantreg\")\n\ninstall.packages(pkgs)\n\n# dev version with latest features - optional\nutils::remove.packages('r5r')\ndevtools::install_github(\"ipeaGIT/r5r\", subdir = \"r-package\")\n\n\n\nTo use the {r5r} package (version v2.0 or higher), you will need to have Java Development Kit (JDK) 21 installed on your computer. There are numerous open-source JDK implementations. The easiest way to install JDK is using the new {rJavaEnv} package in R.\n\n# check version of Java currently installed (if any) \nrJavaEnv::java_check_version_rjava()\n\n## if this is the first time you use {rJavaEnv}, you might need to run this code\n## below to consent the installation of Java.\n# rJavaEnv::rje_consent(provided = TRUE)\n\n# install Java 21\nrJavaEnv::java_quick_install(version = 21)\n\n# check if Java was successfully installed\nrJavaEnv::java_check_version_rjava()\n\nAlternatively, you can manually download and install JDK 21.\n\nWindows and MacOSUbuntu\n\n\nGo to Java Development Kit 21, download the latest 21 build corresponding to your operating system and run the executable file.\n\n\nInstall it via the terminal:\n\nsudo apt install -y openjdk-21-jdk openjdk-21-jre\njava -version",
-    "crumbs": [
-      "Home",
-      "Software",
-      "R & r5r"
-    ]
-  },
-  {
-    "objectID": "rr5r.html#footnotes",
-    "href": "rr5r.html#footnotes",
-    "title": "R, RStudio and r5r",
+    "objectID": "network.html#footnotes",
+    "href": "network.html#footnotes",
+    "title": "r5r network setup",
     "section": "Footnotes",
-    "text": "Footnotes\n\n\nWe will use RStudio, although if you already use other studio such as VScode, that’s also fine.↩︎",
+    "text": "Footnotes\n\n\nSee how to export an area with HOT export tool.↩︎\nOptional.↩︎\nOptional.↩︎",
     "crumbs": [
       "Home",
-      "Software",
-      "R & r5r"
+      "Exercises",
+      "r5r network setup"
     ]
   },
   {
-    "objectID": "pois.html",
-    "href": "pois.html",
-    "title": "POIs",
+    "objectID": "routing.html#uni-modal",
+    "href": "routing.html#uni-modal",
+    "title": "Routing",
+    "section": "Uni-modal",
+    "text": "Uni-modal",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "Routing"
+    ]
+  },
+  {
+    "objectID": "routing.html#multi-modal",
+    "href": "routing.html#multi-modal",
+    "title": "Routing",
+    "section": "Multi-modal",
+    "text": "Multi-modal\n\nEgress mode",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "Routing"
+    ]
+  },
+  {
+    "objectID": "routing.html#pareto-frontier",
+    "href": "routing.html#pareto-frontier",
+    "title": "Routing",
+    "section": "Pareto frontier",
+    "text": "Pareto frontier\n\nCreate rules for an operator\nCreate fare_rules.txt and fare_attributes.txt for Carris based on Metropolitano Lisboa.",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "Routing"
+    ]
+  },
+  {
+    "objectID": "software.html",
+    "href": "software.html",
+    "title": "Software",
     "section": "",
-    "text": "Different categories, based on Büttner et al. (2022) : www.flowersofproximity.com\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024):\nhttps://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146\nSee other OpenStreetMap categories at their Wiki.\n\n\n\nRandom points from",
+    "text": "There are several software options for modeling transportation systems.\nTo choose a traffic simulation software to work with can depend on different things to consider. You may use more than one software, depending on the scale you are working with, and on other characteristics.",
     "crumbs": [
       "Home",
-      "Exercises",
-      "POIs"
+      "Software"
     ]
   },
   {
-    "objectID": "pois.html#points-of-interest",
-    "href": "pois.html#points-of-interest",
-    "title": "POIs",
-    "section": "",
-    "text": "Different categories, based on Büttner et al. (2022) : www.flowersofproximity.com\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024):\nhttps://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146\nSee other OpenStreetMap categories at their Wiki.\n\n\n\nRandom points from",
+    "objectID": "software.html#macro-vs.-micro",
+    "href": "software.html#macro-vs.-micro",
+    "title": "Software",
+    "section": "Macro vs. Micro",
+    "text": "Macro vs. Micro\n\nMacro simulators\nSome softwares can be more appropriated if using a large scale, such as regional or city-wide area. For instance, the traffic impacts on the development of a new centrality (hospital, airport), or in the introduction of a new bridge or freeway can be simulated with macro simulator software.\nPTV Visum, Aimsun, r5r, and MatSim are examples of software to deal with a large scale simulation.\nFor macro simulations it is essential do consider zoning, flows, etc.\nUsually this type of simulators can smoothly integrate Public Transport information, such as GTFS files.\n\n\nMicro simulators\nWant to simulate changes at a street or neighbourhood level? Then micro simulator software should be used.\nPTV Visim, SUMO, and A/B Street are examples of software to deal with a micro scale simulation.",
     "crumbs": [
       "Home",
-      "Exercises",
-      "POIs"
+      "Software"
     ]
   },
   {
-    "objectID": "pois.html#grids",
-    "href": "pois.html#grids",
-    "title": "POIs",
-    "section": "Grids",
-    "text": "Grids\n\n\n\n\n\nYou can also use the universal h3 hexagon grid",
+    "objectID": "software.html#paid-licence-vs.-free",
+    "href": "software.html#paid-licence-vs.-free",
+    "title": "Software",
+    "section": "Paid (Licence) vs. Free",
+    "text": "Paid (Licence) vs. Free\n\nPaid\nAvailable commercial software is largely used at many companies and consultants. Universities also usually offer licence access to students and researchers. At IST we provide access to PTV Visum licence for registered students1.\nSome groups provide a student version, which typically does not include all the features.\nPTV Vissim and Visum, and Aimsum are examples of commercial simulation software.\n\n\nFree\nFree and open source software is getting more robust, and should not be overlooked.\nMatSim, r5r, and SUMO are examples of free and open source simulation software.",
     "crumbs": [
       "Home",
-      "Exercises",
-      "POIs"
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#operating-system",
+    "href": "software.html#operating-system",
+    "title": "Software",
+    "section": "Operating System",
+    "text": "Operating System\nTo choose a software to work with, you should also consider the operation system of your personal computer (Windows, MacOS, Linux based).\nPTV Visum and Visim are only available for Windows.\nYou may always use virtual machines to have another OS in your PC, but that comes with memory and performance cost.\n\nFor MacOS users, UTM is a good free option. Keep in mind that the University of Lisbon provides Windows stutent’s licences.\nFor Linux (Ubuntu or Debian) users, Gnome Boxes are an interesting option to run Windows.\nFor Windows users, you should have no problem using any software.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#instalation-and-usage",
+    "href": "software.html#instalation-and-usage",
+    "title": "Software",
+    "section": "Instalation and Usage",
+    "text": "Instalation and Usage\nWe only offer guidance to setup some of the available software2.\nPlease see each software page for more details.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#footnotes",
+    "href": "software.html#footnotes",
+    "title": "Software",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nContact Filipe Moura or Rosa Félix to access Visum.↩︎\nIf you use other traffic simulation software, you may contribute to this website and create another tutorial 🙂. Fork and Pull Request in this Github repo.↩︎",
+    "crumbs": [
+      "Home",
+      "Software"
     ]
   },
   {
@@ -499,90 +569,6 @@
       "Home",
       "Software",
       "VISSIM"
-    ]
-  },
-  {
-    "objectID": "visum.html",
-    "href": "visum.html",
-    "title": "Visum",
-    "section": "",
-    "text": "This tutorial is only for Windows\n\n\n\nIf you do not use Windows, you need to have a Virtual Machine. If you have an Arm processor this won’t work, even with a VM.\nIn this tutorial we will guide you to install and start using Visum.\nPTV Visum is a macro simulation software, non-free, available only for Windows OS.",
-    "crumbs": [
-      "Home",
-      "Software",
-      "VISUM"
-    ]
-  },
-  {
-    "objectID": "visum.html#installation",
-    "href": "visum.html#installation",
-    "title": "Visum",
-    "section": "Installation",
-    "text": "Installation\nPTV Visum is available to download at: https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Visum\nChoose the most recent version (recommended) ≤ 2024. The file may be more than 1.3 GB.\nIf you don’t have Python installed already in your PC, don’t worry, you can opt to install it along the Visum setup.\nThe available instructions are very straight forward.\n\nLicence activation\n\nYou should have received a server address of where the CERIS licence lives. If not, contact the course teacher.\n\nTo use Visum with the CERIS licence, you need to download PTV Licence Manager (Standard).\n\nIt will ask you to download also another tiny software CodeMeter Runtime. Say yes!\nAfter install it, open PTV Licence Manager, and click on ⚙️ Edit CodeMeter settings:\n\nAdd ➕ CodeMeter server, and insert the server address that was sent to you.\n\nPress close (go back) and now 🔍 Find Licences.\n\nAn available licence row should now appear on the list 🎉. Close it.\n\n\n\n\n\n\nFor any reason 🧙‍♂️ the licence is not accessed if you are connected to the IST DECivil ethernet network.",
-    "crumbs": [
-      "Home",
-      "Software",
-      "VISUM"
-    ]
-  },
-  {
-    "objectID": "visum.html#getting-started",
-    "href": "visum.html#getting-started",
-    "title": "Visum",
-    "section": "Getting started",
-    "text": "Getting started\nWhen launching Visum for the first time, you should have something like this. This is a good signal, it means that the connection to the licence server is running smoothly and that you are ready to start working on your projects! 🚀\n\nThe “Tutorial First Steps” may be wise to follow if you are not familiar with the software. It covers the following topics:\n\nNetwork editing (private and public transport)\nProcedure sequence\nGraphic parameters\n\nPTV also offers online tutorials to get familiar with the software.",
-    "crumbs": [
-      "Home",
-      "Software",
-      "VISUM"
-    ]
-  },
-  {
-    "objectID": "sumo.html",
-    "href": "sumo.html",
-    "title": "SUMO",
-    "section": "",
-    "text": "In this tutorial we will guide you to install and start using SUMO.\nSUMO is a free and open source traffic simulation suite. It is available since 2001 and allows modelling of intermodal traffic systems - including road vehicles, public transport and pedestrians. Included with SUMO is a wealth of supporting tools which automate core tasks for the creation, the execution and evaluation of traffic simulations, such as network import, route calculations, visualization and emission calculation (Lopez et al. 2018).\nSUMO is available for any operating system.",
-    "crumbs": [
-      "Home",
-      "Software",
-      "SUMO"
-    ]
-  },
-  {
-    "objectID": "sumo.html#installation",
-    "href": "sumo.html#installation",
-    "title": "SUMO",
-    "section": "Installation",
-    "text": "Installation\n\nWindows\nThe installation of SUMO in Windows is pretty straightforward.\nVisit https://eclipse.dev/sumo/ and download the installation file (137 MB).\n\nOpen the downloaded file and execute in your computer. Accept the defaults and install.\n\n\nMac OS\n\nsoon. 🐼\n\n\n\nLinux\nIn debian based (ubuntu, kubuntu, popOS, debian) follow this instructions.\n\nsoon. 🐧",
-    "crumbs": [
-      "Home",
-      "Software",
-      "SUMO"
-    ]
-  },
-  {
-    "objectID": "sumo.html#getting-started",
-    "href": "sumo.html#getting-started",
-    "title": "SUMO",
-    "section": "Getting started",
-    "text": "Getting started\nOpen SUMO-gui (Graphic User Interface). You should have a window like this:\n\nSeveral tutorials are available. Try these ones:\n\nHello World - Creating a simple network and demand scenario with netedit and visualizing it using sumo-gui\nOSMWebWizard - Setting up a scenario with just a few clicks using osmWebWizard.py; getting a network from OpenStreetMap\nQuick Start - A more complex tutorial with netedit; first steps in SUMO\nDriving in Circles - Work with netedit; define a flow; let vehicles drive in circles using rerouters\nSUMOlympics - Create special lanes and simple traffic lights in netedit, more about flows and vehicle types, working with vehicle\nAutobahn - Build a highway, create a mixed highway flow, visualize vehicle speed, save view settings\nImporting GTFS - Importing public transport schedules from public sources using the General Transit Feed Specification\n\n\n\nImport from OpenStreetMap\nThis requires having Python installed.\n\nWindows: Start -&gt; All Programs -&gt; OSM Web Wizard\nMacOS: 🐼\nLinux (terminal):\n\ncd ~/sumo/tools\npython3 osmWebWizard.py\nAnd a window will open in your browser.\n\nYou may zoom and pan to the area of your interest1. Click on “Select Area” and draw a rectangle with your mouse for which you wish to generate the simulation scenario.\n\nNetwork Generation\nThe infrastructure import from OSM into the SUMO simulation are affected by different Wizard options\n\nby default the “Add Polygon” checkbox is checked and a road traffic simulation is generated but all types of roads and rails will be imported as well (cycle paths, footpaths, railways etc)\nif the checkbox “left-hand Traffic” is enabled, the network will be built with left hand traffic rules. For most geographic regions where this is required, this feature will be enabled automatically but if it does not work, this option can be used as a remedy.\nif the checkbox “Car-only Network” is enabled, then only roads that permit passenger car traffic will be included. This can be used to reduce the network size and also helps to reduce intersection complexity\nif the checkbox “Import Public Transport” is enabled, then busStops and trainStops will be exported. Also busses, trams and trains will be generated that follow the public transport routes defined in OSM (but they will follow synthetic schedules).\nif the Demand-checkbox “Bicycles” is active, then extra bicycle lanes will be added to roads where OSM contains this information\nif the Demand-checkbox “Pedestrians” is active, then sidewalks and pedestrian crossings will be generated\n\n\n\nDemand Generation\nThe demand is defined by the demand generation panel. You activate this panel by clicking on the car pictogram.\n\nSUMO supports various modes of transport. At the demand generation panel, you can activate/deactivate the individual modes of transport by clicking the corresponding checkboxes. For each mode of transport, the OSM Web Wizard generates random demand based on a certain probability distribution, which is influenced by two parameters:\n\nEvery time a new vehicle is generated, the OSM Web Wizard randomly chooses a departure and arrival edge for the vehicle. The Through Traffic Factor defines how many times it is more likely for an edge at the boundary of the simulation area being chosen, compared to an edge entirely located inside the simulation area. A big value for the Through Traffic Factor implies that many vehicles depart and arrive at the boundary of the simulation area, which corresponds to a scenario with a lot of through traffic.\nThe Count parameter defines how many vehicles are generated per hour and lane-kilometer. Assuming\n\nthe network contains 3 edges with a combined length of 5 km\nthat each has 2 lanes which allows the current traffic mode\nand the count value is set to 90,\nthen 5 * 2 * 90 = 900 vehicles per hour will be generated.\n\n\nThis translates to a randomTrips parameter of p=4 which means a new vehicle is inserted every 4 seconds somewhere in the network.\nThe next step is generating and running the scenario.\n\n\nRoad-Type Selection\nIn the Road-Type tab of the OSM Web Wizard one can define which road types to be downloaded and rendered.\n\nFor example, one can only choose motorways, primary, secondary and tertiary to simulate major traffic. This impacts the file size of the OSM map data.\nBy default, all road types are checked which implies downloading and rendering all roads.\nUnchecking the “Add Polygon” checkbox in the Demand Generation section disables downloading and rendering non-road objects like buildings, waterways, etc. resulting in a smaller file size.\n\n\nGenerating and Running the scenario\nThe complete scenario will be generated automatically once Generate Scenario in the control panel has been clicked. The scenario generation takes a couple of seconds or minutes (depending, among other factors, on the size of the scenario).\nOnce the scenario generation process has finished, the sumo-gui starts and the simulation can be started by pressing the Play button.\n You will see agents making their trips. Adjust the Delay to make it faster or slower.\n\nA new directory under your user folder ~/SUMO/yyyy-mm-dd-hh-mm-ss will be created to host the data and results. You may now edit those files and re-run the simulation (open run file).\n\n\n\nUse the case study data\n\nSoon 🥽",
-    "crumbs": [
-      "Home",
-      "Software",
-      "SUMO"
-    ]
-  },
-  {
-    "objectID": "sumo.html#footnotes",
-    "href": "sumo.html#footnotes",
-    "title": "SUMO",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nCaution: if the map excerpt covers a very large area, the simulation might become slow or even unresponsive. We suggest choosing a similar zoom level as in the initial view.↩︎",
-    "crumbs": [
-      "Home",
-      "Software",
-      "SUMO"
     ]
   }
 ]
