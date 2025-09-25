@@ -1,5 +1,24 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Modelling of Tranport Systems",
+    "section": "",
+    "text": "This website makes available materials, data and tutorials to use at the Modelling of Transport Systems course of the Master in Transportation Systems at Instituto Superior Técnico - University of Lisbon.\n \nSee the Micro modelling home assignment.\n\n\n\n\n\n\nThis website is under construction\n\n\n\nIf you have any suggestions, please contact the course teacher."
+  },
+  {
+    "objectID": "accessibility.html",
+    "href": "accessibility.html",
+    "title": "Acessibility",
+    "section": "",
+    "text": "Isochrones\n\n\nAccessibility",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "Acessibility"
+    ]
+  },
+  {
     "objectID": "visum.html",
     "href": "visum.html",
     "title": "Visum",
@@ -84,6 +103,186 @@
     ]
   },
   {
+    "objectID": "scenarios.html#with-and-without-a-metro-station-or-metro-line",
+    "href": "scenarios.html#with-and-without-a-metro-station-or-metro-line",
+    "title": "Scenarios",
+    "section": "With and without a metro station or metro line",
+    "text": "With and without a metro station or metro line\nLet’s create a new metro line or a new station in your city.\n\n\n\nNew pink line (expansion in Lisbon)\n\n\n\nMethodology\nFor that, an easy graphic interface software is the PTV Lines.\n\nLogin into PTV Lines (upper right corner) with the credentials that were sent to you.\nCreate a new scenario, and import an existing subway gtfs (.zip) - max 60 lines!\nEdit that scenario by creating stops and lines.\nExport the GTFS file.\nDuplicate your r5r folder (baseline scenario) and delete the network.dat file inside. Rename it as ..._sen1 and replace the gtfs.zip by the one you just exported.\nBuild a new network with that folder path.\n\n\n\nCreate a metro line with PTV Lines\nFirst, create new station points (S) and name them. As many as you need.\n\n\n\n\n\n\n\n\n\n\nThen, create a new line (L), name it something like “Expansion”, and create a new route (R). Name it 0 (you can edit later) and draw that line roughly by selecting an existing start station and connecting to your new stations.\n\n\n\n\n\nAdd trips to it (T), with a proper headway.\n\n\n\n\n\nAfter defining the weekday and weekend trips, go to the Outbound route and “Create opposite direction”, so you can have both directions now. Rename the line routes, something as “Start station - End station”.\n\n\n\n\n\nGo to Connections, and click on a connecting station to visualize the time diagram of connections with other routes.\n\n\n\n\n\nAfter all your edits, go back to the dashboard, and click on “Export supply”. Export as GTFS (.zip)\n\nYour scenario will be saved in your dashboard. You can edit or duplicate them later.\n\n\n\n\n\n\nYour task\n\n\n\nRun some routing and accessibility analysis, and compare with the baseline scenario.\n\n\nIf you do multi-modal analysis, you may need to use GTFShift::unify() to merge the new gtfs with other modes and create new transfers.",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "Scenarios"
+    ]
+  },
+  {
+    "objectID": "routing.html#uni-modal",
+    "href": "routing.html#uni-modal",
+    "title": "Routing",
+    "section": "Uni-modal",
+    "text": "Uni-modal",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "Routing"
+    ]
+  },
+  {
+    "objectID": "routing.html#multi-modal",
+    "href": "routing.html#multi-modal",
+    "title": "Routing",
+    "section": "Multi-modal",
+    "text": "Multi-modal\n\nEgress mode",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "Routing"
+    ]
+  },
+  {
+    "objectID": "routing.html#pareto-frontier",
+    "href": "routing.html#pareto-frontier",
+    "title": "Routing",
+    "section": "Pareto frontier",
+    "text": "Pareto frontier\n\nCreate rules for an operator\nCreate fare_rules.txt and fare_attributes.txt for Carris based on Metropolitano Lisboa.",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "Routing"
+    ]
+  },
+  {
+    "objectID": "network.html",
+    "href": "network.html",
+    "title": "r5r network setup",
+    "section": "",
+    "text": "In this chapter we will guide you through the data requirements, data collection, and setting up a multi-modal network with r5r.",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "r5r network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#data-requirements",
+    "href": "network.html#data-requirements",
+    "title": "r5r network setup",
+    "section": "Data requirements",
+    "text": "Data requirements\nYou will need R and r5r (Pereira et al. 2021) package installed on your computer.\nr5r sets-up a network file .dat by combining the following datasets in the same folder:\n\nRoad Network (OpenStreetMap1 as .osm.pbf)\nGTFS2 from PTransit operators (a single .zip or several)\nDigital Elevation Model3 (.tiff), to consider impedances for walking and cycling\n\n\n\n\n\n\n\nNote\n\n\n\nVer o código code/r5r.R\n\n\nFor the documentation of data needed, see r5r::build_network",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "r5r network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#data-collection",
+    "href": "network.html#data-collection",
+    "title": "r5r network setup",
+    "section": "Data collection",
+    "text": "Data collection",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "r5r network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#setting-up-a-routable-transport-network",
+    "href": "network.html#setting-up-a-routable-transport-network",
+    "title": "r5r network setup",
+    "section": "Setting up a routable transport network",
+    "text": "Setting up a routable transport network\n\n# Load packages\nlibrary(tidyverse)\nlibrary(sf)\noptions(java.parameters = '-Xmx8G') # allocate memory for 8GB \nlibrary(r5r)\n\n\ndata_path= \"data/r5r\" # relative path to your folder containing the required data\nnetwork = build_network(\n  data_path,\n  elevation = \"TOBLER\" # optional. MINETTI or NONE\n)\n\n\n\n\n\n\n\nIf you already have a network.dat file, it will use that pre-build network.",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "r5r network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#footnotes",
+    "href": "network.html#footnotes",
+    "title": "r5r network setup",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nSee how to export an area with HOT export tool.↩︎\nOptional.↩︎\nOptional.↩︎",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "r5r network setup"
+    ]
+  },
+  {
+    "objectID": "micro.html",
+    "href": "micro.html",
+    "title": "Micro Case Study",
+    "section": "",
+    "text": "You may use an intersection file already prepared to be used with VISSIM, like this one:\nThis file is available at Fenix, for registered students.\nHow did this file was converted from OpenStreetMap? 🧐",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "Micro Case Study"
+    ]
+  },
+  {
+    "objectID": "micro.html#from-openstreetmap-to-vissim",
+    "href": "micro.html#from-openstreetmap-to-vissim",
+    "title": "Micro Case Study",
+    "section": "From OpenStreetMap to VISSIM",
+    "text": "From OpenStreetMap to VISSIM\n\nRequirements\nThis will require:\n\nVISSIM installed with an active license\nPython 3.x, and the following packages\n\nwin32com\ngdal\n\nMicrosoft Visual C++ build tools\nOptional: OSGeo4W1\n\n\n\nOpenStreetMap\nGo to OpenStreetMap and zoom into your area.\nSelect Export and save the map.osm file.\n\nYou don’t need to open that file now.\n\n\nOSM2VISSIM tool\n\nGo to the OSM2VISSIM tool Github page, and download this OSM2VISSIM_v0.1.py file.\n\n\n\nCreate a folder (wherever you want) and put there this .py file and the .osm file exported before. Now copy your folder path!\n\n\n\nIf you have OSGeo4W installed2, open the shell. It will look like this:\n\n\n\nNavigate to your created folder, using cd yourfolderpath\nNow, run python OSM2VISSIM_v0.1.py\n\n\n\nThis will open a dialogue window where you are supposed to type your .osm file name.\nMine is gago\n\n\n\nPress Set.\n\n\n\n\n\n\n\nDon’t worry! Things are happening even if you don’t notice. Just be patient and wait.\n\n\n\nThis will create a new file, and open VISSIM automatically.\nNote: If you go to the Network tab and don’t see anything, even after clicking on zoom to network button, close VISSIM, and close the Shell. This happened to me every first time.\n\nRepeat again the steps from 1 to 7.\n\nThis will open VISSIM automatically and now the shell will show things happening:\n\nWait until VISSIM it closes automatically - don’t click anything.\n\nYou may now close the OSGeo4W shell.\n\nA few more files were created now:\n\n\n\nAt VISSIM\nOpen the file name.inpx and close the Start Page.\nAt Network Editor panel, click Show entire network:\n\nAs you may note, your network is not exactly in place, when comparing to a basemap. 🥴\n\nTo adjust this, you may either move the basemap or the network.\nFirst, with the distance tool, measure the distance of one reference point of the network to where it should be placed, in both X and Y directions.\n\nThen Edit ⟶ Move Network\n\nRepeat the process until the network intersection is centred with the intersection in the basemap.\nSave your network file! 🎉\nThis process resulted in the abovementioned file.\nNo go on and adjust the details that require some attention.",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "Micro Case Study"
+    ]
+  },
+  {
+    "objectID": "micro.html#footnotes",
+    "href": "micro.html#footnotes",
+    "title": "Micro Case Study",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nThis installation already comes with all the required packages.↩︎\nYou may do everything on the cmd (command line prompt terminal), but some errors may be output.↩︎",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "Micro Case Study"
+    ]
+  },
+  {
+    "objectID": "pois.html",
+    "href": "pois.html",
+    "title": "POIs",
+    "section": "",
+    "text": "Different categories, based on Büttner et al. (2022) : www.flowersofproximity.com\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024):\nhttps://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146\nSee other OpenStreetMap categories at their Wiki.\n\n\n\nRandom points from",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "POIs"
+    ]
+  },
+  {
+    "objectID": "pois.html#points-of-interest",
+    "href": "pois.html#points-of-interest",
+    "title": "POIs",
+    "section": "",
+    "text": "Different categories, based on Büttner et al. (2022) : www.flowersofproximity.com\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024):\nhttps://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146\nSee other OpenStreetMap categories at their Wiki.\n\n\n\nRandom points from",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "POIs"
+    ]
+  },
+  {
+    "objectID": "pois.html#grids",
+    "href": "pois.html#grids",
+    "title": "POIs",
+    "section": "Grids",
+    "text": "Grids\n\n\n\n\n\nYou can also use the universal h3 hexagon grid",
+    "crumbs": [
+      "Home",
+      "Exercises",
+      "POIs"
+    ]
+  },
+  {
     "objectID": "rr5r.html",
     "href": "rr5r.html",
     "title": "R, RStudio and r5r",
@@ -156,94 +355,105 @@
     ]
   },
   {
-    "objectID": "pois.html",
-    "href": "pois.html",
-    "title": "POIs",
+    "objectID": "software.html",
+    "href": "software.html",
+    "title": "Software",
     "section": "",
-    "text": "Different categories, based on Büttner et al. (2022) : www.flowersofproximity.com\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024):\nhttps://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146\nSee other OpenStreetMap categories at their Wiki.\n\n\n\nRandom points from",
+    "text": "There are several software options for modeling transportation systems.\nTo choose a traffic simulation software to work with can depend on different things to consider. You may use more than one software, depending on the scale you are working with, and on other characteristics.",
     "crumbs": [
       "Home",
-      "Exercises",
-      "POIs"
+      "Software"
     ]
   },
   {
-    "objectID": "pois.html#points-of-interest",
-    "href": "pois.html#points-of-interest",
-    "title": "POIs",
-    "section": "",
-    "text": "Different categories, based on Büttner et al. (2022) : www.flowersofproximity.com\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024):\nhttps://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146\nSee other OpenStreetMap categories at their Wiki.\n\n\n\nRandom points from",
+    "objectID": "software.html#macro-vs.-micro",
+    "href": "software.html#macro-vs.-micro",
+    "title": "Software",
+    "section": "Macro vs. Micro",
+    "text": "Macro vs. Micro\n\nMacro simulators\nSome softwares can be more appropriated if using a large scale, such as regional or city-wide area. For instance, the traffic impacts on the development of a new centrality (hospital, airport), or in the introduction of a new bridge or freeway can be simulated with macro simulator software.\nPTV Visum, Aimsun, r5r, and MatSim are examples of software to deal with a large scale simulation.\nFor macro simulations it is essential do consider zoning, flows, etc.\nUsually this type of simulators can smoothly integrate Public Transport information, such as GTFS files.\n\n\nMicro simulators\nWant to simulate changes at a street or neighbourhood level? Then micro simulator software should be used.\nPTV Visim, SUMO, and A/B Street are examples of software to deal with a micro scale simulation.",
     "crumbs": [
       "Home",
-      "Exercises",
-      "POIs"
+      "Software"
     ]
   },
   {
-    "objectID": "pois.html#grids",
-    "href": "pois.html#grids",
-    "title": "POIs",
-    "section": "Grids",
-    "text": "Grids\n\n\n\n\n\nYou can also use the universal h3 hexagon grid",
+    "objectID": "software.html#paid-licence-vs.-free",
+    "href": "software.html#paid-licence-vs.-free",
+    "title": "Software",
+    "section": "Paid (Licence) vs. Free",
+    "text": "Paid (Licence) vs. Free\n\nPaid\nAvailable commercial software is largely used at many companies and consultants. Universities also usually offer licence access to students and researchers. At IST we provide access to PTV Visum licence for registered students1.\nSome groups provide a student version, which typically does not include all the features.\nPTV Vissim and Visum, and Aimsum are examples of commercial simulation software.\n\n\nFree\nFree and open source software is getting more robust, and should not be overlooked.\nMatSim, r5r, and SUMO are examples of free and open source simulation software.",
     "crumbs": [
       "Home",
-      "Exercises",
-      "POIs"
+      "Software"
     ]
   },
   {
-    "objectID": "micro.html",
-    "href": "micro.html",
-    "title": "Micro Case Study",
-    "section": "",
-    "text": "You may use an intersection file already prepared to be used with VISSIM, like this one:\nThis file is available at Fenix, for registered students.\nHow did this file was converted from OpenStreetMap? 🧐",
+    "objectID": "software.html#operating-system",
+    "href": "software.html#operating-system",
+    "title": "Software",
+    "section": "Operating System",
+    "text": "Operating System\nTo choose a software to work with, you should also consider the operation system of your personal computer (Windows, MacOS, Linux based).\nPTV Visum and Visim are only available for Windows.\nYou may always use virtual machines to have another OS in your PC, but that comes with memory and performance cost.\n\nFor MacOS users, UTM is a good free option. Keep in mind that the University of Lisbon provides Windows stutent’s licences.\nFor Linux (Ubuntu or Debian) users, Gnome Boxes are an interesting option to run Windows.\nFor Windows users, you should have no problem using any software.",
     "crumbs": [
       "Home",
-      "Exercises",
-      "Micro Case Study"
+      "Software"
     ]
   },
   {
-    "objectID": "micro.html#from-openstreetmap-to-vissim",
-    "href": "micro.html#from-openstreetmap-to-vissim",
-    "title": "Micro Case Study",
-    "section": "From OpenStreetMap to VISSIM",
-    "text": "From OpenStreetMap to VISSIM\n\nRequirements\nThis will require:\n\nVISSIM installed with an active license\nPython 3.x, and the following packages\n\nwin32com\ngdal\n\nMicrosoft Visual C++ build tools\nOptional: OSGeo4W1\n\n\n\nOpenStreetMap\nGo to OpenStreetMap and zoom into your area.\nSelect Export and save the map.osm file.\n\nYou don’t need to open that file now.\n\n\nOSM2VISSIM tool\n\nGo to the OSM2VISSIM tool Github page, and download this OSM2VISSIM_v0.1.py file.\n\n\n\nCreate a folder (wherever you want) and put there this .py file and the .osm file exported before. Now copy your folder path!\n\n\n\nIf you have OSGeo4W installed2, open the shell. It will look like this:\n\n\n\nNavigate to your created folder, using cd yourfolderpath\nNow, run python OSM2VISSIM_v0.1.py\n\n\n\nThis will open a dialogue window where you are supposed to type your .osm file name.\nMine is gago\n\n\n\nPress Set.\n\n\n\n\n\n\n\nDon’t worry! Things are happening even if you don’t notice. Just be patient and wait.\n\n\n\nThis will create a new file, and open VISSIM automatically.\nNote: If you go to the Network tab and don’t see anything, even after clicking on zoom to network button, close VISSIM, and close the Shell. This happened to me every first time.\n\nRepeat again the steps from 1 to 7.\n\nThis will open VISSIM automatically and now the shell will show things happening:\n\nWait until VISSIM it closes automatically - don’t click anything.\n\nYou may now close the OSGeo4W shell.\n\nA few more files were created now:\n\n\n\nAt VISSIM\nOpen the file name.inpx and close the Start Page.\nAt Network Editor panel, click Show entire network:\n\nAs you may note, your network is not exactly in place, when comparing to a basemap. 🥴\n\nTo adjust this, you may either move the basemap or the network.\nFirst, with the distance tool, measure the distance of one reference point of the network to where it should be placed, in both X and Y directions.\n\nThen Edit ⟶ Move Network\n\nRepeat the process until the network intersection is centred with the intersection in the basemap.\nSave your network file! 🎉\nThis process resulted in the abovementioned file.\nNo go on and adjust the details that require some attention.",
+    "objectID": "software.html#instalation-and-usage",
+    "href": "software.html#instalation-and-usage",
+    "title": "Software",
+    "section": "Instalation and Usage",
+    "text": "Instalation and Usage\nWe only offer guidance to setup some of the available software2.\nPlease see each software page for more details.",
     "crumbs": [
       "Home",
-      "Exercises",
-      "Micro Case Study"
+      "Software"
     ]
   },
   {
-    "objectID": "micro.html#footnotes",
-    "href": "micro.html#footnotes",
-    "title": "Micro Case Study",
+    "objectID": "software.html#footnotes",
+    "href": "software.html#footnotes",
+    "title": "Software",
     "section": "Footnotes",
-    "text": "Footnotes\n\n\nThis installation already comes with all the required packages.↩︎\nYou may do everything on the cmd (command line prompt terminal), but some errors may be output.↩︎",
+    "text": "Footnotes\n\n\nContact Filipe Moura or Rosa Félix to access Visum.↩︎\nIf you use other traffic simulation software, you may contribute to this website and create another tutorial 🙂. Fork and Pull Request in this Github repo.↩︎",
     "crumbs": [
       "Home",
-      "Exercises",
-      "Micro Case Study"
+      "Software"
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Modelling of Tranport Systems",
+    "objectID": "vissim.html",
+    "href": "vissim.html",
+    "title": "Vissim",
     "section": "",
-    "text": "This website makes available materials, data and tutorials to use at the Modelling of Transport Systems course of the Master in Transportation Systems at Instituto Superior Técnico - University of Lisbon.\n \nSee the Micro modelling home assignment.\n\n\n\n\n\n\nThis website is under construction\n\n\n\nIf you have any suggestions, please contact the course teacher."
-  },
-  {
-    "objectID": "accessibility.html#scenarios",
-    "href": "accessibility.html#scenarios",
-    "title": "Acessibility",
-    "section": "Scenarios",
-    "text": "Scenarios\n\nWork day vs. weekend\n\n\nWith and without a metro station or metro line\nLet’s create a new metro line or a new station in your city.\n\n\n\nNew pink line (expansion in Lisbon)\n\n\n\nMethodology\nFor that, an easy graphic interface software is the PTV Lines.\n\nLogin into PTV Lines (upper right corner) with the credentials that were sent to you.\nCreate a new scenario, and import an existing subway gtfs (.zip) - max 60 lines!\nEdit that scenario by creating stops and lines.\nExport the GTFS file.\nDuplicate your r5r folder (baseline scenario) and delete the network.dat file inside. Rename it as ..._sen1 and replace the gtfs.zip by the one you just exported.\nBuild a new network with that folder path.\n\n\n\nCreate a metro line with PTV Lines\nFirst, create new station points (S) and name them. As many as you need.\n\n\n\n\n\n\n\n\n\n\nThen, create a new line (L), name it something like “Expansion”, and create a new route (R). Name it 0 (you can edit later) and draw that line roughly by selecting an existing start station and connecting to your new stations.\n\n\n\n\n\nAdd trips to it (T), with a proper headway.\n\n\n\n\n\nAfter defining the weekday and weekend trips, go to the Outbound route and “Create opposite direction”, so you can have both directions now. Rename the line routes, something as “Start station - End station”.\n\n\n\n\n\nGo to Connections, and click on a connecting station to visualize the time diagram of connections with other routes.\n\n\n\n\n\nAfter all your edits, go back to the dashboard, and click on “Export supply”. Export as GTFS (.zip)\n\nYour scenario will be saved in your dashboard. You can edit or duplicate them later.\n\n\n\n\n\n\nYour task\n\n\n\nRun some routing and accessibility analysis, and compare with the baseline scenario.",
+    "text": "This tutorial is only for Windows\n\n\n\nIf you do not use Windows, you need to have a Virtual Machine. If you have an Arm processor this won’t work, even with a VM.\nIn this tutorial we will guide you to install and start using Vissim.\nPTV Vissim is a micro simulation software, non-free, available only for Windows OS.",
     "crumbs": [
       "Home",
-      "Exercises",
-      "Acessibility"
+      "Software",
+      "VISSIM"
+    ]
+  },
+  {
+    "objectID": "vissim.html#vissim-install",
+    "href": "vissim.html#vissim-install",
+    "title": "Vissim",
+    "section": "Installation",
+    "text": "Installation\nPTV Vissim is available to download at: https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Vissim\n\nChoose the most recent version (recommended) ≤ 2024. The file may be more than 1.3 GB.\nIf you don’t have Python installed already in your PC, don’t worry, you can opt to install it along the Vissim setup.\nThe available instructions are very straight forward.\n\nLicence activation\n\nYou should have received a server address of where the CERIS licence lives. If not, contact the course teacher.\n\nTo use Vissim with the CERIS licence, you need to download PTV Licence Manager (Standard).\n\nIt will ask you to download also another tiny software CodeMeter Runtime. Say yes!\nAfter install it, open PTV Licence Manager, and click on ⚙️ Edit CodeMeter settings:\n\nAdd ➕ CodeMeter server, and insert the server address that was sent to you.\n\nPress close (go back) and now 🔍 Find Licences.\n\nAn available licence row should now appear on the list 🎉. Close it.",
+    "crumbs": [
+      "Home",
+      "Software",
+      "VISSIM"
+    ]
+  },
+  {
+    "objectID": "vissim.html#getting-started",
+    "href": "vissim.html#getting-started",
+    "title": "Vissim",
+    "section": "Getting started",
+    "text": "Getting started\nWhen launching Vissim for the first time, you should have something like this. This is a good signal, it means that the connection to the licence server is running smoothly and that you are ready to start working on your projects! 🚀\n\nThe “Tutorial First Steps” may be wise to follow if you are not familiar with the software. It covers the following topics:\n\nDeveloping the network\nRun Simulation\nSignal control\n\nPTV also offers online tutorials to get familiar with the software.",
+    "crumbs": [
+      "Home",
+      "Software",
+      "VISSIM"
     ]
   },
   {
@@ -371,204 +581,6 @@
       "Home",
       "Exercises",
       "Macro Case Study"
-    ]
-  },
-  {
-    "objectID": "network.html",
-    "href": "network.html",
-    "title": "r5r network setup",
-    "section": "",
-    "text": "In this chapter we will guide you through the data requirements, data collection, and setting up a multi-modal network with r5r.",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "r5r network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#data-requirements",
-    "href": "network.html#data-requirements",
-    "title": "r5r network setup",
-    "section": "Data requirements",
-    "text": "Data requirements\nYou will need R and r5r (Pereira et al. 2021) package installed on your computer.\nr5r sets-up a network file .dat by combining the following datasets in the same folder:\n\nRoad Network (OpenStreetMap1 as .osm.pbf)\nGTFS2 from PTransit operators (a single .zip or several)\nDigital Elevation Model3 (.tiff), to consider impedances for walking and cycling\n\n\n\n\n\n\n\nNote\n\n\n\nVer o código code/r5r.R\n\n\nFor the documentation of data needed, see r5r::build_network",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "r5r network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#data-collection",
-    "href": "network.html#data-collection",
-    "title": "r5r network setup",
-    "section": "Data collection",
-    "text": "Data collection",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "r5r network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#setting-up-a-routable-transport-network",
-    "href": "network.html#setting-up-a-routable-transport-network",
-    "title": "r5r network setup",
-    "section": "Setting up a routable transport network",
-    "text": "Setting up a routable transport network\n\n# Load packages\nlibrary(tidyverse)\nlibrary(sf)\noptions(java.parameters = '-Xmx8G') # allocate memory for 8GB \nlibrary(r5r)\n\n\ndata_path= \"data/r5r\" # relative path to your folder containing the required data\nnetwork = build_network(\n  data_path,\n  elevation = \"TOBLER\" # optional. MINETTI or NONE\n)\n\n\n\n\n\n\n\nIf you already have a network.dat file, it will use that pre-build network.",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "r5r network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#footnotes",
-    "href": "network.html#footnotes",
-    "title": "r5r network setup",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nSee how to export an area with HOT export tool.↩︎\nOptional.↩︎\nOptional.↩︎",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "r5r network setup"
-    ]
-  },
-  {
-    "objectID": "routing.html#uni-modal",
-    "href": "routing.html#uni-modal",
-    "title": "Routing",
-    "section": "Uni-modal",
-    "text": "Uni-modal",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "Routing"
-    ]
-  },
-  {
-    "objectID": "routing.html#multi-modal",
-    "href": "routing.html#multi-modal",
-    "title": "Routing",
-    "section": "Multi-modal",
-    "text": "Multi-modal\n\nEgress mode",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "Routing"
-    ]
-  },
-  {
-    "objectID": "routing.html#pareto-frontier",
-    "href": "routing.html#pareto-frontier",
-    "title": "Routing",
-    "section": "Pareto frontier",
-    "text": "Pareto frontier\n\nCreate rules for an operator\nCreate fare_rules.txt and fare_attributes.txt for Carris based on Metropolitano Lisboa.",
-    "crumbs": [
-      "Home",
-      "Exercises",
-      "Routing"
-    ]
-  },
-  {
-    "objectID": "software.html",
-    "href": "software.html",
-    "title": "Software",
-    "section": "",
-    "text": "There are several software options for modeling transportation systems.\nTo choose a traffic simulation software to work with can depend on different things to consider. You may use more than one software, depending on the scale you are working with, and on other characteristics.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#macro-vs.-micro",
-    "href": "software.html#macro-vs.-micro",
-    "title": "Software",
-    "section": "Macro vs. Micro",
-    "text": "Macro vs. Micro\n\nMacro simulators\nSome softwares can be more appropriated if using a large scale, such as regional or city-wide area. For instance, the traffic impacts on the development of a new centrality (hospital, airport), or in the introduction of a new bridge or freeway can be simulated with macro simulator software.\nPTV Visum, Aimsun, r5r, and MatSim are examples of software to deal with a large scale simulation.\nFor macro simulations it is essential do consider zoning, flows, etc.\nUsually this type of simulators can smoothly integrate Public Transport information, such as GTFS files.\n\n\nMicro simulators\nWant to simulate changes at a street or neighbourhood level? Then micro simulator software should be used.\nPTV Visim, SUMO, and A/B Street are examples of software to deal with a micro scale simulation.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#paid-licence-vs.-free",
-    "href": "software.html#paid-licence-vs.-free",
-    "title": "Software",
-    "section": "Paid (Licence) vs. Free",
-    "text": "Paid (Licence) vs. Free\n\nPaid\nAvailable commercial software is largely used at many companies and consultants. Universities also usually offer licence access to students and researchers. At IST we provide access to PTV Visum licence for registered students1.\nSome groups provide a student version, which typically does not include all the features.\nPTV Vissim and Visum, and Aimsum are examples of commercial simulation software.\n\n\nFree\nFree and open source software is getting more robust, and should not be overlooked.\nMatSim, r5r, and SUMO are examples of free and open source simulation software.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#operating-system",
-    "href": "software.html#operating-system",
-    "title": "Software",
-    "section": "Operating System",
-    "text": "Operating System\nTo choose a software to work with, you should also consider the operation system of your personal computer (Windows, MacOS, Linux based).\nPTV Visum and Visim are only available for Windows.\nYou may always use virtual machines to have another OS in your PC, but that comes with memory and performance cost.\n\nFor MacOS users, UTM is a good free option. Keep in mind that the University of Lisbon provides Windows stutent’s licences.\nFor Linux (Ubuntu or Debian) users, Gnome Boxes are an interesting option to run Windows.\nFor Windows users, you should have no problem using any software.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#instalation-and-usage",
-    "href": "software.html#instalation-and-usage",
-    "title": "Software",
-    "section": "Instalation and Usage",
-    "text": "Instalation and Usage\nWe only offer guidance to setup some of the available software2.\nPlease see each software page for more details.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#footnotes",
-    "href": "software.html#footnotes",
-    "title": "Software",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nContact Filipe Moura or Rosa Félix to access Visum.↩︎\nIf you use other traffic simulation software, you may contribute to this website and create another tutorial 🙂. Fork and Pull Request in this Github repo.↩︎",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "vissim.html",
-    "href": "vissim.html",
-    "title": "Vissim",
-    "section": "",
-    "text": "This tutorial is only for Windows\n\n\n\nIf you do not use Windows, you need to have a Virtual Machine. If you have an Arm processor this won’t work, even with a VM.\nIn this tutorial we will guide you to install and start using Vissim.\nPTV Vissim is a micro simulation software, non-free, available only for Windows OS.",
-    "crumbs": [
-      "Home",
-      "Software",
-      "VISSIM"
-    ]
-  },
-  {
-    "objectID": "vissim.html#vissim-install",
-    "href": "vissim.html#vissim-install",
-    "title": "Vissim",
-    "section": "Installation",
-    "text": "Installation\nPTV Vissim is available to download at: https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Vissim\n\nChoose the most recent version (recommended) ≤ 2024. The file may be more than 1.3 GB.\nIf you don’t have Python installed already in your PC, don’t worry, you can opt to install it along the Vissim setup.\nThe available instructions are very straight forward.\n\nLicence activation\n\nYou should have received a server address of where the CERIS licence lives. If not, contact the course teacher.\n\nTo use Vissim with the CERIS licence, you need to download PTV Licence Manager (Standard).\n\nIt will ask you to download also another tiny software CodeMeter Runtime. Say yes!\nAfter install it, open PTV Licence Manager, and click on ⚙️ Edit CodeMeter settings:\n\nAdd ➕ CodeMeter server, and insert the server address that was sent to you.\n\nPress close (go back) and now 🔍 Find Licences.\n\nAn available licence row should now appear on the list 🎉. Close it.",
-    "crumbs": [
-      "Home",
-      "Software",
-      "VISSIM"
-    ]
-  },
-  {
-    "objectID": "vissim.html#getting-started",
-    "href": "vissim.html#getting-started",
-    "title": "Vissim",
-    "section": "Getting started",
-    "text": "Getting started\nWhen launching Vissim for the first time, you should have something like this. This is a good signal, it means that the connection to the licence server is running smoothly and that you are ready to start working on your projects! 🚀\n\nThe “Tutorial First Steps” may be wise to follow if you are not familiar with the software. It covers the following topics:\n\nDeveloping the network\nRun Simulation\nSignal control\n\nPTV also offers online tutorials to get familiar with the software.",
-    "crumbs": [
-      "Home",
-      "Software",
-      "VISSIM"
     ]
   }
 ]

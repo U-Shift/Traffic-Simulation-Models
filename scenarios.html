@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="R Félix">
 
-<title>MatSim – Modelling of Tranport Systems</title>
+<title>Scenarios – Modelling of Tranport Systems</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -132,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">MatSim</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./casestudy.html">Exercises</a></li><li class="breadcrumb-item"><a href="./scenarios.html">Scenarios</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -240,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./scenarios.html" class="sidebar-item-text sidebar-link">
+  <a href="./scenarios.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Scenarios</span></a>
   </div>
 </li>
@@ -251,27 +250,32 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#work-day-vs.-weekend" id="toc-work-day-vs.-weekend" class="nav-link active" data-scroll-target="#work-day-vs.-weekend">Work day vs.&nbsp;weekend</a></li>
+  <li><a href="#with-and-without-a-metro-station-or-metro-line" id="toc-with-and-without-a-metro-station-or-metro-line" class="nav-link" data-scroll-target="#with-and-without-a-metro-station-or-metro-line">With and without a metro station or metro line</a>
+  <ul class="collapse">
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
+  <li><a href="#create-a-metro-line-with-ptv-lines" id="toc-create-a-metro-line-with-ptv-lines" class="nav-link" data-scroll-target="#create-a-metro-line-with-ptv-lines">Create a metro line with PTV Lines</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/scenarios.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./casestudy.html">Exercises</a></li><li class="breadcrumb-item"><a href="./scenarios.html">Scenarios</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">MatSim</h1>
+<h1 class="title">Scenarios</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>R Félix </p>
-          </div>
-  </div>
     
   
     
@@ -282,8 +286,88 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="work-day-vs.-weekend" class="level2">
+<h2 class="anchored" data-anchor-id="work-day-vs.-weekend">Work day vs.&nbsp;weekend</h2>
+</section>
+<section id="with-and-without-a-metro-station-or-metro-line" class="level2">
+<h2 class="anchored" data-anchor-id="with-and-without-a-metro-station-or-metro-line">With and without a metro station or metro line</h2>
+<p>Let’s create a new metro line or a new station in your city.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1897244126.png" class="img-fluid figure-img"></p>
+<figcaption>New pink line (expansion in Lisbon)</figcaption>
+</figure>
+</div>
+<section id="methodology" class="level3">
+<h3 class="anchored" data-anchor-id="methodology">Methodology</h3>
+<p>For that, an easy graphic interface software is the PTV Lines.</p>
+<ol type="1">
+<li>Login into <a href="https://www.ptvgroup.com/en/products/ptv-lines">PTV Lines</a> (upper right corner) with the credentials that were sent to you.</li>
+<li>Create a new scenario, and import an existing subway gtfs (<code>.zip</code>) - <strong>max 60 lines</strong>!</li>
+<li>Edit that scenario by creating stops and lines.</li>
+<li>Export the GTFS file.</li>
+<li>Duplicate your r5r folder (baseline scenario) and delete the <code>network.dat</code> file inside. Rename it as <code>..._sen1</code> and replace the <code>gtfs.zip</code> by the one you just exported.</li>
+<li>Build a new network with that folder path.</li>
+</ol>
+</section>
+<section id="create-a-metro-line-with-ptv-lines" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-metro-line-with-ptv-lines">Create a metro line with PTV Lines</h3>
+<p>First, create new station points (<code>S</code>) and name them. As many as you need.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-4144832314.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="231"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-4243677038.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Then, create a new line (<code>L</code>), name it something like “Expansion”, and create a new route (<code>R</code>). Name it <code>0</code> (you can edit later) and draw that line roughly by selecting an existing start station and connecting to your new stations.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1488195502.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="369"></p>
+</figure>
+</div>
+<p>Add trips to it (<code>T</code>), with a proper headway.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2022476792.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="421"></p>
+</figure>
+</div>
+<p>After defining the weekday and weekend trips, go to the Outbound route and “<em>Create opposite direction</em>”, so you can have both directions now. Rename the line routes, something as “<em>Start station - End station</em>”.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-563058203.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="345"></p>
+</figure>
+</div>
+<p>Go to Connections, and click on a connecting station to visualize the time diagram of connections with other routes.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-4040021677.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>After all your edits, go back to the dashboard, and click on “Export supply”. Export as GTFS (<code>.zip</code>)</p>
+<p><img src="images/clipboard-2244082372.png" class="img-fluid"></p>
+<p>Your scenario will be saved in your dashboard. You can edit or duplicate them later.</p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run some routing and accessibility analysis, and compare with the baseline scenario.</p>
+</div>
+</div>
+<p>If you do multi-modal analysis, you <strong>may need</strong> to use <a href="https://u-shift.github.io/GTFShift/reference/unify.html"><code>GTFShift::unify()</code></a> to merge the new gtfs with other modes and create new transfers.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -858,7 +942,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
 <p>TModelling of Tranport Systems</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/matsim.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/scenarios.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>2025-2026</p>
 </div>
