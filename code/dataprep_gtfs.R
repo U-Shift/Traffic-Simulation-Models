@@ -264,9 +264,20 @@ ggplot(duracao_viagem_Braga_Dom) +
 
 
 
+# metro expansion fom PTV Lines -------------------------------------------
+
+library(GTFShift)
+metro = GTFShift::load_feed("data/r5r/metro_gtfs.zip")
+metro_expansion = GTFShift::load_feed("data/r5r/metro_expansion_gtfs.zip")
+metro_expansion_tidy = tidytransit::read_gtfs("data/r5r/metro_expansion_gtfs.zip")
+metro_expansion_routes = tidytransit::shapes_as_sf(metro_expansion_tidy$shapes)
+mapview::mapview(metro_expansion_routes)
+metro_expansion_tidy_validation = tidytransit::validate_gtfs(metro_expansion_tidy)
+
 # upload gtfs com transfers -----------------------------------------------
 
 piggyback::pb_upload("original/carris_metropolitana.zip", "carris_metropolitana.zip", repo = "rosamfelix/PGmob360", tag = "latest")
 piggyback::pb_upload("original/carris_gtfs.zip", "carris_gtfs.zip", repo = "rosamfelix/PGmob360", tag = "latest")
 piggyback::pb_upload("original/metro_gtfs.zip", "metro_gtfs.zip", repo = "rosamfelix/PGmob360", tag = "latest")
 piggyback::pb_upload("original/tub_gtfs.zip", "tub_gtfs.zip", repo = "rosamfelix/EITbraga", tag = "latest")
+piggyback::pb_upload("data/r5r/metro_expansion_gtfs.zip", "metro_expansion_gtfs.zip", repo = "U-Shift/Traffic-Simulation-Models", tag = "2025")
