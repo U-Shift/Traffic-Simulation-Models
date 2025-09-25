@@ -40,16 +40,18 @@ website:
             text: "SUMO"
           - href: https://a-b-street.github.io/docs/software/abstreet.html
             text: "A/B Street"
-      - section: "Exercises"
+      - section: "Vissim and Visum"
         contents:
           - casestudy.qmd
           - micro.qmd
+          # - macro.qmd
+      - section: "r5r"
+        contents:
           - network.qmd
           - routing.qmd
           - pois.qmd
           - accessibility.qmd
           - scenarios.qmd
-          # - macro.qmd
 
   page-footer:
     left: "Instituto Superior Técnico - University of Lisbon"

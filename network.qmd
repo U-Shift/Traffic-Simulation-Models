@@ -1,5 +1,5 @@
 ---
-title: "r5r network setup"
+title: "Network setup"
 author: "R Félix"
 eval: false
 code-fold: false
