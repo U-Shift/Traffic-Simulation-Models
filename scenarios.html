@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="R Félix">
 
 <title>Scenarios – Modelling of Tranport Systems</title>
 <style>
@@ -20,7 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -131,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./casestudy.html">Exercises</a></li><li class="breadcrumb-item"><a href="./scenarios.html">Scenarios</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./network.html">r5r</a></li><li class="breadcrumb-item"><a href="./scenarios.html">Scenarios</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -195,7 +216,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Exercises</span></a>
+ <span class="menu-text">Vissim and Visum</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -213,10 +234,21 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Micro Case Study</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">r5r</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./network.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">r5r network setup</span></a>
+ <span class="menu-text">Network setup</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -234,7 +266,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./accessibility.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Acessibility</span></a>
+ <span class="menu-text">Accessibility</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -256,7 +288,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#work-day-vs.-weekend" id="toc-work-day-vs.-weekend" class="nav-link active" data-scroll-target="#work-day-vs.-weekend">Work day vs.&nbsp;weekend</a></li>
-  <li><a href="#with-and-without-a-metro-station-or-metro-line" id="toc-with-and-without-a-metro-station-or-metro-line" class="nav-link" data-scroll-target="#with-and-without-a-metro-station-or-metro-line">With and without a metro station or metro line</a>
+  <li><a href="#new-metro-station-or-metro-line" id="toc-new-metro-station-or-metro-line" class="nav-link" data-scroll-target="#new-metro-station-or-metro-line">New metro station or metro line</a>
   <ul class="collapse">
   <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
   <li><a href="#create-a-metro-line-with-ptv-lines" id="toc-create-a-metro-line-with-ptv-lines" class="nav-link" data-scroll-target="#create-a-metro-line-with-ptv-lines">Create a metro line with PTV Lines</a></li>
@@ -267,7 +299,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./casestudy.html">Exercises</a></li><li class="breadcrumb-item"><a href="./scenarios.html">Scenarios</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./network.html">r5r</a></li><li class="breadcrumb-item"><a href="./scenarios.html">Scenarios</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Scenarios</h1>
 </div>
@@ -276,6 +308,12 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>R Félix </p>
+          </div>
+  </div>
     
   
     
@@ -289,8 +327,8 @@ ul.task-list li input[type="checkbox"] {
 <section id="work-day-vs.-weekend" class="level2">
 <h2 class="anchored" data-anchor-id="work-day-vs.-weekend">Work day vs.&nbsp;weekend</h2>
 </section>
-<section id="with-and-without-a-metro-station-or-metro-line" class="level2">
-<h2 class="anchored" data-anchor-id="with-and-without-a-metro-station-or-metro-line">With and without a metro station or metro line</h2>
+<section id="new-metro-station-or-metro-line" class="level2">
+<h2 class="anchored" data-anchor-id="new-metro-station-or-metro-line">New metro station or metro line</h2>
 <p>Let’s create a new metro line or a new station in your city.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -306,7 +344,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Create a new scenario, and import an existing subway gtfs (<code>.zip</code>) - <strong>max 60 lines</strong>!</li>
 <li>Edit that scenario by creating stops and lines.</li>
 <li>Export the GTFS file.</li>
-<li>Duplicate your r5r folder (baseline scenario) and delete the <code>network.dat</code> file inside. Rename it as <code>..._sen1</code> and replace the <code>gtfs.zip</code> by the one you just exported.</li>
+<li>Duplicate your r5r folder (baseline scenario) and delete the <code>network.dat</code> file inside. Rename it as <code>..._ver1</code> and replace the <code>gtfs.zip</code> by the one you just exported.</li>
 <li>Build a new network with that folder path.</li>
 </ol>
 </section>
@@ -363,13 +401,19 @@ Your task
 <p>Run some routing and accessibility analysis, and compare with the baseline scenario.</p>
 </div>
 </div>
+<p>See <span class="citation" data-cites="accessibility">Pereira and Herszenhut (<a href="#ref-accessibility" role="doc-biblioref">2023</a>)</span> <a href="https://ipeagit.github.io/intro_access_book/6_cenarios_transporte.en.html">Chapter 6</a> for an example.</p>
 <p>If you do multi-modal analysis, you <strong>may need</strong> to use <a href="https://u-shift.github.io/GTFShift/reference/unify.html"><code>GTFShift::unify()</code></a> to merge the new gtfs with other modes and create new transfers.</p>
 
 
+
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-accessibility" class="csl-entry" role="listitem">
+Pereira, Rafael HM, and Daniel Herszenhut. 2023. <em>Introduction to Urban Accessibility: A Practical Guide with r</em>. Instituto de Pesquisa Econ<span>ô</span>mica Aplicada (Ipea). <a href="https://ipeagit.github.io/intro_access_book/">https://ipeagit.github.io/intro_access_book/</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

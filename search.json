@@ -9,13 +9,13 @@
   {
     "objectID": "accessibility.html",
     "href": "accessibility.html",
-    "title": "Acessibility",
+    "title": "Accessibility",
     "section": "",
     "text": "Isochrones\n\n\nAccessibility",
     "crumbs": [
       "Home",
-      "Exercises",
-      "Acessibility"
+      "r5r",
+      "Accessibility"
     ]
   },
   {
@@ -103,14 +103,14 @@
     ]
   },
   {
-    "objectID": "scenarios.html#with-and-without-a-metro-station-or-metro-line",
-    "href": "scenarios.html#with-and-without-a-metro-station-or-metro-line",
+    "objectID": "scenarios.html#new-metro-station-or-metro-line",
+    "href": "scenarios.html#new-metro-station-or-metro-line",
     "title": "Scenarios",
-    "section": "With and without a metro station or metro line",
-    "text": "With and without a metro station or metro line\nLet’s create a new metro line or a new station in your city.\n\n\n\nNew pink line (expansion in Lisbon)\n\n\n\nMethodology\nFor that, an easy graphic interface software is the PTV Lines.\n\nLogin into PTV Lines (upper right corner) with the credentials that were sent to you.\nCreate a new scenario, and import an existing subway gtfs (.zip) - max 60 lines!\nEdit that scenario by creating stops and lines.\nExport the GTFS file.\nDuplicate your r5r folder (baseline scenario) and delete the network.dat file inside. Rename it as ..._sen1 and replace the gtfs.zip by the one you just exported.\nBuild a new network with that folder path.\n\n\n\nCreate a metro line with PTV Lines\nFirst, create new station points (S) and name them. As many as you need.\n\n\n\n\n\n\n\n\n\n\nThen, create a new line (L), name it something like “Expansion”, and create a new route (R). Name it 0 (you can edit later) and draw that line roughly by selecting an existing start station and connecting to your new stations.\n\n\n\n\n\nAdd trips to it (T), with a proper headway.\n\n\n\n\n\nAfter defining the weekday and weekend trips, go to the Outbound route and “Create opposite direction”, so you can have both directions now. Rename the line routes, something as “Start station - End station”.\n\n\n\n\n\nGo to Connections, and click on a connecting station to visualize the time diagram of connections with other routes.\n\n\n\n\n\nAfter all your edits, go back to the dashboard, and click on “Export supply”. Export as GTFS (.zip)\n\nYour scenario will be saved in your dashboard. You can edit or duplicate them later.\n\n\n\n\n\n\nYour task\n\n\n\nRun some routing and accessibility analysis, and compare with the baseline scenario.\n\n\nIf you do multi-modal analysis, you may need to use GTFShift::unify() to merge the new gtfs with other modes and create new transfers.",
+    "section": "New metro station or metro line",
+    "text": "New metro station or metro line\nLet’s create a new metro line or a new station in your city.\n\n\n\nNew pink line (expansion in Lisbon)\n\n\n\nMethodology\nFor that, an easy graphic interface software is the PTV Lines.\n\nLogin into PTV Lines (upper right corner) with the credentials that were sent to you.\nCreate a new scenario, and import an existing subway gtfs (.zip) - max 60 lines!\nEdit that scenario by creating stops and lines.\nExport the GTFS file.\nDuplicate your r5r folder (baseline scenario) and delete the network.dat file inside. Rename it as ..._ver1 and replace the gtfs.zip by the one you just exported.\nBuild a new network with that folder path.\n\n\n\nCreate a metro line with PTV Lines\nFirst, create new station points (S) and name them. As many as you need.\n\n\n\n\n\n\n\n\n\n\nThen, create a new line (L), name it something like “Expansion”, and create a new route (R). Name it 0 (you can edit later) and draw that line roughly by selecting an existing start station and connecting to your new stations.\n\n\n\n\n\nAdd trips to it (T), with a proper headway.\n\n\n\n\n\nAfter defining the weekday and weekend trips, go to the Outbound route and “Create opposite direction”, so you can have both directions now. Rename the line routes, something as “Start station - End station”.\n\n\n\n\n\nGo to Connections, and click on a connecting station to visualize the time diagram of connections with other routes.\n\n\n\n\n\nAfter all your edits, go back to the dashboard, and click on “Export supply”. Export as GTFS (.zip)\n\nYour scenario will be saved in your dashboard. You can edit or duplicate them later.\n\n\n\n\n\n\nYour task\n\n\n\nRun some routing and accessibility analysis, and compare with the baseline scenario.\n\n\nSee Pereira and Herszenhut (2023) Chapter 6 for an example.\nIf you do multi-modal analysis, you may need to use GTFShift::unify() to merge the new gtfs with other modes and create new transfers.",
     "crumbs": [
       "Home",
-      "Exercises",
+      "r5r",
       "Scenarios"
     ]
   },
@@ -122,7 +122,7 @@
     "text": "Uni-modal",
     "crumbs": [
       "Home",
-      "Exercises",
+      "r5r",
       "Routing"
     ]
   },
@@ -134,7 +134,7 @@
     "text": "Multi-modal\n\nEgress mode",
     "crumbs": [
       "Home",
-      "Exercises",
+      "r5r",
       "Routing"
     ]
   },
@@ -146,68 +146,68 @@
     "text": "Pareto frontier\n\nCreate rules for an operator\nCreate fare_rules.txt and fare_attributes.txt for Carris based on Metropolitano Lisboa.",
     "crumbs": [
       "Home",
-      "Exercises",
+      "r5r",
       "Routing"
     ]
   },
   {
     "objectID": "network.html",
     "href": "network.html",
-    "title": "r5r network setup",
+    "title": "Network setup",
     "section": "",
     "text": "In this chapter we will guide you through the data requirements, data collection, and setting up a multi-modal network with r5r.",
     "crumbs": [
       "Home",
-      "Exercises",
-      "r5r network setup"
+      "r5r",
+      "Network setup"
     ]
   },
   {
     "objectID": "network.html#data-requirements",
     "href": "network.html#data-requirements",
-    "title": "r5r network setup",
+    "title": "Network setup",
     "section": "Data requirements",
     "text": "Data requirements\nYou will need R and r5r (Pereira et al. 2021) package installed on your computer.\nr5r sets-up a network file .dat by combining the following datasets in the same folder:\n\nRoad Network (OpenStreetMap1 as .osm.pbf)\nGTFS2 from PTransit operators (a single .zip or several)\nDigital Elevation Model3 (.tiff), to consider impedances for walking and cycling\n\n\n\n\n\n\n\nNote\n\n\n\nVer o código code/r5r.R\n\n\nFor the documentation of data needed, see r5r::build_network",
     "crumbs": [
       "Home",
-      "Exercises",
-      "r5r network setup"
+      "r5r",
+      "Network setup"
     ]
   },
   {
     "objectID": "network.html#data-collection",
     "href": "network.html#data-collection",
-    "title": "r5r network setup",
+    "title": "Network setup",
     "section": "Data collection",
     "text": "Data collection",
     "crumbs": [
       "Home",
-      "Exercises",
-      "r5r network setup"
+      "r5r",
+      "Network setup"
     ]
   },
   {
     "objectID": "network.html#setting-up-a-routable-transport-network",
     "href": "network.html#setting-up-a-routable-transport-network",
-    "title": "r5r network setup",
+    "title": "Network setup",
     "section": "Setting up a routable transport network",
     "text": "Setting up a routable transport network\n\n# Load packages\nlibrary(tidyverse)\nlibrary(sf)\noptions(java.parameters = '-Xmx8G') # allocate memory for 8GB \nlibrary(r5r)\n\n\ndata_path= \"data/r5r\" # relative path to your folder containing the required data\nnetwork = build_network(\n  data_path,\n  elevation = \"TOBLER\" # optional. MINETTI or NONE\n)\n\n\n\n\n\n\n\nIf you already have a network.dat file, it will use that pre-build network.",
     "crumbs": [
       "Home",
-      "Exercises",
-      "r5r network setup"
+      "r5r",
+      "Network setup"
     ]
   },
   {
     "objectID": "network.html#footnotes",
     "href": "network.html#footnotes",
-    "title": "r5r network setup",
+    "title": "Network setup",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nSee how to export an area with HOT export tool.↩︎\nOptional.↩︎\nOptional.↩︎",
     "crumbs": [
       "Home",
-      "Exercises",
-      "r5r network setup"
+      "r5r",
+      "Network setup"
     ]
   },
   {
@@ -218,7 +218,7 @@
     "text": "You may use an intersection file already prepared to be used with VISSIM, like this one:\nThis file is available at Fenix, for registered students.\nHow did this file was converted from OpenStreetMap? 🧐",
     "crumbs": [
       "Home",
-      "Exercises",
+      "Vissim and Visum",
       "Micro Case Study"
     ]
   },
@@ -230,7 +230,7 @@
     "text": "From OpenStreetMap to VISSIM\n\nRequirements\nThis will require:\n\nVISSIM installed with an active license\nPython 3.x, and the following packages\n\nwin32com\ngdal\n\nMicrosoft Visual C++ build tools\nOptional: OSGeo4W1\n\n\n\nOpenStreetMap\nGo to OpenStreetMap and zoom into your area.\nSelect Export and save the map.osm file.\n\nYou don’t need to open that file now.\n\n\nOSM2VISSIM tool\n\nGo to the OSM2VISSIM tool Github page, and download this OSM2VISSIM_v0.1.py file.\n\n\n\nCreate a folder (wherever you want) and put there this .py file and the .osm file exported before. Now copy your folder path!\n\n\n\nIf you have OSGeo4W installed2, open the shell. It will look like this:\n\n\n\nNavigate to your created folder, using cd yourfolderpath\nNow, run python OSM2VISSIM_v0.1.py\n\n\n\nThis will open a dialogue window where you are supposed to type your .osm file name.\nMine is gago\n\n\n\nPress Set.\n\n\n\n\n\n\n\nDon’t worry! Things are happening even if you don’t notice. Just be patient and wait.\n\n\n\nThis will create a new file, and open VISSIM automatically.\nNote: If you go to the Network tab and don’t see anything, even after clicking on zoom to network button, close VISSIM, and close the Shell. This happened to me every first time.\n\nRepeat again the steps from 1 to 7.\n\nThis will open VISSIM automatically and now the shell will show things happening:\n\nWait until VISSIM it closes automatically - don’t click anything.\n\nYou may now close the OSGeo4W shell.\n\nA few more files were created now:\n\n\n\nAt VISSIM\nOpen the file name.inpx and close the Start Page.\nAt Network Editor panel, click Show entire network:\n\nAs you may note, your network is not exactly in place, when comparing to a basemap. 🥴\n\nTo adjust this, you may either move the basemap or the network.\nFirst, with the distance tool, measure the distance of one reference point of the network to where it should be placed, in both X and Y directions.\n\nThen Edit ⟶ Move Network\n\nRepeat the process until the network intersection is centred with the intersection in the basemap.\nSave your network file! 🎉\nThis process resulted in the abovementioned file.\nNo go on and adjust the details that require some attention.",
     "crumbs": [
       "Home",
-      "Exercises",
+      "Vissim and Visum",
       "Micro Case Study"
     ]
   },
@@ -242,7 +242,7 @@
     "text": "Footnotes\n\n\nThis installation already comes with all the required packages.↩︎\nYou may do everything on the cmd (command line prompt terminal), but some errors may be output.↩︎",
     "crumbs": [
       "Home",
-      "Exercises",
+      "Vissim and Visum",
       "Micro Case Study"
     ]
   },
@@ -254,7 +254,7 @@
     "text": "Different categories, based on Büttner et al. (2022) : www.flowersofproximity.com\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024):\nhttps://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146\nSee other OpenStreetMap categories at their Wiki.\n\n\n\nRandom points from",
     "crumbs": [
       "Home",
-      "Exercises",
+      "r5r",
       "POIs"
     ]
   },
@@ -266,7 +266,7 @@
     "text": "Different categories, based on Büttner et al. (2022) : www.flowersofproximity.com\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024):\nhttps://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146\nSee other OpenStreetMap categories at their Wiki.\n\n\n\nRandom points from",
     "crumbs": [
       "Home",
-      "Exercises",
+      "r5r",
       "POIs"
     ]
   },
@@ -278,7 +278,7 @@
     "text": "Grids\n\n\n\n\n\nYou can also use the universal h3 hexagon grid",
     "crumbs": [
       "Home",
-      "Exercises",
+      "r5r",
       "POIs"
     ]
   },
@@ -471,7 +471,7 @@
     "text": "Please download the VISUM project file (.ver) with the base data that you will need.\n\n\nWe are using a road network exported from OpenStreetMap.\nWe already imported that network to this project as follows:\n\nSelect only Urban Road Network (to keep the principal roads)\n\n\nThis is what it looks like when importing from OSM.\n\n\n\n\nStart by these ones (General, and links not connected to the network)\n\nignore warnings\nSet to active the ones you want to have a look. They are now active/selected. Delete if needed (DEL button)\n\n\n\n\n\nThese are the zones to consider in the area.\nThey are from census 2021 sections, and aggregated in larger TAZ.\n\nThis is how it looks like after importing the shapefile of zones to the project.\n\n\n\nWith zones from census 21 (aggregation of sub-sections)\n\n\n\n\n\n\n\n\nNote\n\n\n\nWe already added the external zones (rest of the world) and the associated connectors to the road network.\n\n\n\n\n\n\nCreate an OD matrix\n\n\n\n\n\n\nGive it a proper name.\nAnd copy-paste data from excel\n\nNow you have your OD matrix with data for your HA Group",
     "crumbs": [
       "Home",
-      "Exercises",
+      "Vissim and Visum",
       "Macro Case Study"
     ]
   },
@@ -483,7 +483,7 @@
     "text": "We are using a road network exported from OpenStreetMap.\nWe already imported that network to this project as follows:\n\nSelect only Urban Road Network (to keep the principal roads)\n\n\nThis is what it looks like when importing from OSM.\n\n\n\n\nStart by these ones (General, and links not connected to the network)\n\nignore warnings\nSet to active the ones you want to have a look. They are now active/selected. Delete if needed (DEL button)",
     "crumbs": [
       "Home",
-      "Exercises",
+      "Vissim and Visum",
       "Macro Case Study"
     ]
   },
@@ -495,7 +495,7 @@
     "text": "These are the zones to consider in the area.\nThey are from census 2021 sections, and aggregated in larger TAZ.\n\nThis is how it looks like after importing the shapefile of zones to the project.\n\n\n\nWith zones from census 21 (aggregation of sub-sections)\n\n\n\n\n\n\n\n\nNote\n\n\n\nWe already added the external zones (rest of the world) and the associated connectors to the road network.",
     "crumbs": [
       "Home",
-      "Exercises",
+      "Vissim and Visum",
       "Macro Case Study"
     ]
   },
@@ -507,7 +507,7 @@
     "text": "Create an OD matrix\n\n\n\n\n\n\nGive it a proper name.\nAnd copy-paste data from excel\n\nNow you have your OD matrix with data for your HA Group",
     "crumbs": [
       "Home",
-      "Exercises",
+      "Vissim and Visum",
       "Macro Case Study"
     ]
   },
@@ -519,7 +519,7 @@
     "text": "Create a link\n\nI will first check the characteristics of the previous link that I’m connecting to, by double-click the link in the editor, and see the details. The Quick View panel also shows some of its information.\n\nThis is a Type no 50.\nCreate a link by connecting both nodes.\n\nWhen creating a link, a window will popup to define some of the link parameters. In this case I will also make it a type 50 link.\n\n\nClicking 2 times in the new link, you can change some of the parameters. It will highlight the ones that are not mirrored to the opposite direction - you should also transfer the new modifications.\n\nTo make realistic links, activate background map before proceeding.\n\nVerify if the link is well connected with Check network integrity, or estimating a shortest path between zones (with connectors).",
     "crumbs": [
       "Home",
-      "Exercises",
+      "Vissim and Visum",
       "Macro Case Study"
     ]
   },
@@ -531,7 +531,7 @@
     "text": "Shortest path\n\nClick on 2 zones and run.\n\nSee the opposite direction\n\nReset for a new one.",
     "crumbs": [
       "Home",
-      "Exercises",
+      "Vissim and Visum",
       "Macro Case Study"
     ]
   },
@@ -543,7 +543,7 @@
     "text": "Flow Bundle\nThe Flow Bundle function can be useful for quantifying the traffic volume in a single link, broken down by the origins/destinations which have the most weight in that link.\nGraphics ⟶ Flow Bundle ⟶ choose the link ⟶ Play ⟶ go to matrices and see the new Formula Matrices/ Flow Bundle ⟶ list view ⟶ sort by volume.",
     "crumbs": [
       "Home",
-      "Exercises",
+      "Vissim and Visum",
       "Macro Case Study"
     ]
   },
@@ -555,7 +555,7 @@
     "text": "Selection Mode",
     "crumbs": [
       "Home",
-      "Exercises",
+      "Vissim and Visum",
       "Macro Case Study"
     ]
   },
@@ -567,7 +567,7 @@
     "text": "Labels\nChange the zone label to name:\n\n\n\n\n\n\nThe same if you want to remove the symbol representation of links\n\nYou can save these visualization as a Graphic parameter file, so you can shift between one or more, depending on the assessment you are doing.",
     "crumbs": [
       "Home",
-      "Exercises",
+      "Vissim and Visum",
       "Macro Case Study"
     ]
   },
@@ -579,7 +579,7 @@
     "text": "Footnotes\n\n\nPrivate Transport↩︎",
     "crumbs": [
       "Home",
-      "Exercises",
+      "Vissim and Visum",
       "Macro Case Study"
     ]
   }
