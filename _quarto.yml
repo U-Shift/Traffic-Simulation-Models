@@ -48,6 +48,7 @@ website:
           - routing.qmd
           - pois.qmd
           - accessibility.qmd
+          - scenarios.qmd
           # - macro.qmd
 
   page-footer:
