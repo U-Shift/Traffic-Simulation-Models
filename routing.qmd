@@ -19,3 +19,153 @@ engine: knitr
 ### Create rules for an operator
 
 Create `fare_rules.txt` and `fare_attributes.txt` for Carris based on Metropolitano Lisboa.
+
+```{r}
+fare_structure <- setup_fare_structure(r5r_lisboa, 
+                                       # base_fare = 1.65,
+                                       by = "MODE")
+head(fare_structure, n=7)
+fare_structure$max_discounted_transfers = 1
+fare_structure$transfer_time_allowance = 60
+fare_structure$fare_cap = 5.60
+fare_structure$fares_per_type
+
+fare_structure$fares_per_type[type == "SUBWAY", unlimited_transfers := TRUE]
+fare_structure$fares_per_type[type == "SUBWAY", fare := 1.80]
+fare_structure$fares_per_type[type == "SUBWAY", allow_same_route_transfer := TRUE]
+fare_structure$fares_per_type
+
+fare_structure$fares_per_transfer
+fare_structure$fares_per_transfer[first_leg == "BUS" & second_leg == "SUBWAY", fare := 1.65+1.80]
+fare_structure$fares_per_transfer[first_leg == "SUBWAY" & second_leg == "BUS", fare := 1.80]
+fare_structure$fares_per_transfer <- fare_structure$fares_per_transfer[!(first_leg == "SUBWAY" & second_leg == "SUBWAY")]
+fare_structure$fares_per_transfer
+```
+
+```{r}
+
+# calculate travel times function
+calculate_travel_times <- function(fare) {
+  ttm_df <- travel_time_matrix(
+    r5r_lisboa,
+    origins = PONTOS,
+    destinations = BAIXA,
+    mode = c("WALK", "TRANSIT"),
+    departure_datetime = as.POSIXct(
+      "13-11-2024 10:00:00",
+      format = "%d-%m-%Y %H:%M:%S"
+    ),
+    time_window = 1,
+    fare_structure = fare_structure,
+    max_fare = fare,
+    max_trip_duration = 60,
+    max_walk_time = 15
+  )
+
+  return(ttm_df)
+}
+
+
+# calculate travel times, and combine results
+ttm <- calculate_travel_times(fare = Inf) # no budget restriction
+ttm_200 <- calculate_travel_times(fare = 2) # 2 euro
+ttm_500 <- calculate_travel_times(fare = 5) # 5 euro
+
+# merge results
+ttm[ttm_200, on = .(from_id, to_id), travel_time_200 := i.travel_time_p50]
+ttm[, travel_time_unl := travel_time_p50]
+ttm[, travel_time_p50 := NULL]
+tail(ttm, 10)
+```
+
+```{r}
+# plot of overall travel time differences between limited and unlimited cost travel time matrices 
+time_difference = ttm[!is.na(travel_time_200), .(count = .N), 
+                      by = .(travel_time_unl, travel_time_200)]
+
+p1 <- ggplot(time_difference, aes(y = travel_time_unl, x = travel_time_200)) +
+  geom_point(size = 0.7) +
+  coord_fixed() +
+  scale_x_continuous(breaks = seq(0, 45, 5)) +
+  scale_y_continuous(breaks = seq(0, 45, 5)) +
+  theme_light() +
+  theme(legend.position = "none") +
+  labs(y = "travel time (minutes)\nunestricted monetary cost",
+       x = "travel time (minutes)\nmonetary cost restricted to EUR 2.00"
+       )
+
+# plot of unreachable destinations when the monetary cost limit is too low
+unreachable <- ttm[, .(count = .N), by = .(travel_time_unl, is.na(travel_time_200))]
+unreachable[, perc := count / sum(count, na.rm = T), by = .(travel_time_unl)]
+unreachable <- unreachable[is.na == TRUE]
+unreachable <- na.omit(unreachable)
+
+p2 <- ggplot(unreachable, aes(x=travel_time_unl, y=perc)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_continuous(breaks = seq(0, 45, 5)) +
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2), 
+                     labels = paste0(seq(0, 100, 20), "%")) +
+  theme_light() +
+  labs(x = "travel time (minutes)\nwithout monetary cost restriction",
+       y = "% of unreachable destinations\nconsidering a eur 2.00 monetary cost limit")
+
+
+```
+
+Access to Opricians
+
+```{r}
+AREAS = st_read("data/Lisbon/CENSUS_POIs_Lx.gpkg")
+AREAS_df = AREAS_counts |> st_drop_geometry()
+```
+
+```{r}
+# calculate accessibility function
+calculate_accessibility <- function(fare, fare_string) {
+  access_df <- accessibility(
+    r5r_lisboa,
+    origins = AREAS_df,
+    destinations = AREAS_df,
+    mode = c("WALK", "TRANSIT"),
+    departure_datetime = as.POSIXct(
+      "13-11-2024 10:00:00",
+      format = "%d-%m-%Y %H:%M:%S"),
+    time_window = 1,
+    opportunities_colname = "healthcare",
+    cutoffs = 40,
+    fare_structure = fare_structure,
+    max_fare = fare,
+    max_trip_duration = 60,
+    max_walk_time = 15,
+    progress = FALSE)
+
+  access_df$max_fare <- fare_string
+
+  return(access_df)
+}
+
+# calculate accessibility, combine results, and convert to SF
+access_165 <- calculate_accessibility(fare=1.65, fare_string="EUR 1.65 budget")
+access_unl <- calculate_accessibility(fare=Inf, fare_string="Unlimited budget")
+
+access <- rbind(access_165, access_unl)
+
+# bring geometry
+access = access |> left_join(AREAS_counts, by = "id")
+access <- st_as_sf(access)
+```
+
+```{r}
+# plot accessibility maps
+ggplot(data = access) +
+  geom_sf(aes(fill = accessibility), color=NA, size = 0.2) +
+  scale_fill_distiller(palette = "Spectral") +
+  facet_wrap(~max_fare) +
+  labs(subtitle = "Effect of monetary cost on accessibility") +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        axis.text = element_blank())
+```
+
+![](images/clipboard-2837442883.png)
