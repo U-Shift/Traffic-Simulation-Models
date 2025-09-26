@@ -1,7 +1,7 @@
 ---
 title: "Network setup"
 author: "R Félix"
-eval: false
+eval: true
 code-fold: false
 engine: knitr
 ---
@@ -14,9 +14,9 @@ You will need **R** and [`r5r`](https://ipeagit.github.io/r5r/index.html) [@pere
 
 `r5r` sets-up a network file `.dat` by combining the following datasets in the same folder:
 
--   Road Network (*OpenStreetMap*[^1] as `.osm.pbf`)
--   GTFS[^2] from PTransit operators (a single `.zip` or several)
--   Digital Elevation Model[^3] (`.tiff`), to consider impedances for walking and cycling
+-   **Road** **Network** (*OpenStreetMap*[^1] as `.osm.pbf`)
+-   **GTFS[^2]** from PTransit operators (a single `.zip` or several)
+-   Digital **Elevation** Model[^3] (`.tif`), to consider impedances for walking and cycling
 
 [^1]: See how to export an area with [HOT export tool](#0).
 
@@ -30,11 +30,153 @@ Ver o código [`code/r5r.R`](https://github.com/rosamfelix/PGmob360/blob/main/co
 
 For the documentation of data needed, see [`r5r::build_network`](https://ipeagit.github.io/r5r/reference/build_network.html)
 
-## Data collection
+## Road Networks
+
+### OpenStreetMap
+
+The OpenStreetMap is a collaborative online mapping project that creates a free editable map of the world.
+
+This is the most used source of road network data for transportation analysis in academia, since it is available almost **everywhere in the world**, is open and free to use.
+
+::: {.callout-caution appearance="simple"}
+Although it can be not 100% accurate, OSM is a good source of data for most of the cases.
+:::
+
+You can access it's visualization tool at [www.openstreetmap.org](https://www.openstreetmap.org/).
+To edit the map, you can use the [Editor](https://www.openstreetmap.org/edit), once you register.
+
+If you want to **download** the data, you can use the following tools.
+
+-   [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API)
+-   [Geofabrik](https://download.geofabrik.de/)
+
+These websites include all the OSM data, with **much more information than you need**.
+
+### HOT Export Tool
+
+This interactive tool helps you to select the **region** you want to extract (or import an existing `city_limit.geojson`[^4]), the type of **information** to include, and the output data **format**.
+
+[^4]: For instance, see here for Germany: <https://opendatalab.de/projects/geojson-utilities/>
+
+Access via [export.hotosm.org](https://export.hotosm.org/)[^5].
+Select format as `.gpkg` and `.pbf`.
+
+[^5]: You need an OSM account to use it.
+
+![](images/clipboard-110948861.png)
+
+![](images/clipboard-993560723.png)
+
+After the export, you can read in R using the `sf` package:
+
+```{r}
+#| fig-format: png
+#| message: false
+#| warnings: false
+Lisbon_roads = sf::st_read("data/Lisbon/REDEbase_Lx.gpkg", quiet = TRUE)
+
+mapview::mapview(Lisbon_roads, zcol = "highway")
+```
+
+### OSM in R
+
+There are also some R packages that can help you to download and work with OpenStreetMap data, such as:
+
+-   [`osmdata`](https://cran.r-project.org/web/packages/osmdata/index.html)
+-   [`osmextract`](https://docs.ropensci.org/osmextract)
+
+This is an example of how to download OpenStreetMap road network data using the `osmextract` package:
+
+```{r}
+#| eval: false
+library(osmextract)
+OSM_Malta = oe_get_network(place = "Malta") # it will geocode the place
+
+Malta_main_roads = OSM_Malta |> 
+  filter(highway %in% c("primary", "secondary", "tertiary", "trunk"))
+
+plot(Malta_main_roads["highway"])
+```
+
+![](images/malta_roads.png){fig-align="center"}
+
+## Transportation Services' Data
+
+### GTFS
+
+General Transit Feed Specification (GTFS) is [standard format](https://developers.google.com/transit/gtfs/reference) for documenting public transportation information, including: routes, schedules, stop locations, calendar patterns, trips, and possible transfers.
+Transit agencies are responsible for maintaining the data up-to-date.
+
+This information is used in several applications, such as Google Maps, to provide public transportation directions.
+It can be offered for a city, a region, or even a whole country, depending on the PT agency.
+
+The recent version 2 of the GTFS standard includes more information, such as **real-time data**.
+
+The data is usually in a `.zip` file that includes several `.txt` files (one for each type of information) with tabular relations.
+
+![Source: [trilliumtransit.com](https://trilliumtransit.com/2016/07/05/gtfs-examples/)](images/clipboard-2676687965.png){fig-align="center" width="493"}
+
+#### Online sources
+
+You can find most GTFS data in the following websites:
+
+-   [TransitLand](https://www.transit.land)
+-   [Mobility Database](https://database.mobilitydata.org/)
+
+Some PT agencies also provide their open-data in their websites.
+
+#### R packages
+
+There are some nice R packages to read and manipulate GTFS data, such as:
+
+-   [`tidytransit`](https://r-transit.github.io/tidytransit/)
+-   [`gtfstools`](https://ipeagit.github.io/gtfstools/)
+-   [`GTFShift`](https://u-shift.github.io/GTFShift/)
+
+::: {.callout-note appearance="simple"}
+Be aware that they may share the same function names, so it is important to use of of them at the time.
+:::
+
+### National Access Points
+
+The European Union has a directive that requires the member states to provide access to transportation data.
+Data includes not only **Public Transportation** data, but also **road network**s, car **parking**, and other transportation-related information.
+
+[List of the European Union members states with National Access Points for Transportation data](https://transport.ec.europa.eu/transport-themes/smart-mobility/road/its-directive-and-action-plan/national-access-points_en)
+
+Example of Bus services data in Belgium:
+
+[![Source: Transport Data Belgium](images/clipboard-3645209787.png)](https://www.transportdata.be/en/dataset?tags=Bus)
+
+## Elevation
+
+This information is useful if your city is somehow hilly, and you are modelling pedestrian and/or bike travel.
+
+In the following websites you can export a raster file of Digital Elevation Model (DEM) in `.tif` format:
+
+-   [elevatr](https://github.com/jhollist/elevatr) R package
+-   [Nasa’s SRTMGL1](https://lpdaac.usgs.gov/products/srtmgl1v003/) website
+-   [Copernicus EU](https://browser.dataspace.copernicus.eu/) website
+
+![Export dem.tiff from Copernicus using a city_limit.geojson](images/clipboard-887278525.png)
+
+Verify in R
+
+```{r}
+dem = terra::rast("data/Lisbon/Copernicus_30m.tif") # rename the extension to .tif !!
+terra::plot(dem)
+```
+
+![](images/clipboard-1832931002.png){fig-align="center"}
 
 ## Setting up a routable transport network
 
+Your folder should contain these files, such as:
+
+![](images/clipboard-37419275.png){fig-align="center"}
+
 ```{r}
+#| eval: false
 # Load packages
 library(tidyverse)
 library(sf)
@@ -43,7 +185,8 @@ library(r5r)
 ```
 
 ```{r}
-data_path= "data/r5r" # relative path to your folder containing the required data
+#| eval: false
+data_path= "data/Lisbon/r5r" # relative path to your folder containing the required data
 network = build_network(
   data_path,
   elevation = "TOBLER" # optional. MINETTI or NONE
@@ -53,5 +196,15 @@ network = build_network(
 ::: {.callout-note appearance="simple"}
 If you already have a `network.dat` file, it will use that pre-build network.
 :::
+
+Check if your transportation network is correct:
+
+```{r}
+#| eval: false
+transit_net = transit_network_to_sf(r5r_lisboa)
+mapview::mapview(transit_net$routes, zcol = "mode")
+```
+
+![](images/clipboard-115246731.png){fig-align="center" width="535"}
 
 ## References

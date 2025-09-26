@@ -15,7 +15,7 @@ library(interp)
 # ver code/dataprep_r5r.R para ver como foram preparados
 
 # Censos pontos
-PONTOS = st_read("https://github.com/rosamfelix/PGmob360/releases/download/2024.11/Censos_Lx.gpkg")
+PONTOS = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Censos_Lx.gpkg")
 
 # Ponto de origem na Baixa (Lisboa)
 BAIXA = data.frame(id = "1", lat = 38.711884, lon = -9.137313) |> #casa rosa
@@ -23,22 +23,26 @@ BAIXA = data.frame(id = "1", lat = 38.711884, lon = -9.137313) |> #casa rosa
 BAIXA$lon = st_coordinates(BAIXA)[,1]
 BAIXA$lat = st_coordinates(BAIXA)[,2]
 
-# Rede viária base
-REDEbase = st_read("https://github.com/rosamfelix/PGmob360/releases/download/2024.11/REDEbase_Lx.gpkg")
+# Rede viária base (from OSM)
+REDEbase = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/REDEbase_Lx.gpkg")
 
 # Limite município Lisboa e bounding box
-MunicipiosGEO = sf::st_read("data/Municipalities_geo.gpkg")
-LisboaGEO = MunicipiosGEO |> filter(Municipality == "Lisboa")
-bb_lx = st_bbox(LisboaGEO)
+# MunicipiosGEO = sf::st_read("https://github.com/U-Shift/MQAT/releases/download/2025/MUNICIPIOSgeo.gpkg")
+# LisboaGEO = MunicipiosGEO |> filter(Concelho == "Lisboa")
+# st_write(LisboaGEO, "data/r5r/Lisboa_lim.gpkg", delete_dsn = TRUE)
+st_write(Lisboa_lim, "data/Lisbon/Lisboa_lim.geojson", delete_dsn = TRUE)
+# piggyback::pb_upload("data/r5r/Lisboa_lim.gpkg", "Lisboa_lim.gpkg", repo = "U-Shift/Traffic-Simulation-Models", tag = "2025")
+Lisboa_lim = sf::st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Lisboa_lim.gpkg")
+bb_lx = st_bbox(Lisboa_lim)
 bb_x = c(bb_lx[[1]], bb_lx[[3]])
 bb_y = c(bb_lx[[2]], bb_lx[[4]])
 
 # Rede modelada com r5r
-r5r_url = "https://github.com/rosamfelix/PGmob360/releases/download/2024.11/r5r_lisboa.zip" # 57MB
+r5r_url = "https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/r5r_lisboa.zip" # 57MB
 download.file(r5r_url, destfile = "data/r5r_lisboa.zip")
 unzip("data/r5r_lisboa.zip", exdir = "data/r5r/")
 
-r5r_lisboa = setup_r5(data_path = "data/r5r/") # ler rede já modelada
+r5r_lisboa = build_network(data_path = "data/r5r/") # ler rede já modelada
 
 
 # Hora Ponta, 2h TP + walk, 1 transferência --------------------------------------------------------------------
@@ -52,7 +56,7 @@ departure_datetime_HP = as.POSIXct("20-11-2024 7:30:00", format = "%d-%m-%Y %H:%
 time_window = 60 # in minutes
 
 # calculate travel time matrix
-ttm_zer_HP_1 = travel_time_matrix(r5r_core = r5r_lisboa,
+ttm_zer_HP_1 = travel_time_matrix(r5r_network = r5r_lisboa,
                               origins = BAIXA,
                               destinations = PONTOS,
                               mode = mode,
