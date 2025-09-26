@@ -292,6 +292,9 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
   <li><a href="#create-a-metro-line-with-ptv-lines" id="toc-create-a-metro-line-with-ptv-lines" class="nav-link" data-scroll-target="#create-a-metro-line-with-ptv-lines">Create a metro line with PTV Lines</a></li>
+  <li><a href="#extend-a-metro-line-with-ptv-lines" id="toc-extend-a-metro-line-with-ptv-lines" class="nav-link" data-scroll-target="#extend-a-metro-line-with-ptv-lines">Extend a metro line with PTV Lines</a></li>
+  <li><a href="#visualizing-time-diagram" id="toc-visualizing-time-diagram" class="nav-link" data-scroll-target="#visualizing-time-diagram">Visualizing time diagram</a></li>
+  <li><a href="#generate-gtfs" id="toc-generate-gtfs" class="nav-link" data-scroll-target="#generate-gtfs">Generate GTFS</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/scenarios.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -379,12 +382,83 @@ div.csl-indent {
 <p><img src="images/clipboard-563058203.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="345"></p>
 </figure>
 </div>
+</section>
+<section id="extend-a-metro-line-with-ptv-lines" class="level3">
+<h3 class="anchored" data-anchor-id="extend-a-metro-line-with-ptv-lines">Extend a metro line with PTV Lines</h3>
+<p>This tutorial assumes that the stations for which the line will be extended to already exist (if not, see how to create new stations at <a href="#create-a-metro-line-with-ptv-lines">Create a metro line with PTV Lines</a>).</p>
+<p>The extension is performed over a route. To access one, click on a transit line, and then on one of its routes.</p>
+<div class="columns">
+<div class="column" style="width:49%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/extend_line_selection.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width:49%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/extend_route_selection.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>On the map, hover the Start/End buttons and click it to enable the extension mode.</p>
+<div class="columns">
+<div class="column" style="width:49%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/extend_route_map_start_end.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width:49%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/extend_route_map_start_end_hover.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Once the extension mode is activated, your cursor will turn into a pen icon and you just have to click on the station you want to expand your line to.</p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Routing modes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Be aware of the several modes available on the button that is now displayed (automatic routing mode, street routing mode, straight line mode or exclusive PT routing mode). Make sure you use the one that best suits your use case.</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/extend_route_map_draw_mode.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Once you click on the station, you should see the new station in the route window, on the left part of the screen. You should adjust the run and dwell times accordingly.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/extend_route_map_done.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="visualizing-time-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-time-diagram">Visualizing time diagram</h3>
 <p>Go to Connections, and click on a connecting station to visualize the time diagram of connections with other routes.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-4040021677.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
+</section>
+<section id="generate-gtfs" class="level3">
+<h3 class="anchored" data-anchor-id="generate-gtfs">Generate GTFS</h3>
 <p>After all your edits, go back to the dashboard, and click on “Export supply”. Export as GTFS (<code>.zip</code>)</p>
 <p><img src="images/clipboard-2244082372.png" class="img-fluid"></p>
 <p>Your scenario will be saved in your dashboard. You can edit or duplicate them later.</p>
