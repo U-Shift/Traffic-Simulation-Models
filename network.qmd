@@ -163,6 +163,7 @@ In the following websites you can export a raster file of Digital Elevation Mode
 Verify in R
 
 ```{r}
+#| eval: false
 dem = terra::rast("data/Lisbon/Copernicus_30m.tif") # rename the extension to .tif !!
 terra::plot(dem)
 ```
