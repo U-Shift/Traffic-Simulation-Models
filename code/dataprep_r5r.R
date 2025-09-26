@@ -18,6 +18,19 @@ sum(PONTOS$residents) # 545.796 ok
 write_sf(PONTOS, "data/Lisbon/Censos_Lx.gpkg", overwrite = TRUE)
 piggyback::pb_upload("data/Lisbon/Censos_Lx.gpkg", "Censos_Lx.gpkg", repo = "U-Shift/Traffic-Simulation-Models", tag = "2025")
 
+# Censos areas
+BGRI = st_read("/media/rosa/Dados/GIS/IMOB/BGRI21_170.gpkg")
+AREAS = BGRI |>
+  filter(DTMN21 == "1106") |>
+  st_transform(4326) |>
+  select(BGRI2021, N_EDIFICIOS_CLASSICOS, N_NUCLEOS_FAMILIARES, N_INDIVIDUOS) |> 
+  rename(id = BGRI2021, buildings = N_EDIFICIOS_CLASSICOS, families = N_NUCLEOS_FAMILIARES, residents = N_INDIVIDUOS) |> 
+  mutate(lon = st_coordinates(PONTOS)[,1],
+         lat = st_coordinates(PONTOS)[,2])
+
+
+
+
 # Rede viaria principal
 REDEbase_complete = st_read("data/Lisbon/Lisbon_road_network.gpkg")
 REDEbase = REDEbase_complete |>
