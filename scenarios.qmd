@@ -45,9 +45,58 @@ After defining the weekday and weekend trips, go to the Outbound route and "*Cre
 
 ![](images/clipboard-563058203.png){fig-align="center" width="345"}
 
+### Extend a metro line with PTV Lines
+
+This tutorial assumes that the stations for which the line will be extended to already exist (if not, see how to create new stations at [Create a metro line with PTV Lines](#create-a-metro-line-with-ptv-lines)).
+
+The extension is performed over a route. To access one, click on a transit line, and then on one of its routes.
+
+:::: {.columns}
+::: {.column width="49%"}
+![](images/extend_line_selection.png){fig-align="center"}
+:::
+::: {.column width="2%"}
+:::
+::: {.column width="49%"}
+![](images/extend_route_selection.png){fig-align="center"}
+:::
+::::
+
+On the map, hover the Start/End buttons and click it to enable the extension mode.
+
+:::: {.columns}
+::: {.column width="49%"}
+![](images/extend_route_map_start_end.png){fig-align="center"}
+:::
+::: {.column width="2%"}
+:::
+::: {.column width="49%"}
+![](images/extend_route_map_start_end_hover.png){fig-align="center"}
+:::
+::::
+
+Once the extension mode is activated, your cursor will turn into a pen icon and you just have to click on the station you want to expand your line to. 
+
+
+::: {.callout-caution appearance="minimal"}
+## Routing modes
+
+Be aware of the several modes available on the button that is now displayed (automatic routing mode, street routing mode, straight line mode or exclusive PT routing mode). Make sure you use the one that best suits your use case.
+:::
+
+![](images/extend_route_map_draw_mode.png){fig-align="center"}
+
+Once you click on the station, you should see the new station in the route window, on the left part of the screen. You should adjust the run and dwell times accordingly.
+
+![](images/extend_route_map_done.png){fig-align="center"}
+
+### Visualizing time diagram
+
 Go to Connections, and click on a connecting station to visualize the time diagram of connections with other routes.
 
 ![](images/clipboard-4040021677.png){fig-align="center"}
+
+### Generate GTFS
 
 After all your edits, go back to the dashboard, and click on "Export supply". Export as GTFS (`.zip`)
 
