@@ -1,7 +1,7 @@
 ---
 title: "Network setup"
 author: "R Félix"
-eval: true
+eval: false
 code-fold: false
 engine: knitr
 ---
@@ -74,9 +74,10 @@ After the export, you can read in R using the `sf` package:
 #| message: false
 #| warnings: false
 Lisbon_roads = sf::st_read("data/Lisbon/REDEbase_Lx.gpkg", quiet = TRUE)
-
 mapview::mapview(Lisbon_roads, zcol = "highway")
 ```
+
+![](images/clipboard-3335310959.png)
 
 ### OSM in R
 
@@ -88,7 +89,6 @@ There are also some R packages that can help you to download and work with OpenS
 This is an example of how to download OpenStreetMap road network data using the `osmextract` package:
 
 ```{r}
-#| eval: false
 library(osmextract)
 OSM_Malta = oe_get_network(place = "Malta") # it will geocode the place
 
@@ -163,7 +163,6 @@ In the following websites you can export a raster file of Digital Elevation Mode
 Verify in R
 
 ```{r}
-#| eval: false
 dem = terra::rast("data/Lisbon/Copernicus_30m.tif") # rename the extension to .tif !!
 terra::plot(dem)
 ```
@@ -177,7 +176,6 @@ Your folder should contain these files, such as:
 ![](images/clipboard-37419275.png){fig-align="center"}
 
 ```{r}
-#| eval: false
 # Load packages
 library(tidyverse)
 library(sf)
@@ -186,7 +184,6 @@ library(r5r)
 ```
 
 ```{r}
-#| eval: false
 data_path= "data/Lisbon/r5r" # relative path to your folder containing the required data
 network = build_network(
   data_path,
@@ -201,7 +198,6 @@ If you already have a `network.dat` file, it will use that pre-build network.
 Check if your transportation network is correct:
 
 ```{r}
-#| eval: false
 transit_net = transit_network_to_sf(r5r_lisboa)
 mapview::mapview(transit_net$routes, zcol = "mode")
 ```
