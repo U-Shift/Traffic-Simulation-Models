@@ -19,21 +19,23 @@ Let's create a new metro line or a new station in your city.
 For that, an easy graphic interface software is the PTV Lines.
 
 1.  Login into [PTV Lines](https://www.ptvgroup.com/en/products/ptv-lines) (upper right corner) with the credentials that were sent to you.
-2.  Create a new scenario, and import an existing subway gtfs (`.zip`) - **max 60 lines**!
+2.  Create a new scenario, and import an existing subway gtfs (`.zip`) - **max 50 lines**!
 3.  Edit that scenario by creating stops and lines.
 4.  Export the GTFS file.
 5.  Duplicate your r5r folder (baseline scenario) and delete the `network.dat` file inside. Rename it as `..._ver1` and replace the `gtfs.zip` by the one you just exported.
 6.  Build a new network with that folder path.
 
-### Create a metro line with PTV Lines
+### Create a metro line with PTV Lines {#create-a-metro-line-with-ptv-lines}
 
-First, create new station points (`S`) and name them. As many as you need.
+First, create new station points (`S`) and name them.
+As many as you need.
 
 ![](images/clipboard-4144832314.png){fig-align="center" width="231"}
 
 ![](images/clipboard-4243677038.png){fig-align="center"}
 
-Then, create a new line (`L`), name it something like "Expansion", and create a new route (`R`). Name it `0` (you can edit later) and draw that line roughly by selecting an existing start station and connecting to your new stations.
+Then, create a new line (`L`), name it something like "Expansion", and create a new route (`R`).
+Name it `0` (you can edit later) and draw that line roughly by selecting an existing start station and connecting to your new stations.
 
 ![](images/clipboard-1488195502.png){fig-align="center" width="369"}
 
@@ -41,7 +43,8 @@ Add trips to it (`T`), with a proper headway.
 
 ![](images/clipboard-2022476792.png){fig-align="center" width="421"}
 
-After defining the weekday and weekend trips, go to the Outbound route and "*Create opposite direction*", so you can have both directions now. Rename the line routes, something as "*Start station - End station*".
+After defining the weekday and weekend trips, go to the Outbound route and "*Create opposite direction*", so you can have both directions now.
+Rename the line routes, something as "*Start station - End station*".
 
 ![](images/clipboard-563058203.png){fig-align="center" width="345"}
 
@@ -49,44 +52,50 @@ After defining the weekday and weekend trips, go to the Outbound route and "*Cre
 
 This tutorial assumes that the stations for which the line will be extended to already exist (if not, see how to create new stations at [Create a metro line with PTV Lines](#create-a-metro-line-with-ptv-lines)).
 
-The extension is performed over a route. To access one, click on a transit line, and then on one of its routes.
+The extension is performed over a route.
+To access one, click on a transit line, and then on one of its routes.
 
-:::: {.columns}
+:::::: columns
 ::: {.column width="49%"}
 ![](images/extend_line_selection.png){fig-align="center"}
 :::
+
 ::: {.column width="2%"}
 :::
+
 ::: {.column width="49%"}
 ![](images/extend_route_selection.png){fig-align="center"}
 :::
-::::
+::::::
 
 On the map, hover the Start/End buttons and click it to enable the extension mode.
 
-:::: {.columns}
+:::::: columns
 ::: {.column width="49%"}
 ![](images/extend_route_map_start_end.png){fig-align="center"}
 :::
+
 ::: {.column width="2%"}
 :::
+
 ::: {.column width="49%"}
 ![](images/extend_route_map_start_end_hover.png){fig-align="center"}
 :::
-::::
+::::::
 
-Once the extension mode is activated, your cursor will turn into a pen icon and you just have to click on the station you want to expand your line to. 
-
+Once the extension mode is activated, your cursor will turn into a pen icon and you just have to click on the station you want to expand your line to.
 
 ::: {.callout-caution appearance="minimal"}
 ## Routing modes
 
-Be aware of the several modes available on the button that is now displayed (automatic routing mode, street routing mode, straight line mode or exclusive PT routing mode). Make sure you use the one that best suits your use case.
+Be aware of the several modes available on the button that is now displayed (automatic routing mode, street routing mode, straight line mode or exclusive PT routing mode).
+Make sure you use the one that best suits your use case.
 :::
 
 ![](images/extend_route_map_draw_mode.png){fig-align="center"}
 
-Once you click on the station, you should see the new station in the route window, on the left part of the screen. You should adjust the run and dwell times accordingly.
+Once you click on the station, you should see the new station in the route window, on the left part of the screen.
+You should adjust the run and dwell times accordingly.
 
 ![](images/extend_route_map_done.png){fig-align="center"}
 
@@ -98,11 +107,13 @@ Go to Connections, and click on a connecting station to visualize the time diagr
 
 ### Generate GTFS
 
-After all your edits, go back to the dashboard, and click on "Export supply". Export as GTFS (`.zip`)
+After all your edits, go back to the dashboard, and click on "Export supply".
+Export as GTFS (`.zip`)
 
 ![](images/clipboard-2244082372.png)
 
-Your scenario will be saved in your dashboard. You can edit or duplicate them later.
+Your scenario will be saved in your dashboard.
+You can edit or duplicate them later.
 
 ::: {.callout-caution appearance="minimal"}
 ### Your task
