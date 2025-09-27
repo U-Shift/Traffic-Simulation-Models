@@ -113,11 +113,11 @@ p2 <- ggplot(unreachable, aes(x=travel_time_unl, y=perc)) +
 
 ```
 
-Access to Opricians
+Access to Healthcare
 
 ```{r}
-AREAS = st_read("data/Lisbon/CENSUS_POIs_Lx.gpkg")
-AREAS_df = AREAS_counts |> st_drop_geometry()
+AREAS = readRDS("data/Lisbon/GRIDhex_data.rds")
+AREAS_df = AREAS |> st_drop_geometry()
 ```
 
 ```{r}
@@ -152,7 +152,11 @@ access_unl <- calculate_accessibility(fare=Inf, fare_string="Unlimited budget")
 access <- rbind(access_165, access_unl)
 
 # bring geometry
-access = access |> left_join(AREAS_counts, by = "id")
+access = access |> 
+  left_join(AREAS_df |>
+              select(id, h3_address) |>
+              mutate(id = as.character(id)))
+access$geometry = h3jsr::cell_to_polygon(access$h3_address)
 access <- st_as_sf(access)
 ```
 
@@ -168,4 +172,6 @@ ggplot(data = access) +
         axis.text = element_blank())
 ```
 
-![](images/clipboard-2837442883.png)
+![With hex grid](images/clipboard-2680957931.png){fig-align="center"}
+
+![With census units](images/clipboard-2837442883.png){fig-align="center"}
