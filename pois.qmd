@@ -34,4 +34,51 @@ You can explore other OpenStreetMap categories at [their Wiki](https://wiki.open
 
 ## Grids
 
+You may want to use the original census units, or create a squared oh hexagonal grid.
+
+1.  Create a grid
+2.  Match all the Census and POIs to that grid
+
+### Create a grid
+
+We will use the city of Lisbon as example
+
+```{r}
+library(sf)
+library(tidyverse)
+library(mapview)
+
+city_limit = st_read("data/Lisbon/Lisboa_lim.gpkg")
+plot(city_limit)
+```
+
+![](images/clipboard-589159366.png){fig-align="center" width="297"}
+
+#### Squared
+
+Make a grid that covers the city polygon
+
+```{r}
+GRID = city_limit |>
+  st_transform(crs = 3857) |> # to a projected crs
+  st_make_grid(cellsize = 400, # meters, we are using a projected crs
+               what = "polygons",
+               square = TRUE) |> # if FALSE, hexagons
+  st_sf() |> # from list to sf
+  st_transform(crs = 4326) |>  # back to WGS84
+  st_intersection(city_limit$geom) # crop (optional)
+
+GRID = GRID |>  
+  rename(geometry = st_make_grid.st_transform.city_limit..crs...3857...cellsize...400..) |> 
+  mutate(id = c(1:nrow(GRID))) # just to give an ID to each cell 
+  
+mapview(GRID, alpha.regions = 0.2)
+```
+
+![The color is only referent to the ID](images/clipboard-2059408309.png){fig-align="center" width="551"}
+
+#### Hexagonal using `h3jsr`
+
 ![](https://u-shift.github.io/SiteSelection/reference/figures/hex_grid.png){fig-align="center"}
+
+### Areas with information
