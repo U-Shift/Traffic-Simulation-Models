@@ -1,0 +1,160 @@
+---
+title: "OD Jittering"
+author: "R Felix"
+eval: false
+code-fold: false
+bibliography: references.bib
+---
+
+When having OD pairs with a macro-scale zoning, we can *jitter* these desire lines by randomly spread the origins and destinations points at a given area, making the trips (in particular **active modes**) more realistic [@Lovelace2022].
+
+For that, **zones**, OD **pairs**, as well as the **trip volume** are needed.
+
+## Jittered desire lines
+
+### With `od` package
+
+See the example bellow, using OD tirps between districts in Lisbon, with the [`od`](https://itsleeds.github.io/od/articles/od.html) package [@od].
+
+```{r}
+# Load packages
+library(sf)
+library(tidyverse)
+# install.packages("od")
+library(od)
+```
+
+```{r}
+# Load data
+
+# polygons
+lisbon_zones = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Freguesias_Lx.gpkg")
+# OD data
+od_lisbon = readRDS(url("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/ODtrips_Freguesias_Lx.rds"))
+od_lisbon = od_lisbon |> 
+  filter(Bike > 0) # keep only with more than 0 bike trips
+# road network
+road_network = st_read("data/Lisbon/Lisbon_road_network.gpkg")
+
+# Lisbon limit, for map purpose
+lisbon_limit = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Lisboa_lim.gpkg")
+```
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+table = readRDS("data/Lisbon/ODtrips_Freguesias_Lx.rds")
+head(table)
+```
+
+```{r}
+# create desire lines between centroids
+od_lisbon_dl = od::od_to_sf(od_lisbon, lisbon_zones)
+
+mapview(od_lisbon_dl, zcol = "Bike")
+```
+
+![](images/clipboard-798877810.png){fig-align="center" width="601"}
+
+```{r}
+od_lisbon_jit = od::od_jitter(
+  od = od_lisbon,
+  z = lisbon_zones,
+  
+  population_column = 8, #total trips
+  disag = FALSE
+)
+od_lisbon_jit_disag = od::od_jitter(
+  od = od_lisbon,
+  z = lisbon_zones,
+  population_column = 8, #total trips
+  disag = TRUE,
+  max_per_od = 200
+)
+
+mapview::mapview(od_lisbon_jit, lwd = 0.2)
+mapview::mapview(od_lisbon_jit_disag, lwd = 0.2)
+```
+
+:::::: columns
+::: {.column width="49%"}
+![jittering](images/clipboard-3488077224.png){fig-align="center"}
+:::
+
+::: {.column width="2%"}
+:::
+
+::: {.column width="49%"}
+![jittering with disaggregation](images/clipboard-3561847938.png){fig-align="center"}
+:::
+::::::
+
+See the [`od::od_jitter()`](https://itsleeds.github.io/od/reference/od_jitter.html) function for more options.
+
+### With `odjitter` package
+
+The same but with [Rust](https://github.com/dabreegster/odjitter), wich is faster:
+
+```{sh}
+# install odjitter in rust
+git clone https://github.com/dabreegster/odjitter && cd odjitter && cargo build --release && cp ./target/release/odjitter /usr/local/bin/
+```
+
+```{r}
+# install odjitter in R
+remotes::install_github("dabreegster/odjitter", subdir = "r")
+# Load packages
+library(odjitter)
+```
+
+```{r}
+# Jitter with disagregation threshold of 200 trips
+od_lisbon_jittered = odjitter::jitter(  #jitter
+  od = od_lisbon,
+  zones = lisbon_zones,
+  subpoints = road_network, # road network verices. we can choose buildings, or so 
+  disaggregation_key = "Total",
+  disaggregation_threshold = 200
+)
+
+mapview::mapview(od_lisbon_jittered, lwd = 0.2)
+```
+
+![](images/clipboard-2757898934.png)
+
+## Jittered origins and destinations
+
+From the jittered **desire lines** to the **points** of origin and destination.
+
+```{r}
+library(stplanr)
+#with stplanr
+od_lisbon_jittered_points = line2df(od_lisbon_jittered)
+od_lisbon_jittered_points_OR = od_lisbon_jittered_points |>
+  select(L1, fx, fy) |> # from
+  rename(id = L1,
+         lon = fx,
+         lat = fy)
+od_lisbon_jittered_points_DE = od_lisbon_jittered_points |>
+  select(L1, tx, ty) |> # to
+  rename(id = L1,
+         lon = tx,
+         lat = ty)
+
+# as sf
+od_lisbon_jittered_points_OR_geo = st_as_sf(od_lisbon_jittered_points_OR,
+                                            coords = c("lon", "lat"),
+                                            crs = 4326)
+od_lisbon_jittered_points_DE_geo = st_as_sf(od_lisbon_jittered_points_DE,
+                                            coords = c("lon", "lat"),
+                                            crs = 4326)
+
+mapview(od_lisbon_jittered_points_OR_geo, col.regions = "red") + 
+  mapview(od_lisbon_jittered_points_DE_geo, col.regions = "blue")
+```
+
+![](images/clipboard-762473866.png){fig-align="center" width="647"}
+
+### References

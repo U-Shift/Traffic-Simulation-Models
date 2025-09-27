@@ -50,6 +50,7 @@ website:
           - network.qmd
           - routing.qmd
           - pois.qmd
+          - jittering.qmd
           - accessibility.qmd
           - scenarios.qmd
 

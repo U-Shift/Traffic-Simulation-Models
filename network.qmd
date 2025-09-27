@@ -15,12 +15,12 @@ You will need **R** and [`r5r`](https://ipeagit.github.io/r5r/index.html) [@pere
 `r5r` sets-up a network file `.dat` by combining the following datasets in the same folder:
 
 -   **Road** **Network** (*OpenStreetMap*[^1] as `.osm.pbf`)
--   **GTFS[^2]** from PTransit operators (a single `.zip` or several)
+-   **GTFS**[^2] from PTransit operators (a single `.zip` or several)
 -   Digital **Elevation** Model[^3] (`.tif`), to consider impedances for walking and cycling
 
 [^1]: See how to export an area with [HOT export tool](#0).
 
-[^2]: Optional.
+[^2]: **Optional.**
 
 [^3]: Optional.
 

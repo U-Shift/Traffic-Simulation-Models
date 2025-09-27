@@ -1,5 +1,5 @@
 ---
-title: "POIs"
+title: "POIs and Grids"
 eval: false
 code-fold: false
 engine: knitr
@@ -9,36 +9,29 @@ engine: knitr
 
 ### OpenStreetMap
 
-Different categories, based on @flowers2022 : [www.flowersofproximity.com](https://www.flowersofproximity.com/)
+From [OSM](https://www.openstreetmap.org/) we can export several different **opportunities** to use on routing and accessibility exercises.
+
+For instance, the **15-min city** idea follows the [Flowers of Proximity](https://www.flowersofproximity.com/), to categorize the opportinities in 7 different categories, based on @flowers2022.
 
 [![The Flowers of Proximity](https://www.flowersofproximity.com/flower_of_proximity_large.svg){fig-align="center" width="400"}](https://www.flowersofproximity.com)
 
 For the [Streets4All](https://streets4all.tecnico.ulisboa.pt/) project, and [SiteSelection](https://u-shift.github.io/SiteSelection/) package [@siteselection2024], we divided in:
 
 -   Amenities
-
 -   Healthcare
-
 -   Leisure
-
 -   Shop
-
 -   Sport
-
 -   Tourism
 
-See the script we did for [all Portugal](https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_landuse.gpkg), and the dataset for [Lisbon](https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_lisbon.geojson) (2024):
+::: {.callout-note appearance="simple"}
+### Script
 
-<https://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146>
+See the script we did for [all Portugal](https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_landuse.gpkg), and the dataset for [Lisbon](https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_lisbon.geojson) (2024): [data_extract.R (line 146)](https://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146)
+:::
 
-See other OpenStreetMap categories at [their Wiki](https://wiki.openstreetmap.org/wiki/Map_features).
-
-### Jittering
-
-Random points from
+You can explore other OpenStreetMap categories at [their Wiki](https://wiki.openstreetmap.org/wiki/Map_features).
 
 ## Grids
 
 ![](https://u-shift.github.io/SiteSelection/reference/figures/hex_grid.png){fig-align="center"}
-
-You can also use the universal [h3 hexagon grid](https://h3geo.org/)

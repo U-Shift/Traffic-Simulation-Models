@@ -65,3 +65,18 @@ piggyback::pb_upload("data/Lisbon/r5r/r5r_Lisboa.zip", "r5r_lisboa.zip", repo = 
 
 
 
+# od data and zones -------------------------------------------------------
+
+zones = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/FREGUESIASgeo.Rds"))
+lisbon_zones = zones |> filter(Concelho == "Lisboa")
+st_write(lisbon_zones, "data/Lisbon/Freguesias_Lx.gpkg", overwrite = TRUE)
+piggyback::pb_upload("data/Lisbon/Freguesias_Lx.gpkg", "Freguesias_Lx.gpkg", repo = "U-Shift/Traffic-Simulation-Models", tag = "2025")
+# OD data
+od_all = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_freguesias.Rds"))
+od_lisbon = od_all |> 
+  st_drop_geometry() |>
+  filter(DICOFREor11 %in% lisbon_zones$Dicofre &
+           DICOFREde11 %in% lisbon_zones$Dicofre) |> 
+  mutate(DICOFREor11 = as.character(DICOFREor11), DICOFREde11 = as.character(DICOFREde11))
+saveRDS(od_lisbon, "data/Lisbon/ODtrips_Freguesias_Lx.rds")
+piggyback::pb_upload("data/Lisbon/ODtrips_Freguesias_Lx.rds", "ODtrips_Freguesias_Lx.rds", repo = "U-Shift/Traffic-Simulation-Models", tag = "2025")
