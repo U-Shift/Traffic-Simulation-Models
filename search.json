@@ -24,11 +24,11 @@
     ]
   },
   {
-    "objectID": "routing.html#pareto-frontier",
-    "href": "routing.html#pareto-frontier",
+    "objectID": "routing.html#stop",
+    "href": "routing.html#stop",
     "title": "Routing",
-    "section": "Pareto frontier",
-    "text": "Pareto frontier\n\nCreate rules for an operator\nCreate fare_rules.txt and fare_attributes.txt for Carris based on Metropolitano Lisboa.\n\nfare_structure &lt;- setup_fare_structure(r5r_lisboa, \n                                       # base_fare = 1.65,\n                                       by = \"MODE\")\nhead(fare_structure, n=7)\nfare_structure$max_discounted_transfers = 1\nfare_structure$transfer_time_allowance = 60\nfare_structure$fare_cap = 5.60\nfare_structure$fares_per_type\n\nfare_structure$fares_per_type[type == \"SUBWAY\", unlimited_transfers := TRUE]\nfare_structure$fares_per_type[type == \"SUBWAY\", fare := 1.80]\nfare_structure$fares_per_type[type == \"SUBWAY\", allow_same_route_transfer := TRUE]\nfare_structure$fares_per_type\n\nfare_structure$fares_per_transfer\nfare_structure$fares_per_transfer[first_leg == \"BUS\" & second_leg == \"SUBWAY\", fare := 1.65+1.80]\nfare_structure$fares_per_transfer[first_leg == \"SUBWAY\" & second_leg == \"BUS\", fare := 1.80]\nfare_structure$fares_per_transfer &lt;- fare_structure$fares_per_transfer[!(first_leg == \"SUBWAY\" & second_leg == \"SUBWAY\")]\nfare_structure$fares_per_transfer\n\n\n# calculate travel times function\ncalculate_travel_times &lt;- function(fare) {\n  ttm_df &lt;- travel_time_matrix(\n    r5r_lisboa,\n    origins = PONTOS,\n    destinations = BAIXA,\n    mode = c(\"WALK\", \"TRANSIT\"),\n    departure_datetime = as.POSIXct(\n      \"13-11-2024 10:00:00\",\n      format = \"%d-%m-%Y %H:%M:%S\"\n    ),\n    time_window = 1,\n    fare_structure = fare_structure,\n    max_fare = fare,\n    max_trip_duration = 60,\n    max_walk_time = 15\n  )\n\n  return(ttm_df)\n}\n\n\n# calculate travel times, and combine results\nttm &lt;- calculate_travel_times(fare = Inf) # no budget restriction\nttm_200 &lt;- calculate_travel_times(fare = 2) # 2 euro\nttm_500 &lt;- calculate_travel_times(fare = 5) # 5 euro\n\n# merge results\nttm[ttm_200, on = .(from_id, to_id), travel_time_200 := i.travel_time_p50]\nttm[, travel_time_unl := travel_time_p50]\nttm[, travel_time_p50 := NULL]\ntail(ttm, 10)\n\n\n# plot of overall travel time differences between limited and unlimited cost travel time matrices \ntime_difference = ttm[!is.na(travel_time_200), .(count = .N), \n                      by = .(travel_time_unl, travel_time_200)]\n\np1 &lt;- ggplot(time_difference, aes(y = travel_time_unl, x = travel_time_200)) +\n  geom_point(size = 0.7) +\n  coord_fixed() +\n  scale_x_continuous(breaks = seq(0, 45, 5)) +\n  scale_y_continuous(breaks = seq(0, 45, 5)) +\n  theme_light() +\n  theme(legend.position = \"none\") +\n  labs(y = \"travel time (minutes)\\nunestricted monetary cost\",\n       x = \"travel time (minutes)\\nmonetary cost restricted to EUR 2.00\"\n       )\n\n# plot of unreachable destinations when the monetary cost limit is too low\nunreachable &lt;- ttm[, .(count = .N), by = .(travel_time_unl, is.na(travel_time_200))]\nunreachable[, perc := count / sum(count, na.rm = T), by = .(travel_time_unl)]\nunreachable &lt;- unreachable[is.na == TRUE]\nunreachable &lt;- na.omit(unreachable)\n\np2 &lt;- ggplot(unreachable, aes(x=travel_time_unl, y=perc)) +\n  geom_col() +\n  coord_flip() +\n  scale_x_continuous(breaks = seq(0, 45, 5)) +\n  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2), \n                     labels = paste0(seq(0, 100, 20), \"%\")) +\n  theme_light() +\n  labs(x = \"travel time (minutes)\\nwithout monetary cost restriction\",\n       y = \"% of unreachable destinations\\nconsidering a eur 2.00 monetary cost limit\")\n\nAccess to Opricians\n\nAREAS = st_read(\"data/Lisbon/CENSUS_POIs_Lx.gpkg\")\nAREAS_df = AREAS_counts |&gt; st_drop_geometry()\n\n\n# calculate accessibility function\ncalculate_accessibility &lt;- function(fare, fare_string) {\n  access_df &lt;- accessibility(\n    r5r_lisboa,\n    origins = AREAS_df,\n    destinations = AREAS_df,\n    mode = c(\"WALK\", \"TRANSIT\"),\n    departure_datetime = as.POSIXct(\n      \"13-11-2024 10:00:00\",\n      format = \"%d-%m-%Y %H:%M:%S\"),\n    time_window = 1,\n    opportunities_colname = \"healthcare\",\n    cutoffs = 40,\n    fare_structure = fare_structure,\n    max_fare = fare,\n    max_trip_duration = 60,\n    max_walk_time = 15,\n    progress = FALSE)\n\n  access_df$max_fare &lt;- fare_string\n\n  return(access_df)\n}\n\n# calculate accessibility, combine results, and convert to SF\naccess_165 &lt;- calculate_accessibility(fare=1.65, fare_string=\"EUR 1.65 budget\")\naccess_unl &lt;- calculate_accessibility(fare=Inf, fare_string=\"Unlimited budget\")\n\naccess &lt;- rbind(access_165, access_unl)\n\n# bring geometry\naccess = access |&gt; left_join(AREAS_counts, by = \"id\")\naccess &lt;- st_as_sf(access)\n\n\n# plot accessibility maps\nggplot(data = access) +\n  geom_sf(aes(fill = accessibility), color=NA, size = 0.2) +\n  scale_fill_distiller(palette = \"Spectral\") +\n  facet_wrap(~max_fare) +\n  labs(subtitle = \"Effect of monetary cost on accessibility\") +\n  theme_minimal() +\n  theme(legend.position = \"bottom\",\n        axis.text = element_blank())",
+    "section": "Stop",
+    "text": "Stop\nr5r objects are still allocated to any amount of memory previously set after they are done with their calculations. In order to remove an existing r5r object and reallocate the memory it had been using, we use the stop_r5 function followed by a call to Java’s garbage collector, as follows:\n\nr5r::stop_r5(r5r_lisboa)\nrJava::.jgc(R.gc = TRUE)",
     "crumbs": [
       "Home",
       "r5r",
@@ -78,7 +78,19 @@
     "href": "pois.html#grids",
     "title": "POIs and Grids",
     "section": "Grids",
-    "text": "Grids",
+    "text": "Grids\nYou may want to use the original census units, or create a squared oh hexagonal grid.\n\nCreate a grid\nMatch all the Census and POIs to that grid\n\n\nCreate a grid\nWe will use the city of Lisbon as example\n\nlibrary(sf)\nlibrary(tidyverse)\nlibrary(mapview)\n\ncity_limit = st_read(\"data/Lisbon/Lisboa_lim.gpkg\")\nplot(city_limit)\n\n\n\n\n\n\n\nSquared\nMake a grid that covers the city polygon\n\nGRID = city_limit |&gt;\n  st_transform(crs = 3857) |&gt; # to a projected crs\n  st_make_grid(cellsize = 400, # meters, we are using a projected crs\n               what = \"polygons\",\n               square = TRUE) |&gt; # if FALSE, hexagons\n  st_sf() |&gt; # from list to sf\n  st_transform(crs = 4326) |&gt;  # back to WGS84\n  st_intersection(city_limit$geom) # crop (optional)\n\nGRID = GRID |&gt;  \n  rename(geometry = st_make_grid.st_transform.city_limit..crs...3857...cellsize...400..) |&gt; \n  mutate(id = c(1:nrow(GRID))) # just to give an ID to each cell \n  \nmapview(GRID, alpha.regions = 0.2)\n\n\n\n\nThe color is only referent to the ID\n\n\n\n\nHexagonal using h3jsr\n\nlibrary(h3jsr)\n\n# Resolution: https://h3geo.org/docs/core-library/restable/ \n# h3_res = 10 # 150m diameter\nh3_res = 9 # 400m diameter\n# h3_res = 8 # 1060m diameter\n\nGRID_h3 = city_limit |&gt;  \n  polygon_to_cells(res = h3_res, simple = FALSE)\nGRID_h3 = GRID_h3$h3_addresses |&gt;\n  cell_to_polygon(simple = FALSE)\nGRID_h3 = GRID_h3 |&gt;\n  mutate(id = seq(1:nrow(GRID_h3)))  # give an ID to each cell\nh3_index = GRID_h3 |&gt; st_drop_geometry() # save h3_address for later\n\nmapview(GRID_h3)\n\n\n\n\n\n\n\n\n\nAreas with information\nNow, we can associate these areas (and their centroids) with all the information we want.\n\nWith POIs\n\n# Points of interest\nPOIs = st_read(\"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/POIs_Lx.gpkg\")\n\n# count points by type in areas\nGRID_pois = POIs |&gt; st_join(GRID, join = st_within)\n\ncounts_group = GRID_pois |&gt;\n  st_drop_geometry() |&gt;   # drop geometry for counting\n  group_by(id, group) |&gt;\n  summarise(n = n(), .groups = \"drop\") |&gt;\n  tidyr::pivot_wider(names_from = group, values_from = n, values_fill = 0)\n\ncounts_type = GRID_pois |&gt;\n  st_drop_geometry() |&gt;\n  group_by(id, type) |&gt; # too many types!\n  summarise(n = n(), .groups = \"drop\") |&gt;\n  tidyr::pivot_wider(names_from = type, values_from = n, values_fill = 0)\n\nGRID_pois = GRID |&gt;\n  left_join(counts_group, by = \"id\") |&gt;\n  # left_join(counts_type,  by = \"id\") |&gt; # too many\n  mutate(across(where(is.numeric), ~replace_na(.x, 0)))\n\nmapview(GRID_pois, zcol = \"restaurant\") # for instance\n\n\nThe result is a grid with too many columns (one for each type). Consider using only the group.\n\n\nWith Census\n\n# Census data\ncensus = st_read(\"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Censos_Lx.gpkg\")\n\n# count points by type in areas\nGRID_census = census |&gt; st_join(GRID, join = st_within)\n\ncensus_density = GRID_census |&gt;\n  st_drop_geometry() |&gt;   # drop geometry for counting\n  group_by(id.y) |&gt;\n  summarise(buildings = sum(buildings),\n            families = sum(families),\n            residents = sum(residents)) |&gt; \n  rename(id = id.y) |&gt; \n  filter(!is.na(id))\n\nGRID_census = GRID |&gt;\n  left_join(census_density, by = \"id\") |&gt;\n  mutate(across(where(is.numeric), ~replace_na(.x, 0)))\n\nmapview(GRID_census, zcol = \"residents\")\n\n\n\n\nAll together\n\nGRID_data = GRID_census |&gt; left_join(GRID_pois |&gt; st_drop_geometry())\n\nThe same for Hex grid\n\n# POIs\nGRIDhex_pois = POIs |&gt; st_join(GRID_h3, join = st_within)\n\ncounts_group = GRIDhex_pois |&gt;\n  st_drop_geometry() |&gt;   # drop geometry for counting\n  group_by(id, group) |&gt;\n  summarise(n = n(), .groups = \"drop\") |&gt;\n  tidyr::pivot_wider(names_from = group, values_from = n, values_fill = 0)\n\nGRIDhex_pois = GRID_h3 |&gt;\n  left_join(counts_group, by = \"id\") |&gt;\n  mutate(across(where(is.numeric), ~replace_na(.x, 0)))\n\n#  Census\nGRIDhex_census = census |&gt; st_join(GRID_h3, join = st_within)\n\ncensus_density = GRIDhex_census |&gt;\n  st_drop_geometry() |&gt;   # drop geometry for counting\n  group_by(id.y) |&gt;\n  summarise(buildings = sum(buildings),\n            families = sum(families),\n            residents = sum(residents)) |&gt; \n  rename(id = id.y) |&gt; \n  filter(!is.na(id))\n\nGRIDhex_census = GRID_h3 |&gt;\n  left_join(census_density, by = \"id\") |&gt;\n  mutate(across(where(is.numeric), ~replace_na(.x, 0)))\n\n# All together now\nGRIDhex_data = GRIDhex_census |&gt; left_join(GRIDhex_pois |&gt; st_drop_geometry())\n\nmapview(GRIDhex_data, zcol = \"residents\")",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "POIs and Grids"
+    ]
+  },
+  {
+    "objectID": "pois.html#centroid-coordinates",
+    "href": "pois.html#centroid-coordinates",
+    "title": "POIs and Grids",
+    "section": "Centroid coordinates",
+    "text": "Centroid coordinates\nWe may want to have this information as points, for instance for routing to opportunities.\n\n# squares\nPOINTSsq = GRID_data |&gt; \n  st_centroid()\nGRID_data = GRID_data |&gt; \n  mutate(lon = st_coordinates(POINTSsq)[,1],\n         lat = st_coordinates(POINTSsq)[,2])\n\n# hexagons\nPOINTShex = GRIDhex_data |&gt; \n  st_centroid()\nGRIDhex_data = GRIDhex_data |&gt; \n  mutate(lon = st_coordinates(POINTShex)[,1],\n         lat = st_coordinates(POINTShex)[,2])\n\nYou should stick with just one of them: squares or hexagons.\nDon’t forget to save your data, this will be very useful for the next exercises.\n\nsaveRDS(GRID_data, \"data/Lisbon/GRID_data.rds\")\nsaveRDS(GRIDhex_data, \"data/Lisbon/GRIDhex_data.rds\")",
     "crumbs": [
       "Home",
       "r5r",
@@ -90,7 +102,7 @@
     "href": "rr5r.html",
     "title": "R, RStudio and r5r",
     "section": "",
-    "text": "In this chapter we will guide you through the installation of R, RStudio and the packages you will need for this course, for the macro network models.\nR and RStudio1 are separate downloads.\n\n\nYou will need R installed on your computer. R stats (how it is also known) is a programming language and free software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing.\nThe download links live at The Comprehensive R Archive Network (aka CRAN). The most recent version is 4.5.1, but you can use &gt;= 4.1.x if you already have it installed.\n\nWindowsMacUbuntu\n\n\nDownload R-4.5.1 for Windows and run the executable file.\n\n\n\n\n\n\nImportant\n\n\n\nYou will also need to install Rtools, which is a collection of tools necessary to build R packages in Windows.\n\n\n\n\nDownload R-4.5.1 for MacOX. You will have to choose between the arm64 or the x86-64 version.\nDownload the .pkg file and install it as usual.\n\n\n\nThese are instructions for Ubuntu. If you use other linux distribution, please follow the instructions on The Comprehensive R Archive Network - CRAN.\n\nYou can look for R in the Ubuntu Software Center or install it via the terminal:\n\n# sudo apt update && sudo apt upgrade -y\nsudo apt install r-base\n\nOr, if you prefer, you can install the latest version of R from CRAN:\n\n# update indices\nsudo apt update -qq\n# install two helper packages we need\nsudo apt install --no-install-recommends software-properties-common dirmngr\n# add the signing key (by Michael Rutter) for these repos\nwget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc\n# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed\nsudo add-apt-repository \"deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/\"\n\nThen run:\n\nsudo apt install r-base r-base-core r-recommended r-base-dev\n\n[Optional] To keep up-to-date r version and packages, you can follow the instructions at r2u\n\n\n\nAfter this installation, you don’t need to open R base. Please proceed to install RStudio.\n\n\n\nRStudio Desktop is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.\nRStudio is available for free download from Posit RStudio.\n\nWindows 10/11MacOSUbuntu\n\n\nDownload RStudio 2025.09 and run the executable file.\n\n\nDownload RStudio 2025.09 and install it as usual.\n\n\n\nThese are instructions for Ubuntu 24. If you use other linux distribution, please follow the instructions on Posit RStudio.\n\nInstall it via the terminal:\n\nsudo apt install libssl-dev libclang-dev\nwget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2025.09.0-387-amd64.deb\nsudo dpkg -i rstudio*\nrm -v rstudio*\n\n\n\n\n\n\n\nYou will need to install some packages to work with the data and scripts in this course.\nYou can install them in RStudio by searching for them in the Packages tab:\n\nor by running the following code in the console:\n\ninstall.packages(\"tidyverse\")\n\ninstall.packages(\"sf\")\ninstall.packages(\"mapview\")\ninstall.packages(\"osmextract\")\ninstall.packages(\"stplanr\")\n\ninstall.packages(c(\"remotes\", \"devtools\", \"usethis\")) # optional\n\n\n\n\nThe simplest way to install r5r is by running the code below on RStudio Console. This might take a few minutes if this is the first time you install these packages.\n\npkgs = c(\"r5r\", \"accessibility\", \"rJavaEnv\", \"h3jsr\", \"quantreg\")\n\ninstall.packages(pkgs)\n\n# dev version with latest features - optional\nutils::remove.packages('r5r')\ndevtools::install_github(\"ipeaGIT/r5r\", subdir = \"r-package\")\n\n\n\nTo use the {r5r} package (version v2.0 or higher), you will need to have Java Development Kit (JDK) 21 installed on your computer. There are numerous open-source JDK implementations. The easiest way to install JDK is using the new {rJavaEnv} package in R.\n\n# check version of Java currently installed (if any) \nrJavaEnv::java_check_version_rjava()\n\n## if this is the first time you use {rJavaEnv}, you might need to run this code\n## below to consent the installation of Java.\n# rJavaEnv::rje_consent(provided = TRUE)\n\n# install Java 21\nrJavaEnv::java_quick_install(version = 21)\n\n# check if Java was successfully installed\nrJavaEnv::java_check_version_rjava()\n\nAlternatively, you can manually download and install JDK 21.\n\nWindows and MacOSUbuntu\n\n\nGo to Java Development Kit 21, download the latest 21 build corresponding to your operating system and run the executable file.\n\n\nInstall it via the terminal:\n\nsudo apt install -y openjdk-21-jdk openjdk-21-jre\njava -version",
+    "text": "In this chapter we will guide you through the installation of R, RStudio and the packages you will need for this course, for the macro network models.\nR and RStudio1 are separate downloads.\n\n\nYou will need R installed on your computer. R stats (how it is also known) is a programming language and free software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing.\nThe download links live at The Comprehensive R Archive Network (aka CRAN). The most recent version is 4.5.1, but you can use &gt;= 4.1.x if you already have it installed.\n\nWindowsMacUbuntu\n\n\nDownload R-4.5.1 for Windows and run the executable file.\n\n\n\n\n\n\nImportant\n\n\n\nYou will also need to install Rtools, which is a collection of tools necessary to build R packages in Windows.\n\n\n\n\nDownload R-4.5.1 for MacOX. You will have to choose between the arm64 or the x86-64 version.\nDownload the .pkg file and install it as usual.\n\n\n\nThese are instructions for Ubuntu. If you use other linux distribution, please follow the instructions on The Comprehensive R Archive Network - CRAN.\n\nYou can look for R in the Ubuntu Software Center or install it via the terminal:\n\n# sudo apt update && sudo apt upgrade -y\nsudo apt install r-base\n\nOr, if you prefer, you can install the latest version of R from CRAN:\n\n# update indices\nsudo apt update -qq\n# install two helper packages we need\nsudo apt install --no-install-recommends software-properties-common dirmngr\n# add the signing key (by Michael Rutter) for these repos\nwget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc\n# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed\nsudo add-apt-repository \"deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/\"\n\nThen run:\n\nsudo apt install r-base r-base-core r-recommended r-base-dev\n\n[Optional] To keep up-to-date r version and packages, you can follow the instructions at r2u\n\n\n\nAfter this installation, you don’t need to open R base. Please proceed to install RStudio.\n\n\n\nRStudio Desktop is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.\nRStudio is available for free download from Posit RStudio.\n\nWindows 10/11MacOSUbuntu\n\n\nDownload RStudio 2025.09 and run the executable file.\n\n\nDownload RStudio 2025.09 and install it as usual.\n\n\n\nThese are instructions for Ubuntu 24. If you use other linux distribution, please follow the instructions on Posit RStudio.\n\nInstall it via the terminal:\n\nsudo apt install libssl-dev libclang-dev\nwget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2025.09.0-387-amd64.deb\nsudo dpkg -i rstudio*\nrm -v rstudio*\n\n\n\n\n\n\n\nYou will need to install some packages to work with the data and scripts in this course.\nYou can install them in RStudio by searching for them in the Packages tab:\n\nor by running the following code in the console:\n\ninstall.packages(\"tidyverse\")\n\ninstall.packages(\"sf\")\ninstall.packages(\"mapview\")\ninstall.packages(\"osmextract\")\ninstall.packages(\"stplanr\")\ninstall.packages(\"h3jsr\")\ninstall.packages(\"od\")\n\ninstall.packages(c(\"remotes\", \"devtools\", \"usethis\")) # optional\n\n\n\n\nThe simplest way to install r5r is by running the code below on RStudio Console. This might take a few minutes if this is the first time you install these packages.\n\npkgs = c(\"r5r\", \"accessibility\", \"rJavaEnv\", \"h3jsr\", \"quantreg\")\n\ninstall.packages(pkgs)\n\n# dev version with latest features - optional\nutils::remove.packages('r5r')\ndevtools::install_github(\"ipeaGIT/r5r\", subdir = \"r-package\")\n\n\n\nTo use the {r5r} package (version v2.0 or higher), you will need to have Java Development Kit (JDK) 21 installed on your computer. There are numerous open-source JDK implementations. The easiest way to install JDK is using the new {rJavaEnv} package in R.\n\n# check version of Java currently installed (if any) \nrJavaEnv::java_check_version_rjava()\n\n## if this is the first time you use {rJavaEnv}, you might need to run this code\n## below to consent the installation of Java.\n# rJavaEnv::rje_consent(provided = TRUE)\n\n# install Java 21\nrJavaEnv::java_quick_install(version = 21)\n\n# check if Java was successfully installed\nrJavaEnv::java_check_version_rjava()\n\nAlternatively, you can manually download and install JDK 21.\n\nWindows and MacOSUbuntu\n\n\nGo to Java Development Kit 21, download the latest 21 build corresponding to your operating system and run the executable file.\n\n\nInstall it via the terminal:\n\nsudo apt install -y openjdk-21-jdk openjdk-21-jre\njava -version",
     "crumbs": [
       "Home",
       "Software",
@@ -126,7 +138,7 @@
     "href": "rr5r.html#r-packages",
     "title": "R, RStudio and r5r",
     "section": "",
-    "text": "You will need to install some packages to work with the data and scripts in this course.\nYou can install them in RStudio by searching for them in the Packages tab:\n\nor by running the following code in the console:\n\ninstall.packages(\"tidyverse\")\n\ninstall.packages(\"sf\")\ninstall.packages(\"mapview\")\ninstall.packages(\"osmextract\")\ninstall.packages(\"stplanr\")\n\ninstall.packages(c(\"remotes\", \"devtools\", \"usethis\")) # optional",
+    "text": "You will need to install some packages to work with the data and scripts in this course.\nYou can install them in RStudio by searching for them in the Packages tab:\n\nor by running the following code in the console:\n\ninstall.packages(\"tidyverse\")\n\ninstall.packages(\"sf\")\ninstall.packages(\"mapview\")\ninstall.packages(\"osmextract\")\ninstall.packages(\"stplanr\")\ninstall.packages(\"h3jsr\")\ninstall.packages(\"od\")\n\ninstall.packages(c(\"remotes\", \"devtools\", \"usethis\")) # optional",
     "crumbs": [
       "Home",
       "Software",
@@ -156,6 +168,259 @@
       "Software",
       "R & r5r"
     ]
+  },
+  {
+    "objectID": "pareto.html",
+    "href": "pareto.html",
+    "title": "Pareto frontier",
+    "section": "",
+    "text": "See the r5r vignettes “Accounting for monetary costs” and “Trade-offs between travel time and monetary cost” (Pereira et al. 2021)",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Pareto frontier"
+    ]
+  },
+  {
+    "objectID": "pareto.html#create-rules-for-an-operator",
+    "href": "pareto.html#create-rules-for-an-operator",
+    "title": "Pareto frontier",
+    "section": "Create rules for an operator",
+    "text": "Create rules for an operator\nIn this case, I am creating random rules for fares, considering the mode, the transfers, and changing between modes.\n\n# create basic fare structure\nfare_structure &lt;- setup_fare_structure(r5r_lisboa, \n                                       base_fare = 1.65,\n                                       by = \"MODE\")\n\n# update the cost of bus and subway fares\nfare_structure$fares_per_type &lt;- fare_structure$fares_per_type |&gt; \n  mutate(fare = case_when(\n    type == \"BUS\"    ~ 1.65,\n    type == \"SUBWAY\" ~ 2.00, # imagine it is more expensive\n    TRUE             ~ fare   # keep existing fare if no condition matches\n  ))\n\n# update the cost of transfers\nfare_structure$fares_per_transfer &lt;- fare_structure$fares_per_transfer |&gt; \n  mutate(fare = case_when(\n    first_leg == \"BUS\" & second_leg == \"BUS\" ~ 2.80, # extra cost for 2 trips\n      first_leg == \"SUBWAY\" & second_leg == \"SUBWAY\" ~ 2.00, # extra cost for 2 trips\n    first_leg != second_leg                  ~ 3.50,\n    TRUE                                     ~ fare\n  ))\n\n\n# update transfer_time_allowance to 60 minutes\nfare_structure$transfer_time_allowance &lt;- 60\n\nfare_structure$fares_per_type = fare_structure$fares_per_type |&gt;\n  mutate(\n    unlimited_transfers = if_else(type == \"SUBWAY\", TRUE, unlimited_transfers),\n    allow_same_route_transfer = if_else(type == \"SUBWAY\", TRUE, allow_same_route_transfer)\n  )\n\n# save fare rules to temp file\n# r5r::write_fare_structure(fare_structure, file_path = \"data/Lisbon/fares_lisbon.zip\")\n# fare_structure &lt;- r5r::read_fare_structure(\"data/Lisbon/fares_lisbon.zip\")",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Pareto frontier"
+    ]
+  },
+  {
+    "objectID": "pareto.html#calculating-a-pareto_frontier",
+    "href": "pareto.html#calculating-a-pareto_frontier",
+    "title": "Pareto frontier",
+    "section": "Calculating a pareto_frontier()",
+    "text": "Calculating a pareto_frontier()\nIn this example, we calculate the Pareto frontier from all origins to downtown considering multiple cutoffs of monetary costs:\n\n€1, which would only allow for walking trips\n€1.65, which would only allow for bus trips\n€2.00, which would allow for a single or multiple subway trips\n€2.80, which would allow for bus + bus\n€3.50, which would allow for walking walking + bus + subway\n\n\ndeparture_datetime &lt;- as.POSIXct(\"13-11-2024 10:00:00\", \n                                 format = \"%d-%m-%Y %H:%M:%S\")\n\nprtf &lt;- pareto_frontier(\n  r5r_lisboa,\n  origins = POINTShex,\n  destinations = BAIXA,\n  mode = c(\"WALK\", \"TRANSIT\"),\n  departure_datetime = departure_datetime,\n  fare_structure = fare_structure,\n  fare_cutoffs = c(1, 1.65, 2.0, 2.8, 3.5),\n  progress = TRUE\n  )\n\n\n\nCode\n# select some origin and destinations\npf2 &lt;- prtf |&gt; filter(from_id %in% c(\"717\", \"720\", \"399\"))\n\n# recode modes \npf2 &lt;- pf2 |&gt;\n  mutate(\n    modes = case_when(\n      monetary_cost == 1    ~ \"Walk\",\n      monetary_cost == 1.65 ~ \"Bus\",\n      monetary_cost == 2.0  ~ \"Subway\",\n      monetary_cost == 2.80  ~ \"Bus + Bus\",\n      monetary_cost == 3.5  ~ \"Bus + Subway\"\n      # TRUE                  ~ \"Bus\"\n    )\n  )\n\nggplot(data=pf2, aes(x=monetary_cost, y=travel_time, color=from_id, label = modes)) + \n  geom_step(linetype = \"dashed\") +\n  geom_point() +\n  geom_text(color='gray30', hjust = -.2, nudge_x = 0.05, angle = 45) +\n  labs(title='Pareto frontier of alternative routes to Baixa to:', \n       subtitle = 'Hex 399, 717, and 720',\n       color='Destination') +\n  scale_x_continuous(name=\"Travel cost (€)\", breaks=seq(0,4,1)) +\n  scale_y_continuous(name=\"Travel time (minutes)\", breaks=seq(0,120,20)) +\n  coord_cartesian(xlim = c(1,4), ylim = c(0, 120)) +\n  theme_classic() + theme(legend.position=c(.8,0.8))\n\n\n\n\n\n\n\nAn optimum route alternative means that one cannot make a faster trip without increasing costs, and one cannot make a cheaper trip without increasing travel time.\n\n# calculate travel times function\ncalculate_travel_times &lt;- function(fare) {\n  ttm_df &lt;- travel_time_matrix(\n    r5r_lisboa,\n    origins = POINTShex,\n    destinations = BAIXA,\n    mode = c(\"WALK\", \"TRANSIT\"),\n    departure_datetime = departure_datetime,\n    time_window = 1,\n    fare_structure = fare_structure,\n    max_fare = fare,\n    max_trip_duration = 60,\n    max_walk_time = 15\n  )\n\n  return(ttm_df)\n}\n\n\n# calculate travel times, and combine results\nttm &lt;- calculate_travel_times(fare = Inf) # no budget restriction\nttm_200 &lt;- calculate_travel_times(fare = 2) # 2 euro\n\n# merge results\nttm &lt;- ttm |&gt;\n  left_join(\n    ttm_200 |&gt; select(from_id, to_id, travel_time_p50),\n    by = c(\"from_id\", \"to_id\"),\n    suffix = c(\"\", \"_200\")\n  ) |&gt;\n  mutate(\n    travel_time_200 = travel_time_p50_200,\n    travel_time_unl = travel_time_p50\n  ) |&gt;\n  select(-travel_time_p50, -travel_time_p50_200)\n\n\ntail(ttm, 10)\n\n\n\nCode\n# plot of overall travel time differences between limited and unlimited cost travel time matrices \ntime_difference &lt;- ttm %&gt;%\n  filter(!is.na(travel_time_200)) %&gt;%\n  group_by(travel_time_unl, travel_time_200) %&gt;%\n  summarise(count = n(), .groups = \"drop\")\n\np1 &lt;- ggplot(time_difference, aes(y = travel_time_unl, x = travel_time_200)) +\n  geom_point(size = 0.7) +\n  coord_fixed() +\n  scale_x_continuous(breaks = seq(0, 45, 5)) +\n  scale_y_continuous(breaks = seq(0, 45, 5)) +\n  theme_light() +\n  theme(legend.position = \"none\") +\n  labs(y = \"travel time (minutes)\\nunestricted monetary cost\",\n       x = \"travel time (minutes)\\nmonetary cost restricted to EUR 2.00\"\n       )\n\n# plot of unreachable destinations when the monetary cost limit is too low\nunreachable &lt;- ttm %&gt;%\n  group_by(travel_time_unl, missing = is.na(travel_time_200)) %&gt;%\n  summarise(count = n(), .groups = \"drop_last\") %&gt;%   # keep grouping by travel_time_unl\n  mutate(perc = count / sum(count, na.rm = TRUE)) %&gt;%\n  ungroup() %&gt;%\n  filter(missing) %&gt;%          # keep only rows where travel_time_200 was NA\n  tidyr::drop_na()\n\np2 &lt;- ggplot(unreachable, aes(x=travel_time_unl, y=perc)) +\n  geom_col() +\n  coord_flip() +\n  scale_x_continuous(breaks = seq(0, 60, 5)) +\n  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2), \n                     labels = paste0(seq(0, 100, 20), \"%\")) +\n  theme_light() +\n  labs(x = \"travel time (minutes)\\nwithout monetary cost restriction\",\n       y = \"% of unreachable destinations\\nconsidering a eur 2.00 monetary cost limit\")",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Pareto frontier"
+    ]
+  },
+  {
+    "objectID": "pareto.html#calculating-accessibility-with-monetary-cost",
+    "href": "pareto.html#calculating-accessibility-with-monetary-cost",
+    "title": "Pareto frontier",
+    "section": "Calculating accessibility with monetary cost",
+    "text": "Calculating accessibility with monetary cost\nTo Healthcare facilities\n\nAREAS = readRDS(\"data/Lisbon/GRIDhex_data.rds\")\nAREAS_df = AREAS |&gt; st_drop_geometry()\n\n\n# calculate accessibility function\ncalculate_accessibility &lt;- function(fare, fare_string) {\n  access_df &lt;- accessibility(\n    r5r_lisboa,\n    origins = AREAS_df,\n    destinations = AREAS_df,\n    mode = c(\"WALK\", \"TRANSIT\"),\n    departure_datetime = as.POSIXct(\n      \"13-11-2024 10:00:00\",\n      format = \"%d-%m-%Y %H:%M:%S\"),\n    time_window = 1,\n    opportunities_colname = \"healthcare\",\n    cutoffs = 40,\n    fare_structure = fare_structure,\n    max_fare = fare,\n    max_trip_duration = 60,\n    max_walk_time = 15,\n    progress = FALSE)\n\n  access_df$max_fare &lt;- fare_string\n\n  return(access_df)\n}\n\n# calculate accessibility, combine results, and convert to SF\naccess_165 &lt;- calculate_accessibility(fare=1.65, fare_string=\"EUR 1.65 budget\")\naccess_unl &lt;- calculate_accessibility(fare=Inf, fare_string=\"Unlimited budget\")\n\naccess &lt;- rbind(access_165, access_unl)\n\n# bring geometry\naccess = access |&gt; \n  left_join(AREAS_df |&gt;\n              select(id, h3_address) |&gt;\n              mutate(id = as.character(id)))\naccess$geometry = h3jsr::cell_to_polygon(access$h3_address)\naccess &lt;- st_as_sf(access)\n\n\n\nCode\n# plot accessibility maps\nggplot(data = access) +\n  geom_sf(aes(fill = accessibility), color=NA, size = 0.2) +\n  scale_fill_distiller(palette = \"Spectral\") +\n  facet_wrap(~max_fare) +\n  labs(subtitle = \"Effect of monetary cost on accessibility\") +\n  theme_minimal() +\n  theme(legend.position = \"bottom\",\n        axis.text = element_blank())\n\n\n\n\n\nWith hex grid\n\n\n\n\n\nWith census units",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Pareto frontier"
+    ]
+  },
+  {
+    "objectID": "network.html",
+    "href": "network.html",
+    "title": "Network setup",
+    "section": "",
+    "text": "In this chapter we will guide you through the data requirements, data collection, and setting up a multi-modal network with r5r.",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#data-requirements",
+    "href": "network.html#data-requirements",
+    "title": "Network setup",
+    "section": "Data requirements",
+    "text": "Data requirements\nYou will need R and r5r (Pereira et al. 2021) package installed on your computer.\nr5r sets-up a network file .dat by combining the following datasets in the same folder:\n\nRoad Network (OpenStreetMap1 as .osm.pbf)\nGTFS2 from PTransit operators (a single .zip or several)\nDigital Elevation Model3 (.tif), to consider impedances for walking and cycling\n\n\n\n\n\n\n\nNote\n\n\n\nVer o código code/r5r.R\n\n\nFor the documentation of data needed, see r5r::build_network",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#road-networks",
+    "href": "network.html#road-networks",
+    "title": "Network setup",
+    "section": "Road Networks",
+    "text": "Road Networks\n\nOpenStreetMap\nThe OpenStreetMap is a collaborative online mapping project that creates a free editable map of the world.\nThis is the most used source of road network data for transportation analysis in academia, since it is available almost everywhere in the world, is open and free to use.\n\n\n\n\n\n\nAlthough it can be not 100% accurate, OSM is a good source of data for most of the cases.\n\n\n\nYou can access it’s visualization tool at www.openstreetmap.org. To edit the map, you can use the Editor, once you register.\nIf you want to download the data, you can use the following tools.\n\nOverpass API\nGeofabrik\n\nThese websites include all the OSM data, with much more information than you need.\n\n\nHOT Export Tool\nThis interactive tool helps you to select the region you want to extract (or import an existing city_limit.geojson4), the type of information to include, and the output data format.\nAccess via export.hotosm.org5. Select format as .gpkg and .pbf.\n\n\nAfter the export, you can read in R using the sf package:\n\nLisbon_roads = sf::st_read(\"data/Lisbon/REDEbase_Lx.gpkg\", quiet = TRUE)\nmapview::mapview(Lisbon_roads, zcol = \"highway\")\n\n\n\n\nOSM in R\nThere are also some R packages that can help you to download and work with OpenStreetMap data, such as:\n\nosmdata\nosmextract\n\nThis is an example of how to download OpenStreetMap road network data using the osmextract package:\n\nlibrary(osmextract)\nOSM_Malta = oe_get_network(place = \"Malta\") # it will geocode the place\n\nMalta_main_roads = OSM_Malta |&gt; \n  filter(highway %in% c(\"primary\", \"secondary\", \"tertiary\", \"trunk\"))\n\nplot(Malta_main_roads[\"highway\"])",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#transportation-services-data",
+    "href": "network.html#transportation-services-data",
+    "title": "Network setup",
+    "section": "Transportation Services’ Data",
+    "text": "Transportation Services’ Data\n\nGTFS\nGeneral Transit Feed Specification (GTFS) is standard format for documenting public transportation information, including: routes, schedules, stop locations, calendar patterns, trips, and possible transfers. Transit agencies are responsible for maintaining the data up-to-date.\nThis information is used in several applications, such as Google Maps, to provide public transportation directions. It can be offered for a city, a region, or even a whole country, depending on the PT agency.\nThe recent version 2 of the GTFS standard includes more information, such as real-time data.\nThe data is usually in a .zip file that includes several .txt files (one for each type of information) with tabular relations.\n\n\n\nSource: trilliumtransit.com\n\n\n\nOnline sources\nYou can find most GTFS data in the following websites:\n\nTransitLand\nMobility Database\n\nSome PT agencies also provide their open-data in their websites.\n\n\nR packages\nThere are some nice R packages to read and manipulate GTFS data, such as:\n\ntidytransit\ngtfstools\nGTFShift\n\n\n\n\n\n\n\nBe aware that they may share the same function names, so it is important to use of of them at the time.\n\n\n\n\n\n\nNational Access Points\nThe European Union has a directive that requires the member states to provide access to transportation data. Data includes not only Public Transportation data, but also road networks, car parking, and other transportation-related information.\nList of the European Union members states with National Access Points for Transportation data\nExample of Bus services data in Belgium:\n\n\n\nSource: Transport Data Belgium",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#elevation",
+    "href": "network.html#elevation",
+    "title": "Network setup",
+    "section": "Elevation",
+    "text": "Elevation\nThis information is useful if your city is somehow hilly, and you are modelling pedestrian and/or bike travel.\nIn the following websites you can export a raster file of Digital Elevation Model (DEM) in .tif format:\n\nelevatr R package\nNasa’s SRTMGL1 website\nCopernicus EU website\n\n\n\n\nExport dem.tiff from Copernicus using a city_limit.geojson\n\n\nVerify in R\n\ndem = terra::rast(\"data/Lisbon/Copernicus_30m.tif\") # rename the extension to .tif !!\nterra::plot(dem)",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#setting-up-a-routable-transport-network",
+    "href": "network.html#setting-up-a-routable-transport-network",
+    "title": "Network setup",
+    "section": "Setting up a routable transport network",
+    "text": "Setting up a routable transport network\nYour folder should contain these files, such as:\n\n\n\n\n\n\n# Load packages\nlibrary(tidyverse)\nlibrary(sf)\noptions(java.parameters = '-Xmx8G') # allocate memory for 8GB \nlibrary(r5r)\n\n\ndata_path= \"data/Lisbon/r5r\" # relative path to your folder containing the required data\nnetwork = build_network(\n  data_path,\n  elevation = \"TOBLER\" # optional. MINETTI or NONE\n)\n\n\n\n\n\n\n\nIf you already have a network.dat file, it will use that pre-build network.\n\n\n\nCheck if your transportation network is correct:\n\ntransit_net = transit_network_to_sf(r5r_lisboa)\nmapview::mapview(transit_net$routes, zcol = \"mode\")",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#footnotes",
+    "href": "network.html#footnotes",
+    "title": "Network setup",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nSee how to export an area with HOT export tool.↩︎\nOptional.↩︎\nOptional.↩︎\nFor instance, see here for Germany: https://opendatalab.de/projects/geojson-utilities/↩︎\nYou need an OSM account to use it.↩︎",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Network setup"
+    ]
+  },
+  {
+    "objectID": "jittering.html",
+    "href": "jittering.html",
+    "title": "OD Jittering",
+    "section": "",
+    "text": "When having OD pairs with a macro-scale zoning, we can jitter these desire lines by randomly spread the origins and destinations points at a given area, making the trips (in particular active modes) more realistic (Lovelace, Félix, and Carlino 2022).\nFor that, zones, OD pairs, as well as the trip volume are needed.",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "OD Jittering"
+    ]
+  },
+  {
+    "objectID": "jittering.html#jittered-desire-lines",
+    "href": "jittering.html#jittered-desire-lines",
+    "title": "OD Jittering",
+    "section": "Jittered desire lines",
+    "text": "Jittered desire lines\n\nWith od package\nSee the example bellow, using OD tirps between districts in Lisbon, with the od package (Lovelace and Morgan 2024).\n\n# Load packages\nlibrary(sf)\nlibrary(tidyverse)\nlibrary(mapview)\n# install.packages(\"od\")\nlibrary(od)\n\n\n# Load data\n\n# road network\nroad_network = st_read(\"data/Lisbon/Lisbon_road_network.gpkg\")\n\n# polygons\nlisbon_zones = st_read(\"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Freguesias_Lx.gpkg\")\n\n# OD data\nod_lisbon = readRDS(url(\"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/ODtrips_Freguesias_Lx.rds\"))\nod_lisbon = od_lisbon |&gt; \n  filter(Bike &gt; 0) # keep only with more than 0 bike trips\nhead(od_lisbon)\n\n\n\n  DICOFREor11 DICOFREde11    Car  CarP  Bike   Walk  Other  Total    Active\n1      110601      110601 143.98 43.67 12.76 622.82 116.68 939.91 67.621368\n2      110601      110602 136.85 36.10  2.74 403.72 231.32 810.73 50.135063\n3      110601      110607  21.64 18.90  0.00   0.00  23.75  64.29  0.000000\n4      110601      110608 133.25  5.44  0.00   8.65 377.05 524.39  1.649536\n5      110601      110610  48.55  0.00  0.00   0.00  63.55 112.10  0.000000\n6      110601      110611  31.18 22.83  0.00   0.00   7.28  61.29  0.000000\n\n\n\n# create desire lines between centroids\nod_lisbon_dl = od::od_to_sf(od_lisbon, lisbon_zones)\n\nmapview(od_lisbon_dl, zcol = \"Bike\")\n\n\n\n\n\n\n\nod_lisbon_jit = od::od_jitter(\n  od = od_lisbon,\n  z = lisbon_zones,\n  \n  population_column = 8, #total trips\n  disag = FALSE\n)\nod_lisbon_jit_disag = od::od_jitter(\n  od = od_lisbon,\n  z = lisbon_zones,\n  population_column = 8, #total trips\n  disag = TRUE,\n  max_per_od = 200 # max trips per line\n)\n\nmapview::mapview(od_lisbon_jit, lwd = 0.2)\nmapview::mapview(od_lisbon_jit_disag, lwd = 0.2)\n\n\n\n\n\n\njittering\n\n\n\n\n\n\n\n\njittering with disaggregation\n\n\n\n\nSee the od::od_jitter() function for more options.\n\n\nWith odjitter package\nThe same but with Rust, wich is faster:\n\n# install odjitter in rust\ngit clone https://github.com/dabreegster/odjitter && cd odjitter && cargo build --release && cp ./target/release/odjitter /usr/local/bin/\n\n\n# install odjitter in R\nremotes::install_github(\"dabreegster/odjitter\", subdir = \"r\")\n# Load packages\nlibrary(odjitter)\n\n\n# Jitter with disagregation threshold of 200 trips\nod_lisbon_jittered = odjitter::jitter(  #jitter\n  od = od_lisbon,\n  zones = lisbon_zones,\n  subpoints = road_network, # road network verices. we can choose buildings, or so \n  disaggregation_key = \"Total\",\n  disaggregation_threshold = 200\n)\n\nmapview::mapview(od_lisbon_jittered, lwd = 0.2)",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "OD Jittering"
+    ]
+  },
+  {
+    "objectID": "jittering.html#jittered-origins-and-destinations",
+    "href": "jittering.html#jittered-origins-and-destinations",
+    "title": "OD Jittering",
+    "section": "Jittered origins and destinations",
+    "text": "Jittered origins and destinations\nFrom the jittered desire lines to the points of origin and destination.\n\nlibrary(stplanr)\n\n# add an id to the jittered pairs, so we can join later\nod_lisbon_jittered_id = od_lisbon_jittered\nod_lisbon_jittered_id$id = 1:nrow(od_lisbon_jittered_id)\n\n#with stplanr\nod_lisbon_jittered_points = line2df(od_lisbon_jittered)\nod_lisbon_jittered_points_OR = od_lisbon_jittered_points |&gt;\n  select(L1, fx, fy) |&gt; # from\n  rename(id = L1,\n         lon = fx,\n         lat = fy)\nod_lisbon_jittered_points_DE = od_lisbon_jittered_points |&gt;\n  select(L1, tx, ty) |&gt; # to\n  rename(id = L1,\n         lon = tx,\n         lat = ty)\n\n# as sf\nod_lisbon_jittered_points_OR_geo = st_as_sf(od_lisbon_jittered_points_OR,\n                                            coords = c(\"lon\", \"lat\"),\n                                            crs = 4326)\nod_lisbon_jittered_points_DE_geo = st_as_sf(od_lisbon_jittered_points_DE,\n                                            coords = c(\"lon\", \"lat\"),\n                                            crs = 4326)\n\nmapview(od_lisbon_jittered_points_OR_geo, col.regions = \"red\") + \n  mapview(od_lisbon_jittered_points_DE_geo, col.regions = \"blue\")\n\n\n\n\n\n\nAfter routing with r5r, you may want to add the original O and D codes.\n\nod_lisbon_jittered_r5r = od_lisbon_jittered_r5r |&gt;\n  mutate(id = as.integer(from_id)) |&gt;\n  select(id, total_duration, total_distance, route) |&gt;\n  left_join(od_lisbon_jittered_id |&gt;\n              st_drop_geometry(), # drop geom for left_join\n            by=\"id\")\n\n# get geometry back\nod_lisbon_jittered_r5r = st_as_sf(as.data.frame(st_drop_geometry(od_lisbon_jittered_r5r)),\n                                  geometry = od_lisbon_jittered_r5r$geometry)",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "OD Jittering"
+    ]
+  },
+  {
+    "objectID": "accessibility.html",
+    "href": "accessibility.html",
+    "title": "Accessibility",
+    "section": "",
+    "text": "Isochrones\n\n\nAccessibility",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Accessibility"
+    ]
+  },
+  {
+    "objectID": "software.html",
+    "href": "software.html",
+    "title": "Software",
+    "section": "",
+    "text": "There are several software options for modeling transportation systems.\nTo choose a traffic simulation software to work with can depend on different things to consider. You may use more than one software, depending on the scale you are working with, and on other characteristics.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#macro-vs.-micro",
+    "href": "software.html#macro-vs.-micro",
+    "title": "Software",
+    "section": "Macro vs. Micro",
+    "text": "Macro vs. Micro\n\nMacro simulators\nSome softwares can be more appropriated if using a large scale, such as regional or city-wide area. For instance, the traffic impacts on the development of a new centrality (hospital, airport), or in the introduction of a new bridge or freeway can be simulated with macro simulator software.\nPTV Visum, Aimsun, r5r, and MatSim are examples of software to deal with a large scale simulation.\nFor macro simulations it is essential do consider zoning, flows, etc.\nUsually this type of simulators can smoothly integrate Public Transport information, such as GTFS files.\n\n\nMicro simulators\nWant to simulate changes at a street or neighbourhood level? Then micro simulator software should be used.\nPTV Visim, SUMO, and A/B Street are examples of software to deal with a micro scale simulation.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#paid-licence-vs.-free",
+    "href": "software.html#paid-licence-vs.-free",
+    "title": "Software",
+    "section": "Paid (Licence) vs. Free",
+    "text": "Paid (Licence) vs. Free\n\nPaid\nAvailable commercial software is largely used at many companies and consultants. Universities also usually offer licence access to students and researchers. At IST we provide access to PTV Visum licence for registered students1.\nSome groups provide a student version, which typically does not include all the features.\nPTV Vissim and Visum, and Aimsum are examples of commercial simulation software.\n\n\nFree\nFree and open source software is getting more robust, and should not be overlooked.\nMatSim, r5r, and SUMO are examples of free and open source simulation software.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#operating-system",
+    "href": "software.html#operating-system",
+    "title": "Software",
+    "section": "Operating System",
+    "text": "Operating System\nTo choose a software to work with, you should also consider the operation system of your personal computer (Windows, MacOS, Linux based).\nPTV Visum and Visim are only available for Windows.\nYou may always use virtual machines to have another OS in your PC, but that comes with memory and performance cost.\n\nFor MacOS users, UTM is a good free option. Keep in mind that the University of Lisbon provides Windows stutent’s licences.\nFor Linux (Ubuntu or Debian) users, Gnome Boxes are an interesting option to run Windows.\nFor Windows users, you should have no problem using any software.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#instalation-and-usage",
+    "href": "software.html#instalation-and-usage",
+    "title": "Software",
+    "section": "Instalation and Usage",
+    "text": "Instalation and Usage\nWe only offer guidance to setup some of the available software2.\nPlease see each software page for more details.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#footnotes",
+    "href": "software.html#footnotes",
+    "title": "Software",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nContact Filipe Moura or Rosa Félix to access Visum.↩︎\nIf you use other traffic simulation software, you may contribute to this website and create another tutorial 🙂. Fork and Pull Request in this Github repo.↩︎",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "Oeiras2024/Alfragide_Zonas_2021.html",
+    "href": "Oeiras2024/Alfragide_Zonas_2021.html",
+    "title": "Modelling of Tranport Systems",
+    "section": "",
+    "text": "&lt;!DOCTYPE qgis PUBLIC ‘http://mrcc.com/qgis.dtd’ ‘SYSTEM’&gt;     dataset\n\n\n                PROJCRS[“ETRS89 / Portugal TM06”,BASEGEOGCRS[“ETRS89”,ENSEMBLE[“European Terrestrial Reference System 1989 ensemble”,MEMBER[“European Terrestrial Reference Frame 1989”],MEMBER[“European Terrestrial Reference Frame 1990”],MEMBER[“European Terrestrial Reference Frame 1991”],MEMBER[“European Terrestrial Reference Frame 1992”],MEMBER[“European Terrestrial Reference Frame 1993”],MEMBER[“European Terrestrial Reference Frame 1994”],MEMBER[“European Terrestrial Reference Frame 1996”],MEMBER[“European Terrestrial Reference Frame 1997”],MEMBER[“European Terrestrial Reference Frame 2000”],MEMBER[“European Terrestrial Reference Frame 2005”],MEMBER[“European Terrestrial Reference Frame 2014”],ELLIPSOID[“GRS 1980”,6378137,298.257222101,LENGTHUNIT[“metre”,1]],ENSEMBLEACCURACY[0.1]],PRIMEM[“Greenwich”,0,ANGLEUNIT[“degree”,0.0174532925199433]],ID[“EPSG”,4258]],CONVERSION[“Portugual TM06”,METHOD[“Transverse Mercator”,ID[“EPSG”,9807]],PARAMETER[“Latitude of natural origin”,39.6682583333333,ANGLEUNIT[“degree”,0.0174532925199433],ID[“EPSG”,8801]],PARAMETER[“Longitude of natural origin”,-8.13310833333333,ANGLEUNIT[“degree”,0.0174532925199433],ID[“EPSG”,8802]],PARAMETER[“Scale factor at natural origin”,1,SCALEUNIT[“unity”,1],ID[“EPSG”,8805]],PARAMETER[“False easting”,0,LENGTHUNIT[“metre”,1],ID[“EPSG”,8806]],PARAMETER[“False northing”,0,LENGTHUNIT[“metre”,1],ID[“EPSG”,8807]]],CS[Cartesian,2],AXIS[“easting (X)”,east,ORDER[1],LENGTHUNIT[“metre”,1]],AXIS[“northing (Y)”,north,ORDER[2],LENGTHUNIT[“metre”,1]],USAGE[SCOPE[“Topographic mapping (medium scale).”],AREA[“Portugal - mainland - onshore.”],BBOX[36.95,-9.56,42.16,-6.19]],ID[“EPSG”,3763]] +proj=tmerc +lat_0=39.6682583333333 +lon_0=-8.13310833333333 +k=1 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 1721 3763 EPSG:3763 ETRS89 / Portugal TM06 tmerc EPSG:7019 false"
   },
   {
     "objectID": "casestudy.html",
@@ -275,211 +540,6 @@
       "Home",
       "Vissim and Visum",
       "Macro Case Study"
-    ]
-  },
-  {
-    "objectID": "Oeiras2024/Alfragide_Zonas_2021.html",
-    "href": "Oeiras2024/Alfragide_Zonas_2021.html",
-    "title": "Modelling of Tranport Systems",
-    "section": "",
-    "text": "&lt;!DOCTYPE qgis PUBLIC ‘http://mrcc.com/qgis.dtd’ ‘SYSTEM’&gt;     dataset\n\n\n                PROJCRS[“ETRS89 / Portugal TM06”,BASEGEOGCRS[“ETRS89”,ENSEMBLE[“European Terrestrial Reference System 1989 ensemble”,MEMBER[“European Terrestrial Reference Frame 1989”],MEMBER[“European Terrestrial Reference Frame 1990”],MEMBER[“European Terrestrial Reference Frame 1991”],MEMBER[“European Terrestrial Reference Frame 1992”],MEMBER[“European Terrestrial Reference Frame 1993”],MEMBER[“European Terrestrial Reference Frame 1994”],MEMBER[“European Terrestrial Reference Frame 1996”],MEMBER[“European Terrestrial Reference Frame 1997”],MEMBER[“European Terrestrial Reference Frame 2000”],MEMBER[“European Terrestrial Reference Frame 2005”],MEMBER[“European Terrestrial Reference Frame 2014”],ELLIPSOID[“GRS 1980”,6378137,298.257222101,LENGTHUNIT[“metre”,1]],ENSEMBLEACCURACY[0.1]],PRIMEM[“Greenwich”,0,ANGLEUNIT[“degree”,0.0174532925199433]],ID[“EPSG”,4258]],CONVERSION[“Portugual TM06”,METHOD[“Transverse Mercator”,ID[“EPSG”,9807]],PARAMETER[“Latitude of natural origin”,39.6682583333333,ANGLEUNIT[“degree”,0.0174532925199433],ID[“EPSG”,8801]],PARAMETER[“Longitude of natural origin”,-8.13310833333333,ANGLEUNIT[“degree”,0.0174532925199433],ID[“EPSG”,8802]],PARAMETER[“Scale factor at natural origin”,1,SCALEUNIT[“unity”,1],ID[“EPSG”,8805]],PARAMETER[“False easting”,0,LENGTHUNIT[“metre”,1],ID[“EPSG”,8806]],PARAMETER[“False northing”,0,LENGTHUNIT[“metre”,1],ID[“EPSG”,8807]]],CS[Cartesian,2],AXIS[“easting (X)”,east,ORDER[1],LENGTHUNIT[“metre”,1]],AXIS[“northing (Y)”,north,ORDER[2],LENGTHUNIT[“metre”,1]],USAGE[SCOPE[“Topographic mapping (medium scale).”],AREA[“Portugal - mainland - onshore.”],BBOX[36.95,-9.56,42.16,-6.19]],ID[“EPSG”,3763]] +proj=tmerc +lat_0=39.6682583333333 +lon_0=-8.13310833333333 +k=1 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 1721 3763 EPSG:3763 ETRS89 / Portugal TM06 tmerc EPSG:7019 false"
-  },
-  {
-    "objectID": "software.html",
-    "href": "software.html",
-    "title": "Software",
-    "section": "",
-    "text": "There are several software options for modeling transportation systems.\nTo choose a traffic simulation software to work with can depend on different things to consider. You may use more than one software, depending on the scale you are working with, and on other characteristics.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#macro-vs.-micro",
-    "href": "software.html#macro-vs.-micro",
-    "title": "Software",
-    "section": "Macro vs. Micro",
-    "text": "Macro vs. Micro\n\nMacro simulators\nSome softwares can be more appropriated if using a large scale, such as regional or city-wide area. For instance, the traffic impacts on the development of a new centrality (hospital, airport), or in the introduction of a new bridge or freeway can be simulated with macro simulator software.\nPTV Visum, Aimsun, r5r, and MatSim are examples of software to deal with a large scale simulation.\nFor macro simulations it is essential do consider zoning, flows, etc.\nUsually this type of simulators can smoothly integrate Public Transport information, such as GTFS files.\n\n\nMicro simulators\nWant to simulate changes at a street or neighbourhood level? Then micro simulator software should be used.\nPTV Visim, SUMO, and A/B Street are examples of software to deal with a micro scale simulation.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#paid-licence-vs.-free",
-    "href": "software.html#paid-licence-vs.-free",
-    "title": "Software",
-    "section": "Paid (Licence) vs. Free",
-    "text": "Paid (Licence) vs. Free\n\nPaid\nAvailable commercial software is largely used at many companies and consultants. Universities also usually offer licence access to students and researchers. At IST we provide access to PTV Visum licence for registered students1.\nSome groups provide a student version, which typically does not include all the features.\nPTV Vissim and Visum, and Aimsum are examples of commercial simulation software.\n\n\nFree\nFree and open source software is getting more robust, and should not be overlooked.\nMatSim, r5r, and SUMO are examples of free and open source simulation software.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#operating-system",
-    "href": "software.html#operating-system",
-    "title": "Software",
-    "section": "Operating System",
-    "text": "Operating System\nTo choose a software to work with, you should also consider the operation system of your personal computer (Windows, MacOS, Linux based).\nPTV Visum and Visim are only available for Windows.\nYou may always use virtual machines to have another OS in your PC, but that comes with memory and performance cost.\n\nFor MacOS users, UTM is a good free option. Keep in mind that the University of Lisbon provides Windows stutent’s licences.\nFor Linux (Ubuntu or Debian) users, Gnome Boxes are an interesting option to run Windows.\nFor Windows users, you should have no problem using any software.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#instalation-and-usage",
-    "href": "software.html#instalation-and-usage",
-    "title": "Software",
-    "section": "Instalation and Usage",
-    "text": "Instalation and Usage\nWe only offer guidance to setup some of the available software2.\nPlease see each software page for more details.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#footnotes",
-    "href": "software.html#footnotes",
-    "title": "Software",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nContact Filipe Moura or Rosa Félix to access Visum.↩︎\nIf you use other traffic simulation software, you may contribute to this website and create another tutorial 🙂. Fork and Pull Request in this Github repo.↩︎",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "accessibility.html",
-    "href": "accessibility.html",
-    "title": "Accessibility",
-    "section": "",
-    "text": "Isochrones\n\n\nAccessibility",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Accessibility"
-    ]
-  },
-  {
-    "objectID": "jittering.html",
-    "href": "jittering.html",
-    "title": "OD Jittering",
-    "section": "",
-    "text": "When having OD pairs with a macro-scale zoning, we can jitter these desire lines by randomly spread the origins and destinations points at a given area, making the trips (in particular active modes) more realistic (Lovelace, Félix, and Carlino 2022).\nFor that, zones, OD pairs, as well as the trip volume are needed.",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "OD Jittering"
-    ]
-  },
-  {
-    "objectID": "jittering.html#jittered-desire-lines",
-    "href": "jittering.html#jittered-desire-lines",
-    "title": "OD Jittering",
-    "section": "Jittered desire lines",
-    "text": "Jittered desire lines\n\nWith od package\nSee the example bellow, using OD tirps between districts in Lisbon, with the od package (Lovelace and Morgan 2024).\n\n# Load packages\nlibrary(sf)\nlibrary(tidyverse)\nlibrary(mapview)\n# install.packages(\"od\")\nlibrary(od)\n\n\n# Load data\n\n# road network\nroad_network = st_read(\"data/Lisbon/Lisbon_road_network.gpkg\")\n\n# polygons\nlisbon_zones = st_read(\"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Freguesias_Lx.gpkg\")\n\n# OD data\nod_lisbon = readRDS(url(\"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/ODtrips_Freguesias_Lx.rds\"))\nod_lisbon = od_lisbon |&gt; \n  filter(Bike &gt; 0) # keep only with more than 0 bike trips\nhead(od_lisbon)\n\n\n\n  DICOFREor11 DICOFREde11    Car  CarP  Bike   Walk  Other  Total    Active\n1      110601      110601 143.98 43.67 12.76 622.82 116.68 939.91 67.621368\n2      110601      110602 136.85 36.10  2.74 403.72 231.32 810.73 50.135063\n3      110601      110607  21.64 18.90  0.00   0.00  23.75  64.29  0.000000\n4      110601      110608 133.25  5.44  0.00   8.65 377.05 524.39  1.649536\n5      110601      110610  48.55  0.00  0.00   0.00  63.55 112.10  0.000000\n6      110601      110611  31.18 22.83  0.00   0.00   7.28  61.29  0.000000\n\n\n\n# create desire lines between centroids\nod_lisbon_dl = od::od_to_sf(od_lisbon, lisbon_zones)\n\nmapview(od_lisbon_dl, zcol = \"Bike\")\n\n\n\n\n\n\n\nod_lisbon_jit = od::od_jitter(\n  od = od_lisbon,\n  z = lisbon_zones,\n  \n  population_column = 8, #total trips\n  disag = FALSE\n)\nod_lisbon_jit_disag = od::od_jitter(\n  od = od_lisbon,\n  z = lisbon_zones,\n  population_column = 8, #total trips\n  disag = TRUE,\n  max_per_od = 200 # max trips per line\n)\n\nmapview::mapview(od_lisbon_jit, lwd = 0.2)\nmapview::mapview(od_lisbon_jit_disag, lwd = 0.2)\n\n\n\n\n\n\njittering\n\n\n\n\n\n\n\n\njittering with disaggregation\n\n\n\n\nSee the od::od_jitter() function for more options.\n\n\nWith odjitter package\nThe same but with Rust, wich is faster:\n\n# install odjitter in rust\ngit clone https://github.com/dabreegster/odjitter && cd odjitter && cargo build --release && cp ./target/release/odjitter /usr/local/bin/\n\n\n# install odjitter in R\nremotes::install_github(\"dabreegster/odjitter\", subdir = \"r\")\n# Load packages\nlibrary(odjitter)\n\n\n# Jitter with disagregation threshold of 200 trips\nod_lisbon_jittered = odjitter::jitter(  #jitter\n  od = od_lisbon,\n  zones = lisbon_zones,\n  subpoints = road_network, # road network verices. we can choose buildings, or so \n  disaggregation_key = \"Total\",\n  disaggregation_threshold = 200\n)\n\nmapview::mapview(od_lisbon_jittered, lwd = 0.2)",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "OD Jittering"
-    ]
-  },
-  {
-    "objectID": "jittering.html#jittered-origins-and-destinations",
-    "href": "jittering.html#jittered-origins-and-destinations",
-    "title": "OD Jittering",
-    "section": "Jittered origins and destinations",
-    "text": "Jittered origins and destinations\nFrom the jittered desire lines to the points of origin and destination.\n\nlibrary(stplanr)\n\n# add an id to the jittered pairs, so we can join later\nod_lisbon_jittered_id = od_lisbon_jittered\nod_lisbon_jittered_id$id = 1:nrow(od_lisbon_jittered_id)\n\n#with stplanr\nod_lisbon_jittered_points = line2df(od_lisbon_jittered)\nod_lisbon_jittered_points_OR = od_lisbon_jittered_points |&gt;\n  select(L1, fx, fy) |&gt; # from\n  rename(id = L1,\n         lon = fx,\n         lat = fy)\nod_lisbon_jittered_points_DE = od_lisbon_jittered_points |&gt;\n  select(L1, tx, ty) |&gt; # to\n  rename(id = L1,\n         lon = tx,\n         lat = ty)\n\n# as sf\nod_lisbon_jittered_points_OR_geo = st_as_sf(od_lisbon_jittered_points_OR,\n                                            coords = c(\"lon\", \"lat\"),\n                                            crs = 4326)\nod_lisbon_jittered_points_DE_geo = st_as_sf(od_lisbon_jittered_points_DE,\n                                            coords = c(\"lon\", \"lat\"),\n                                            crs = 4326)\n\nmapview(od_lisbon_jittered_points_OR_geo, col.regions = \"red\") + \n  mapview(od_lisbon_jittered_points_DE_geo, col.regions = \"blue\")\n\n\n\n\n\n\nAfter routing with r5r, you may want to add the original O and D codes.\n\nod_lisbon_jittered_r5r = od_lisbon_jittered_r5r |&gt;\n  mutate(id = as.integer(from_id)) |&gt;\n  select(id, total_duration, total_distance, route) |&gt;\n  left_join(od_lisbon_jittered_id |&gt;\n              st_drop_geometry(), # drop geom for left_join\n            by=\"id\")\n\n# get geometry back\nod_lisbon_jittered_r5r = st_as_sf(as.data.frame(st_drop_geometry(od_lisbon_jittered_r5r)),\n                                  geometry = od_lisbon_jittered_r5r$geometry)",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "OD Jittering"
-    ]
-  },
-  {
-    "objectID": "network.html",
-    "href": "network.html",
-    "title": "Network setup",
-    "section": "",
-    "text": "In this chapter we will guide you through the data requirements, data collection, and setting up a multi-modal network with r5r.",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#data-requirements",
-    "href": "network.html#data-requirements",
-    "title": "Network setup",
-    "section": "Data requirements",
-    "text": "Data requirements\nYou will need R and r5r (Pereira et al. 2021) package installed on your computer.\nr5r sets-up a network file .dat by combining the following datasets in the same folder:\n\nRoad Network (OpenStreetMap1 as .osm.pbf)\nGTFS2 from PTransit operators (a single .zip or several)\nDigital Elevation Model3 (.tif), to consider impedances for walking and cycling\n\n\n\n\n\n\n\nNote\n\n\n\nVer o código code/r5r.R\n\n\nFor the documentation of data needed, see r5r::build_network",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#road-networks",
-    "href": "network.html#road-networks",
-    "title": "Network setup",
-    "section": "Road Networks",
-    "text": "Road Networks\n\nOpenStreetMap\nThe OpenStreetMap is a collaborative online mapping project that creates a free editable map of the world.\nThis is the most used source of road network data for transportation analysis in academia, since it is available almost everywhere in the world, is open and free to use.\n\n\n\n\n\n\nAlthough it can be not 100% accurate, OSM is a good source of data for most of the cases.\n\n\n\nYou can access it’s visualization tool at www.openstreetmap.org. To edit the map, you can use the Editor, once you register.\nIf you want to download the data, you can use the following tools.\n\nOverpass API\nGeofabrik\n\nThese websites include all the OSM data, with much more information than you need.\n\n\nHOT Export Tool\nThis interactive tool helps you to select the region you want to extract (or import an existing city_limit.geojson4), the type of information to include, and the output data format.\nAccess via export.hotosm.org5. Select format as .gpkg and .pbf.\n\n\nAfter the export, you can read in R using the sf package:\n\nLisbon_roads = sf::st_read(\"data/Lisbon/REDEbase_Lx.gpkg\", quiet = TRUE)\nmapview::mapview(Lisbon_roads, zcol = \"highway\")\n\n\n\n\nOSM in R\nThere are also some R packages that can help you to download and work with OpenStreetMap data, such as:\n\nosmdata\nosmextract\n\nThis is an example of how to download OpenStreetMap road network data using the osmextract package:\n\nlibrary(osmextract)\nOSM_Malta = oe_get_network(place = \"Malta\") # it will geocode the place\n\nMalta_main_roads = OSM_Malta |&gt; \n  filter(highway %in% c(\"primary\", \"secondary\", \"tertiary\", \"trunk\"))\n\nplot(Malta_main_roads[\"highway\"])",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#transportation-services-data",
-    "href": "network.html#transportation-services-data",
-    "title": "Network setup",
-    "section": "Transportation Services’ Data",
-    "text": "Transportation Services’ Data\n\nGTFS\nGeneral Transit Feed Specification (GTFS) is standard format for documenting public transportation information, including: routes, schedules, stop locations, calendar patterns, trips, and possible transfers. Transit agencies are responsible for maintaining the data up-to-date.\nThis information is used in several applications, such as Google Maps, to provide public transportation directions. It can be offered for a city, a region, or even a whole country, depending on the PT agency.\nThe recent version 2 of the GTFS standard includes more information, such as real-time data.\nThe data is usually in a .zip file that includes several .txt files (one for each type of information) with tabular relations.\n\n\n\nSource: trilliumtransit.com\n\n\n\nOnline sources\nYou can find most GTFS data in the following websites:\n\nTransitLand\nMobility Database\n\nSome PT agencies also provide their open-data in their websites.\n\n\nR packages\nThere are some nice R packages to read and manipulate GTFS data, such as:\n\ntidytransit\ngtfstools\nGTFShift\n\n\n\n\n\n\n\nBe aware that they may share the same function names, so it is important to use of of them at the time.\n\n\n\n\n\n\nNational Access Points\nThe European Union has a directive that requires the member states to provide access to transportation data. Data includes not only Public Transportation data, but also road networks, car parking, and other transportation-related information.\nList of the European Union members states with National Access Points for Transportation data\nExample of Bus services data in Belgium:\n\n\n\nSource: Transport Data Belgium",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#elevation",
-    "href": "network.html#elevation",
-    "title": "Network setup",
-    "section": "Elevation",
-    "text": "Elevation\nThis information is useful if your city is somehow hilly, and you are modelling pedestrian and/or bike travel.\nIn the following websites you can export a raster file of Digital Elevation Model (DEM) in .tif format:\n\nelevatr R package\nNasa’s SRTMGL1 website\nCopernicus EU website\n\n\n\n\nExport dem.tiff from Copernicus using a city_limit.geojson\n\n\nVerify in R\n\ndem = terra::rast(\"data/Lisbon/Copernicus_30m.tif\") # rename the extension to .tif !!\nterra::plot(dem)",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#setting-up-a-routable-transport-network",
-    "href": "network.html#setting-up-a-routable-transport-network",
-    "title": "Network setup",
-    "section": "Setting up a routable transport network",
-    "text": "Setting up a routable transport network\nYour folder should contain these files, such as:\n\n\n\n\n\n\n# Load packages\nlibrary(tidyverse)\nlibrary(sf)\noptions(java.parameters = '-Xmx8G') # allocate memory for 8GB \nlibrary(r5r)\n\n\ndata_path= \"data/Lisbon/r5r\" # relative path to your folder containing the required data\nnetwork = build_network(\n  data_path,\n  elevation = \"TOBLER\" # optional. MINETTI or NONE\n)\n\n\n\n\n\n\n\nIf you already have a network.dat file, it will use that pre-build network.\n\n\n\nCheck if your transportation network is correct:\n\ntransit_net = transit_network_to_sf(r5r_lisboa)\nmapview::mapview(transit_net$routes, zcol = \"mode\")",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#footnotes",
-    "href": "network.html#footnotes",
-    "title": "Network setup",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nSee how to export an area with HOT export tool.↩︎\nOptional.↩︎\nOptional.↩︎\nFor instance, see here for Germany: https://opendatalab.de/projects/geojson-utilities/↩︎\nYou need an OSM account to use it.↩︎",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Network setup"
     ]
   },
   {

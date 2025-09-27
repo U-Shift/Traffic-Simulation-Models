@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -252,12 +286,6 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./routing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Routing</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./pois.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">POIs and Grids</span></a>
   </div>
@@ -266,6 +294,18 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./jittering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">OD Jittering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./routing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Routing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pareto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pareto frontier</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -296,7 +336,12 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#openstreetmap" id="toc-openstreetmap" class="nav-link" data-scroll-target="#openstreetmap">OpenStreetMap</a></li>
   </ul></li>
-  <li><a href="#grids" id="toc-grids" class="nav-link" data-scroll-target="#grids">Grids</a></li>
+  <li><a href="#grids" id="toc-grids" class="nav-link" data-scroll-target="#grids">Grids</a>
+  <ul class="collapse">
+  <li><a href="#create-a-grid" id="toc-create-a-grid" class="nav-link" data-scroll-target="#create-a-grid">Create a grid</a></li>
+  <li><a href="#areas-with-information" id="toc-areas-with-information" class="nav-link" data-scroll-target="#areas-with-information">Areas with information</a></li>
+  </ul></li>
+  <li><a href="#centroid-coordinates" id="toc-centroid-coordinates" class="nav-link" data-scroll-target="#centroid-coordinates">Centroid coordinates</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/pois.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -365,10 +410,212 @@ Script
 </section>
 <section id="grids" class="level2">
 <h2 class="anchored" data-anchor-id="grids">Grids</h2>
+<p>You may want to use the original census units, or create a squared oh hexagonal grid.</p>
+<ol type="1">
+<li>Create a grid</li>
+<li>Match all the Census and POIs to that grid</li>
+</ol>
+<section id="create-a-grid" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-grid">Create a grid</h3>
+<p>We will use the city of Lisbon as example</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapview)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>city_limit <span class="ot">=</span> <span class="fu">st_read</span>(<span class="st">"data/Lisbon/Lisboa_lim.gpkg"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(city_limit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://u-shift.github.io/SiteSelection/reference/figures/hex_grid.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="images/clipboard-589159366.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="297"></p>
 </figure>
+</div>
+<section id="squared" class="level4">
+<h4 class="anchored" data-anchor-id="squared">Squared</h4>
+<p>Make a grid that covers the city polygon</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>GRID <span class="ot">=</span> city_limit <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">3857</span>) <span class="sc">|&gt;</span> <span class="co"># to a projected crs</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_make_grid</span>(<span class="at">cellsize =</span> <span class="dv">400</span>, <span class="co"># meters, we are using a projected crs</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">what =</span> <span class="st">"polygons"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">square =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="co"># if FALSE, hexagons</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_sf</span>() <span class="sc">|&gt;</span> <span class="co"># from list to sf</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">|&gt;</span>  <span class="co"># back to WGS84</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(city_limit<span class="sc">$</span>geom) <span class="co"># crop (optional)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>GRID <span class="ot">=</span> GRID <span class="sc">|&gt;</span>  </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">geometry =</span> st_make_grid.st_transform.city_limit..crs...<span class="dv">3857</span>...cellsize...<span class="dv">400</span>..) <span class="sc">|&gt;</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(GRID))) <span class="co"># just to give an ID to each cell </span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(GRID, <span class="at">alpha.regions =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2059408309.png" class="img-fluid figure-img" width="551"></p>
+<figcaption>The color is only referent to the ID</figcaption>
+</figure>
+</div>
+</section>
+<section id="hexagonal-using-h3jsr" class="level4">
+<h4 class="anchored" data-anchor-id="hexagonal-using-h3jsr">Hexagonal using <code>h3jsr</code></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(h3jsr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Resolution: https://h3geo.org/docs/core-library/restable/ </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># h3_res = 10 # 150m diameter</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>h3_res <span class="ot">=</span> <span class="dv">9</span> <span class="co"># 400m diameter</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># h3_res = 8 # 1060m diameter</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>GRID_h3 <span class="ot">=</span> city_limit <span class="sc">|&gt;</span>  </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">polygon_to_cells</span>(<span class="at">res =</span> h3_res, <span class="at">simple =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>GRID_h3 <span class="ot">=</span> GRID_h3<span class="sc">$</span>h3_addresses <span class="sc">|&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cell_to_polygon</span>(<span class="at">simple =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>GRID_h3 <span class="ot">=</span> GRID_h3 <span class="sc">|&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(GRID_h3)))  <span class="co"># give an ID to each cell</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>h3_index <span class="ot">=</span> GRID_h3 <span class="sc">|&gt;</span> <span class="fu">st_drop_geometry</span>() <span class="co"># save h3_address for later</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(GRID_h3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-738867051.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="495"></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="areas-with-information" class="level3">
+<h3 class="anchored" data-anchor-id="areas-with-information">Areas with information</h3>
+<p>Now, we can associate these areas (and their centroids) with all the information we want.</p>
+<section id="with-pois" class="level4">
+<h4 class="anchored" data-anchor-id="with-pois">With POIs</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Points of interest</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>POIs <span class="ot">=</span> <span class="fu">st_read</span>(<span class="st">"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/POIs_Lx.gpkg"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># count points by type in areas</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>GRID_pois <span class="ot">=</span> POIs <span class="sc">|&gt;</span> <span class="fu">st_join</span>(GRID, <span class="at">join =</span> st_within)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>counts_group <span class="ot">=</span> GRID_pois <span class="sc">|&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">|&gt;</span>   <span class="co"># drop geometry for counting</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id, group) <span class="sc">|&gt;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> group, <span class="at">values_from =</span> n, <span class="at">values_fill =</span> <span class="dv">0</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>counts_type <span class="ot">=</span> GRID_pois <span class="sc">|&gt;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id, type) <span class="sc">|&gt;</span> <span class="co"># too many types!</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> type, <span class="at">values_from =</span> n, <span class="at">values_fill =</span> <span class="dv">0</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>GRID_pois <span class="ot">=</span> GRID <span class="sc">|&gt;</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(counts_group, <span class="at">by =</span> <span class="st">"id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># left_join(counts_type,  by = "id") |&gt; # too many</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span><span class="fu">replace_na</span>(.x, <span class="dv">0</span>)))</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(GRID_pois, <span class="at">zcol =</span> <span class="st">"restaurant"</span>) <span class="co"># for instance</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/clipboard-1766998803.png" class="img-fluid"></p>
+<p>The result is a grid with too many columns (one for each type). Consider using only the <em>group</em>.</p>
+</section>
+<section id="with-census" class="level4">
+<h4 class="anchored" data-anchor-id="with-census">With Census</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Census data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>census <span class="ot">=</span> <span class="fu">st_read</span>(<span class="st">"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Censos_Lx.gpkg"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># count points by type in areas</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>GRID_census <span class="ot">=</span> census <span class="sc">|&gt;</span> <span class="fu">st_join</span>(GRID, <span class="at">join =</span> st_within)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>census_density <span class="ot">=</span> GRID_census <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">|&gt;</span>   <span class="co"># drop geometry for counting</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id.y) <span class="sc">|&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">buildings =</span> <span class="fu">sum</span>(buildings),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">families =</span> <span class="fu">sum</span>(families),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">residents =</span> <span class="fu">sum</span>(residents)) <span class="sc">|&gt;</span> </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">id =</span> id.y) <span class="sc">|&gt;</span> </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(id))</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>GRID_census <span class="ot">=</span> GRID <span class="sc">|&gt;</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(census_density, <span class="at">by =</span> <span class="st">"id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span><span class="fu">replace_na</span>(.x, <span class="dv">0</span>)))</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(GRID_census, <span class="at">zcol =</span> <span class="st">"residents"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/clipboard-591760998.png" class="img-fluid"></p>
+</section>
+<section id="all-together" class="level4">
+<h4 class="anchored" data-anchor-id="all-together">All together</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>GRID_data <span class="ot">=</span> GRID_census <span class="sc">|&gt;</span> <span class="fu">left_join</span>(GRID_pois <span class="sc">|&gt;</span> <span class="fu">st_drop_geometry</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The same for <strong>Hex grid</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># POIs</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>GRIDhex_pois <span class="ot">=</span> POIs <span class="sc">|&gt;</span> <span class="fu">st_join</span>(GRID_h3, <span class="at">join =</span> st_within)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>counts_group <span class="ot">=</span> GRIDhex_pois <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">|&gt;</span>   <span class="co"># drop geometry for counting</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id, group) <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> group, <span class="at">values_from =</span> n, <span class="at">values_fill =</span> <span class="dv">0</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>GRIDhex_pois <span class="ot">=</span> GRID_h3 <span class="sc">|&gt;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(counts_group, <span class="at">by =</span> <span class="st">"id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span><span class="fu">replace_na</span>(.x, <span class="dv">0</span>)))</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#  Census</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>GRIDhex_census <span class="ot">=</span> census <span class="sc">|&gt;</span> <span class="fu">st_join</span>(GRID_h3, <span class="at">join =</span> st_within)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>census_density <span class="ot">=</span> GRIDhex_census <span class="sc">|&gt;</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">|&gt;</span>   <span class="co"># drop geometry for counting</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id.y) <span class="sc">|&gt;</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">buildings =</span> <span class="fu">sum</span>(buildings),</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">families =</span> <span class="fu">sum</span>(families),</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">residents =</span> <span class="fu">sum</span>(residents)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">id =</span> id.y) <span class="sc">|&gt;</span> </span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(id))</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>GRIDhex_census <span class="ot">=</span> GRID_h3 <span class="sc">|&gt;</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(census_density, <span class="at">by =</span> <span class="st">"id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span><span class="fu">replace_na</span>(.x, <span class="dv">0</span>)))</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co"># All together now</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>GRIDhex_data <span class="ot">=</span> GRIDhex_census <span class="sc">|&gt;</span> <span class="fu">left_join</span>(GRIDhex_pois <span class="sc">|&gt;</span> <span class="fu">st_drop_geometry</span>())</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(GRIDhex_data, <span class="at">zcol =</span> <span class="st">"residents"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2311491049.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="491"></p>
+</figure>
+</div>
+</section>
+</section>
+</section>
+<section id="centroid-coordinates" class="level2">
+<h2 class="anchored" data-anchor-id="centroid-coordinates">Centroid coordinates</h2>
+<p>We may want to have this information as points, for instance for routing to opportunities.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># squares</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>POINTSsq <span class="ot">=</span> GRID_data <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_centroid</span>()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>GRID_data <span class="ot">=</span> GRID_data <span class="sc">|&gt;</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lon =</span> <span class="fu">st_coordinates</span>(POINTSsq)[,<span class="dv">1</span>],</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">lat =</span> <span class="fu">st_coordinates</span>(POINTSsq)[,<span class="dv">2</span>])</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># hexagons</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>POINTShex <span class="ot">=</span> GRIDhex_data <span class="sc">|&gt;</span> </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_centroid</span>()</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>GRIDhex_data <span class="ot">=</span> GRIDhex_data <span class="sc">|&gt;</span> </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lon =</span> <span class="fu">st_coordinates</span>(POINTShex)[,<span class="dv">1</span>],</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">lat =</span> <span class="fu">st_coordinates</span>(POINTShex)[,<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You should stick with just one of them: squares or hexagons.</p>
+<p>Don’t forget to save your data, this will be very useful for the next exercises.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(GRID_data, <span class="st">"data/Lisbon/GRID_data.rds"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(GRIDhex_data, <span class="st">"data/Lisbon/GRIDhex_data.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
