@@ -28,6 +28,7 @@ AREAS = BGRI |>
   mutate(lon = st_coordinates(PONTOS)[,1],
          lat = st_coordinates(PONTOS)[,2])
 
+# 
 
 
 

@@ -79,6 +79,170 @@ mapview(GRID, alpha.regions = 0.2)
 
 #### Hexagonal using `h3jsr`
 
-![](https://u-shift.github.io/SiteSelection/reference/figures/hex_grid.png){fig-align="center"}
+```{r}
+library(h3jsr)
+
+# Resolution: https://h3geo.org/docs/core-library/restable/ 
+# h3_res = 10 # 150m diameter
+h3_res = 9 # 400m diameter
+# h3_res = 8 # 1060m diameter
+
+GRID_h3 = city_limit |>  
+  polygon_to_cells(res = h3_res, simple = FALSE)
+GRID_h3 = GRID_h3$h3_addresses |>
+  cell_to_polygon(simple = FALSE)
+GRID_h3 = GRID_h3 |>
+  mutate(id = seq(1:nrow(GRID_h3)))  # give an ID to each cell
+h3_index = GRID_h3 |> st_drop_geometry() # save h3_address for later
+
+mapview(GRID_h3)
+```
+
+![](images/clipboard-738867051.png){fig-align="center" width="495"}
 
 ### Areas with information
+
+Now, we can associate these areas (and their centroids) with all the information we want.
+
+#### With POIs
+
+```{r}
+# Points of interest
+POIs = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/POIs_Lx.gpkg")
+
+# count points by type in areas
+GRID_pois = POIs |> st_join(GRID, join = st_within)
+
+counts_group = GRID_pois |>
+  st_drop_geometry() |>   # drop geometry for counting
+  group_by(id, group) |>
+  summarise(n = n(), .groups = "drop") |>
+  tidyr::pivot_wider(names_from = group, values_from = n, values_fill = 0)
+
+counts_type = GRID_pois |>
+  st_drop_geometry() |>
+  group_by(id, type) |> # too many types!
+  summarise(n = n(), .groups = "drop") |>
+  tidyr::pivot_wider(names_from = type, values_from = n, values_fill = 0)
+
+GRID_pois = GRID |>
+  left_join(counts_group, by = "id") |>
+  # left_join(counts_type,  by = "id") |> # too many
+  mutate(across(where(is.numeric), ~replace_na(.x, 0)))
+
+mapview(GRID_pois, zcol = "restaurant") # for instance
+```
+
+![](images/clipboard-1766998803.png)
+
+The result is a grid with too many columns (one for each type).
+Consider using only the *group*.
+
+#### With Census
+
+```{r}
+# Census data
+census = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Censos_Lx.gpkg")
+
+# count points by type in areas
+GRID_census = census |> st_join(GRID, join = st_within)
+
+census_density = GRID_census |>
+  st_drop_geometry() |>   # drop geometry for counting
+  group_by(id.y) |>
+  summarise(buildings = sum(buildings),
+            families = sum(families),
+            residents = sum(residents)) |> 
+  rename(id = id.y) |> 
+  filter(!is.na(id))
+
+GRID_census = GRID |>
+  left_join(census_density, by = "id") |>
+  mutate(across(where(is.numeric), ~replace_na(.x, 0)))
+
+mapview(GRID_census, zcol = "residents")
+```
+
+![](images/clipboard-591760998.png)
+
+#### All together
+
+```{r}
+GRID_data = GRID_census |> left_join(GRID_pois |> st_drop_geometry())
+
+```
+
+The same for **Hex grid**
+
+```{r}
+# POIs
+GRIDhex_pois = POIs |> st_join(GRID_h3, join = st_within)
+
+counts_group = GRIDhex_pois |>
+  st_drop_geometry() |>   # drop geometry for counting
+  group_by(id, group) |>
+  summarise(n = n(), .groups = "drop") |>
+  tidyr::pivot_wider(names_from = group, values_from = n, values_fill = 0)
+
+GRIDhex_pois = GRID_h3 |>
+  left_join(counts_group, by = "id") |>
+  mutate(across(where(is.numeric), ~replace_na(.x, 0)))
+
+#  Census
+GRIDhex_census = census |> st_join(GRID_h3, join = st_within)
+
+census_density = GRIDhex_census |>
+  st_drop_geometry() |>   # drop geometry for counting
+  group_by(id.y) |>
+  summarise(buildings = sum(buildings),
+            families = sum(families),
+            residents = sum(residents)) |> 
+  rename(id = id.y) |> 
+  filter(!is.na(id))
+
+GRIDhex_census = GRID_h3 |>
+  left_join(census_density, by = "id") |>
+  mutate(across(where(is.numeric), ~replace_na(.x, 0)))
+
+# All together now
+GRIDhex_data = GRIDhex_census |> left_join(GRIDhex_pois |> st_drop_geometry())
+
+mapview(GRIDhex_data, zcol = "residents")
+```
+
+![](images/clipboard-2311491049.png){fig-align="center" width="491"}
+
+## Centroid coordinates
+
+We may want to have this information as points, for instance for routing to opportunities.
+
+```{r}
+# squares
+POINTSsq = GRID_data |> 
+  st_centroid()
+GRID_data = GRID_data |> 
+  mutate(lon = st_coordinates(POINTSsq)[,1],
+         lat = st_coordinates(POINTSsq)[,2])
+
+# hexagons
+POINTShex = GRIDhex_data |> 
+  st_centroid()
+GRIDhex_data = GRIDhex_data |> 
+  mutate(lon = st_coordinates(POINTShex)[,1],
+         lat = st_coordinates(POINTShex)[,2])
+```
+
+You should stick with just one of them: squares or hexagons.
+
+Don't forget to save your data, this will be very useful for the next exercises.
+
+```{r}
+saveRDS(GRID_data, "data/Lisbon/GRID_data.rds")
+saveRDS(GRIDhex_data, "data/Lisbon/GRIDhex_data.rds")
+```
+
+```{r}
+#| include: false
+piggyback:: pb_upload("data/Lisbon/GRID_data.rds", "GRID_data_lx.rds", repo = "U-Shift/Traffic-Simulation-Models", tag = "2025")
+piggyback:: pb_upload("data/Lisbon/GRIDhex_data.rds", "GRIDhex_data_lx.rds", repo = "U-Shift/Traffic-Simulation-Models", tag = "2025")
+```
