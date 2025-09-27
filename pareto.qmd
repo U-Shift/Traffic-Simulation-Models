@@ -10,7 +10,7 @@ See the r5r vignettes "[Accounting for monetary costs](https://ipeagit.github.io
 
 ## Create rules for an operator
 
-In this case, I am creating random rules for fares, considering the mode, the transfers, and changing between modes.
+In this case, I am creating **random rules** for fares, considering the mode, the transfers, and changing between modes.
 
 ```{r}
 # create basic fare structure
@@ -52,13 +52,13 @@ fare_structure$fares_per_type = fare_structure$fares_per_type |>
 
 ## Calculating a `pareto_frontier()`
 
-In this example, we calculate the Pareto frontier from all origins to downtown considering multiple cutoffs of monetary costs:
+In this example, we calculate the Pareto frontier from all origins to downtown (*Baixa*) considering multiple cutoffs of monetary costs:
 
--   €1, which would only allow for walking trips
--   €1.65, which would only allow for bus trips
--   €2.00, which would allow for a single or multiple subway trips
--   €2.80, which would allow for bus + bus
--   €3.50, which would allow for walking walking + bus + subway
+-   €1, which would only allow for **walking** trips
+-   €1.65, which would only allow for **bus** trips
+-   €2.00, which would allow for a single or multiple **subway** trips
+-   €2.80, which would allow for **bus + bus**
+-   €3.50, which would allow for **walking + bus + subway**
 
 ```{r}
 #| include: false
@@ -117,7 +117,7 @@ ggplot(data=pf2, aes(x=monetary_cost, y=travel_time, color=from_id, label = mode
   theme_classic() + theme(legend.position=c(.8,0.8))
 ```
 
-![](images/clipboard-3634180098.png){fig-align="center" width="599"}
+![](images/clipboard-3634180098.png){fig-align="center" width="683"}
 
 An optimum route alternative means that one cannot make a faster trip without increasing costs, and one cannot make a cheaper trip without increasing travel time.
 
@@ -202,9 +202,9 @@ p2 <- ggplot(unreachable, aes(x=travel_time_unl, y=perc)) +
 
 ```
 
-![](images/clipboard-1392517926.png){fig-align="center" width="408"}
+![](images/clipboard-1392517926.png){fig-align="center" width="444"}
 
-![](images/clipboard-1743970520.png){fig-align="center" width="532"}
+![](images/clipboard-1743970520.png){fig-align="center" width="577"}
 
 ## Calculating accessibility with monetary cost
 
