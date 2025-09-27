@@ -20,6 +20,7 @@ See the example bellow, using OD tirps between districts in Lisbon, with the [`o
 # Load packages
 library(sf)
 library(tidyverse)
+library(mapview)
 # install.packages("od")
 library(od)
 ```
@@ -27,17 +28,17 @@ library(od)
 ```{r}
 # Load data
 
+# road network
+road_network = st_read("data/Lisbon/Lisbon_road_network.gpkg")
+
 # polygons
 lisbon_zones = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Freguesias_Lx.gpkg")
+
 # OD data
 od_lisbon = readRDS(url("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/ODtrips_Freguesias_Lx.rds"))
 od_lisbon = od_lisbon |> 
   filter(Bike > 0) # keep only with more than 0 bike trips
-# road network
-road_network = st_read("data/Lisbon/Lisbon_road_network.gpkg")
-
-# Lisbon limit, for map purpose
-lisbon_limit = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Lisboa_lim.gpkg")
+head(od_lisbon)
 ```
 
 ```{r}
@@ -71,7 +72,7 @@ od_lisbon_jit_disag = od::od_jitter(
   z = lisbon_zones,
   population_column = 8, #total trips
   disag = TRUE,
-  max_per_od = 200
+  max_per_od = 200 # max trips per line
 )
 
 mapview::mapview(od_lisbon_jit, lwd = 0.2)
@@ -130,6 +131,11 @@ From the jittered **desire lines** to the **points** of origin and destination.
 
 ```{r}
 library(stplanr)
+
+# add an id to the jittered pairs, so we can join later
+od_lisbon_jittered_id = od_lisbon_jittered
+od_lisbon_jittered_id$id = 1:nrow(od_lisbon_jittered_id)
+
 #with stplanr
 od_lisbon_jittered_points = line2df(od_lisbon_jittered)
 od_lisbon_jittered_points_OR = od_lisbon_jittered_points |>
@@ -156,5 +162,20 @@ mapview(od_lisbon_jittered_points_OR_geo, col.regions = "red") +
 ```
 
 ![](images/clipboard-762473866.png){fig-align="center" width="647"}
+
+After routing with r5r, you may want to add the original O and D codes.
+
+```{r}
+od_lisbon_jittered_r5r = od_lisbon_jittered_r5r |>
+  mutate(id = as.integer(from_id)) |>
+  select(id, total_duration, total_distance, route) |>
+  left_join(od_lisbon_jittered_id |>
+              st_drop_geometry(), # drop geom for left_join
+            by="id")
+
+# get geometry back
+od_lisbon_jittered_r5r = st_as_sf(as.data.frame(st_drop_geometry(od_lisbon_jittered_r5r)),
+                                  geometry = od_lisbon_jittered_r5r$geometry)
+```
 
 ### References
