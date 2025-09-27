@@ -122,6 +122,8 @@ install.packages("sf")
 install.packages("mapview")
 install.packages("osmextract")
 install.packages("stplanr")
+install.packages("h3jsr")
+install.packages("od")
 
 install.packages(c("remotes", "devtools", "usethis")) # optional
 ```
