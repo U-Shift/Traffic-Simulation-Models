@@ -5,6 +5,134 @@ code-fold: false
 engine: knitr
 ---
 
+**Urban accessibility** is defined as how easily people can **reach** opportunities (jobs, education, services) given the spatial layout of populations, transport networks, and land use.
+
+It contrasts with **mobility** (how people move).
+
+Planning should shift focus from maximizing movement to **maximizing access** [@accessibility].
+
+In this exercises we will adapt from r5r vignettes "[Isochrones](https://ipeagit.github.io/r5r/articles/isochrones.html)" and "[Accessibility](https://ipeagit.github.io/r5r/articles/accessibility.html)" [@pereira2021]
+
 # Isochrones
 
+Based on GTFS data from Metro and Carris, we will estimate isochrones and accessibility for the population in **Lisbon**, starting from downtown (*Baixa*).
+
+```{r}
+# load packages
+library(tidyverse)
+library(sf)
+options(java.parameters = '-Xmx8G') # RAM to 8GB
+library(r5r)
+library(interp)
+```
+
+```{r}
+# load data
+# Destinations
+POINTS = readRDS(url("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/GRIDhex_data_lx.rds"))
+# POINTS = readRDS("data/Lisbon/GRIDhex_data.rds")
+POINTS = st_drop_geometry(POINTS) |> 
+  mutate(id = as.character(id))
+
+# Create origin point - Baixa / Downtown
+BAIXA = data.frame(id = "1", lat = 38.711884, lon = -9.137313) |>
+  st_as_sf(coords = c('lon', 'lat'), crs = 4326)
+BAIXA$lon = st_coordinates(BAIXA)[,1]
+BAIXA$lat = st_coordinates(BAIXA)[,2]
+
+# Road network major roads
+REDEbase = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/REDEbase_Lx.gpkg")
+
+# City limit
+city_limit = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Lisboa_lim.gpkg")
+```
+
+```{r}
+r5r_lisboa = setup_r5(data_path = "data/r5r/") # already existing network model
+```
+
+### During peak hour
+
+On a **Wednesday at 8:00 a.m**., how long will it take me to get to downtown using the subway, bus, and walking, with 1 transfer allowed?
+
+```{r}
+# Peak hour, 2h TP + walk, 1 transfer --------------------------------------------------------------------
+
+mode = c("SUBWAY", "BUS") # TRANSIT, BUS, SUBWAY, RAIL, CAR, FERRY, WALK, BIKE, TRAM
+mode_egress = "WALK" # can be BIKE
+max_walk_time = 10 # in minutes
+max_trip_duration = 90 # in minutes
+time_window = 120 # in minutes
+time_intervals <- seq(0, 100, 10)
+departure_datetime_HP = as.POSIXct("20-11-2024 8:00:00", format = "%d-%m-%Y %H:%M:%S") # quarta-feira
+
+# calculate travel time matrix
+ttm_zer_HP = travel_time_matrix(r5r_network = r5r_lisboa,
+                              origins = BAIXA,
+                              destinations = POINTS,
+                              mode = mode,
+                              mode_egress = mode_egress,
+                              departure_datetime = departure_datetime_HP,
+                              max_walk_time = max_walk_time,
+                              max_trip_duration = max_trip_duration,
+                              time_window = time_window,
+                              max_rides = 2, #apenas uma transferência
+                              verbose = FALSE)
+
+# add coordinates of destinations to travel time matrix
+ttm_zer_HP = ttm_zer_HP |>
+  left_join(POINTS, by = c("to_id" = "id"))
+
+# interpolate estimates to get spatially smooth result
+travel_times.interp <- with(na.omit(ttm_zer_HP), interp(lon, lat, travel_time_p50)) |>
+  with(cbind(travel_time=as.vector(z),  # Column-major order
+             x=rep(x, times=length(y)),
+             y=rep(y, each=length(x)))) |>
+  as.data.frame() |> na.omit()
+```
+
+```{r}
+#| code-fold: true
+# find isochrone's bounding box to crop the map below
+bb_x <- c(min(travel_times.interp$x), max(travel_times.interp$x))
+bb_y <- c(min(travel_times.interp$y), max(travel_times.interp$y))
+# plot
+plotHP = ggplot(travel_times.interp) +
+  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +
+  geom_sf(data = REDEbase, color = "gray55", lwd = 0.5, alpha = 0.4) +
+  geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
+  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +
+  scale_fill_viridis_d(direction = -1, option = 'B') +
+  scale_color_manual(values = c('Baixa' = 'black')) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  coord_sf(xlim = bb_x, ylim = bb_y) +
+  labs(
+    title = "Reaching from Baixa (Carris + Metro)",
+    subtitle = "at 8am wednesday - 1 transf max",
+    fill = "Trip duration \n[min]",
+    color = ''
+  ) +
+  theme_minimal() +
+  theme(axis.title = element_blank())
+
+plotHP
+```
+
+![](images/clipboard-2760696520.png){fig-align="center"}
+
+### Num Domingo à noite
+
+E num **Domingo às 22h00**, quanto tempo demoro a chegar ao território de Lisboa, usando Metro, Autocarro, e ligações a pé?
+
+#### Com 1 transferência
+
+![](images/clipboard-2684296525.png)
+
+#### Sem transferências
+
+![](images/clipboard-647321861.png)
+
 # Accessibility
+
+### References

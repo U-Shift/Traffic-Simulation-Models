@@ -268,6 +268,6 @@ ggplot(data = access) +
         axis.text = element_blank())
 ```
 
-![With hex grid](images/clipboard-2680957931.png){alt="With hex grid" fig-align="center"}
+![With hex grid](images/clipboard-2680957931.png){fig-align="center"}
 
-![With census units](images/clipboard-2837442883.png){alt="With census units" fig-align="center"}
+![With census units](images/clipboard-2837442883.png){fig-align="center"}

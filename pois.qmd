@@ -52,7 +52,7 @@ city_limit = st_read("data/Lisbon/Lisboa_lim.gpkg")
 plot(city_limit)
 ```
 
-![](images/clipboard-589159366.png){fig-align="center" width="297"}
+![](images/clipboard-589159366.png){fig-align="center" width="400"}
 
 #### Squared
 
@@ -75,7 +75,7 @@ GRID = GRID |>
 mapview(GRID, alpha.regions = 0.2)
 ```
 
-![The color is only referent to the ID](images/clipboard-2059408309.png){fig-align="center" width="551"}
+![The color is only referent to the ID](images/clipboard-2059408309.png){fig-align="center" width="633"}
 
 #### Hexagonal using `h3jsr`
 
@@ -98,7 +98,7 @@ h3_index = GRID_h3 |> st_drop_geometry() # save h3_address for later
 mapview(GRID_h3)
 ```
 
-![](images/clipboard-738867051.png){fig-align="center" width="495"}
+![](images/clipboard-738867051.png){fig-align="center" width="623"}
 
 ### Areas with information
 
@@ -210,7 +210,7 @@ GRIDhex_data = GRIDhex_census |> left_join(GRIDhex_pois |> st_drop_geometry())
 mapview(GRIDhex_data, zcol = "residents")
 ```
 
-![](images/clipboard-2311491049.png){fig-align="center" width="491"}
+![](images/clipboard-2541088929.png)
 
 ## Centroid coordinates
 
