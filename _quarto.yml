@@ -48,9 +48,10 @@ website:
       - section: "r5r"
         contents:
           - network.qmd
-          - routing.qmd
           - pois.qmd
           - jittering.qmd
+          - routing.qmd
+          - pareto.qmd
           - accessibility.qmd
           - scenarios.qmd
 
