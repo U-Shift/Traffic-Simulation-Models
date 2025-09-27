@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>POIs – Modelling of Tranport Systems</title>
+<title>POIs and Grids – Modelling of Tranport Systems</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -151,7 +151,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./network.html">r5r</a></li><li class="breadcrumb-item"><a href="./pois.html">POIs</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./network.html">r5r</a></li><li class="breadcrumb-item"><a href="./pois.html">POIs and Grids</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -259,7 +259,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pois.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">POIs</span></a>
+ <span class="menu-text">POIs and Grids</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./jittering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OD Jittering</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -289,7 +295,6 @@ div.csl-indent {
   <li><a href="#points-of-interest" id="toc-points-of-interest" class="nav-link active" data-scroll-target="#points-of-interest">Points of Interest</a>
   <ul class="collapse">
   <li><a href="#openstreetmap" id="toc-openstreetmap" class="nav-link" data-scroll-target="#openstreetmap">OpenStreetMap</a></li>
-  <li><a href="#jittering" id="toc-jittering" class="nav-link" data-scroll-target="#jittering">Jittering</a></li>
   </ul></li>
   <li><a href="#grids" id="toc-grids" class="nav-link" data-scroll-target="#grids">Grids</a></li>
   </ul>
@@ -298,9 +303,9 @@ div.csl-indent {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./network.html">r5r</a></li><li class="breadcrumb-item"><a href="./pois.html">POIs</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./network.html">r5r</a></li><li class="breadcrumb-item"><a href="./pois.html">POIs and Grids</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">POIs</h1>
+<h1 class="title">POIs and Grids</h1>
 </div>
 
 
@@ -321,7 +326,8 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="points-of-interest">Points of Interest</h2>
 <section id="openstreetmap" class="level3">
 <h3 class="anchored" data-anchor-id="openstreetmap">OpenStreetMap</h3>
-<p>Different categories, based on <span class="citation" data-cites="flowers2022">Büttner et al. (<a href="#ref-flowers2022" role="doc-biblioref">2022</a>)</span> : <a href="https://www.flowersofproximity.com/">www.flowersofproximity.com</a></p>
+<p>From <a href="https://www.openstreetmap.org/">OSM</a> we can export several different <strong>opportunities</strong> to use on routing and accessibility exercises.</p>
+<p>For instance, the <strong>15-min city</strong> idea follows the <a href="https://www.flowersofproximity.com/">Flowers of Proximity</a>, to categorize the opportinities in 7 different categories, based on <span class="citation" data-cites="flowers2022">Büttner et al. (<a href="#ref-flowers2022" role="doc-biblioref">2022</a>)</span>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <div class="quarto-figure quarto-figure-center">
@@ -334,20 +340,27 @@ div.csl-indent {
 </div>
 <p>For the <a href="https://streets4all.tecnico.ulisboa.pt/">Streets4All</a> project, and <a href="https://u-shift.github.io/SiteSelection/">SiteSelection</a> package <span class="citation" data-cites="siteselection2024">(<a href="#ref-siteselection2024" role="doc-biblioref">Rosa Félix and Gabriel Valença 2024</a>)</span>, we divided in:</p>
 <ul>
-<li><p>Amenities</p></li>
-<li><p>Healthcare</p></li>
-<li><p>Leisure</p></li>
-<li><p>Shop</p></li>
-<li><p>Sport</p></li>
-<li><p>Tourism</p></li>
+<li>Amenities</li>
+<li>Healthcare</li>
+<li>Leisure</li>
+<li>Shop</li>
+<li>Sport</li>
+<li>Tourism</li>
 </ul>
-<p>See the script we did for <a href="https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_landuse.gpkg">all Portugal</a>, and the dataset for <a href="https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_lisbon.geojson">Lisbon</a> (2024):</p>
-<p><a href="https://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146" class="uri">https://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146</a></p>
-<p>See other OpenStreetMap categories at <a href="https://wiki.openstreetmap.org/wiki/Map_features">their Wiki</a>.</p>
-</section>
-<section id="jittering" class="level3">
-<h3 class="anchored" data-anchor-id="jittering">Jittering</h3>
-<p>Random points from</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Script
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>See the script we did for <a href="https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_landuse.gpkg">all Portugal</a>, and the dataset for <a href="https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_lisbon.geojson">Lisbon</a> (2024): <a href="https://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146">data_extract.R (line 146)</a></p>
+</div>
+</div>
+<p>You can explore other OpenStreetMap categories at <a href="https://wiki.openstreetmap.org/wiki/Map_features">their Wiki</a>.</p>
 </section>
 </section>
 <section id="grids" class="level2">
@@ -357,7 +370,6 @@ div.csl-indent {
 <p><img src="https://u-shift.github.io/SiteSelection/reference/figures/hex_grid.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
-<p>You can also use the universal <a href="https://h3geo.org/">h3 hexagon grid</a></p>
 
 
 

@@ -8,7 +8,7 @@
 
 <meta name="author" content="R Felix">
 
-<title>Visum – Modelling of Tranport Systems</title>
+<title>OD Jittering – Modelling of Tranport Systems</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,7 +21,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -132,7 +186,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./software.html">Software</a></li><li class="breadcrumb-item"><a href="./visum.html">VISUM</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./network.html">r5r</a></li><li class="breadcrumb-item"><a href="./jittering.html">OD Jittering</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -163,7 +217,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./visum.html" class="sidebar-item-text sidebar-link active">
+  <a href="./visum.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">VISUM</span></a>
   </div>
 </li>
@@ -245,7 +299,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./jittering.html" class="sidebar-item-text sidebar-link">
+  <a href="./jittering.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">OD Jittering</span></a>
   </div>
 </li>
@@ -273,23 +327,24 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a>
+  <li><a href="#jittered-desire-lines" id="toc-jittered-desire-lines" class="nav-link active" data-scroll-target="#jittered-desire-lines">Jittered desire lines</a>
   <ul class="collapse">
-  <li><a href="#licence-activation" id="toc-licence-activation" class="nav-link" data-scroll-target="#licence-activation">Licence activation</a></li>
+  <li><a href="#with-od-package" id="toc-with-od-package" class="nav-link" data-scroll-target="#with-od-package">With <code>od</code> package</a></li>
+  <li><a href="#with-odjitter-package" id="toc-with-odjitter-package" class="nav-link" data-scroll-target="#with-odjitter-package">With <code>odjitter</code> package</a></li>
   </ul></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a>
+  <li><a href="#jittered-origins-and-destinations" id="toc-jittered-origins-and-destinations" class="nav-link" data-scroll-target="#jittered-origins-and-destinations">Jittered origins and destinations</a>
   <ul class="collapse">
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/visum.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/jittering.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./software.html">Software</a></li><li class="breadcrumb-item"><a href="./visum.html">VISUM</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./network.html">r5r</a></li><li class="breadcrumb-item"><a href="./jittering.html">OD Jittering</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Visum</h1>
+<h1 class="title">OD Jittering</h1>
 </div>
 
 
@@ -312,73 +367,175 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>When having OD pairs with a macro-scale zoning, we can <em>jitter</em> these desire lines by randomly spread the origins and destinations points at a given area, making the trips (in particular <strong>active modes</strong>) more realistic <span class="citation" data-cites="Lovelace2022">(<a href="#ref-Lovelace2022" role="doc-biblioref">Lovelace, Félix, and Carlino 2022</a>)</span>.</p>
+<p>For that, <strong>zones</strong>, OD <strong>pairs</strong>, as well as the <strong>trip volume</strong> are needed.</p>
+<section id="jittered-desire-lines" class="level2">
+<h2 class="anchored" data-anchor-id="jittered-desire-lines">Jittered desire lines</h2>
+<section id="with-od-package" class="level3">
+<h3 class="anchored" data-anchor-id="with-od-package">With <code>od</code> package</h3>
+<p>See the example bellow, using OD tirps between districts in Lisbon, with the <a href="https://itsleeds.github.io/od/articles/od.html"><code>od</code></a> package <span class="citation" data-cites="od">(<a href="#ref-od" role="doc-biblioref">Lovelace and Morgan 2024</a>)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("od")</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(od)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-title-container flex-fill">
-This tutorial is only for Windows
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># polygons</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>lisbon_zones <span class="ot">=</span> <span class="fu">st_read</span>(<span class="st">"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Freguesias_Lx.gpkg"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># OD data</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>od_lisbon <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="fu">url</span>(<span class="st">"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/ODtrips_Freguesias_Lx.rds"</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>od_lisbon <span class="ot">=</span> od_lisbon <span class="sc">|&gt;</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Bike <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="co"># keep only with more than 0 bike trips</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># road network</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>road_network <span class="ot">=</span> <span class="fu">st_read</span>(<span class="st">"data/Lisbon/Lisbon_road_network.gpkg"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Lisbon limit, for map purpose</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>lisbon_limit <span class="ot">=</span> <span class="fu">st_read</span>(<span class="st">"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Lisboa_lim.gpkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If you do not use Windows, you need to have a <a href="./software.html#operating-system">Virtual Machine</a>. If you have an Arm processor this <a href="https://us-resources.ptvgroup.com/en-us/ptv-support/system-requirements">won’t work</a>, even with a VM.</p>
-</div>
-</div>
-<p>In this tutorial we will guide you to install and start using Visum.</p>
-<p><a href="https://www.ptvgroup.com/en/products/ptv-visum">PTV Visum</a> is a macro simulation software, non-free, available only for Windows OS.</p>
-<section id="installation" class="level2">
-<h2 class="anchored" data-anchor-id="installation">Installation</h2>
-<p>PTV Visum is available to download at: <a href="https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Visum" class="uri">https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Visum</a></p>
-<p>Choose the most recent version (recommended) <strong>≤ 2024</strong>. The file may be more than 1.3 GB.</p>
-<p>If you don’t have Python installed already in your PC, don’t worry, you can opt to install it along the Visum setup.</p>
-<p>The <a href="https://us-resources.ptvgroup.com/en-us/ptv-support/ptv-visum-installation">available instructions</a> are very straight forward.</p>
-<section id="licence-activation" class="level3">
-<h3 class="anchored" data-anchor-id="licence-activation">Licence activation</h3>
-<blockquote class="blockquote">
-<p>You should have received a server address of where the CERIS licence lives. If not, contact the course teacher.</p>
-</blockquote>
-<p>To use Visum with the CERIS licence, you need to download <a href="https://cgi.ptvgroup.com/visionSetups/Setups/LICENSEMANAGER/LicenseManager.exe">PTV Licence Manager (Standard)</a>.</p>
-<p><img src="images/clipboard-2536119485.png" class="img-fluid" width="610"></p>
-<p>It will ask you to download also another tiny software <a href="https://us-resources.ptvgroup.com/en-us/ptv-support/ptv-visum-installation">CodeMeter Runtime</a>. Say yes!</p>
-<p>After install it, open PTV Licence Manager, and click on ⚙️ Edit CodeMeter settings:</p>
-<p><img src="images/clipboard-4116598095.png" class="img-fluid" width="600"></p>
-<p>Add ➕ CodeMeter server, and insert the server address that was sent to you.</p>
-<p><img src="images/clipboard-2675991208.png" class="img-fluid" width="231"></p>
-<p>Press close (go back) and now 🔍 <strong>Find Licences</strong>.</p>
-<p><img src="images/clipboard-1159052615.png" class="img-fluid" width="376"></p>
-<p>An available licence row should now appear on the list 🎉. Close it.</p>
-<div class="callout callout-style-simple callout-warning">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>For any reason 🧙‍♂️ the licence is not accessed if you are connected to the IST DECivil ethernet network.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  DICOFREor11 DICOFREde11    Car  CarP  Bike   Walk  Other  Total    Active
+1      110601      110601 143.98 43.67 12.76 622.82 116.68 939.91 67.621368
+2      110601      110602 136.85 36.10  2.74 403.72 231.32 810.73 50.135063
+3      110601      110607  21.64 18.90  0.00   0.00  23.75  64.29  0.000000
+4      110601      110608 133.25  5.44  0.00   8.65 377.05 524.39  1.649536
+5      110601      110610  48.55  0.00  0.00   0.00  63.55 112.10  0.000000
+6      110601      110611  31.18 22.83  0.00   0.00   7.28  61.29  0.000000</code></pre>
 </div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create desire lines between centroids</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>od_lisbon_dl <span class="ot">=</span> od<span class="sc">::</span><span class="fu">od_to_sf</span>(od_lisbon, lisbon_zones)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(od_lisbon_dl, <span class="at">zcol =</span> <span class="st">"Bike"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-798877810.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="601"></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>od_lisbon_jit <span class="ot">=</span> od<span class="sc">::</span><span class="fu">od_jitter</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">od =</span> od_lisbon,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">z =</span> lisbon_zones,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">population_column =</span> <span class="dv">8</span>, <span class="co">#total trips</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">disag =</span> <span class="cn">FALSE</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>od_lisbon_jit_disag <span class="ot">=</span> od<span class="sc">::</span><span class="fu">od_jitter</span>(</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">od =</span> od_lisbon,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">z =</span> lisbon_zones,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">population_column =</span> <span class="dv">8</span>, <span class="co">#total trips</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">disag =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_per_od =</span> <span class="dv">200</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>mapview<span class="sc">::</span><span class="fu">mapview</span>(od_lisbon_jit, <span class="at">lwd =</span> <span class="fl">0.2</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>mapview<span class="sc">::</span><span class="fu">mapview</span>(od_lisbon_jit_disag, <span class="at">lwd =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="columns">
+<div class="column" style="width:49%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3488077224.png" class="img-fluid figure-img"></p>
+<figcaption>jittering</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width:49%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3561847938.png" class="img-fluid figure-img"></p>
+<figcaption>jittering with disaggregation</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>See the <a href="https://itsleeds.github.io/od/reference/od_jitter.html"><code>od::od_jitter()</code></a> function for more options.</p>
+</section>
+<section id="with-odjitter-package" class="level3">
+<h3 class="anchored" data-anchor-id="with-odjitter-package">With <code>odjitter</code> package</h3>
+<p>The same but with <a href="https://github.com/dabreegster/odjitter">Rust</a>, wich is faster:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install odjitter in rust</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/dabreegster/odjitter <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> odjitter <span class="kw">&amp;&amp;</span> <span class="ex">cargo</span> build <span class="at">--release</span> <span class="kw">&amp;&amp;</span> <span class="fu">cp</span> ./target/release/odjitter /usr/local/bin/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install odjitter in R</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"dabreegster/odjitter"</span>, <span class="at">subdir =</span> <span class="st">"r"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(odjitter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Jitter with disagregation threshold of 200 trips</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>od_lisbon_jittered <span class="ot">=</span> odjitter<span class="sc">::</span><span class="fu">jitter</span>(  <span class="co">#jitter</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">od =</span> od_lisbon,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">zones =</span> lisbon_zones,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">subpoints =</span> road_network, <span class="co"># road network verices. we can choose buildings, or so </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">disaggregation_key =</span> <span class="st">"Total"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">disaggregation_threshold =</span> <span class="dv">200</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>mapview<span class="sc">::</span><span class="fu">mapview</span>(od_lisbon_jittered, <span class="at">lwd =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/clipboard-2757898934.png" class="img-fluid"></p>
 </section>
 </section>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
-<p>When launching Visum for the first time, you should have something like this. This is a good signal, it means that the connection to the licence server is running smoothly and that you are ready to start working on your projects! 🚀</p>
-<p><img src="images/clipboard-89661704.png" class="img-fluid"></p>
-<p>The “Tutorial First Steps” may be wise to follow if you are not familiar with the software. It covers the following topics:</p>
-<ul>
-<li>Network editing (private and public transport)</li>
-<li>Procedure sequence</li>
-<li>Graphic parameters</li>
-</ul>
-<p>PTV also offers <a href="https://www.youtube.com/watch?v=Azo8dFDKaxY&amp;list=PLm_ftxJv3rZ1VlAQfZK33lh_uYyLKJmpe">online tutorials</a> to get familiar with the software.</p>
-<section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section"></h3>
+<section id="jittered-origins-and-destinations" class="level2">
+<h2 class="anchored" data-anchor-id="jittered-origins-and-destinations">Jittered origins and destinations</h2>
+<p>From the jittered <strong>desire lines</strong> to the <strong>points</strong> of origin and destination.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stplanr)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#with stplanr</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>od_lisbon_jittered_points <span class="ot">=</span> <span class="fu">line2df</span>(od_lisbon_jittered)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>od_lisbon_jittered_points_OR <span class="ot">=</span> od_lisbon_jittered_points <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(L1, fx, fy) <span class="sc">|&gt;</span> <span class="co"># from</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">id =</span> L1,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">lon =</span> fx,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">lat =</span> fy)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>od_lisbon_jittered_points_DE <span class="ot">=</span> od_lisbon_jittered_points <span class="sc">|&gt;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(L1, tx, ty) <span class="sc">|&gt;</span> <span class="co"># to</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">id =</span> L1,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">lon =</span> tx,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">lat =</span> ty)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># as sf</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>od_lisbon_jittered_points_OR_geo <span class="ot">=</span> <span class="fu">st_as_sf</span>(od_lisbon_jittered_points_OR,</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"lat"</span>),</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>od_lisbon_jittered_points_DE_geo <span class="ot">=</span> <span class="fu">st_as_sf</span>(od_lisbon_jittered_points_DE,</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"lat"</span>),</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(od_lisbon_jittered_points_OR_geo, <span class="at">col.regions =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(od_lisbon_jittered_points_DE_geo, <span class="at">col.regions =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-762473866.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="647"></p>
+</figure>
+</div>
+<section id="references" class="level3">
+
+
 
 
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Lovelace2022" class="csl-entry" role="listitem">
+Lovelace, Robin, Rosa Félix, and Dustin Carlino. 2022. <span>“Jittering: A Computationally Efficient Method for Generating Realistic Route Networks from Origin-Destination Data.”</span> <em>Findings</em>, April. <a href="https://doi.org/10.32866/001c.33873">https://doi.org/10.32866/001c.33873</a>.
+</div>
+<div id="ref-od" class="csl-entry" role="listitem">
+Lovelace, Robin, and Malcolm Morgan. 2024. <em>Od: Manipulate and Map Origin-Destination Data</em>. <a href="https://github.com/itsleeds/od">https://github.com/itsleeds/od</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -948,7 +1105,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
 <p>TModelling of Tranport Systems</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/visum.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/jittering.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>2025-2026</p>
 </div>

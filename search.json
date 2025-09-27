@@ -28,7 +28,7 @@
     "href": "routing.html#pareto-frontier",
     "title": "Routing",
     "section": "Pareto frontier",
-    "text": "Pareto frontier\n\nCreate rules for an operator\nCreate fare_rules.txt and fare_attributes.txt for Carris based on Metropolitano Lisboa.",
+    "text": "Pareto frontier\n\nCreate rules for an operator\nCreate fare_rules.txt and fare_attributes.txt for Carris based on Metropolitano Lisboa.\n\nfare_structure &lt;- setup_fare_structure(r5r_lisboa, \n                                       # base_fare = 1.65,\n                                       by = \"MODE\")\nhead(fare_structure, n=7)\nfare_structure$max_discounted_transfers = 1\nfare_structure$transfer_time_allowance = 60\nfare_structure$fare_cap = 5.60\nfare_structure$fares_per_type\n\nfare_structure$fares_per_type[type == \"SUBWAY\", unlimited_transfers := TRUE]\nfare_structure$fares_per_type[type == \"SUBWAY\", fare := 1.80]\nfare_structure$fares_per_type[type == \"SUBWAY\", allow_same_route_transfer := TRUE]\nfare_structure$fares_per_type\n\nfare_structure$fares_per_transfer\nfare_structure$fares_per_transfer[first_leg == \"BUS\" & second_leg == \"SUBWAY\", fare := 1.65+1.80]\nfare_structure$fares_per_transfer[first_leg == \"SUBWAY\" & second_leg == \"BUS\", fare := 1.80]\nfare_structure$fares_per_transfer &lt;- fare_structure$fares_per_transfer[!(first_leg == \"SUBWAY\" & second_leg == \"SUBWAY\")]\nfare_structure$fares_per_transfer\n\n\n# calculate travel times function\ncalculate_travel_times &lt;- function(fare) {\n  ttm_df &lt;- travel_time_matrix(\n    r5r_lisboa,\n    origins = PONTOS,\n    destinations = BAIXA,\n    mode = c(\"WALK\", \"TRANSIT\"),\n    departure_datetime = as.POSIXct(\n      \"13-11-2024 10:00:00\",\n      format = \"%d-%m-%Y %H:%M:%S\"\n    ),\n    time_window = 1,\n    fare_structure = fare_structure,\n    max_fare = fare,\n    max_trip_duration = 60,\n    max_walk_time = 15\n  )\n\n  return(ttm_df)\n}\n\n\n# calculate travel times, and combine results\nttm &lt;- calculate_travel_times(fare = Inf) # no budget restriction\nttm_200 &lt;- calculate_travel_times(fare = 2) # 2 euro\nttm_500 &lt;- calculate_travel_times(fare = 5) # 5 euro\n\n# merge results\nttm[ttm_200, on = .(from_id, to_id), travel_time_200 := i.travel_time_p50]\nttm[, travel_time_unl := travel_time_p50]\nttm[, travel_time_p50 := NULL]\ntail(ttm, 10)\n\n\n# plot of overall travel time differences between limited and unlimited cost travel time matrices \ntime_difference = ttm[!is.na(travel_time_200), .(count = .N), \n                      by = .(travel_time_unl, travel_time_200)]\n\np1 &lt;- ggplot(time_difference, aes(y = travel_time_unl, x = travel_time_200)) +\n  geom_point(size = 0.7) +\n  coord_fixed() +\n  scale_x_continuous(breaks = seq(0, 45, 5)) +\n  scale_y_continuous(breaks = seq(0, 45, 5)) +\n  theme_light() +\n  theme(legend.position = \"none\") +\n  labs(y = \"travel time (minutes)\\nunestricted monetary cost\",\n       x = \"travel time (minutes)\\nmonetary cost restricted to EUR 2.00\"\n       )\n\n# plot of unreachable destinations when the monetary cost limit is too low\nunreachable &lt;- ttm[, .(count = .N), by = .(travel_time_unl, is.na(travel_time_200))]\nunreachable[, perc := count / sum(count, na.rm = T), by = .(travel_time_unl)]\nunreachable &lt;- unreachable[is.na == TRUE]\nunreachable &lt;- na.omit(unreachable)\n\np2 &lt;- ggplot(unreachable, aes(x=travel_time_unl, y=perc)) +\n  geom_col() +\n  coord_flip() +\n  scale_x_continuous(breaks = seq(0, 45, 5)) +\n  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2), \n                     labels = paste0(seq(0, 100, 20), \"%\")) +\n  theme_light() +\n  labs(x = \"travel time (minutes)\\nwithout monetary cost restriction\",\n       y = \"% of unreachable destinations\\nconsidering a eur 2.00 monetary cost limit\")\n\nAccess to Opricians\n\nAREAS = st_read(\"data/Lisbon/CENSUS_POIs_Lx.gpkg\")\nAREAS_df = AREAS_counts |&gt; st_drop_geometry()\n\n\n# calculate accessibility function\ncalculate_accessibility &lt;- function(fare, fare_string) {\n  access_df &lt;- accessibility(\n    r5r_lisboa,\n    origins = AREAS_df,\n    destinations = AREAS_df,\n    mode = c(\"WALK\", \"TRANSIT\"),\n    departure_datetime = as.POSIXct(\n      \"13-11-2024 10:00:00\",\n      format = \"%d-%m-%Y %H:%M:%S\"),\n    time_window = 1,\n    opportunities_colname = \"healthcare\",\n    cutoffs = 40,\n    fare_structure = fare_structure,\n    max_fare = fare,\n    max_trip_duration = 60,\n    max_walk_time = 15,\n    progress = FALSE)\n\n  access_df$max_fare &lt;- fare_string\n\n  return(access_df)\n}\n\n# calculate accessibility, combine results, and convert to SF\naccess_165 &lt;- calculate_accessibility(fare=1.65, fare_string=\"EUR 1.65 budget\")\naccess_unl &lt;- calculate_accessibility(fare=Inf, fare_string=\"Unlimited budget\")\n\naccess &lt;- rbind(access_165, access_unl)\n\n# bring geometry\naccess = access |&gt; left_join(AREAS_counts, by = \"id\")\naccess &lt;- st_as_sf(access)\n\n\n# plot accessibility maps\nggplot(data = access) +\n  geom_sf(aes(fill = accessibility), color=NA, size = 0.2) +\n  scale_fill_distiller(palette = \"Spectral\") +\n  facet_wrap(~max_fare) +\n  labs(subtitle = \"Effect of monetary cost on accessibility\") +\n  theme_minimal() +\n  theme(legend.position = \"bottom\",\n        axis.text = element_blank())",
     "crumbs": [
       "Home",
       "r5r",
@@ -52,37 +52,37 @@
   {
     "objectID": "pois.html",
     "href": "pois.html",
-    "title": "POIs",
+    "title": "POIs and Grids",
     "section": "",
-    "text": "Different categories, based on Büttner et al. (2022) : www.flowersofproximity.com\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024):\nhttps://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146\nSee other OpenStreetMap categories at their Wiki.\n\n\n\nRandom points from",
+    "text": "From OSM we can export several different opportunities to use on routing and accessibility exercises.\nFor instance, the 15-min city idea follows the Flowers of Proximity, to categorize the opportinities in 7 different categories, based on Büttner et al. (2022).\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\n\n\n\n\n\n\nScript\n\n\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024): data_extract.R (line 146)\n\n\nYou can explore other OpenStreetMap categories at their Wiki.",
     "crumbs": [
       "Home",
       "r5r",
-      "POIs"
+      "POIs and Grids"
     ]
   },
   {
     "objectID": "pois.html#points-of-interest",
     "href": "pois.html#points-of-interest",
-    "title": "POIs",
+    "title": "POIs and Grids",
     "section": "",
-    "text": "Different categories, based on Büttner et al. (2022) : www.flowersofproximity.com\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024):\nhttps://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146\nSee other OpenStreetMap categories at their Wiki.\n\n\n\nRandom points from",
+    "text": "From OSM we can export several different opportunities to use on routing and accessibility exercises.\nFor instance, the 15-min city idea follows the Flowers of Proximity, to categorize the opportinities in 7 different categories, based on Büttner et al. (2022).\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\n\n\n\n\n\n\nScript\n\n\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024): data_extract.R (line 146)\n\n\nYou can explore other OpenStreetMap categories at their Wiki.",
     "crumbs": [
       "Home",
       "r5r",
-      "POIs"
+      "POIs and Grids"
     ]
   },
   {
     "objectID": "pois.html#grids",
     "href": "pois.html#grids",
-    "title": "POIs",
+    "title": "POIs and Grids",
     "section": "Grids",
-    "text": "Grids\n\n\n\n\n\nYou can also use the universal h3 hexagon grid",
+    "text": "Grids",
     "crumbs": [
       "Home",
       "r5r",
-      "POIs"
+      "POIs and Grids"
     ]
   },
   {
@@ -285,18 +285,6 @@
     "text": "&lt;!DOCTYPE qgis PUBLIC ‘http://mrcc.com/qgis.dtd’ ‘SYSTEM’&gt;     dataset\n\n\n                PROJCRS[“ETRS89 / Portugal TM06”,BASEGEOGCRS[“ETRS89”,ENSEMBLE[“European Terrestrial Reference System 1989 ensemble”,MEMBER[“European Terrestrial Reference Frame 1989”],MEMBER[“European Terrestrial Reference Frame 1990”],MEMBER[“European Terrestrial Reference Frame 1991”],MEMBER[“European Terrestrial Reference Frame 1992”],MEMBER[“European Terrestrial Reference Frame 1993”],MEMBER[“European Terrestrial Reference Frame 1994”],MEMBER[“European Terrestrial Reference Frame 1996”],MEMBER[“European Terrestrial Reference Frame 1997”],MEMBER[“European Terrestrial Reference Frame 2000”],MEMBER[“European Terrestrial Reference Frame 2005”],MEMBER[“European Terrestrial Reference Frame 2014”],ELLIPSOID[“GRS 1980”,6378137,298.257222101,LENGTHUNIT[“metre”,1]],ENSEMBLEACCURACY[0.1]],PRIMEM[“Greenwich”,0,ANGLEUNIT[“degree”,0.0174532925199433]],ID[“EPSG”,4258]],CONVERSION[“Portugual TM06”,METHOD[“Transverse Mercator”,ID[“EPSG”,9807]],PARAMETER[“Latitude of natural origin”,39.6682583333333,ANGLEUNIT[“degree”,0.0174532925199433],ID[“EPSG”,8801]],PARAMETER[“Longitude of natural origin”,-8.13310833333333,ANGLEUNIT[“degree”,0.0174532925199433],ID[“EPSG”,8802]],PARAMETER[“Scale factor at natural origin”,1,SCALEUNIT[“unity”,1],ID[“EPSG”,8805]],PARAMETER[“False easting”,0,LENGTHUNIT[“metre”,1],ID[“EPSG”,8806]],PARAMETER[“False northing”,0,LENGTHUNIT[“metre”,1],ID[“EPSG”,8807]]],CS[Cartesian,2],AXIS[“easting (X)”,east,ORDER[1],LENGTHUNIT[“metre”,1]],AXIS[“northing (Y)”,north,ORDER[2],LENGTHUNIT[“metre”,1]],USAGE[SCOPE[“Topographic mapping (medium scale).”],AREA[“Portugal - mainland - onshore.”],BBOX[36.95,-9.56,42.16,-6.19]],ID[“EPSG”,3763]] +proj=tmerc +lat_0=39.6682583333333 +lon_0=-8.13310833333333 +k=1 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 1721 3763 EPSG:3763 ETRS89 / Portugal TM06 tmerc EPSG:7019 false"
   },
   {
-    "objectID": "accessibility.html",
-    "href": "accessibility.html",
-    "title": "Accessibility",
-    "section": "",
-    "text": "Isochrones\n\n\nAccessibility",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Accessibility"
-    ]
-  },
-  {
     "objectID": "software.html",
     "href": "software.html",
     "title": "Software",
@@ -360,6 +348,54 @@
     "crumbs": [
       "Home",
       "Software"
+    ]
+  },
+  {
+    "objectID": "accessibility.html",
+    "href": "accessibility.html",
+    "title": "Accessibility",
+    "section": "",
+    "text": "Isochrones\n\n\nAccessibility",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Accessibility"
+    ]
+  },
+  {
+    "objectID": "jittering.html",
+    "href": "jittering.html",
+    "title": "OD Jittering",
+    "section": "",
+    "text": "When having OD pairs with a macro-scale zoning, we can jitter these desire lines by randomly spread the origins and destinations points at a given area, making the trips (in particular active modes) more realistic (Lovelace, Félix, and Carlino 2022).\nFor that, zones, OD pairs, as well as the trip volume are needed.",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "OD Jittering"
+    ]
+  },
+  {
+    "objectID": "jittering.html#jittered-desire-lines",
+    "href": "jittering.html#jittered-desire-lines",
+    "title": "OD Jittering",
+    "section": "Jittered desire lines",
+    "text": "Jittered desire lines\n\nWith od package\nSee the example bellow, using OD tirps between districts in Lisbon, with the od package (Lovelace and Morgan 2024).\n\n# Load packages\nlibrary(sf)\nlibrary(tidyverse)\n# install.packages(\"od\")\nlibrary(od)\n\n\n# Load data\n\n# polygons\nlisbon_zones = st_read(\"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Freguesias_Lx.gpkg\")\n# OD data\nod_lisbon = readRDS(url(\"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/ODtrips_Freguesias_Lx.rds\"))\nod_lisbon = od_lisbon |&gt; \n  filter(Bike &gt; 0) # keep only with more than 0 bike trips\n# road network\nroad_network = st_read(\"data/Lisbon/Lisbon_road_network.gpkg\")\n\n# Lisbon limit, for map purpose\nlisbon_limit = st_read(\"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Lisboa_lim.gpkg\")\n\n\n\n  DICOFREor11 DICOFREde11    Car  CarP  Bike   Walk  Other  Total    Active\n1      110601      110601 143.98 43.67 12.76 622.82 116.68 939.91 67.621368\n2      110601      110602 136.85 36.10  2.74 403.72 231.32 810.73 50.135063\n3      110601      110607  21.64 18.90  0.00   0.00  23.75  64.29  0.000000\n4      110601      110608 133.25  5.44  0.00   8.65 377.05 524.39  1.649536\n5      110601      110610  48.55  0.00  0.00   0.00  63.55 112.10  0.000000\n6      110601      110611  31.18 22.83  0.00   0.00   7.28  61.29  0.000000\n\n\n\n# create desire lines between centroids\nod_lisbon_dl = od::od_to_sf(od_lisbon, lisbon_zones)\n\nmapview(od_lisbon_dl, zcol = \"Bike\")\n\n\n\n\n\n\n\nod_lisbon_jit = od::od_jitter(\n  od = od_lisbon,\n  z = lisbon_zones,\n  \n  population_column = 8, #total trips\n  disag = FALSE\n)\nod_lisbon_jit_disag = od::od_jitter(\n  od = od_lisbon,\n  z = lisbon_zones,\n  population_column = 8, #total trips\n  disag = TRUE,\n  max_per_od = 200\n)\n\nmapview::mapview(od_lisbon_jit, lwd = 0.2)\nmapview::mapview(od_lisbon_jit_disag, lwd = 0.2)\n\n\n\n\n\n\njittering\n\n\n\n\n\n\n\n\njittering with disaggregation\n\n\n\n\nSee the od::od_jitter() function for more options.\n\n\nWith odjitter package\nThe same but with Rust, wich is faster:\n\n# install odjitter in rust\ngit clone https://github.com/dabreegster/odjitter && cd odjitter && cargo build --release && cp ./target/release/odjitter /usr/local/bin/\n\n\n# install odjitter in R\nremotes::install_github(\"dabreegster/odjitter\", subdir = \"r\")\n# Load packages\nlibrary(odjitter)\n\n\n# Jitter with disagregation threshold of 200 trips\nod_lisbon_jittered = odjitter::jitter(  #jitter\n  od = od_lisbon,\n  zones = lisbon_zones,\n  subpoints = road_network, # road network verices. we can choose buildings, or so \n  disaggregation_key = \"Total\",\n  disaggregation_threshold = 200\n)\n\nmapview::mapview(od_lisbon_jittered, lwd = 0.2)",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "OD Jittering"
+    ]
+  },
+  {
+    "objectID": "jittering.html#jittered-origins-and-destinations",
+    "href": "jittering.html#jittered-origins-and-destinations",
+    "title": "OD Jittering",
+    "section": "Jittered origins and destinations",
+    "text": "Jittered origins and destinations\nFrom the jittered desire lines to the points of origin and destination.\n\nlibrary(stplanr)\n#with stplanr\nod_lisbon_jittered_points = line2df(od_lisbon_jittered)\nod_lisbon_jittered_points_OR = od_lisbon_jittered_points |&gt;\n  select(L1, fx, fy) |&gt; # from\n  rename(id = L1,\n         lon = fx,\n         lat = fy)\nod_lisbon_jittered_points_DE = od_lisbon_jittered_points |&gt;\n  select(L1, tx, ty) |&gt; # to\n  rename(id = L1,\n         lon = tx,\n         lat = ty)\n\n# as sf\nod_lisbon_jittered_points_OR_geo = st_as_sf(od_lisbon_jittered_points_OR,\n                                            coords = c(\"lon\", \"lat\"),\n                                            crs = 4326)\nod_lisbon_jittered_points_DE_geo = st_as_sf(od_lisbon_jittered_points_DE,\n                                            coords = c(\"lon\", \"lat\"),\n                                            crs = 4326)\n\nmapview(od_lisbon_jittered_points_OR_geo, col.regions = \"red\") + \n  mapview(od_lisbon_jittered_points_DE_geo, col.regions = \"blue\")",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "OD Jittering"
     ]
   },
   {
@@ -494,7 +530,7 @@
     "href": "scenarios.html#new-metro-station-or-metro-line",
     "title": "Scenarios",
     "section": "New metro station or metro line",
-    "text": "New metro station or metro line\nLet’s create a new metro line or a new station in your city.\n\n\n\nNew pink line (expansion in Lisbon)\n\n\n\nMethodology\nFor that, an easy graphic interface software is the PTV Lines.\n\nLogin into PTV Lines (upper right corner) with the credentials that were sent to you.\nCreate a new scenario, and import an existing subway gtfs (.zip) - max 60 lines!\nEdit that scenario by creating stops and lines.\nExport the GTFS file.\nDuplicate your r5r folder (baseline scenario) and delete the network.dat file inside. Rename it as ..._ver1 and replace the gtfs.zip by the one you just exported.\nBuild a new network with that folder path.\n\n\n\nCreate a metro line with PTV Lines\nFirst, create new station points (S) and name them. As many as you need.\n\n\n\n\n\n\n\n\n\n\nThen, create a new line (L), name it something like “Expansion”, and create a new route (R). Name it 0 (you can edit later) and draw that line roughly by selecting an existing start station and connecting to your new stations.\n\n\n\n\n\nAdd trips to it (T), with a proper headway.\n\n\n\n\n\nAfter defining the weekday and weekend trips, go to the Outbound route and “Create opposite direction”, so you can have both directions now. Rename the line routes, something as “Start station - End station”.\n\n\n\n\n\n\n\nExtend a metro line with PTV Lines\nThis tutorial assumes that the stations for which the line will be extended to already exist (if not, see how to create new stations at Create a metro line with PTV Lines).\nThe extension is performed over a route. To access one, click on a transit line, and then on one of its routes.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOn the map, hover the Start/End buttons and click it to enable the extension mode.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOnce the extension mode is activated, your cursor will turn into a pen icon and you just have to click on the station you want to expand your line to.\n\n\n\n\n\n\nRouting modes\n\n\n\nBe aware of the several modes available on the button that is now displayed (automatic routing mode, street routing mode, straight line mode or exclusive PT routing mode). Make sure you use the one that best suits your use case.\n\n\n\n\n\n\n\nOnce you click on the station, you should see the new station in the route window, on the left part of the screen. You should adjust the run and dwell times accordingly.\n\n\n\n\n\n\n\nVisualizing time diagram\nGo to Connections, and click on a connecting station to visualize the time diagram of connections with other routes.\n\n\n\n\n\n\n\nGenerate GTFS\nAfter all your edits, go back to the dashboard, and click on “Export supply”. Export as GTFS (.zip)\n\nYour scenario will be saved in your dashboard. You can edit or duplicate them later.\n\n\n\n\n\n\nYour task\n\n\n\nRun some routing and accessibility analysis, and compare with the baseline scenario.\n\n\nSee Pereira and Herszenhut (2023) Chapter 6 for an example.\nIf you do multi-modal analysis, you may need to use GTFShift::unify() to merge the new gtfs with other modes and create new transfers.",
+    "text": "New metro station or metro line\nLet’s create a new metro line or a new station in your city.\n\n\n\nNew pink line (expansion in Lisbon)\n\n\n\nMethodology\nFor that, an easy graphic interface software is the PTV Lines.\n\nLogin into PTV Lines (upper right corner) with the credentials that were sent to you.\nCreate a new scenario, and import an existing subway gtfs (.zip) - max 50 lines!\nEdit that scenario by creating stops and lines.\nExport the GTFS file.\nDuplicate your r5r folder (baseline scenario) and delete the network.dat file inside. Rename it as ..._ver1 and replace the gtfs.zip by the one you just exported.\nBuild a new network with that folder path.\n\n\n\nCreate a metro line with PTV Lines\nFirst, create new station points (S) and name them. As many as you need.\n\n\n\n\n\n\n\n\n\n\nThen, create a new line (L), name it something like “Expansion”, and create a new route (R). Name it 0 (you can edit later) and draw that line roughly by selecting an existing start station and connecting to your new stations.\n\n\n\n\n\nAdd trips to it (T), with a proper headway.\n\n\n\n\n\nAfter defining the weekday and weekend trips, go to the Outbound route and “Create opposite direction”, so you can have both directions now. Rename the line routes, something as “Start station - End station”.\n\n\n\n\n\n\n\nExtend a metro line with PTV Lines\nThis tutorial assumes that the stations for which the line will be extended to already exist (if not, see how to create new stations at Create a metro line with PTV Lines).\nThe extension is performed over a route. To access one, click on a transit line, and then on one of its routes.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOn the map, hover the Start/End buttons and click it to enable the extension mode.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOnce the extension mode is activated, your cursor will turn into a pen icon and you just have to click on the station you want to expand your line to.\n\n\n\n\n\n\nRouting modes\n\n\n\nBe aware of the several modes available on the button that is now displayed (automatic routing mode, street routing mode, straight line mode or exclusive PT routing mode). Make sure you use the one that best suits your use case.\n\n\n\n\n\n\n\nOnce you click on the station, you should see the new station in the route window, on the left part of the screen. You should adjust the run and dwell times accordingly.\n\n\n\n\n\n\n\nVisualizing time diagram\nGo to Connections, and click on a connecting station to visualize the time diagram of connections with other routes.\n\n\n\n\n\n\n\nGenerate GTFS\nAfter all your edits, go back to the dashboard, and click on “Export supply”. Export as GTFS (.zip)\n\nYour scenario will be saved in your dashboard. You can edit or duplicate them later.\n\n\n\n\n\n\nYour task\n\n\n\nRun some routing and accessibility analysis, and compare with the baseline scenario.\n\n\nSee Pereira and Herszenhut (2023) Chapter 6 for an example.\nIf you do multi-modal analysis, you may need to use GTFShift::unify() to merge the new gtfs with other modes and create new transfers.",
     "crumbs": [
       "Home",
       "r5r",
