@@ -135,8 +135,7 @@ mapview(GRID_pois, zcol = "restaurant") # for instance
 
 ![](images/clipboard-1766998803.png)
 
-The result is a grid with too many columns (one for each type).
-Consider using only the *group*.
+The result is a grid with too many columns (one for each type). Consider using only the *group*.
 
 #### With Census
 
