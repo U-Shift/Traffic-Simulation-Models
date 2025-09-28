@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -299,7 +333,13 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#work-day-vs.-weekend" id="toc-work-day-vs.-weekend" class="nav-link active" data-scroll-target="#work-day-vs.-weekend">Work day vs.&nbsp;weekend</a></li>
+  <li><a href="#work-day-vs.-weekend" id="toc-work-day-vs.-weekend" class="nav-link active" data-scroll-target="#work-day-vs.-weekend">Work day vs.&nbsp;weekend</a>
+  <ul class="collapse">
+  <li><a href="#public-transit---services-available" id="toc-public-transit---services-available" class="nav-link" data-scroll-target="#public-transit---services-available">Public transit - services available</a></li>
+  <li><a href="#peak-hour" id="toc-peak-hour" class="nav-link" data-scroll-target="#peak-hour">Peak-hour</a></li>
+  <li><a href="#off-peak-hour" id="toc-off-peak-hour" class="nav-link" data-scroll-target="#off-peak-hour">Off peak-hour</a></li>
+  <li><a href="#compare-population" id="toc-compare-population" class="nav-link" data-scroll-target="#compare-population">Compare population</a></li>
+  </ul></li>
   <li><a href="#new-metro-station-or-metro-line" id="toc-new-metro-station-or-metro-line" class="nav-link" data-scroll-target="#new-metro-station-or-metro-line">New metro station or metro line</a>
   <ul class="collapse">
   <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
@@ -341,6 +381,194 @@ div.csl-indent {
 
 <section id="work-day-vs.-weekend" class="level2">
 <h2 class="anchored" data-anchor-id="work-day-vs.-weekend">Work day vs.&nbsp;weekend</h2>
+<p>With the same method presented in <a href="./accessibility.html">Accessibility</a>, let’s compare the population that can be reach from city center on a <strong>peak hour</strong> and a <strong>Sunday evening</strong>, using <strong>public transit</strong> and max 1 transfer.</p>
+<section id="public-transit---services-available" class="level3">
+<h3 class="anchored" data-anchor-id="public-transit---services-available">Public transit - services available</h3>
+<p>First, we can have a loot at the available routes on both time periods. For that, we use the <a href="https://ipeagit.github.io/r5r/reference/check_transit_availability.html">r5r::check_transit_availability()</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load model</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>r5r_lisboa <span class="ot">=</span> <span class="fu">build_network</span>(<span class="at">data_path =</span> <span class="st">"data/Lisbon/r5r/"</span>) <span class="co"># already existing network model</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dates_to_check <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"2024-11-20"</span>, <span class="st">"2024-11-24"</span>) <span class="co"># wednesday, sunday</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>availability <span class="ot">&lt;-</span> <span class="fu">check_transit_availability</span>(<span class="at">r5r_network =</span> r5r_lisboa,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">dates =</span> dates_to_check)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>availability</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="peak-hour" class="level3">
+<h3 class="anchored" data-anchor-id="peak-hour">Peak-hour</h3>
+<p>We use the same code as in <a href="./accessibility.html#isochrones">Isochrones</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define some parameters</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mode <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"SUBWAY"</span>, <span class="st">"BUS"</span>) <span class="co"># TRANSIT, BUS, SUBWAY, RAIL, CAR, FERRY, WALK, BIKE, TRAM</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mode_egress <span class="ot">=</span> <span class="st">"WALK"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>max_walk_time <span class="ot">=</span> <span class="dv">10</span> <span class="co"># in minutes</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>max_trip_duration <span class="ot">=</span> <span class="dv">90</span> <span class="co"># in minutes</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>time_window <span class="ot">=</span> <span class="dv">30</span> <span class="co"># in minutes</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>time_intervals <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">10</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>departure_datetime_HP <span class="ot">=</span> <span class="fu">as.POSIXct</span>(<span class="st">"20-11-2024 8:00:00"</span>, <span class="at">format =</span> <span class="st">"%d-%m-%Y %H:%M:%S"</span>) <span class="co"># quarta-feira</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate travel time matrix</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>ttm_zer_PT_wednesday <span class="ot">=</span> <span class="fu">travel_time_matrix</span>(<span class="at">r5r_network =</span> r5r_lisboa,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                              <span class="at">origins =</span> BAIXA,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                              <span class="at">destinations =</span> POINTS,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                              <span class="at">mode =</span> mode,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                              <span class="at">mode_egress =</span> mode_egress,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                              <span class="at">departure_datetime =</span> departure_datetime_HP,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                              <span class="at">max_walk_time =</span> max_walk_time,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                              <span class="at">max_trip_duration =</span> max_trip_duration,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                              <span class="at">time_window =</span> time_window,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                              <span class="at">max_rides =</span> <span class="dv">3</span>, <span class="co"># max 1 transfer</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                              <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>  Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00   30.00   37.00   36.29   43.00   68.00 </code></pre>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add coordinates of destinations to travel time matrix</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ttm_zer_PT_wednesday <span class="ot">=</span> ttm_zer_PT_wednesday <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(POINTS, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"to_id"</span> <span class="ot">=</span> <span class="st">"id"</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># interpolate estimates to get spatially smooth result</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>travel_times.interp <span class="ot">&lt;-</span> <span class="fu">with</span>(<span class="fu">na.omit</span>(ttm_zer_PT_wednesday), <span class="fu">interp</span>(lon, lat, travel_time_p50)) <span class="sc">|&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with</span>(<span class="fu">cbind</span>(<span class="at">travel_time=</span><span class="fu">as.vector</span>(z),  <span class="co"># Column-major order</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">x=</span><span class="fu">rep</span>(x, <span class="at">times=</span><span class="fu">length</span>(y)),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">y=</span><span class="fu">rep</span>(y, <span class="at">each=</span><span class="fu">length</span>(x)))) <span class="sc">|&gt;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> <span class="fu">na.omit</span>()</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># find isochrone's bounding box to crop the map below</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>bb_x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(travel_times.interp<span class="sc">$</span>x), <span class="fu">max</span>(travel_times.interp<span class="sc">$</span>x))</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>bb_y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(travel_times.interp<span class="sc">$</span>y), <span class="fu">max</span>(travel_times.interp<span class="sc">$</span>y))</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>plotHP <span class="ot">=</span> <span class="fu">ggplot</span>(travel_times.interp) <span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour_filled</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">z =</span> travel_time), <span class="at">alpha =</span> .<span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> REDEbase, <span class="at">color =</span> <span class="st">"gray55"</span>, <span class="at">lwd =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> city_limit, <span class="at">fill =</span> <span class="st">"transparent"</span>, <span class="at">color =</span> <span class="st">"grey30"</span>) <span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat, <span class="at">color =</span> <span class="st">'Baixa'</span>), <span class="at">data =</span> BAIXA) <span class="sc">+</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">option =</span> <span class="st">'B'</span>) <span class="sc">+</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">'Baixa'</span> <span class="ot">=</span> <span class="st">'black'</span>)) <span class="sc">+</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">xlim =</span> bb_x, <span class="at">ylim =</span> bb_y) <span class="sc">+</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Reaching from Baixa (Carris + Metro)"</span>,</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"at 8am wednesday - 1 transf max"</span>,</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Trip duration </span><span class="sc">\n</span><span class="st">[min]"</span>,</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">''</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>plotHP</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="images/clipboard-529421772.png" class="img-fluid"></p>
+</section>
+<section id="off-peak-hour" class="level3">
+<h3 class="anchored" data-anchor-id="off-peak-hour">Off peak-hour</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>departure_datetime_OFF <span class="ot">=</span> <span class="fu">as.POSIXct</span>(<span class="st">"24-11-2024 22:00:00"</span>, <span class="at">format =</span> <span class="st">"%d-%m-%Y %H:%M:%S"</span>) <span class="co"># sunday evening</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate travel time matrix</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ttm_zer_PT_sunday <span class="ot">=</span> <span class="fu">travel_time_matrix</span>(<span class="at">r5r_network =</span> r5r_lisboa,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">origins =</span> BAIXA,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">destinations =</span> POINTS,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">mode =</span> mode,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">mode_egress =</span> mode_egress,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                              <span class="at">departure_datetime =</span> departure_datetime_OFF, <span class="co"># new date</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                              <span class="at">max_walk_time =</span> max_walk_time,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                              <span class="at">max_trip_duration =</span> max_trip_duration,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                              <span class="at">time_window =</span> time_window,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                              <span class="at">max_rides =</span> <span class="dv">2</span>, <span class="co"># max 1 transfer</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                              <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00   31.00   39.00   39.38   48.00   73.00  </code></pre>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add coordinates of destinations to travel time matrix</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ttm_zer_PT_sunday <span class="ot">=</span> ttm_zer_PT_sunday <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(POINTS, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"to_id"</span> <span class="ot">=</span> <span class="st">"id"</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># interpolate estimates to get spatially smooth result</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>travel_times.interp <span class="ot">&lt;-</span> <span class="fu">with</span>(<span class="fu">na.omit</span>(ttm_zer_PT_sunday), <span class="fu">interp</span>(lon, lat, travel_time_p50)) <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with</span>(<span class="fu">cbind</span>(<span class="at">travel_time=</span><span class="fu">as.vector</span>(z),  <span class="co"># Column-major order</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">x=</span><span class="fu">rep</span>(x, <span class="at">times=</span><span class="fu">length</span>(y)),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">y=</span><span class="fu">rep</span>(y, <span class="at">each=</span><span class="fu">length</span>(x)))) <span class="sc">|&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> <span class="fu">na.omit</span>()</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># find isochrone's bounding box to crop the map below</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>bb_x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(travel_times.interp<span class="sc">$</span>x), <span class="fu">max</span>(travel_times.interp<span class="sc">$</span>x))</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>bb_y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(travel_times.interp<span class="sc">$</span>y), <span class="fu">max</span>(travel_times.interp<span class="sc">$</span>y))</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>plotOFF <span class="ot">=</span> <span class="fu">ggplot</span>(travel_times.interp) <span class="sc">+</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour_filled</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">z =</span> travel_time), <span class="at">alpha =</span> .<span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> REDEbase, <span class="at">color =</span> <span class="st">"gray55"</span>, <span class="at">lwd =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> city_limit, <span class="at">fill =</span> <span class="st">"transparent"</span>, <span class="at">color =</span> <span class="st">"grey30"</span>) <span class="sc">+</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat, <span class="at">color =</span> <span class="st">'Baixa'</span>), <span class="at">data =</span> BAIXA) <span class="sc">+</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">option =</span> <span class="st">'B'</span>) <span class="sc">+</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">'Baixa'</span> <span class="ot">=</span> <span class="st">'black'</span>)) <span class="sc">+</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">xlim =</span> bb_x, <span class="at">ylim =</span> bb_y) <span class="sc">+</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Reaching from Baixa (Carris + Metro)"</span>,</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"at 10pm sunday - 1 transf max"</span>,</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Trip duration </span><span class="sc">\n</span><span class="st">[min]"</span>,</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">''</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>plotOFF</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="images/clipboard-457034943.png" class="img-fluid"></p>
+</section>
+<section id="compare-population" class="level3">
+<h3 class="anchored" data-anchor-id="compare-population">Compare population</h3>
+<p>Based on Census 2021 <span class="citation" data-cites="INEcensus">(<a href="#ref-INEcensus" role="doc-biblioref">INE 2022</a>)</span>, we can count how many people are reach.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>poplisboa <span class="ot">=</span> <span class="fu">sum</span>(POINTS<span class="sc">$</span>residents) <span class="co">#</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_wednesday<span class="sc">$</span>residents[ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">15</span>]) <span class="sc">/</span> poplisboa <span class="co"># 2.7%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_wednesday<span class="sc">$</span>residents[ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">30</span>]) <span class="sc">/</span> poplisboa <span class="co"># 38.9%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_wednesday<span class="sc">$</span>residents[ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">45</span>]) <span class="sc">/</span> poplisboa <span class="co"># 90.0%</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_wednesday<span class="sc">$</span>residents[ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">60</span>]) <span class="sc">/</span> poplisboa <span class="co"># 98.7%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">15</span>]) <span class="sc">/</span> poplisboa <span class="co"># 1.5%</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">30</span>]) <span class="sc">/</span> poplisboa <span class="co"># 31.7%</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">45</span>]) <span class="sc">/</span> poplisboa <span class="co"># 76.6%</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">60</span>]) <span class="sc">/</span> poplisboa <span class="co"># 95.0%</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Wednesday peak hour</th>
+<th>Sunday evening</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>38.9%</strong> in 30 min</td>
+<td><strong>31.7%</strong> in 30 min</td>
+</tr>
+<tr class="even">
+<td><strong>90.0%</strong> in 45 min</td>
+<td><strong>76.6%</strong> in 45 min</td>
+</tr>
+<tr class="odd">
+<td><strong>98.7%</strong> in 60 min</td>
+<td><strong>95.0%</strong> in 60 min</td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="new-metro-station-or-metro-line" class="level2">
 <h2 class="anchored" data-anchor-id="new-metro-station-or-metro-line">New metro station or metro line</h2>
@@ -496,6 +724,9 @@ Your task
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-INEcensus" class="csl-entry" role="listitem">
+INE. 2022. <span>“<span class="nocase">Censos 2021- XVI Recenseamento Geral da População. VI Recenseamento Geral da Habitação</span>.”</span> Lisboa: <span>Instituto National de Estatística</span>. <a href="https://censos.ine.pt/xurl/pub/65586079">https://censos.ine.pt/xurl/pub/65586079</a>.
+</div>
 <div id="ref-accessibility" class="csl-entry" role="listitem">
 Pereira, Rafael HM, and Daniel Herszenhut. 2023. <em>Introduction to Urban Accessibility: A Practical Guide with r</em>. Instituto de Pesquisa Econ<span>ô</span>mica Aplicada (Ipea). <a href="https://ipeagit.github.io/intro_access_book/">https://ipeagit.github.io/intro_access_book/</a>.
 </div>

@@ -342,9 +342,9 @@ div.csl-indent {
   <li><a href="#accessibility" id="toc-accessibility" class="nav-link" data-scroll-target="#accessibility">Accessibility</a>
   <ul class="collapse">
   <li><a href="#spatial-interpolation" id="toc-spatial-interpolation" class="nav-link" data-scroll-target="#spatial-interpolation">Spatial interpolation</a></li>
-  <li><a href="#population-measure" id="toc-population-measure" class="nav-link" data-scroll-target="#population-measure">Population measure</a>
+  <li><a href="#population-estimate" id="toc-population-estimate" class="nav-link" data-scroll-target="#population-estimate">Population estimate</a>
   <ul class="collapse">
-  <li><a href="#stop" id="toc-stop" class="nav-link" data-scroll-target="#stop">Stop</a></li>
+  <li><a href="#stop-r5r-model" id="toc-stop-r5r-model" class="nav-link" data-scroll-target="#stop-r5r-model">Stop r5r model</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -408,7 +408,7 @@ div.csl-indent {
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>city_limit <span class="ot">=</span> <span class="fu">st_read</span>(<span class="st">"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Lisboa_lim.gpkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>r5r_lisboa <span class="ot">=</span> <span class="fu">setup_r5</span>(<span class="at">data_path =</span> <span class="st">"data/Lisbon/r5r/"</span>) <span class="co"># already existing network model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>r5r_lisboa <span class="ot">=</span> <span class="fu">build_network</span>(<span class="at">data_path =</span> <span class="st">"data/Lisbon/r5r/"</span>) <span class="co"># already existing network model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="public-transit" class="level2">
 <h2 class="anchored" data-anchor-id="public-transit">Public Transit</h2>
@@ -433,7 +433,7 @@ div.csl-indent {
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                              <span class="at">max_walk_time =</span> max_walk_time,</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                              <span class="at">max_trip_duration =</span> max_trip_duration,</span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                              <span class="at">time_window =</span> time_window,</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>                              <span class="at">max_rides =</span> <span class="dv">2</span>, <span class="co">#apenas uma transferência</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>                              <span class="at">max_rides =</span> <span class="dv">2</span>, <span class="co"># max 1 transfer</span></span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>                              <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ttm_zer_HP_PT<span class="sc">$</span>travel_time_p50)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -793,10 +793,12 @@ div.csl-indent {
 </div>
 <p><img src="images/clipboard-1989205512.png" class="img-fluid"></p>
 </section>
-<section id="population-measure" class="level2">
-<h2 class="anchored" data-anchor-id="population-measure">Population measure</h2>
-<p>We can also do for <strong>population</strong> with PTransit (1 transfer, peak hour)</p>
+<section id="population-estimate" class="level2">
+<h2 class="anchored" data-anchor-id="population-estimate">Population estimate</h2>
+<p>We can also estimate <strong>population</strong> reach from downtown with PTransit (1 transfer, peak hour)</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate population accessible</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>access <span class="ot">&lt;-</span> ttm_zer_HP_PT <span class="sc">|&gt;</span> <span class="co"># estimaded before!</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">60</span>) <span class="sc">|&gt;</span>      <span class="co"># keep trips within 30 minutes</span></span>
@@ -826,6 +828,7 @@ div.csl-indent {
 <span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Population in</span><span class="sc">\n</span><span class="st">60 minutos"</span>) <span class="sc">+</span></span>
 <span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -842,8 +845,8 @@ div.csl-indent {
 </div>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 25%">
-<col style="width: 18%">
+<col style="width: 23%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -871,9 +874,21 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>Read <a href="https://ipeagit.github.io/intro_access_book/3_calculando_acesso.en.html">Chapter 3</a> from <span class="citation" data-cites="accessibility">R. H. Pereira and Herszenhut (<a href="#ref-accessibility" role="doc-biblioref">2023</a>)</span> for other acessibility estimates.</p>
-<section id="stop" class="level3">
-<h3 class="anchored" data-anchor-id="stop">Stop</h3>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Other accessibility measures
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Read <a href="https://ipeagit.github.io/intro_access_book/3_calculando_acesso.en.html">Chapter 3</a> from <span class="citation" data-cites="accessibility">R. H. Pereira and Herszenhut (<a href="#ref-accessibility" role="doc-biblioref">2023</a>)</span> for other accessibility estimates.</p>
+</div>
+</div>
+<section id="stop-r5r-model" class="level3">
+<h3 class="anchored" data-anchor-id="stop-r5r-model">Stop r5r model</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>r5r<span class="sc">::</span><span class="fu">stop_r5</span>(r5r_lisboa)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>rJava<span class="sc">::</span><span class="fu">.jgc</span>(<span class="at">R.gc =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
