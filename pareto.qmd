@@ -1,6 +1,6 @@
 ---
 title: "Pareto frontier"
-subtitle: "Fares"
+subtitle: "Fares and accessibility"
 eval: false
 code-fold: false
 engine: knitr
@@ -30,7 +30,7 @@ fare_structure$fares_per_type <- fare_structure$fares_per_type |>
 fare_structure$fares_per_transfer <- fare_structure$fares_per_transfer |> 
   mutate(fare = case_when(
     first_leg == "BUS" & second_leg == "BUS" ~ 2.80, # extra cost for 2 trips
-      first_leg == "SUBWAY" & second_leg == "SUBWAY" ~ 2.00, # extra cost for 2 trips
+      first_leg == "SUBWAY" & second_leg == "SUBWAY" ~ 2.00, # no extra cost
     first_leg != second_leg                  ~ 3.50,
     TRUE                                     ~ fare
   ))
