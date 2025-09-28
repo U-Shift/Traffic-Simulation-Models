@@ -535,6 +535,8 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="compare-population">Compare population</h3>
 <p>Based on Census 2021 <span class="citation" data-cites="INEcensus">(<a href="#ref-INEcensus" role="doc-biblioref">INE 2022</a>)</span>, we can count how many people are reach.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>poplisboa <span class="ot">=</span> <span class="fu">sum</span>(POINTS<span class="sc">$</span>residents) <span class="co">#</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_wednesday<span class="sc">$</span>residents[ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">15</span>]) <span class="sc">/</span> poplisboa <span class="co"># 2.7%</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_wednesday<span class="sc">$</span>residents[ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">30</span>]) <span class="sc">/</span> poplisboa <span class="co"># 38.9%</span></span>
@@ -545,26 +547,31 @@ div.csl-indent {
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">30</span>]) <span class="sc">/</span> poplisboa <span class="co"># 31.7%</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">45</span>]) <span class="sc">/</span> poplisboa <span class="co"># 76.6%</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">60</span>]) <span class="sc">/</span> poplisboa <span class="co"># 95.0%</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <table class="caption-top table">
 <thead>
 <tr class="header">
+<th>Up to…</th>
 <th>Wednesday peak hour</th>
 <th>Sunday evening</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>38.9%</strong> in 30 min</td>
-<td><strong>31.7%</strong> in 30 min</td>
+<td>30 min</td>
+<td><strong>38.9%</strong></td>
+<td><strong>31.7%</strong></td>
 </tr>
 <tr class="even">
-<td><strong>90.0%</strong> in 45 min</td>
-<td><strong>76.6%</strong> in 45 min</td>
+<td>45 min</td>
+<td><strong>90.0%</strong></td>
+<td><strong>76.6%</strong></td>
 </tr>
 <tr class="odd">
-<td><strong>98.7%</strong> in 60 min</td>
-<td><strong>95.0%</strong> in 60 min</td>
+<td>60 min</td>
+<td><strong>98.7%</strong></td>
+<td><strong>95.0%</strong></td>
 </tr>
 </tbody>
 </table>

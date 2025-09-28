@@ -333,11 +333,15 @@ div.csl-indent {
    
   <ul>
   <li><a href="#origins-and-destinations" id="toc-origins-and-destinations" class="nav-link active" data-scroll-target="#origins-and-destinations">Origins and Destinations</a></li>
-  <li><a href="#uni-modal" id="toc-uni-modal" class="nav-link" data-scroll-target="#uni-modal">Uni-modal</a></li>
-  <li><a href="#multi-modal" id="toc-multi-modal" class="nav-link" data-scroll-target="#multi-modal">Multi-modal</a>
+  <li><a href="#travel-time-matrix" id="toc-travel-time-matrix" class="nav-link" data-scroll-target="#travel-time-matrix">Travel Time Matrix</a>
   <ul class="collapse">
   <li><a href="#egress-mode" id="toc-egress-mode" class="nav-link" data-scroll-target="#egress-mode">Egress mode</a></li>
   <li><a href="#lts" id="toc-lts" class="nav-link" data-scroll-target="#lts">LTS</a></li>
+  </ul></li>
+  <li><a href="#detailed-itineraries" id="toc-detailed-itineraries" class="nav-link" data-scroll-target="#detailed-itineraries">Detailed itineraries</a>
+  <ul class="collapse">
+  <li><a href="#multi-modal-legs" id="toc-multi-modal-legs" class="nav-link" data-scroll-target="#multi-modal-legs">Multi-modal legs</a></li>
+  <li><a href="#route-shapes" id="toc-route-shapes" class="nav-link" data-scroll-target="#route-shapes">Route shapes</a></li>
   </ul></li>
   <li><a href="#stop" id="toc-stop" class="nav-link" data-scroll-target="#stop">Stop</a></li>
   </ul>
@@ -366,14 +370,26 @@ div.csl-indent {
 </header>
 
 
+<div class="callout callout-style-simple callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+This page is under construction
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you have any suggestions, please contact the course teacher.</p>
+</div>
+</div>
 <section id="origins-and-destinations" class="level2">
 <h2 class="anchored" data-anchor-id="origins-and-destinations">Origins and Destinations</h2>
+<p>If you have <strong>travel survey</strong> data, for some exercises you may use that one.</p>
+<p>For all the other, we can simply use <strong>census</strong> data.</p>
 </section>
-<section id="uni-modal" class="level2">
-<h2 class="anchored" data-anchor-id="uni-modal">Uni-modal</h2>
-</section>
-<section id="multi-modal" class="level2">
-<h2 class="anchored" data-anchor-id="multi-modal">Multi-modal</h2>
+<section id="travel-time-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="travel-time-matrix">Travel Time Matrix</h2>
 <section id="egress-mode" class="level3">
 <h3 class="anchored" data-anchor-id="egress-mode">Egress mode</h3>
 <p>The transport mode used after egress from the last public transport. It can be either <code>WALK</code>, <code>BICYCLE</code> or <code>CAR</code>. Defaults to <code>WALK</code>. Ignored when public transport is not used.</p>
@@ -391,6 +407,15 @@ div.csl-indent {
 <li><p><strong>LTS 4</strong>: Tolerable only for “strong and fearless” cyclists. This includes streets where cyclists are required to mix with moderate- to high-speed vehicular traffic.</p></li>
 </ul>
 <p>For advanced users, you can provide custom LTS values by adding a tag <code>&lt;key = "lts"&gt;</code> to the <code>osm.pbf</code> file.</p>
+</section>
+</section>
+<section id="detailed-itineraries" class="level2">
+<h2 class="anchored" data-anchor-id="detailed-itineraries">Detailed itineraries</h2>
+<section id="multi-modal-legs" class="level3">
+<h3 class="anchored" data-anchor-id="multi-modal-legs">Multi-modal legs</h3>
+</section>
+<section id="route-shapes" class="level3">
+<h3 class="anchored" data-anchor-id="route-shapes">Route shapes</h3>
 </section>
 </section>
 <section id="stop" class="level2">
