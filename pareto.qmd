@@ -271,3 +271,11 @@ ggplot(data = access) +
 ![With hex grid](images/clipboard-2680957931.png){fig-align="center"}
 
 ![With census units](images/clipboard-2837442883.png){fig-align="center"}
+
+::: {.callout-tip appearance="simple"}
+## Reading suggestion
+
+The impact of transit monetary costs on transport inequality [@herszenhut2022]
+
+The cost of equity: Assessing transit accessibility and social disparity using total travel cost [@el-geneidy2016]
+:::
