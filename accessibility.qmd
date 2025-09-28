@@ -306,6 +306,207 @@ ggplot() +
 
 # Accessibility
 
+Let's see the accessibility from population to **schools**, **healthcare** and **sport**, using public transit.
+
+We first need to create a travel time matrix, using only PT.
+
+```{r}
+# calculate travel time matrix
+ttm_PT <- r5r::travel_time_matrix(
+  r5r_network = r5r_lisboa,
+  origins = POINTS,
+  destinations = POINTS,
+  mode = "TRANSIT",
+  departure_datetime = departure_datetime_HP,
+  max_walk_time = max_walk_time,
+  time_window = time_window,
+  progress = FALSE
+  )
+```
+
+Now calculate a traditional cumulative opportunity metric and pass our travel time matrix and land use data (schools, healthcare, and sport - see [POIs](pois.html)) as input.
+
+```{r}
+# calculate accessibility
+access_edu <- accessibility::cumulative_cutoff(
+  travel_matrix = ttm_PT, 
+  land_use_data = POINTS,
+  opportunity = 'school',
+  travel_cost = 'travel_time_p50',
+  cutoff = 20
+  )
+
+access_health <- accessibility::cumulative_cutoff(
+  travel_matrix = ttm_PT, 
+  land_use_data = POINTS,
+  opportunity = 'healthcare',
+  travel_cost = 'travel_time_p50',
+  cutoff = 20
+  )
+
+access_sport <- accessibility::cumulative_cutoff(
+  travel_matrix = ttm_PT, 
+  land_use_data = POINTS,
+  opportunity = 'sport',
+  travel_cost = 'travel_time_p50',
+  cutoff = 20
+  )
+
+# join them
+access1 = access_edu |>
+  mutate(opportunity = "schools") |>
+  rename(accessibility = school) |>
+  rbind(
+    access_health |>
+      mutate(opportunity = "healthcare") |>
+      rename(accessibility = healthcare)
+  ) |> 
+  rbind(
+    access_sport |>
+      mutate(opportunity = "sport") |>
+      rename(accessibility = sport)
+  ) |> 
+  mutate(id = as.integer(id))
+```
+
+The results will tell us how many times each **school** can be reached from all origins.
+
+We can use our grid directly to visualize results
+
+```{r}
+#| code-fold: true
+# merge accessibility estimates
+access_sf <- left_join(GRID, access1, by = c('id'))
+
+# plot
+ggplot() +
+  geom_sf(data = access_sf, aes(fill = accessibility), color= NA) +
+  scale_fill_viridis_c(direction = -1, option = 'B') +
+  labs(fill = "Number of\nfacilities within\n20 minutes") +
+  theme_minimal() +
+  theme(axis.title = element_blank()) +
+  facet_wrap(~opportunity) + # each plot filtered by this variable
+  theme_void()
+```
+
+![](images/clipboard-2561599496.png){fig-align="center"}
+
+If the facilities are more concentrated in an area, those will provide more opportunities to the residents of that area (who can reach more opportunities without making long trips).
+
+## Spatial interpolation
+
+```{r}
+
+# interpolate estimates to get spatially smooth result
+access_schools <- access1 %>% 
+  filter(opportunity == "schools") %>%
+  inner_join(POINTS |> mutate(id = as.integer(id)), by='id') %>%
+  with(interp::interp(lon, lat, accessibility)) %>%
+  with(cbind(acc=as.vector(z),  # Column-major order
+             x=rep(x, times=length(y)),
+             y=rep(y, each=length(x)))) %>% as.data.frame() %>% na.omit() %>%
+  mutate(opportunity = "schools")
+
+access_health <- access1 %>% 
+  filter(opportunity == "healthcare") %>%
+  inner_join(POINTS |> mutate(id = as.integer(id)), by='id') %>%
+  with(interp::interp(lon, lat, accessibility)) %>%
+  with(cbind(acc=as.vector(z),  # Column-major order
+             x=rep(x, times=length(y)),
+             y=rep(y, each=length(x)))) %>% as.data.frame() %>% na.omit() %>%
+  mutate(opportunity = "healthcare")
+
+access_sports <- access1 %>% 
+  filter(opportunity == "sport") %>%
+  inner_join(POINTS |> mutate(id = as.integer(id)), by='id') %>%
+  with(interp::interp(lon, lat, accessibility)) %>%
+  with(cbind(acc=as.vector(z),  # Column-major order
+             x=rep(x, times=length(y)),
+             y=rep(y, each=length(x)))) %>% as.data.frame() %>% na.omit() %>%
+  mutate(opportunity = "sports")
+
+
+access.interp <- rbind(access_schools, access_health, access_sports)
+
+# plot
+ggplot(na.omit(access.interp)) +
+  geom_contour_filled(aes(x=x, y=y, z=acc), alpha=.7) +
+  geom_sf(data = REDEbase, color = "gray55", lwd=0.5, alpha = 0.5) +
+  geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
+  scale_fill_viridis_d(direction = -1, option = 'B') +
+  scale_x_continuous(expand=c(0,0)) +
+  scale_y_continuous(expand=c(0,0)) +
+  coord_sf(xlim = bb_x, ylim = bb_y, datum = NA) + 
+  labs(fill = "Number of\nfacilities within\n20 minutes") +
+  theme_void() +
+  facet_wrap(~opportunity)
+```
+
+![](images/clipboard-1989205512.png)
+
+## Population measure
+
+We can also do for **population** with PTransit (1 transfer, peak hour)
+
+```{r}
+# calculate population accessible
+access <- ttm_zer_HP_PT |> # estimaded before!
+  filter(travel_time_p50 <= 60) |>      # keep trips within 30 minutes
+  group_by(to_id) |>
+  summarise(acc = sum(residents), .groups = "drop")
+access = left_join(access, ttm_zer_HP_PT)
+
+# interpolate estimates to get spatially smooth result
+access.interp = access |>
+  with(interp(lon, lat, acc)) |>
+  with(cbind(acc=as.vector(z),  # Column-major order
+             x=rep(x, times=length(y)),
+             y=rep(y, each=length(x)))) |> as.data.frame() |> na.omit()
+
+# plot
+ggplot(na.omit(access.interp)) +
+  geom_contour_filled(aes(x=x, y=y, z=acc), alpha=.8) +
+  geom_sf(data = REDEbase, color = "gray55", lwd=0.5, alpha = 0.5) +
+  geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
+  scale_fill_viridis_d(direction = -1, option = 'B') +
+  scale_x_continuous(expand=c(0,0)) +
+  scale_y_continuous(expand=c(0,0)) +
+  coord_sf(xlim = bb_x, ylim = bb_y) + 
+  labs(
+    title = "Reaching population from Baixa (Carris + Metro)",
+    subtitle = "at 8am wednesday - 1 transf max",
+    fill = "Population in\n60 minutos") +
+  theme_minimal() +
+  theme(axis.title = element_blank())
+```
+
+![](images/clipboard-3310468654.png){fig-align="center"}
+
+How many residents can reach downtown in 15, 30, 45 and 60 minutes?
+
+```{r}
+poplisboa = sum(POINTS$residents) #
+100* sum(access$residents[access$travel_time_p50 <= 15]) / poplisboa # 2.5%
+100* sum(access$residents[access$travel_time_p50 <= 30]) / poplisboa # 38.6%
+100* sum(access$residents[access$travel_time_p50 <= 45]) / poplisboa # 84.8%
+100* sum(access$residents[access$travel_time_p50 <= 60]) / poplisboa # 97.3%
+```
+
++-----------------+------------+
+| Trip duration \ | Residents  |
+| (up to...)      |            |
++:===============:+:==========:+
+| 15 min          | **2.5 %**  |
++-----------------+------------+
+| 30 min          | **38.6 %** |
++-----------------+------------+
+| 45 min          | **84.8%**  |
++-----------------+------------+
+| 60 min          | **97.3%**  |
++-----------------+------------+
+
+Read [Chapter 3](https://ipeagit.github.io/intro_access_book/3_calculando_acesso.en.html) from @accessibility for other acessibility estimates.
+
 ### Stop
 
 ```{r}
