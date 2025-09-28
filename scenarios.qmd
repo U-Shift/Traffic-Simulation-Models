@@ -8,6 +8,190 @@ engine: knitr
 
 ## Work day vs. weekend
 
+With the same method presented in [Accessibility](accessibility.qmd), let's compare the population that can be reach from city center on a **peak hour** and a **Sunday evening**, using **public transit** and max 1 transfer.
+
+### Public transit - services available
+
+First, we can have a loot at the available routes on both time periods. For that, we use the [r5r::check_transit_availability()](https://ipeagit.github.io/r5r/reference/check_transit_availability.html)
+
+```{r}
+# load model
+r5r_lisboa = build_network(data_path = "data/Lisbon/r5r/") # already existing network model
+
+dates_to_check <- c("2024-11-20", "2024-11-24") # wednesday, sunday
+availability <- check_transit_availability(r5r_network = r5r_lisboa,
+                                            dates = dates_to_check)
+availability
+```
+
+### Peak-hour
+
+We use the same code as in [Isochrones](accessibility.qmd#isochrones).
+
+```{r}
+# define some parameters
+mode = c("SUBWAY", "BUS") # TRANSIT, BUS, SUBWAY, RAIL, CAR, FERRY, WALK, BIKE, TRAM
+mode_egress = "WALK"
+max_walk_time = 10 # in minutes
+max_trip_duration = 90 # in minutes
+time_window = 30 # in minutes
+time_intervals <- seq(0, 100, 10)
+departure_datetime_HP = as.POSIXct("20-11-2024 8:00:00", format = "%d-%m-%Y %H:%M:%S") # quarta-feira
+
+# calculate travel time matrix
+ttm_zer_PT_wednesday = travel_time_matrix(r5r_network = r5r_lisboa,
+                              origins = BAIXA,
+                              destinations = POINTS,
+                              mode = mode,
+                              mode_egress = mode_egress,
+                              departure_datetime = departure_datetime_HP,
+                              max_walk_time = max_walk_time,
+                              max_trip_duration = max_trip_duration,
+                              time_window = time_window,
+                              max_rides = 3, # max 1 transfer
+                              verbose = FALSE)
+
+summary(ttm_zer_PT_wednesday$travel_time_p50)
+```
+
+```         
+  Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00   30.00   37.00   36.29   43.00   68.00 
+```
+
+```{r}
+#| code-fold: true
+
+# add coordinates of destinations to travel time matrix
+ttm_zer_PT_wednesday = ttm_zer_PT_wednesday |>
+  left_join(POINTS, by = c("to_id" = "id"))
+
+# interpolate estimates to get spatially smooth result
+travel_times.interp <- with(na.omit(ttm_zer_PT_wednesday), interp(lon, lat, travel_time_p50)) |>
+  with(cbind(travel_time=as.vector(z),  # Column-major order
+             x=rep(x, times=length(y)),
+             y=rep(y, each=length(x)))) |>
+  as.data.frame() |> na.omit()
+
+# find isochrone's bounding box to crop the map below
+bb_x <- c(min(travel_times.interp$x), max(travel_times.interp$x))
+bb_y <- c(min(travel_times.interp$y), max(travel_times.interp$y))
+# plot
+plotHP = ggplot(travel_times.interp) +
+  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +
+  geom_sf(data = REDEbase, color = "gray55", lwd = 0.5, alpha = 0.4) +
+  geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
+  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +
+  scale_fill_viridis_d(direction = -1, option = 'B') +
+  scale_color_manual(values = c('Baixa' = 'black')) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  coord_sf(xlim = bb_x, ylim = bb_y) +
+  labs(
+    title = "Reaching from Baixa (Carris + Metro)",
+    subtitle = "at 8am wednesday - 1 transf max",
+    fill = "Trip duration \n[min]",
+    color = ''
+  ) +
+  theme_minimal() +
+  theme(axis.title = element_blank())
+
+plotHP
+```
+
+![](images/clipboard-529421772.png)
+
+### Off peak-hour
+
+```{r}
+departure_datetime_OFF = as.POSIXct("24-11-2024 22:00:00", format = "%d-%m-%Y %H:%M:%S") # sunday evening
+
+# calculate travel time matrix
+ttm_zer_PT_sunday = travel_time_matrix(r5r_network = r5r_lisboa,
+                              origins = BAIXA,
+                              destinations = POINTS,
+                              mode = mode,
+                              mode_egress = mode_egress,
+                              departure_datetime = departure_datetime_OFF, # new date
+                              max_walk_time = max_walk_time,
+                              max_trip_duration = max_trip_duration,
+                              time_window = time_window,
+                              max_rides = 2, # max 1 transfer
+                              verbose = FALSE)
+
+summary(ttm_zer_PT_sunday$travel_time_p50)
+```
+
+```         
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00   31.00   39.00   39.38   48.00   73.00  
+```
+
+```{r}
+#| code-fold: true
+
+# add coordinates of destinations to travel time matrix
+ttm_zer_PT_sunday = ttm_zer_PT_sunday |>
+  left_join(POINTS, by = c("to_id" = "id"))
+
+# interpolate estimates to get spatially smooth result
+travel_times.interp <- with(na.omit(ttm_zer_PT_sunday), interp(lon, lat, travel_time_p50)) |>
+  with(cbind(travel_time=as.vector(z),  # Column-major order
+             x=rep(x, times=length(y)),
+             y=rep(y, each=length(x)))) |>
+  as.data.frame() |> na.omit()
+
+# find isochrone's bounding box to crop the map below
+bb_x <- c(min(travel_times.interp$x), max(travel_times.interp$x))
+bb_y <- c(min(travel_times.interp$y), max(travel_times.interp$y))
+# plot
+plotOFF = ggplot(travel_times.interp) +
+  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +
+  geom_sf(data = REDEbase, color = "gray55", lwd = 0.5, alpha = 0.4) +
+  geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
+  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +
+  scale_fill_viridis_d(direction = -1, option = 'B') +
+  scale_color_manual(values = c('Baixa' = 'black')) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  coord_sf(xlim = bb_x, ylim = bb_y) +
+  labs(
+    title = "Reaching from Baixa (Carris + Metro)",
+    subtitle = "at 10pm sunday - 1 transf max",
+    fill = "Trip duration \n[min]",
+    color = ''
+  ) +
+  theme_minimal() +
+  theme(axis.title = element_blank())
+
+plotOFF
+```
+
+![](images/clipboard-457034943.png)
+
+### Compare population
+
+Based on Census 2021 [@INEcensus], we can count how many people are reach.
+
+```{r}
+poplisboa = sum(POINTS$residents) #
+100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 <= 15]) / poplisboa # 2.7%
+100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 <= 30]) / poplisboa # 38.9%
+100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 <= 45]) / poplisboa # 90.0%
+100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 <= 60]) / poplisboa # 98.7%
+
+100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 <= 15]) / poplisboa # 1.5%
+100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 <= 30]) / poplisboa # 31.7%
+100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 <= 45]) / poplisboa # 76.6%
+100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 <= 60]) / poplisboa # 95.0%
+```
+
+| Wednesday peak hour | Sunday evening      |
+|---------------------|---------------------|
+| **38.9%** in 30 min | **31.7%** in 30 min |
+| **90.0%** in 45 min | **76.6%** in 45 min |
+| **98.7%** in 60 min | **95.0%** in 60 min |
+
 ## New metro station or metro line
 
 Let's create a new metro line or a new station in your city.
@@ -27,15 +211,13 @@ For that, an easy graphic interface software is the PTV Lines.
 
 ### Create a metro line with PTV Lines {#create-a-metro-line-with-ptv-lines}
 
-First, create new station points (`S`) and name them.
-As many as you need.
+First, create new station points (`S`) and name them. As many as you need.
 
 ![](images/clipboard-4144832314.png){fig-align="center" width="231"}
 
 ![](images/clipboard-4243677038.png){fig-align="center"}
 
-Then, create a new line (`L`), name it something like "Expansion", and create a new route (`R`).
-Name it `0` (you can edit later) and draw that line roughly by selecting an existing start station and connecting to your new stations.
+Then, create a new line (`L`), name it something like "Expansion", and create a new route (`R`). Name it `0` (you can edit later) and draw that line roughly by selecting an existing start station and connecting to your new stations.
 
 ![](images/clipboard-1488195502.png){fig-align="center" width="369"}
 
@@ -43,8 +225,7 @@ Add trips to it (`T`), with a proper headway.
 
 ![](images/clipboard-2022476792.png){fig-align="center" width="421"}
 
-After defining the weekday and weekend trips, go to the Outbound route and "*Create opposite direction*", so you can have both directions now.
-Rename the line routes, something as "*Start station - End station*".
+After defining the weekday and weekend trips, go to the Outbound route and "*Create opposite direction*", so you can have both directions now. Rename the line routes, something as "*Start station - End station*".
 
 ![](images/clipboard-563058203.png){fig-align="center" width="345"}
 
@@ -52,8 +233,7 @@ Rename the line routes, something as "*Start station - End station*".
 
 This tutorial assumes that the stations for which the line will be extended to already exist (if not, see how to create new stations at [Create a metro line with PTV Lines](#create-a-metro-line-with-ptv-lines)).
 
-The extension is performed over a route.
-To access one, click on a transit line, and then on one of its routes.
+The extension is performed over a route. To access one, click on a transit line, and then on one of its routes.
 
 :::::: columns
 ::: {.column width="49%"}
@@ -88,14 +268,12 @@ Once the extension mode is activated, your cursor will turn into a pen icon and 
 ::: {.callout-caution appearance="minimal"}
 ## Routing modes
 
-Be aware of the several modes available on the button that is now displayed (automatic routing mode, street routing mode, straight line mode or exclusive PT routing mode).
-Make sure you use the one that best suits your use case.
+Be aware of the several modes available on the button that is now displayed (automatic routing mode, street routing mode, straight line mode or exclusive PT routing mode). Make sure you use the one that best suits your use case.
 :::
 
 ![](images/extend_route_map_draw_mode.png){fig-align="center"}
 
-Once you click on the station, you should see the new station in the route window, on the left part of the screen.
-You should adjust the run and dwell times accordingly.
+Once you click on the station, you should see the new station in the route window, on the left part of the screen. You should adjust the run and dwell times accordingly.
 
 ![](images/extend_route_map_done.png){fig-align="center"}
 
@@ -107,13 +285,11 @@ Go to Connections, and click on a connecting station to visualize the time diagr
 
 ### Generate GTFS
 
-After all your edits, go back to the dashboard, and click on "Export supply".
-Export as GTFS (`.zip`)
+After all your edits, go back to the dashboard, and click on "Export supply". Export as GTFS (`.zip`)
 
 ![](images/clipboard-2244082372.png)
 
-Your scenario will be saved in your dashboard.
-You can edit or duplicate them later.
+Your scenario will be saved in your dashboard. You can edit or duplicate them later.
 
 ::: {.callout-caution appearance="minimal"}
 ### Your task

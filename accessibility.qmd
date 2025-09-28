@@ -13,7 +13,7 @@ Planning should shift focus from maximizing movement to **maximizing access** [@
 
 👉 In this exercises we will adapt from r5r vignettes "[Isochrones](https://ipeagit.github.io/r5r/articles/isochrones.html)" and "[Accessibility](https://ipeagit.github.io/r5r/articles/accessibility.html)" [@pereira2021]
 
-# Isochrones
+# Isochrones {#isochrones}
 
 Based on GTFS data from Metro and Carris, we will estimate isochrones and accessibility for the population in **Lisbon**, starting from downtown (*Baixa*).
 
@@ -48,7 +48,7 @@ city_limit = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/relea
 ```
 
 ```{r}
-r5r_lisboa = setup_r5(data_path = "data/Lisbon/r5r/") # already existing network model
+r5r_lisboa = build_network(data_path = "data/Lisbon/r5r/") # already existing network model
 ```
 
 ## Public Transit
@@ -75,7 +75,7 @@ ttm_zer_HP_PT = travel_time_matrix(r5r_network = r5r_lisboa,
                               max_walk_time = max_walk_time,
                               max_trip_duration = max_trip_duration,
                               time_window = time_window,
-                              max_rides = 2, #apenas uma transferência
+                              max_rides = 2, # max 1 transfer
                               verbose = FALSE)
 
 summary(ttm_zer_HP_PT$travel_time_p50)
@@ -444,11 +444,12 @@ ggplot(na.omit(access.interp)) +
 
 ![](images/clipboard-1989205512.png)
 
-## Population measure
+## Population estimate
 
-We can also do for **population** with PTransit (1 transfer, peak hour)
+We can also estimate **population** reach from downtown with PTransit (1 transfer, peak hour)
 
 ```{r}
+#| code-fold: true
 # calculate population accessible
 access <- ttm_zer_HP_PT |> # estimaded before!
   filter(travel_time_p50 <= 60) |>      # keep trips within 30 minutes
@@ -492,22 +493,26 @@ poplisboa = sum(POINTS$residents) #
 100* sum(access$residents[access$travel_time_p50 <= 60]) / poplisboa # 97.3%
 ```
 
-+-----------------+------------+
-| Trip duration \ | Residents  |
-| (up to...)      |            |
-+:===============:+:==========:+
-| 15 min          | **2.5 %**  |
-+-----------------+------------+
-| 30 min          | **38.6 %** |
-+-----------------+------------+
-| 45 min          | **84.8%**  |
-+-----------------+------------+
-| 60 min          | **97.3%**  |
-+-----------------+------------+
++----------------+--------------+
+| Trip duration\ | Residents    |
+| (up to...)     |              |
++:==============:+:============:+
+| 15 min         | **2.5 %**    |
++----------------+--------------+
+| 30 min         | **38.6 %**   |
++----------------+--------------+
+| 45 min         | **84.8%**    |
++----------------+--------------+
+| 60 min         | **97.3%**    |
++----------------+--------------+
 
-Read [Chapter 3](https://ipeagit.github.io/intro_access_book/3_calculando_acesso.en.html) from @accessibility for other acessibility estimates.
+::: {.callout-tip appearance="simple"}
+## Other accessibility measures
 
-### Stop
+Read [Chapter 3](https://ipeagit.github.io/intro_access_book/3_calculando_acesso.en.html) from @accessibility for other accessibility estimates.
+:::
+
+### Stop r5r model
 
 ```{r}
 r5r::stop_r5(r5r_lisboa)
