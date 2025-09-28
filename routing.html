@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -317,6 +337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#multi-modal" id="toc-multi-modal" class="nav-link" data-scroll-target="#multi-modal">Multi-modal</a>
   <ul class="collapse">
   <li><a href="#egress-mode" id="toc-egress-mode" class="nav-link" data-scroll-target="#egress-mode">Egress mode</a></li>
+  <li><a href="#lts" id="toc-lts" class="nav-link" data-scroll-target="#lts">LTS</a></li>
   </ul></li>
   <li><a href="#stop" id="toc-stop" class="nav-link" data-scroll-target="#stop">Stop</a></li>
   </ul>
@@ -355,6 +376,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="multi-modal">Multi-modal</h2>
 <section id="egress-mode" class="level3">
 <h3 class="anchored" data-anchor-id="egress-mode">Egress mode</h3>
+<p>The transport mode used after egress from the last public transport. It can be either <code>WALK</code>, <code>BICYCLE</code> or <code>CAR</code>. Defaults to <code>WALK</code>. Ignored when public transport is not used.</p>
+</section>
+<section id="lts" class="level3">
+<h3 class="anchored" data-anchor-id="lts">LTS</h3>
+<p>The maximum level of traffic stress that cyclists will tolerate. A value of 1 means cyclists will only travel through the quietest streets, while a value of 4 indicates cyclists can travel through any road. <strong>Defaults to 2, which can be very restrictive in Lisbon (depends on your case study).</strong></p>
+<p>From <span class="citation" data-cites="Pereira2021r5r">Pereira et al. (<a href="#ref-Pereira2021r5r" role="doc-biblioref">2021</a>)</span>:</p>
+<p>When cycling is enabled in <code>R5</code> (by passing the value <code>BIKE</code> to either <code>mode</code> or <code>mode_egress</code>), setting <code>max_lts</code> will allow cycling only on streets with a given level of danger/stress. Setting <code>max_lts</code> to 1, for example, will allow cycling only on separated bicycle infrastructure or low-traffic streets and routing will revert to walking when traversing any links with LTS exceeding 1. Setting <code>max_lts</code> to 3 will allow cycling on links with LTS 1, 2 or 3. Routing also reverts to walking if the street segment is tagged as non-bikable in OSM (e.g.&nbsp;a staircase), independently of the specified max LTS.</p>
+<p>The default methodology for assigning LTS values to network edges is based on commonly tagged attributes of OSM ways. See more info about LTS in the original documentation of R5 from Conveyal at <a href="https://docs.conveyal.com/learn-more/traffic-stress" class="uri">https://docs.conveyal.com/learn-more/traffic-stress</a>. In summary:</p>
+<ul>
+<li><p><strong>LTS 1</strong>: Tolerable for children. This includes low-speed, low-volume streets, as well as those with separated bicycle facilities (such as parking-protected lanes or cycle tracks).</p></li>
+<li><p><strong>LTS 2</strong>: Tolerable for the mainstream adult population. This includes streets where cyclists have dedicated lanes and only have to interact with traffic at formal crossing.</p></li>
+<li><p><strong>LTS 3</strong>: Tolerable for “enthused and confident” cyclists. This includes streets which may involve close proximity to moderate- or high-speed vehicular traffic.</p></li>
+<li><p><strong>LTS 4</strong>: Tolerable only for “strong and fearless” cyclists. This includes streets where cyclists are required to mix with moderate- to high-speed vehicular traffic.</p></li>
+</ul>
+<p>For advanced users, you can provide custom LTS values by adding a tag <code>&lt;key = "lts"&gt;</code> to the <code>osm.pbf</code> file.</p>
 </section>
 </section>
 <section id="stop" class="level2">
@@ -366,9 +402,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Pereira2021r5r" class="csl-entry" role="listitem">
+Pereira, Rafael H. M., Marcus Saraiva, Daniel Herszenhut, Carlos Kaue Vieira Braga, and Matthew Wigginton Conway. 2021. <span>“R5r: Rapid Realistic Routing on Multimodal Transport Networks with r<sup>5</sup> in r.”</span> <em>Findings</em>, March. <a href="https://doi.org/10.32866/001c.21262">https://doi.org/10.32866/001c.21262</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

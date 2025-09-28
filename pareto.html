@@ -344,7 +344,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./network.html">r5r</a></li><li class="breadcrumb-item"><a href="./pareto.html">Pareto frontier</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Pareto frontier</h1>
-<p class="subtitle lead">Fares</p>
+<p class="subtitle lead">Fares and accessibility</p>
 </div>
 
 
@@ -383,7 +383,7 @@ div.csl-indent {
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>fare_structure<span class="sc">$</span>fares_per_transfer <span class="ot">&lt;-</span> fare_structure<span class="sc">$</span>fares_per_transfer <span class="sc">|&gt;</span> </span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fare =</span> <span class="fu">case_when</span>(</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    first_leg <span class="sc">==</span> <span class="st">"BUS"</span> <span class="sc">&amp;</span> second_leg <span class="sc">==</span> <span class="st">"BUS"</span> <span class="sc">~</span> <span class="fl">2.80</span>, <span class="co"># extra cost for 2 trips</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      first_leg <span class="sc">==</span> <span class="st">"SUBWAY"</span> <span class="sc">&amp;</span> second_leg <span class="sc">==</span> <span class="st">"SUBWAY"</span> <span class="sc">~</span> <span class="fl">2.00</span>, <span class="co"># extra cost for 2 trips</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      first_leg <span class="sc">==</span> <span class="st">"SUBWAY"</span> <span class="sc">&amp;</span> second_leg <span class="sc">==</span> <span class="st">"SUBWAY"</span> <span class="sc">~</span> <span class="fl">2.00</span>, <span class="co"># no extra cost</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    first_leg <span class="sc">!=</span> second_leg                  <span class="sc">~</span> <span class="fl">3.50</span>,</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>                                     <span class="sc">~</span> fare</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  ))</span>
