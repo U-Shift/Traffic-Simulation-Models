@@ -11,7 +11,7 @@ It contrasts with **mobility** (how people move).
 
 Planning should shift focus from maximizing movement to **maximizing access** [@accessibility].
 
-In this exercises we will adapt from r5r vignettes "[Isochrones](https://ipeagit.github.io/r5r/articles/isochrones.html)" and "[Accessibility](https://ipeagit.github.io/r5r/articles/accessibility.html)" [@pereira2021]
+👉 In this exercises we will adapt from r5r vignettes "[Isochrones](https://ipeagit.github.io/r5r/articles/isochrones.html)" and "[Accessibility](https://ipeagit.github.io/r5r/articles/accessibility.html)" [@pereira2021]
 
 # Isochrones
 
@@ -32,7 +32,7 @@ library(interp)
 POINTS = readRDS(url("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/GRIDhex_data_lx.rds"))
 # POINTS = readRDS("data/Lisbon/GRIDhex_data.rds")
 POINTS = st_drop_geometry(POINTS) |> 
-  mutate(id = as.character(id))
+  mutate(id = as.character(id)) # avoids warnings
 
 # Create origin point - Baixa / Downtown
 BAIXA = data.frame(id = "1", lat = 38.711884, lon = -9.137313) |>
@@ -48,16 +48,15 @@ city_limit = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/relea
 ```
 
 ```{r}
-r5r_lisboa = setup_r5(data_path = "data/r5r/") # already existing network model
+r5r_lisboa = setup_r5(data_path = "data/Lisbon/r5r/") # already existing network model
 ```
 
-### During peak hour
+## Public Transit
 
-On a **Wednesday at 8:00 a.m**., how long will it take me to get to downtown using the subway, bus, and walking, with 1 transfer allowed?
+On a **Wednesday at 8:00 a.m**., how long will it take me to get from downtown using the **subway** and **bus**, with 1 transfer allowed?
 
 ```{r}
-# Peak hour, 2h TP + walk, 1 transfer --------------------------------------------------------------------
-
+# define some parameters
 mode = c("SUBWAY", "BUS") # TRANSIT, BUS, SUBWAY, RAIL, CAR, FERRY, WALK, BIKE, TRAM
 mode_egress = "WALK" # can be BIKE
 max_walk_time = 10 # in minutes
@@ -67,7 +66,7 @@ time_intervals <- seq(0, 100, 10)
 departure_datetime_HP = as.POSIXct("20-11-2024 8:00:00", format = "%d-%m-%Y %H:%M:%S") # quarta-feira
 
 # calculate travel time matrix
-ttm_zer_HP = travel_time_matrix(r5r_network = r5r_lisboa,
+ttm_zer_HP_PT = travel_time_matrix(r5r_network = r5r_lisboa,
                               origins = BAIXA,
                               destinations = POINTS,
                               mode = mode,
@@ -79,12 +78,21 @@ ttm_zer_HP = travel_time_matrix(r5r_network = r5r_lisboa,
                               max_rides = 2, #apenas uma transferência
                               verbose = FALSE)
 
+summary(ttm_zer_HP_PT$travel_time_p50)
+```
+
+```         
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    1.0    30.0    38.0    37.7    45.0    77.0 
+```
+
+```{r}
 # add coordinates of destinations to travel time matrix
-ttm_zer_HP = ttm_zer_HP |>
+ttm_zer_HP_PT = ttm_zer_HP_PT |>
   left_join(POINTS, by = c("to_id" = "id"))
 
 # interpolate estimates to get spatially smooth result
-travel_times.interp <- with(na.omit(ttm_zer_HP), interp(lon, lat, travel_time_p50)) |>
+travel_times.interp <- with(na.omit(ttm_zer_HP_PT), interp(lon, lat, travel_time_p50)) |>
   with(cbind(travel_time=as.vector(z),  # Column-major order
              x=rep(x, times=length(y)),
              y=rep(y, each=length(x)))) |>
@@ -121,18 +129,186 @@ plotHP
 
 ![](images/clipboard-2760696520.png){fig-align="center"}
 
-### Num Domingo à noite
+## Car
 
-E num **Domingo às 22h00**, quanto tempo demoro a chegar ao território de Lisboa, usando Metro, Autocarro, e ligações a pé?
+```{r}
+mode = "CAR"
 
-#### Com 1 transferência
+# calculate travel time matrix
+ttm_zer_HP_car = travel_time_matrix(r5r_network = r5r_lisboa,
+                              origins = BAIXA,
+                              destinations = POINTS,
+                              mode = mode,
+                              mode_egress = mode_egress,
+                              departure_datetime = departure_datetime_HP,
+                              max_walk_time = max_walk_time, # irrelevant
+                              max_trip_duration = max_trip_duration, 
+                              time_window = time_window, # irrelevant
+                              verbose = FALSE)
 
-![](images/clipboard-2684296525.png)
+summary(ttm_zer_HP_car$travel_time_p50)
+```
 
-#### Sem transferências
+```         
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   2.00   11.00   13.00   12.87   15.00   34.00
+```
 
-![](images/clipboard-647321861.png)
+```{r}
+#| code-fold: true
+
+# add coordinates of destinations to travel time matrix
+ttm_zer_HP_car = ttm_zer_HP_car |>
+  left_join(POINTS, by = c("to_id" = "id"))
+
+# interpolate estimates to get spatially smooth result
+travel_times.interp <- with(na.omit(ttm_zer_HP_car), interp(lon, lat, travel_time_p50)) |>
+  with(cbind(travel_time=as.vector(z),  # Column-major order
+             x=rep(x, times=length(y)),
+             y=rep(y, each=length(x)))) |>
+  as.data.frame() |> na.omit()
+
+# plot
+# find isochrone's bounding box to crop the map below
+bb_x <- c(min(travel_times.interp$x), max(travel_times.interp$x))
+bb_y <- c(min(travel_times.interp$y), max(travel_times.interp$y))
+# plot
+plotHP_car = ggplot(travel_times.interp) +
+  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +
+  geom_sf(data = REDEbase, color = "gray55", lwd = 0.5, alpha = 0.4) +
+  geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
+  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +
+  scale_fill_viridis_d(direction = -1, option = 'B') +
+  scale_color_manual(values = c('Baixa' = 'black')) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  coord_sf(xlim = bb_x, ylim = bb_y) +
+  labs(
+    title = "Reaching from Baixa (Car)",
+    subtitle = "at 8am wednesday",
+    fill = "Trip duration \n[min]",
+    color = ''
+  ) +
+  theme_minimal() +
+  theme(axis.title = element_blank())
+
+plotHP_car
+```
+
+## Bike
+
+```{r}
+mode = "BICYCLE"
+max_lts = 3
+
+# calculate travel time matrix
+ttm_zer_HP_bike = travel_time_matrix(r5r_network = r5r_lisboa,
+                              origins = BAIXA,
+                              destinations = POINTS,
+                              mode = mode,
+                              max_lts = max_lts,
+                              mode_egress = mode_egress, # irrelevant
+                              departure_datetime = departure_datetime_HP, # irrelevant
+                              max_walk_time = max_walk_time, # irrelevant
+                              max_trip_duration = max_trip_duration,
+                              time_window = time_window, # irrelevant
+                              verbose = FALSE)
+
+summary(ttm_zer_HP_bike$travel_time_p50)
+```
+
+```         
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   29.00   41.00   38.96   50.00   76.00 
+```
+
+```{r}
+#| code-fold: true
+
+# add coordinates of destinations to travel time matrix
+ttm_zer_HP_bike = ttm_zer_HP_bike |>
+  left_join(POINTS, by = c("to_id" = "id"))
+
+# interpolate estimates to get spatially smooth result
+travel_times.interp <- with(na.omit(ttm_zer_HP_bike), interp(lon, lat, travel_time_p50)) |>
+  with(cbind(travel_time=as.vector(z),  # Column-major order
+             x=rep(x, times=length(y)),
+             y=rep(y, each=length(x)))) |>
+  as.data.frame() |> na.omit()
+
+# plot
+# find isochrone's bounding box to crop the map below
+bb_x <- c(min(travel_times.interp$x), max(travel_times.interp$x))
+bb_y <- c(min(travel_times.interp$y), max(travel_times.interp$y))
+# plot
+plotHP_car = ggplot(travel_times.interp) +
+  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +
+  geom_sf(data = REDEbase, color = "gray55", lwd = 0.5, alpha = 0.4) +
+  geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
+  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +
+  scale_fill_viridis_d(direction = -1, option = 'B') +
+  scale_color_manual(values = c('Baixa' = 'black')) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  coord_sf(xlim = bb_x, ylim = bb_y) +
+  labs(
+    title = "Reaching from Baixa (Bike)",
+    subtitle = "at 8am wednesday - max LTS 3",
+    fill = "Trip duration \n[min]",
+    color = ''
+  ) +
+  theme_minimal() +
+  theme(axis.title = element_blank())
+
+plotHP_car
+```
+
+## Easier approach
+
+There are other ways of making these maps, but with lower details, such as **no destinations**. See [`r5r::isochrones()`](https://ipeagit.github.io/r5r/reference/isochrone.html) function.
+
+This function also allows to find service areas.
+
+```{r}
+# estimate line-based isochrone from origin
+iso_lines = isochrone(
+  r5r_network = r5r_lisboa,
+  origins = BAIXA,
+  mode = "walk",
+  polygon_output = FALSE,
+  departure_datetime = departure_datetime_HP,
+  cutoffs = seq(0, 120, 20)
+  )
+```
+
+```{r}
+#| code-fold: true
+# plot
+# used cols4all::c4a_gui()
+colors <- c('#FFFFCC','#C7E9B4', '#7FCDBB','#41B6C4','#2C7FB8','#253494','black')
+# last one for the origin point
+
+ggplot() +
+  geom_sf(data = iso_lines, aes(color=factor(isochrone))) +
+  geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
+  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +
+  scale_color_manual(values = colors) +
+  labs(
+    title = "Reaching from Baixa (Walk)",
+    subtitle = "Service area",
+    color = "Trip duration \n[min]"
+  ) +
+  theme_minimal() +
+  theme(axis.title = element_blank())
+```
+
+![](images/clipboard-3138341673.png){fig-align="center"}
 
 # Accessibility
 
-### References
+### Stop
+
+```{r}
+r5r::stop_r5(r5r_lisboa)
+rJava::.jgc(R.gc = TRUE)
+```
