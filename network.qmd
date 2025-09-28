@@ -24,10 +24,6 @@ You will need **R** and [`r5r`](https://ipeagit.github.io/r5r/index.html) [@pere
 
 [^3]: Optional.
 
-::: callout-note
-Ver o código [`code/r5r.R`](https://github.com/rosamfelix/PGmob360/blob/main/code/r5r.R)
-:::
-
 For the documentation of data needed, see [`r5r::build_network`](https://ipeagit.github.io/r5r/reference/build_network.html)
 
 ## Road Networks
