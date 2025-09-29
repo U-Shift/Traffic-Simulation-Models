@@ -81,3 +81,15 @@ od_lisbon = od_all |>
   mutate(DICOFREor11 = as.character(DICOFREor11), DICOFREde11 = as.character(DICOFREde11))
 saveRDS(od_lisbon, "data/Lisbon/ODtrips_Freguesias_Lx.rds")
 piggyback::pb_upload("data/Lisbon/ODtrips_Freguesias_Lx.rds", "ODtrips_Freguesias_Lx.rds", repo = "U-Shift/Traffic-Simulation-Models", tag = "2025")
+
+
+
+# dem ---------------------------------------------------------------------
+
+# using elevatr
+devtools::install_github("usepa/elevatr")
+library(elevatr)
+dem_test = get_elev_raster(city_limit, z = 10)
+terra::plot(dem_test)
+terra::res(dem_test)
+# not very useful, low res
