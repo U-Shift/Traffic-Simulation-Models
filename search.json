@@ -1,5 +1,331 @@
 [
   {
+    "objectID": "routing.html",
+    "href": "routing.html",
+    "title": "Routing",
+    "section": "",
+    "text": "This page is under construction\n\n\n\nIf you have any suggestions, please contact the course teacher.",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Routing"
+    ]
+  },
+  {
+    "objectID": "routing.html#origins-and-destinations",
+    "href": "routing.html#origins-and-destinations",
+    "title": "Routing",
+    "section": "Origins and Destinations",
+    "text": "Origins and Destinations\nIf you have travel survey data, for some exercises you may use that one.\nFor all the other, we can simply use census data.",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Routing"
+    ]
+  },
+  {
+    "objectID": "routing.html#travel-time-matrix",
+    "href": "routing.html#travel-time-matrix",
+    "title": "Routing",
+    "section": "Travel Time Matrix",
+    "text": "Travel Time Matrix\n\nEgress mode\nThe transport mode used after egress from the last public transport. It can be either WALK, BICYCLE or CAR. Defaults to WALK. Ignored when public transport is not used.\n\n\nLTS\nThe maximum level of traffic stress that cyclists will tolerate. A value of 1 means cyclists will only travel through the quietest streets, while a value of 4 indicates cyclists can travel through any road. Defaults to 2, which can be very restrictive in Lisbon (depends on your case study).\nFrom Pereira et al. (2021):\nWhen cycling is enabled in R5 (by passing the value BIKE to either mode or mode_egress), setting max_lts will allow cycling only on streets with a given level of danger/stress. Setting max_lts to 1, for example, will allow cycling only on separated bicycle infrastructure or low-traffic streets and routing will revert to walking when traversing any links with LTS exceeding 1. Setting max_lts to 3 will allow cycling on links with LTS 1, 2 or 3. Routing also reverts to walking if the street segment is tagged as non-bikable in OSM (e.g. a staircase), independently of the specified max LTS.\nThe default methodology for assigning LTS values to network edges is based on commonly tagged attributes of OSM ways. See more info about LTS in the original documentation of R5 from Conveyal at https://docs.conveyal.com/learn-more/traffic-stress. In summary:\n\nLTS 1: Tolerable for children. This includes low-speed, low-volume streets, as well as those with separated bicycle facilities (such as parking-protected lanes or cycle tracks).\nLTS 2: Tolerable for the mainstream adult population. This includes streets where cyclists have dedicated lanes and only have to interact with traffic at formal crossing.\nLTS 3: Tolerable for “enthused and confident” cyclists. This includes streets which may involve close proximity to moderate- or high-speed vehicular traffic.\nLTS 4: Tolerable only for “strong and fearless” cyclists. This includes streets where cyclists are required to mix with moderate- to high-speed vehicular traffic.\n\nFor advanced users, you can provide custom LTS values by adding a tag &lt;key = \"lts\"&gt; to the osm.pbf file.",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Routing"
+    ]
+  },
+  {
+    "objectID": "routing.html#detailed-itineraries",
+    "href": "routing.html#detailed-itineraries",
+    "title": "Routing",
+    "section": "Detailed itineraries",
+    "text": "Detailed itineraries\n\nMulti-modal legs\n\n\nRoute shapes",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Routing"
+    ]
+  },
+  {
+    "objectID": "routing.html#stop",
+    "href": "routing.html#stop",
+    "title": "Routing",
+    "section": "Stop",
+    "text": "Stop\nr5r objects are still allocated to any amount of memory previously set after they are done with their calculations. In order to remove an existing r5r object and reallocate the memory it had been using, we use the stop_r5 function followed by a call to Java’s garbage collector, as follows:\n\nr5r::stop_r5(r5r_lisboa)\nrJava::.jgc(R.gc = TRUE)",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Routing"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Modelling of Transport Systems",
+    "section": "",
+    "text": "This website makes available materials, data and tutorials to use at the Modelling of Transport Systems course of the Master in Transportation Systems at Instituto Superior Técnico - University of Lisbon.\n \nSee the Micro modelling home assignment.\n\n\n\n\n\n\nThis website is under construction\n\n\n\nIf you have any suggestions, please contact the course teacher."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "pois.html",
+    "href": "pois.html",
+    "title": "POIs and Grids",
+    "section": "",
+    "text": "From OSM we can export several different opportunities to use on routing and accessibility exercises.\nFor instance, the 15-min city idea follows the Flowers of Proximity, to categorize the opportinities in 7 different categories, based on Büttner et al. (2022).\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\n\n\n\n\n\n\nScript\n\n\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024): data_extract.R (line 146)\n\n\nYou can explore other OpenStreetMap categories at their Wiki.",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "POIs and Grids"
+    ]
+  },
+  {
+    "objectID": "pois.html#points-of-interest",
+    "href": "pois.html#points-of-interest",
+    "title": "POIs and Grids",
+    "section": "",
+    "text": "From OSM we can export several different opportunities to use on routing and accessibility exercises.\nFor instance, the 15-min city idea follows the Flowers of Proximity, to categorize the opportinities in 7 different categories, based on Büttner et al. (2022).\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\n\n\n\n\n\n\nScript\n\n\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024): data_extract.R (line 146)\n\n\nYou can explore other OpenStreetMap categories at their Wiki.",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "POIs and Grids"
+    ]
+  },
+  {
+    "objectID": "pois.html#grids",
+    "href": "pois.html#grids",
+    "title": "POIs and Grids",
+    "section": "Grids",
+    "text": "Grids\nYou may want to use the original census units, or create a squared oh hexagonal grid.\n\nCreate a grid\nMatch all the Census and POIs to that grid\n\n\nCreate a grid\nWe will use the city of Lisbon as example\n\nlibrary(sf)\nlibrary(tidyverse)\nlibrary(mapview)\n\ncity_limit = st_read(\"data/Lisbon/Lisboa_lim.gpkg\")\nplot(city_limit)\n\n\n\n\n\n\n\nSquared\nMake a grid that covers the city polygon\n\nGRID = city_limit |&gt;\n  st_transform(crs = 3857) |&gt; # to a projected crs\n  st_make_grid(cellsize = 400, # meters, we are using a projected crs\n               what = \"polygons\",\n               square = TRUE) |&gt; # if FALSE, hexagons\n  st_sf() |&gt; # from list to sf\n  st_transform(crs = 4326) |&gt;  # back to WGS84\n  st_intersection(city_limit$geom) # crop (optional)\n\nGRID = GRID |&gt;  \n  rename(geometry = st_make_grid.st_transform.city_limit..crs...3857...cellsize...400..) |&gt; \n  mutate(id = c(1:nrow(GRID))) # just to give an ID to each cell \n  \nmapview(GRID, alpha.regions = 0.2)\n\n\n\n\nThe color is only referent to the ID\n\n\n\n\nHexagonal using h3jsr\n\nlibrary(h3jsr)\n\n# Resolution: https://h3geo.org/docs/core-library/restable/ \n# h3_res = 10 # 150m diameter\nh3_res = 9 # 400m diameter\n# h3_res = 8 # 1060m diameter\n\nGRID_h3 = city_limit |&gt;  \n  polygon_to_cells(res = h3_res, simple = FALSE)\nGRID_h3 = GRID_h3$h3_addresses |&gt;\n  cell_to_polygon(simple = FALSE)\nGRID_h3 = GRID_h3 |&gt;\n  mutate(id = seq(1:nrow(GRID_h3)))  # give an ID to each cell\nh3_index = GRID_h3 |&gt; st_drop_geometry() # save h3_address for later\n\nmapview(GRID_h3)\n\n\n\n\n\n\n\n\n\nAreas with information\nNow, we can associate these areas (and their centroids) with all the information we want.\n\nWith POIs\n\n# Points of interest\nPOIs = st_read(\"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/POIs_Lx.gpkg\")\n\n# count points by type in areas\nGRID_pois = POIs |&gt; st_join(GRID, join = st_within)\n\ncounts_group = GRID_pois |&gt;\n  st_drop_geometry() |&gt;   # drop geometry for counting\n  group_by(id, group) |&gt;\n  summarise(n = n(), .groups = \"drop\") |&gt;\n  tidyr::pivot_wider(names_from = group, values_from = n, values_fill = 0)\n\ncounts_type = GRID_pois |&gt;\n  st_drop_geometry() |&gt;\n  group_by(id, type) |&gt; # too many types!\n  summarise(n = n(), .groups = \"drop\") |&gt;\n  tidyr::pivot_wider(names_from = type, values_from = n, values_fill = 0)\n\nGRID_pois = GRID |&gt;\n  left_join(counts_group, by = \"id\") |&gt;\n  # left_join(counts_type,  by = \"id\") |&gt; # too many\n  mutate(across(where(is.numeric), ~replace_na(.x, 0)))\n\nmapview(GRID_pois, zcol = \"restaurant\") # for instance\n\n\nThe result is a grid with too many columns (one for each type). Consider using only the group.\n\n\nWith Census\n\n# Census data\ncensus = st_read(\"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Censos_Lx.gpkg\")\n\n# count points by type in areas\nGRID_census = census |&gt; st_join(GRID, join = st_within)\n\ncensus_density = GRID_census |&gt;\n  st_drop_geometry() |&gt;   # drop geometry for counting\n  group_by(id.y) |&gt;\n  summarise(buildings = sum(buildings),\n            families = sum(families),\n            residents = sum(residents)) |&gt; \n  rename(id = id.y) |&gt; \n  filter(!is.na(id))\n\nGRID_census = GRID |&gt;\n  left_join(census_density, by = \"id\") |&gt;\n  mutate(across(where(is.numeric), ~replace_na(.x, 0)))\n\nmapview(GRID_census, zcol = \"residents\")\n\n\n\n\nAll together\n\nGRID_data = GRID_census |&gt; left_join(GRID_pois |&gt; st_drop_geometry())\n\nThe same for Hex grid\n\n# POIs\nGRIDhex_pois = POIs |&gt; st_join(GRID_h3, join = st_within)\n\ncounts_group = GRIDhex_pois |&gt;\n  st_drop_geometry() |&gt;   # drop geometry for counting\n  group_by(id, group) |&gt;\n  summarise(n = n(), .groups = \"drop\") |&gt;\n  tidyr::pivot_wider(names_from = group, values_from = n, values_fill = 0)\n\nGRIDhex_pois = GRID_h3 |&gt;\n  left_join(counts_group, by = \"id\") |&gt;\n  mutate(across(where(is.numeric), ~replace_na(.x, 0)))\n\n#  Census\nGRIDhex_census = census |&gt; st_join(GRID_h3, join = st_within)\n\ncensus_density = GRIDhex_census |&gt;\n  st_drop_geometry() |&gt;   # drop geometry for counting\n  group_by(id.y) |&gt;\n  summarise(buildings = sum(buildings),\n            families = sum(families),\n            residents = sum(residents)) |&gt; \n  rename(id = id.y) |&gt; \n  filter(!is.na(id))\n\nGRIDhex_census = GRID_h3 |&gt;\n  left_join(census_density, by = \"id\") |&gt;\n  mutate(across(where(is.numeric), ~replace_na(.x, 0)))\n\n# All together now\nGRIDhex_data = GRIDhex_census |&gt; left_join(GRIDhex_pois |&gt; st_drop_geometry())\n\nmapview(GRIDhex_data, zcol = \"residents\")",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "POIs and Grids"
+    ]
+  },
+  {
+    "objectID": "pois.html#centroid-coordinates",
+    "href": "pois.html#centroid-coordinates",
+    "title": "POIs and Grids",
+    "section": "Centroid coordinates",
+    "text": "Centroid coordinates\nWe may want to have this information as points, for instance for routing to opportunities.\n\n# squares\nPOINTSsq = GRID_data |&gt; \n  st_centroid()\nGRID_data = GRID_data |&gt; \n  mutate(lon = st_coordinates(POINTSsq)[,1],\n         lat = st_coordinates(POINTSsq)[,2])\n\n# hexagons\nPOINTShex = GRIDhex_data |&gt; \n  st_centroid()\nGRIDhex_data = GRIDhex_data |&gt; \n  mutate(lon = st_coordinates(POINTShex)[,1],\n         lat = st_coordinates(POINTShex)[,2])\n\nYou should stick with just one of them: squares or hexagons.\nDon’t forget to save your data, this will be very useful for the next exercises.\n\nsaveRDS(GRID_data, \"data/Lisbon/GRID_data.rds\")\nsaveRDS(GRIDhex_data, \"data/Lisbon/GRIDhex_data.rds\")",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "POIs and Grids"
+    ]
+  },
+  {
+    "objectID": "rr5r.html",
+    "href": "rr5r.html",
+    "title": "R, RStudio and r5r",
+    "section": "",
+    "text": "In this chapter we will guide you through the installation of R, RStudio and the packages you will need for this course, for the macro network models.\nR and RStudio1 are separate downloads.\n\n\nYou will need R installed on your computer. R stats (how it is also known) is a programming language and free software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing.\nThe download links live at The Comprehensive R Archive Network (aka CRAN). The most recent version is 4.5.1, but you can use &gt;= 4.1.x if you already have it installed.\n\nWindowsMacUbuntu\n\n\nDownload R-4.5.1 for Windows and run the executable file.\n\n\n\n\n\n\nImportant\n\n\n\nYou will also need to install Rtools, which is a collection of tools necessary to build R packages in Windows.\n\n\n\n\nDownload R-4.5.1 for MacOX. You will have to choose between the arm64 or the x86-64 version.\nDownload the .pkg file and install it as usual.\n\n\n\nThese are instructions for Ubuntu. If you use other linux distribution, please follow the instructions on The Comprehensive R Archive Network - CRAN.\n\nYou can look for R in the Ubuntu Software Center or install it via the terminal:\n\n# sudo apt update && sudo apt upgrade -y\nsudo apt install r-base\n\nOr, if you prefer, you can install the latest version of R from CRAN:\n\n# update indices\nsudo apt update -qq\n# install two helper packages we need\nsudo apt install --no-install-recommends software-properties-common dirmngr\n# add the signing key (by Michael Rutter) for these repos\nwget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc\n# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed\nsudo add-apt-repository \"deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/\"\n\nThen run:\n\nsudo apt install r-base r-base-core r-recommended r-base-dev\n\n[Optional] To keep up-to-date r version and packages, you can follow the instructions at r2u\n\n\n\nAfter this installation, you don’t need to open R base. Please proceed to install RStudio.\n\n\n\nRStudio Desktop is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.\nRStudio is available for free download from Posit RStudio.\n\nWindows 10/11MacOSUbuntu\n\n\nDownload RStudio 2025.09 and run the executable file.\n\n\nDownload RStudio 2025.09 and install it as usual.\n\n\n\nThese are instructions for Ubuntu 24. If you use other linux distribution, please follow the instructions on Posit RStudio.\n\nInstall it via the terminal:\n\nsudo apt install libssl-dev libclang-dev\nwget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2025.09.0-387-amd64.deb\nsudo dpkg -i rstudio*\nrm -v rstudio*\n\n\n\n\n\n\n\nYou will need to install some packages to work with the data and scripts in this course.\nYou can install them in RStudio by searching for them in the Packages tab:\n\nor by running the following code in the console:\n\ninstall.packages(\"tidyverse\")\n\ninstall.packages(\"sf\")\ninstall.packages(\"mapview\")\ninstall.packages(\"osmextract\")\ninstall.packages(\"stplanr\")\ninstall.packages(\"h3jsr\")\ninstall.packages(\"od\")\n\ninstall.packages(c(\"remotes\", \"devtools\", \"usethis\")) # optional\n\n\n\n\nThe simplest way to install r5r is by running the code below on RStudio Console. This might take a few minutes if this is the first time you install these packages.\n\npkgs = c(\"r5r\", \"accessibility\", \"rJavaEnv\", \"interp\", \"quantreg\")\n\ninstall.packages(pkgs)\n\n# dev version with latest features - optional\nutils::remove.packages('r5r')\ndevtools::install_github(\"ipeaGIT/r5r\", subdir = \"r-package\")\n\n\n\nTo use the {r5r} package (version v2.0 or higher), you will need to have Java Development Kit (JDK) 21 installed on your computer. There are numerous open-source JDK implementations. The easiest way to install JDK is using the new {rJavaEnv} package in R.\n\n# check version of Java currently installed (if any) \nrJavaEnv::java_check_version_rjava()\n\n## if this is the first time you use {rJavaEnv}, you might need to run this code\n## below to consent the installation of Java.\n# rJavaEnv::rje_consent(provided = TRUE)\n\n# install Java 21\nrJavaEnv::java_quick_install(version = 21)\n\n# check if Java was successfully installed\nrJavaEnv::java_check_version_rjava()\n\nAlternatively, you can manually download and install JDK 21.\n\nWindows and MacOSUbuntu\n\n\nGo to Java Development Kit 21 or Oracle JDK, download the latest 21 build corresponding to your operating system and run the executable (installer) file.\n\n\nInstall it via the terminal:\n\nsudo apt install -y openjdk-21-jdk openjdk-21-jre\njava -version\n\n\n\n\n\n\n\nCheck if r5r is successfully installed and running with no errors:\n\nr5r::r5r_sitrep()",
+    "crumbs": [
+      "Home",
+      "Software",
+      "R & r5r"
+    ]
+  },
+  {
+    "objectID": "rr5r.html#r",
+    "href": "rr5r.html#r",
+    "title": "R, RStudio and r5r",
+    "section": "",
+    "text": "You will need R installed on your computer. R stats (how it is also known) is a programming language and free software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing.\nThe download links live at The Comprehensive R Archive Network (aka CRAN). The most recent version is 4.5.1, but you can use &gt;= 4.1.x if you already have it installed.\n\nWindowsMacUbuntu\n\n\nDownload R-4.5.1 for Windows and run the executable file.\n\n\n\n\n\n\nImportant\n\n\n\nYou will also need to install Rtools, which is a collection of tools necessary to build R packages in Windows.\n\n\n\n\nDownload R-4.5.1 for MacOX. You will have to choose between the arm64 or the x86-64 version.\nDownload the .pkg file and install it as usual.\n\n\n\nThese are instructions for Ubuntu. If you use other linux distribution, please follow the instructions on The Comprehensive R Archive Network - CRAN.\n\nYou can look for R in the Ubuntu Software Center or install it via the terminal:\n\n# sudo apt update && sudo apt upgrade -y\nsudo apt install r-base\n\nOr, if you prefer, you can install the latest version of R from CRAN:\n\n# update indices\nsudo apt update -qq\n# install two helper packages we need\nsudo apt install --no-install-recommends software-properties-common dirmngr\n# add the signing key (by Michael Rutter) for these repos\nwget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc\n# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed\nsudo add-apt-repository \"deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/\"\n\nThen run:\n\nsudo apt install r-base r-base-core r-recommended r-base-dev\n\n[Optional] To keep up-to-date r version and packages, you can follow the instructions at r2u\n\n\n\nAfter this installation, you don’t need to open R base. Please proceed to install RStudio.",
+    "crumbs": [
+      "Home",
+      "Software",
+      "R & r5r"
+    ]
+  },
+  {
+    "objectID": "rr5r.html#rstudio",
+    "href": "rr5r.html#rstudio",
+    "title": "R, RStudio and r5r",
+    "section": "",
+    "text": "RStudio Desktop is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.\nRStudio is available for free download from Posit RStudio.\n\nWindows 10/11MacOSUbuntu\n\n\nDownload RStudio 2025.09 and run the executable file.\n\n\nDownload RStudio 2025.09 and install it as usual.\n\n\n\nThese are instructions for Ubuntu 24. If you use other linux distribution, please follow the instructions on Posit RStudio.\n\nInstall it via the terminal:\n\nsudo apt install libssl-dev libclang-dev\nwget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2025.09.0-387-amd64.deb\nsudo dpkg -i rstudio*\nrm -v rstudio*",
+    "crumbs": [
+      "Home",
+      "Software",
+      "R & r5r"
+    ]
+  },
+  {
+    "objectID": "rr5r.html#r-packages",
+    "href": "rr5r.html#r-packages",
+    "title": "R, RStudio and r5r",
+    "section": "",
+    "text": "You will need to install some packages to work with the data and scripts in this course.\nYou can install them in RStudio by searching for them in the Packages tab:\n\nor by running the following code in the console:\n\ninstall.packages(\"tidyverse\")\n\ninstall.packages(\"sf\")\ninstall.packages(\"mapview\")\ninstall.packages(\"osmextract\")\ninstall.packages(\"stplanr\")\ninstall.packages(\"h3jsr\")\ninstall.packages(\"od\")\n\ninstall.packages(c(\"remotes\", \"devtools\", \"usethis\")) # optional",
+    "crumbs": [
+      "Home",
+      "Software",
+      "R & r5r"
+    ]
+  },
+  {
+    "objectID": "rr5r.html#r5r",
+    "href": "rr5r.html#r5r",
+    "title": "R, RStudio and r5r",
+    "section": "",
+    "text": "The simplest way to install r5r is by running the code below on RStudio Console. This might take a few minutes if this is the first time you install these packages.\n\npkgs = c(\"r5r\", \"accessibility\", \"rJavaEnv\", \"interp\", \"quantreg\")\n\ninstall.packages(pkgs)\n\n# dev version with latest features - optional\nutils::remove.packages('r5r')\ndevtools::install_github(\"ipeaGIT/r5r\", subdir = \"r-package\")\n\n\n\nTo use the {r5r} package (version v2.0 or higher), you will need to have Java Development Kit (JDK) 21 installed on your computer. There are numerous open-source JDK implementations. The easiest way to install JDK is using the new {rJavaEnv} package in R.\n\n# check version of Java currently installed (if any) \nrJavaEnv::java_check_version_rjava()\n\n## if this is the first time you use {rJavaEnv}, you might need to run this code\n## below to consent the installation of Java.\n# rJavaEnv::rje_consent(provided = TRUE)\n\n# install Java 21\nrJavaEnv::java_quick_install(version = 21)\n\n# check if Java was successfully installed\nrJavaEnv::java_check_version_rjava()\n\nAlternatively, you can manually download and install JDK 21.\n\nWindows and MacOSUbuntu\n\n\nGo to Java Development Kit 21 or Oracle JDK, download the latest 21 build corresponding to your operating system and run the executable (installer) file.\n\n\nInstall it via the terminal:\n\nsudo apt install -y openjdk-21-jdk openjdk-21-jre\njava -version\n\n\n\n\n\n\n\nCheck if r5r is successfully installed and running with no errors:\n\nr5r::r5r_sitrep()",
+    "crumbs": [
+      "Home",
+      "Software",
+      "R & r5r"
+    ]
+  },
+  {
+    "objectID": "rr5r.html#footnotes",
+    "href": "rr5r.html#footnotes",
+    "title": "R, RStudio and r5r",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nWe will use RStudio, although if you already use other studio such as VScode, that’s also fine.↩︎",
+    "crumbs": [
+      "Home",
+      "Software",
+      "R & r5r"
+    ]
+  },
+  {
+    "objectID": "pareto.html",
+    "href": "pareto.html",
+    "title": "Pareto frontier",
+    "section": "",
+    "text": "See the r5r vignettes “Accounting for monetary costs” and “Trade-offs between travel time and monetary cost” (Pereira et al. 2021)",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Pareto frontier"
+    ]
+  },
+  {
+    "objectID": "pareto.html#create-rules-for-an-operator",
+    "href": "pareto.html#create-rules-for-an-operator",
+    "title": "Pareto frontier",
+    "section": "Create rules for an operator",
+    "text": "Create rules for an operator\nIn this case, I am creating random rules for fares, considering the mode, the transfers, and changing between modes.\n\n# create basic fare structure\nfare_structure &lt;- setup_fare_structure(r5r_lisboa, \n                                       base_fare = 1.65,\n                                       by = \"MODE\")\n\n# update the cost of bus and subway fares\nfare_structure$fares_per_type &lt;- fare_structure$fares_per_type |&gt; \n  mutate(fare = case_when(\n    type == \"BUS\"    ~ 1.65,\n    type == \"SUBWAY\" ~ 2.00, # imagine it is more expensive\n    TRUE             ~ fare   # keep existing fare if no condition matches\n  ))\n\n# update the cost of transfers\nfare_structure$fares_per_transfer &lt;- fare_structure$fares_per_transfer |&gt; \n  mutate(fare = case_when(\n    first_leg == \"BUS\" & second_leg == \"BUS\" ~ 2.80, # extra cost for 2 trips\n      first_leg == \"SUBWAY\" & second_leg == \"SUBWAY\" ~ 2.00, # no extra cost\n    first_leg != second_leg                  ~ 3.50,\n    TRUE                                     ~ fare\n  ))\n\n\n# update transfer_time_allowance to 60 minutes\nfare_structure$transfer_time_allowance &lt;- 60\n\nfare_structure$fares_per_type = fare_structure$fares_per_type |&gt;\n  mutate(\n    unlimited_transfers = if_else(type == \"SUBWAY\", TRUE, unlimited_transfers),\n    allow_same_route_transfer = if_else(type == \"SUBWAY\", TRUE, allow_same_route_transfer)\n  )\n\n# save fare rules to temp file\n# r5r::write_fare_structure(fare_structure, file_path = \"data/Lisbon/fares_lisbon.zip\")\n# fare_structure &lt;- r5r::read_fare_structure(\"data/Lisbon/fares_lisbon.zip\")",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Pareto frontier"
+    ]
+  },
+  {
+    "objectID": "pareto.html#calculating-a-pareto_frontier",
+    "href": "pareto.html#calculating-a-pareto_frontier",
+    "title": "Pareto frontier",
+    "section": "Calculating a pareto_frontier()",
+    "text": "Calculating a pareto_frontier()\nIn this example, we calculate the Pareto frontier from all origins to downtown (Baixa) considering multiple cutoffs of monetary costs:\n\n€1, which would only allow for walking trips\n€1.65, which would only allow for bus trips\n€2.00, which would allow for a single or multiple subway trips\n€2.80, which would allow for bus + bus\n€3.50, which would allow for walking + bus + subway\n\n\ndeparture_datetime &lt;- as.POSIXct(\"13-11-2024 10:00:00\", \n                                 format = \"%d-%m-%Y %H:%M:%S\")\n\nprtf &lt;- pareto_frontier(\n  r5r_lisboa,\n  origins = POINTShex,\n  destinations = BAIXA,\n  mode = c(\"WALK\", \"TRANSIT\"),\n  departure_datetime = departure_datetime,\n  fare_structure = fare_structure,\n  fare_cutoffs = c(1, 1.65, 2.0, 2.8, 3.5),\n  progress = TRUE\n  )\n\n\n\nCode\n# select some origin and destinations\npf2 &lt;- prtf |&gt; filter(from_id %in% c(\"717\", \"720\", \"399\"))\n\n# recode modes \npf2 &lt;- pf2 |&gt;\n  mutate(\n    modes = case_when(\n      monetary_cost == 1    ~ \"Walk\",\n      monetary_cost == 1.65 ~ \"Bus\",\n      monetary_cost == 2.0  ~ \"Subway\",\n      monetary_cost == 2.80  ~ \"Bus + Bus\",\n      monetary_cost == 3.5  ~ \"Bus + Subway\"\n      # TRUE                  ~ \"Bus\"\n    )\n  )\n\nggplot(data=pf2, aes(x=monetary_cost, y=travel_time, color=from_id, label = modes)) + \n  geom_step(linetype = \"dashed\") +\n  geom_point() +\n  geom_text(color='gray30', hjust = -.2, nudge_x = 0.05, angle = 45) +\n  labs(title='Pareto frontier of alternative routes to Baixa to:', \n       subtitle = 'Hex 399, 717, and 720',\n       color='Destination') +\n  scale_x_continuous(name=\"Travel cost (€)\", breaks=seq(0,4,1)) +\n  scale_y_continuous(name=\"Travel time (minutes)\", breaks=seq(0,120,20)) +\n  coord_cartesian(xlim = c(1,4), ylim = c(0, 120)) +\n  theme_classic() + theme(legend.position=c(.8,0.8))\n\n\n\n\n\n\n\nAn optimum route alternative means that one cannot make a faster trip without increasing costs, and one cannot make a cheaper trip without increasing travel time.\n\n# calculate travel times function\ncalculate_travel_times &lt;- function(fare) {\n  ttm_df &lt;- travel_time_matrix(\n    r5r_lisboa,\n    origins = POINTShex,\n    destinations = BAIXA,\n    mode = c(\"WALK\", \"TRANSIT\"),\n    departure_datetime = departure_datetime,\n    time_window = 1,\n    fare_structure = fare_structure,\n    max_fare = fare,\n    max_trip_duration = 60,\n    max_walk_time = 15\n  )\n\n  return(ttm_df)\n}\n\n\n# calculate travel times, and combine results\nttm &lt;- calculate_travel_times(fare = Inf) # no budget restriction\nttm_200 &lt;- calculate_travel_times(fare = 2) # 2 euro\n\n# merge results\nttm &lt;- ttm |&gt;\n  left_join(\n    ttm_200 |&gt; select(from_id, to_id, travel_time_p50),\n    by = c(\"from_id\", \"to_id\"),\n    suffix = c(\"\", \"_200\")\n  ) |&gt;\n  mutate(\n    travel_time_200 = travel_time_p50_200,\n    travel_time_unl = travel_time_p50\n  ) |&gt;\n  select(-travel_time_p50, -travel_time_p50_200)\n\n\ntail(ttm, 10)\n\n\n\nCode\n# plot of overall travel time differences between limited and unlimited cost travel time matrices \ntime_difference &lt;- ttm %&gt;%\n  filter(!is.na(travel_time_200)) %&gt;%\n  group_by(travel_time_unl, travel_time_200) %&gt;%\n  summarise(count = n(), .groups = \"drop\")\n\np1 &lt;- ggplot(time_difference, aes(y = travel_time_unl, x = travel_time_200)) +\n  geom_point(size = 0.7) +\n  coord_fixed() +\n  scale_x_continuous(breaks = seq(0, 45, 5)) +\n  scale_y_continuous(breaks = seq(0, 45, 5)) +\n  theme_light() +\n  theme(legend.position = \"none\") +\n  labs(y = \"travel time (minutes)\\nunestricted monetary cost\",\n       x = \"travel time (minutes)\\nmonetary cost restricted to EUR 2.00\"\n       )\n\n# plot of unreachable destinations when the monetary cost limit is too low\nunreachable &lt;- ttm %&gt;%\n  group_by(travel_time_unl, missing = is.na(travel_time_200)) %&gt;%\n  summarise(count = n(), .groups = \"drop_last\") %&gt;%   # keep grouping by travel_time_unl\n  mutate(perc = count / sum(count, na.rm = TRUE)) %&gt;%\n  ungroup() %&gt;%\n  filter(missing) %&gt;%          # keep only rows where travel_time_200 was NA\n  tidyr::drop_na()\n\np2 &lt;- ggplot(unreachable, aes(x=travel_time_unl, y=perc)) +\n  geom_col() +\n  coord_flip() +\n  scale_x_continuous(breaks = seq(0, 60, 5)) +\n  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2), \n                     labels = paste0(seq(0, 100, 20), \"%\")) +\n  theme_light() +\n  labs(x = \"travel time (minutes)\\nwithout monetary cost restriction\",\n       y = \"% of unreachable destinations\\nconsidering a eur 2.00 monetary cost limit\")",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Pareto frontier"
+    ]
+  },
+  {
+    "objectID": "pareto.html#calculating-accessibility-with-monetary-cost",
+    "href": "pareto.html#calculating-accessibility-with-monetary-cost",
+    "title": "Pareto frontier",
+    "section": "Calculating accessibility with monetary cost",
+    "text": "Calculating accessibility with monetary cost\nTo Healthcare facilities\n\nAREAS = readRDS(\"data/Lisbon/GRIDhex_data.rds\")\nAREAS_df = AREAS |&gt; st_drop_geometry()\n\n\n# calculate accessibility function\ncalculate_accessibility &lt;- function(fare, fare_string) {\n  access_df &lt;- accessibility(\n    r5r_lisboa,\n    origins = AREAS_df,\n    destinations = AREAS_df,\n    mode = c(\"WALK\", \"TRANSIT\"),\n    departure_datetime = as.POSIXct(\n      \"13-11-2024 10:00:00\",\n      format = \"%d-%m-%Y %H:%M:%S\"),\n    time_window = 1,\n    opportunities_colname = \"healthcare\",\n    cutoffs = 40,\n    fare_structure = fare_structure,\n    max_fare = fare,\n    max_trip_duration = 60,\n    max_walk_time = 15,\n    progress = FALSE)\n\n  access_df$max_fare &lt;- fare_string\n\n  return(access_df)\n}\n\n# calculate accessibility, combine results, and convert to SF\naccess_165 &lt;- calculate_accessibility(fare=1.65, fare_string=\"EUR 1.65 budget\")\naccess_unl &lt;- calculate_accessibility(fare=Inf, fare_string=\"Unlimited budget\")\n\naccess &lt;- rbind(access_165, access_unl)\n\n# bring geometry\naccess = access |&gt; \n  left_join(AREAS_df |&gt;\n              select(id, h3_address) |&gt;\n              mutate(id = as.character(id)))\naccess$geometry = h3jsr::cell_to_polygon(access$h3_address)\naccess &lt;- st_as_sf(access)\n\n\n\nCode\n# plot accessibility maps\nggplot(data = access) +\n  geom_sf(aes(fill = accessibility), color=NA, size = 0.2) +\n  scale_fill_distiller(palette = \"Spectral\") +\n  facet_wrap(~max_fare) +\n  labs(subtitle = \"Effect of monetary cost on accessibility\") +\n  theme_minimal() +\n  theme(legend.position = \"bottom\",\n        axis.text = element_blank())\n\n\n\n\n\nWith hex grid\n\n\n\n\n\nWith census units\n\n\n\n\n\n\n\n\nReading suggestion\n\n\n\nThe impact of transit monetary costs on transport inequality (Herszenhut et al. 2022)\nThe cost of equity: Assessing transit accessibility and social disparity using total travel cost (El-Geneidy et al. 2016)",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Pareto frontier"
+    ]
+  },
+  {
+    "objectID": "network.html",
+    "href": "network.html",
+    "title": "Network setup",
+    "section": "",
+    "text": "In this chapter we will guide you through the data requirements, data collection, and setting up a multi-modal network with r5r.",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#data-requirements",
+    "href": "network.html#data-requirements",
+    "title": "Network setup",
+    "section": "Data requirements",
+    "text": "Data requirements\nYou will need R and r5r (Pereira et al. 2021) package installed on your computer.\nr5r sets-up a network file .dat by combining the following datasets in the same folder:\n\nRoad Network (OpenStreetMap1 as .osm.pbf)\nGTFS2 from PTransit operators (a single .zip or several)\nDigital Elevation Model3 (.tif), to consider impedances for walking and cycling\n\nFor the documentation of data needed, see r5r::build_network",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#road-networks",
+    "href": "network.html#road-networks",
+    "title": "Network setup",
+    "section": "Road Networks",
+    "text": "Road Networks\n\nOpenStreetMap\nThe OpenStreetMap is a collaborative online mapping project that creates a free editable map of the world.\nThis is the most used source of road network data for transportation analysis in academia, since it is available almost everywhere in the world, is open and free to use.\n\n\n\n\n\n\nAlthough it can be not 100% accurate, OSM is a good source of data for most of the cases.\n\n\n\nYou can access it’s visualization tool at www.openstreetmap.org. To edit the map, you can use the Editor, once you register.\nIf you want to download the data, you can use the following tools.\n\nOverpass API\nGeofabrik\n\nThese websites include all the OSM data, with much more information than you need.\n\n\nHOT Export Tool\nThis interactive tool helps you to select the region you want to extract (or import an existing city_limit.geojson4), the type of information to include, and the output data format.\nAccess via export.hotosm.org5. Select format as .gpkg and .pbf.\n\n\nAfter the export, you can read in R using the sf package:\n\n# load osm export in .gpkg\nroad_network = sf::st_read(\"data/Lisbon/Lisbon_road_network.gpkg\", quiet = TRUE)\n\n# filter main roads\nroad_network_base = road_network |&gt;\n  filter(highway %in% c(\"primary\", \"secondary\", \"tertiary\", \"trunk\", \"motorway\")) |&gt; \n  select(osm_id, name, highway)\n\n# map\nmapview::mapview(road_network_base, zcol = \"highway\")\n\n\n\n\n\n\n\n\nOSM in R\nThere are also some R packages that can help you to download and work with OpenStreetMap data, such as:\n\nosmdata\nosmextract\n\nThis is an example of how to download OpenStreetMap road network data using the osmextract package:\n\nlibrary(osmextract)\nOSM_Malta = oe_get_network(place = \"Malta\") # it will geocode the place\n\nMalta_main_roads = OSM_Malta |&gt; \n  filter(highway %in% c(\"primary\", \"secondary\", \"tertiary\", \"trunk\"))\n\nplot(Malta_main_roads[\"highway\"])",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#gtfs---transportation-services-data",
+    "href": "network.html#gtfs---transportation-services-data",
+    "title": "Network setup",
+    "section": "GTFS - Transportation Services’ Data",
+    "text": "GTFS - Transportation Services’ Data\nGeneral Transit Feed Specification (GTFS) is standard format for documenting public transportation information, including: routes, schedules, stop locations, calendar patterns, trips, and possible transfers. Transit agencies are responsible for maintaining the data up-to-date.\nThis information is used in several applications, such as Google Maps, to provide public transportation directions. It can be offered for a city, a region, or even a whole country, depending on the PT agency.\nThe recent version 2 of the GTFS standard includes more information, such as real-time data.\nThe data is usually in a .zip file that includes several .txt files (one for each type of information) with tabular relations.\n\n\n\nSource: trilliumtransit.com\n\n\n\nOnline sources\nYou can find most GTFS data in the following websites:\n\nTransitLand\nMobility Database\n\nSome PT agencies also provide their open-data in their websites.\n\n\nNational Access Points\nThe European Union has a directive that requires the member states to provide access to transportation data. Data includes not only Public Transportation data, but also road networks, car parking, and other transportation-related information.\nList of the European Union members states with National Access Points for Transportation data\nExample of Bus services data in Belgium:\n\n\n\nSource: Transport Data Belgium\n\n\n\n\nR packages\nThere are some nice R packages to read and manipulate GTFS data, such as:\n\ntidytransit\ngtfstools\nGTFShift\n\n\n\n\n\n\n\nBe aware that they may share the same function names, so it is important to use of of them at the time.\n\n\n\n\nFilter GTFS by area\nHaving a very large GTFS, as a nation-wide, instead of a city-wide one, can hold too much information not required. You may want to crop it by using tidytransit::filter_feed_by_area()\nThis probably does not affect your r5r network model, anyway.\n\n# example with Gent, Belgium\narea = st_read(\"data/gent.geojson\") # city_limit\n\n# load gtfs\ngtfs_large = tidytransit::read_gtfs(\"https://data.gtfs.be/delijn/gtfs/be-delijn-gtfs.zip\") # direct link\n\n# filter by area\ngtfs_crop = tidytransit::filter_feed_by_area(gtfs_large, area)\n\n# get shapes\ngtfs_large_shapes = shapes_as_sf(gtfs_large$shapes)\ngtfs_crop_shapes = shapes_as_sf(gtfs_crop$shapes)\n\n# compare\nplot(gtfs_large_shapes)\nplot(gtfs_crop_shapes)\n\nwrite_gtfs(gtfs_crop, \"data/r5r/gent_redux.zip\") # save for modelling\n\n \n\n\nCreate transfers.txt\nSome operators do not include the information regarding where can someone change from bus A to bus B, because this is not a mandatory file.\nAnyway, you can create this file with some GIS operations, simplified by gtfsrouter::gtfs_transfer_table()\n\n# Donwload and save zip\ncarris_url = \"https://gateway.carris.pt/gateway/gtfs/api/v2.8/GTFS\" # direct link\ndownload.file(carris_url, destfile = \"original/carris_gtfs.zip\")\n\ncarris_notransfers = gtfsrouter::extract_gtfs(\"original/carris_gtfs.zip\")\ncarris_transfers = gtfsrouter::gtfs_transfer_table(carris_notransfers)\nwrite.csv(carris_transfers[[\"transfers\"]], \"original/transfers.txt\", row.names = F, quote = F)\n# drag and drop this transfers.txt file into the zip file\n\ncarris = tidytransit::read_gtfs(\"original/carris_gtfs.zip\")\ntidytransit::validate_gtfs(carris) # validate\n\n\n\nMerge GTFS sources\nPublic transit analysis takes advantage of the standardized GTFS format. However, its provision by operator makes it difficult for network aggregated analysis, considering connectivity and multimodality. GTFShift::unify() proposes a simple solution to this problem, generating an aggregated GTFS file given several instances of these.\nThe unification produces a single GTFS instance, saved as a ZIP file. Option create_transfers enables the generation of transfers.txt, aggregating close stops, even if from different GTFS.\n\ngtfs_united = GTFShift::unify(gtfs_1, gtfs_2, create_transfers = TRUE)\nwrite_gtfs(gtfs_united, \"data/r5r/gtfs_united.zip\") # save for modelling",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#elevation",
+    "href": "network.html#elevation",
+    "title": "Network setup",
+    "section": "Elevation",
+    "text": "Elevation\nThis information is useful if your city is somehow hilly, and you are modelling pedestrian and/or bike travel.\nIn the following websites you can export a raster file of Digital Elevation Model (DEM) in .tif format:\n\nelevatr R package\nNasa’s SRTMGL1 website\nCopernicus EU website\n\n\n\n\nExport dem.tiff from Copernicus using a city_limit.geojson\n\n\n\n\n\n\n\n\nThe dem should be renamed to .tif (single F) instead of .tiff, otherwise it will be ignored in r5r build.\n\n\n\nVerify in R\n\ndem = terra::rast(\"data/Lisbon/Copernicus_30m.tif\") # rename the extension to .tif !!\nterra::plot(dem)",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#setting-up-a-routable-transport-network",
+    "href": "network.html#setting-up-a-routable-transport-network",
+    "title": "Network setup",
+    "section": "Setting up a routable transport network",
+    "text": "Setting up a routable transport network\nYour folder should contain these files, such as:\n\n\n\n\n\n\n# Load packages\nlibrary(tidyverse)\nlibrary(sf)\noptions(java.parameters = '-Xmx8G') # allocate memory for 8GB \nlibrary(r5r)\n\n\ndata_path= \"data/Lisbon/r5r\" # relative path to your folder containing the required data\nnetwork = build_network(\n  data_path,\n  elevation = \"TOBLER\" # optional. MINETTI or NONE\n)\n\n\n\n\n\n\n\nIf you already have a network.dat file, it will use that pre-build network.\n\n\n\nCheck if your transportation network is correct:\n\ntransit_net = transit_network_to_sf(r5r_lisboa)\nmapview::mapview(transit_net$routes, zcol = \"mode\")",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Network setup"
+    ]
+  },
+  {
+    "objectID": "network.html#footnotes",
+    "href": "network.html#footnotes",
+    "title": "Network setup",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nSee how to export an area with HOT export tool.↩︎\nOptional.↩︎\nOptional.↩︎\nFor instance, see here for Germany: https://opendatalab.de/projects/geojson-utilities/↩︎\nYou need an OSM account to use it.↩︎",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Network setup"
+    ]
+  },
+  {
     "objectID": "jittering.html",
     "href": "jittering.html",
     "title": "OD Jittering",
@@ -34,6 +360,163 @@
       "r5r",
       "OD Jittering"
     ]
+  },
+  {
+    "objectID": "accessibility.html",
+    "href": "accessibility.html",
+    "title": "Accessibility",
+    "section": "",
+    "text": "Urban accessibility is defined as how easily people can reach opportunities (jobs, education, services) given the spatial layout of populations, transport networks, and land use.\nIt contrasts with mobility (how people move).\nPlanning should shift focus from maximizing movement to maximizing access (R. H. Pereira and Herszenhut 2023).\n👉 In this exercises we will adapt from r5r vignettes “Isochrones” and “Accessibility” (R. H. M. Pereira et al. 2021)",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Accessibility"
+    ]
+  },
+  {
+    "objectID": "accessibility.html#public-transit",
+    "href": "accessibility.html#public-transit",
+    "title": "Accessibility",
+    "section": "Public Transit",
+    "text": "Public Transit\nOn a Wednesday at 8:00 a.m., how long will it take me to get from downtown using the subway and bus, with 1 transfer allowed?\n\n# define some parameters\nmode = c(\"SUBWAY\", \"BUS\") # TRANSIT, BUS, SUBWAY, RAIL, CAR, FERRY, WALK, BIKE, TRAM\nmode_egress = \"WALK\" # can be BIKE\nmax_walk_time = 10 # in minutes\nmax_trip_duration = 90 # in minutes\ntime_window = 120 # in minutes\ntime_intervals &lt;- seq(0, 100, 10)\ndeparture_datetime_HP = as.POSIXct(\"20-11-2024 8:00:00\", format = \"%d-%m-%Y %H:%M:%S\") # quarta-feira\n\n# calculate travel time matrix\nttm_zer_HP_PT = travel_time_matrix(r5r_network = r5r_lisboa,\n                              origins = BAIXA,\n                              destinations = POINTS,\n                              mode = mode,\n                              mode_egress = mode_egress,\n                              departure_datetime = departure_datetime_HP,\n                              max_walk_time = max_walk_time,\n                              max_trip_duration = max_trip_duration,\n                              time_window = time_window,\n                              max_rides = 2, # max 1 transfer\n                              verbose = FALSE)\n\nsummary(ttm_zer_HP_PT$travel_time_p50)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n    1.0    30.0    38.0    37.7    45.0    77.0 \n\n# add coordinates of destinations to travel time matrix\nttm_zer_HP_PT = ttm_zer_HP_PT |&gt;\n  left_join(POINTS, by = c(\"to_id\" = \"id\"))\n\n# interpolate estimates to get spatially smooth result\ntravel_times.interp &lt;- with(na.omit(ttm_zer_HP_PT), interp(lon, lat, travel_time_p50)) |&gt;\n  with(cbind(travel_time=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt;\n  as.data.frame() |&gt; na.omit()\n\n\n\nCode\n# find isochrone's bounding box to crop the map below\nbb_x &lt;- c(min(travel_times.interp$x), max(travel_times.interp$x))\nbb_y &lt;- c(min(travel_times.interp$y), max(travel_times.interp$y))\n# plot\nplotHP = ggplot(travel_times.interp) +\n  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +\n  geom_sf(data = road_network_base, color = \"gray55\", lwd = 0.5, alpha = 0.4) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_color_manual(values = c('Baixa' = 'black')) +\n  scale_x_continuous(expand = c(0, 0)) +\n  scale_y_continuous(expand = c(0, 0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) +\n  labs(\n    title = \"Reaching from Baixa (Carris + Metro)\",\n    subtitle = \"at 8am wednesday - 1 transf max\",\n    fill = \"Trip duration \\n[min]\",\n    color = ''\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\nplotHP",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Accessibility"
+    ]
+  },
+  {
+    "objectID": "accessibility.html#car",
+    "href": "accessibility.html#car",
+    "title": "Accessibility",
+    "section": "Car",
+    "text": "Car\n\nmode = \"CAR\"\n\n# calculate travel time matrix\nttm_zer_HP_car = travel_time_matrix(r5r_network = r5r_lisboa,\n                              origins = BAIXA,\n                              destinations = POINTS,\n                              mode = mode,\n                              mode_egress = mode_egress,\n                              departure_datetime = departure_datetime_HP,\n                              max_walk_time = max_walk_time, # irrelevant\n                              max_trip_duration = max_trip_duration, \n                              time_window = time_window, # irrelevant\n                              verbose = FALSE)\n\nsummary(ttm_zer_HP_car$travel_time_p50)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   2.00   11.00   13.00   12.87   15.00   34.00\n\n\nCode\n# add coordinates of destinations to travel time matrix\nttm_zer_HP_car = ttm_zer_HP_car |&gt;\n  left_join(POINTS, by = c(\"to_id\" = \"id\"))\n\n# interpolate estimates to get spatially smooth result\ntravel_times.interp &lt;- with(na.omit(ttm_zer_HP_car), interp(lon, lat, travel_time_p50)) |&gt;\n  with(cbind(travel_time=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt;\n  as.data.frame() |&gt; na.omit()\n\n# plot\n# find isochrone's bounding box to crop the map below\nbb_x &lt;- c(min(travel_times.interp$x), max(travel_times.interp$x))\nbb_y &lt;- c(min(travel_times.interp$y), max(travel_times.interp$y))\n# plot\nplotHP_car = ggplot(travel_times.interp) +\n  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +\n  geom_sf(data = road_network_base, color = \"gray55\", lwd = 0.5, alpha = 0.4) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_color_manual(values = c('Baixa' = 'black')) +\n  scale_x_continuous(expand = c(0, 0)) +\n  scale_y_continuous(expand = c(0, 0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) +\n  labs(\n    title = \"Reaching from Baixa (Car)\",\n    subtitle = \"at 8am wednesday\",\n    fill = \"Trip duration \\n[min]\",\n    color = ''\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\nplotHP_car",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Accessibility"
+    ]
+  },
+  {
+    "objectID": "accessibility.html#bike",
+    "href": "accessibility.html#bike",
+    "title": "Accessibility",
+    "section": "Bike",
+    "text": "Bike\n\nmode = \"BICYCLE\"\nmax_lts = 3\n\n# calculate travel time matrix\nttm_zer_HP_bike = travel_time_matrix(r5r_network = r5r_lisboa,\n                              origins = BAIXA,\n                              destinations = POINTS,\n                              mode = mode,\n                              max_lts = max_lts,\n                              mode_egress = mode_egress, # irrelevant\n                              departure_datetime = departure_datetime_HP, # irrelevant\n                              max_walk_time = max_walk_time, # irrelevant\n                              max_trip_duration = max_trip_duration,\n                              time_window = time_window, # irrelevant\n                              verbose = FALSE)\n\nsummary(ttm_zer_HP_bike$travel_time_p50)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   0.00   29.00   41.00   38.96   50.00   76.00 \n\n\nCode\n# add coordinates of destinations to travel time matrix\nttm_zer_HP_bike = ttm_zer_HP_bike |&gt;\n  left_join(POINTS, by = c(\"to_id\" = \"id\"))\n\n# interpolate estimates to get spatially smooth result\ntravel_times.interp &lt;- with(na.omit(ttm_zer_HP_bike), interp(lon, lat, travel_time_p50)) |&gt;\n  with(cbind(travel_time=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt;\n  as.data.frame() |&gt; na.omit()\n\n# plot\n# find isochrone's bounding box to crop the map below\nbb_x &lt;- c(min(travel_times.interp$x), max(travel_times.interp$x))\nbb_y &lt;- c(min(travel_times.interp$y), max(travel_times.interp$y))\n# plot\nplotHP_car = ggplot(travel_times.interp) +\n  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +\n  geom_sf(data = road_network_base, color = \"gray55\", lwd = 0.5, alpha = 0.4) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_color_manual(values = c('Baixa' = 'black')) +\n  scale_x_continuous(expand = c(0, 0)) +\n  scale_y_continuous(expand = c(0, 0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) +\n  labs(\n    title = \"Reaching from Baixa (Bike)\",\n    subtitle = \"at 8am wednesday - max LTS 3\",\n    fill = \"Trip duration \\n[min]\",\n    color = ''\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\nplotHP_car",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Accessibility"
+    ]
+  },
+  {
+    "objectID": "accessibility.html#easier-approach",
+    "href": "accessibility.html#easier-approach",
+    "title": "Accessibility",
+    "section": "Easier approach",
+    "text": "Easier approach\nThere are other ways of making these maps, but with lower details, such as no destinations. See r5r::isochrones() function.\nThis function also allows to find service areas.\n\n# estimate line-based isochrone from origin\niso_lines = isochrone(\n  r5r_network = r5r_lisboa,\n  origins = BAIXA,\n  mode = \"walk\",\n  polygon_output = FALSE,\n  departure_datetime = departure_datetime_HP,\n  cutoffs = seq(0, 120, 20)\n  )\n\n\n\nCode\n# plot\n# used cols4all::c4a_gui()\ncolors &lt;- c('#FFFFCC','#C7E9B4', '#7FCDBB','#41B6C4','#2C7FB8','#253494','black')\n# last one for the origin point\n\nggplot() +\n  geom_sf(data = iso_lines, aes(color=factor(isochrone))) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_color_manual(values = colors) +\n  labs(\n    title = \"Reaching from Baixa (Walk)\",\n    subtitle = \"Service area\",\n    color = \"Trip duration \\n[min]\"\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Accessibility"
+    ]
+  },
+  {
+    "objectID": "accessibility.html#spatial-interpolation",
+    "href": "accessibility.html#spatial-interpolation",
+    "title": "Accessibility",
+    "section": "Spatial interpolation",
+    "text": "Spatial interpolation\n\n# interpolate estimates to get spatially smooth result\naccess_schools &lt;- access1 %&gt;% \n  filter(opportunity == \"schools\") %&gt;%\n  inner_join(POINTS |&gt; mutate(id = as.integer(id)), by='id') %&gt;%\n  with(interp::interp(lon, lat, accessibility)) %&gt;%\n  with(cbind(acc=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) %&gt;% as.data.frame() %&gt;% na.omit() %&gt;%\n  mutate(opportunity = \"schools\")\n\naccess_health &lt;- access1 %&gt;% \n  filter(opportunity == \"healthcare\") %&gt;%\n  inner_join(POINTS |&gt; mutate(id = as.integer(id)), by='id') %&gt;%\n  with(interp::interp(lon, lat, accessibility)) %&gt;%\n  with(cbind(acc=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) %&gt;% as.data.frame() %&gt;% na.omit() %&gt;%\n  mutate(opportunity = \"healthcare\")\n\naccess_sports &lt;- access1 %&gt;% \n  filter(opportunity == \"sport\") %&gt;%\n  inner_join(POINTS |&gt; mutate(id = as.integer(id)), by='id') %&gt;%\n  with(interp::interp(lon, lat, accessibility)) %&gt;%\n  with(cbind(acc=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) %&gt;% as.data.frame() %&gt;% na.omit() %&gt;%\n  mutate(opportunity = \"sports\")\n\n\naccess.interp &lt;- rbind(access_schools, access_health, access_sports)\n\n# plot\nggplot(na.omit(access.interp)) +\n  geom_contour_filled(aes(x=x, y=y, z=acc), alpha=.7) +\n  geom_sf(data = road_network_base, color = \"gray55\", lwd=0.5, alpha = 0.5) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_x_continuous(expand=c(0,0)) +\n  scale_y_continuous(expand=c(0,0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y, datum = NA) + \n  labs(fill = \"Number of\\nfacilities within\\n20 minutes\") +\n  theme_void() +\n  facet_wrap(~opportunity)",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Accessibility"
+    ]
+  },
+  {
+    "objectID": "accessibility.html#population-estimate",
+    "href": "accessibility.html#population-estimate",
+    "title": "Accessibility",
+    "section": "Population estimate",
+    "text": "Population estimate\nWe can also estimate population reach from downtown with PTransit (1 transfer, peak hour)\n\n\nCode\n# calculate population accessible\naccess &lt;- ttm_zer_HP_PT |&gt; # estimaded before!\n  filter(travel_time_p50 &lt;= 60) |&gt;      # keep trips within 30 minutes\n  group_by(to_id) |&gt;\n  summarise(acc = sum(residents), .groups = \"drop\")\naccess = left_join(access, ttm_zer_HP_PT)\n\n# interpolate estimates to get spatially smooth result\naccess.interp = access |&gt;\n  with(interp(lon, lat, acc)) |&gt;\n  with(cbind(acc=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt; as.data.frame() |&gt; na.omit()\n\n# plot\nggplot(na.omit(access.interp)) +\n  geom_contour_filled(aes(x=x, y=y, z=acc), alpha=.8) +\n  geom_sf(data = road_network_base, color = \"gray55\", lwd=0.5, alpha = 0.5) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_x_continuous(expand=c(0,0)) +\n  scale_y_continuous(expand=c(0,0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) + \n  labs(\n    title = \"Reaching population from Baixa (Carris + Metro)\",\n    subtitle = \"at 8am wednesday - 1 transf max\",\n    fill = \"Population in\\n60 minutos\") +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\n\n\n\n\n\n\nHow many residents can reach downtown in 15, 30, 45 and 60 minutes?\n\npoplisboa = sum(POINTS$residents) #\n100* sum(access$residents[access$travel_time_p50 &lt;= 15]) / poplisboa # 2.5%\n100* sum(access$residents[access$travel_time_p50 &lt;= 30]) / poplisboa # 38.6%\n100* sum(access$residents[access$travel_time_p50 &lt;= 45]) / poplisboa # 84.8%\n100* sum(access$residents[access$travel_time_p50 &lt;= 60]) / poplisboa # 97.3%\n\n\n\n\n\n\n\n\nTrip duration\n(up to…)\nResidents\n\n\n\n\n15 min\n2.5 %\n\n\n30 min\n38.6 %\n\n\n45 min\n84.8%\n\n\n60 min\n97.3%\n\n\n\n\n\n\n\n\n\nOther accessibility measures\n\n\n\nRead Chapter 3 from R. H. Pereira and Herszenhut (2023) for other accessibility estimates.\n\n\n\nStop r5r model\n\nr5r::stop_r5(r5r_lisboa)\nrJava::.jgc(R.gc = TRUE)",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Accessibility"
+    ]
+  },
+  {
+    "objectID": "software.html",
+    "href": "software.html",
+    "title": "Software",
+    "section": "",
+    "text": "There are several software options for modeling transportation systems.\nTo choose a traffic simulation software to work with can depend on different things to consider. You may use more than one software, depending on the scale you are working with, and on other characteristics.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#macro-vs.-micro",
+    "href": "software.html#macro-vs.-micro",
+    "title": "Software",
+    "section": "Macro vs. Micro",
+    "text": "Macro vs. Micro\n\nMacro simulators\nSome softwares can be more appropriated if using a large scale, such as regional or city-wide area. For instance, the traffic impacts on the development of a new centrality (hospital, airport), or in the introduction of a new bridge or freeway can be simulated with macro simulator software.\nPTV Visum, Aimsun, r5r, and MatSim are examples of software to deal with a large scale simulation.\nFor macro simulations it is essential do consider zoning, flows, etc.\nUsually this type of simulators can smoothly integrate Public Transport information, such as GTFS files.\n\n\nMicro simulators\nWant to simulate changes at a street or neighbourhood level? Then micro simulator software should be used.\nPTV Visim, SUMO, and A/B Street are examples of software to deal with a micro scale simulation.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#paid-licence-vs.-free",
+    "href": "software.html#paid-licence-vs.-free",
+    "title": "Software",
+    "section": "Paid (Licence) vs. Free",
+    "text": "Paid (Licence) vs. Free\n\nPaid\nAvailable commercial software is largely used at many companies and consultants. Universities also usually offer licence access to students and researchers. At IST we provide access to PTV Visum licence for registered students1.\nSome groups provide a student version, which typically does not include all the features.\nPTV Vissim and Visum, and Aimsum are examples of commercial simulation software.\n\n\nFree\nFree and open source software is getting more robust, and should not be overlooked.\nMatSim, r5r, and SUMO are examples of free and open source simulation software.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#operating-system",
+    "href": "software.html#operating-system",
+    "title": "Software",
+    "section": "Operating System",
+    "text": "Operating System\nTo choose a software to work with, you should also consider the operation system of your personal computer (Windows, MacOS, Linux based).\nPTV Visum and Visim are only available for Windows.\nYou may always use virtual machines to have another OS in your PC, but that comes with memory and performance cost.\n\nFor MacOS users, UTM is a good free option. Keep in mind that the University of Lisbon provides Windows stutent’s licences.\nFor Linux (Ubuntu or Debian) users, Gnome Boxes are an interesting option to run Windows.\nFor Windows users, you should have no problem using any software.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#instalation-and-usage",
+    "href": "software.html#instalation-and-usage",
+    "title": "Software",
+    "section": "Instalation and Usage",
+    "text": "Instalation and Usage\nWe only offer guidance to setup some of the available software2.\nPlease see each software page for more details.",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "software.html#footnotes",
+    "href": "software.html#footnotes",
+    "title": "Software",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nContact Filipe Moura or Rosa Félix to access Visum.↩︎\nIf you use other traffic simulation software, you may contribute to this website and create another tutorial 🙂. Fork and Pull Request in this Github repo.↩︎",
+    "crumbs": [
+      "Home",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "Oeiras2024/Alfragide_Zonas_2021.html",
+    "href": "Oeiras2024/Alfragide_Zonas_2021.html",
+    "title": "Modelling of Tranport Systems",
+    "section": "",
+    "text": "&lt;!DOCTYPE qgis PUBLIC ‘http://mrcc.com/qgis.dtd’ ‘SYSTEM’&gt;     dataset\n\n\n                PROJCRS[“ETRS89 / Portugal TM06”,BASEGEOGCRS[“ETRS89”,ENSEMBLE[“European Terrestrial Reference System 1989 ensemble”,MEMBER[“European Terrestrial Reference Frame 1989”],MEMBER[“European Terrestrial Reference Frame 1990”],MEMBER[“European Terrestrial Reference Frame 1991”],MEMBER[“European Terrestrial Reference Frame 1992”],MEMBER[“European Terrestrial Reference Frame 1993”],MEMBER[“European Terrestrial Reference Frame 1994”],MEMBER[“European Terrestrial Reference Frame 1996”],MEMBER[“European Terrestrial Reference Frame 1997”],MEMBER[“European Terrestrial Reference Frame 2000”],MEMBER[“European Terrestrial Reference Frame 2005”],MEMBER[“European Terrestrial Reference Frame 2014”],ELLIPSOID[“GRS 1980”,6378137,298.257222101,LENGTHUNIT[“metre”,1]],ENSEMBLEACCURACY[0.1]],PRIMEM[“Greenwich”,0,ANGLEUNIT[“degree”,0.0174532925199433]],ID[“EPSG”,4258]],CONVERSION[“Portugual TM06”,METHOD[“Transverse Mercator”,ID[“EPSG”,9807]],PARAMETER[“Latitude of natural origin”,39.6682583333333,ANGLEUNIT[“degree”,0.0174532925199433],ID[“EPSG”,8801]],PARAMETER[“Longitude of natural origin”,-8.13310833333333,ANGLEUNIT[“degree”,0.0174532925199433],ID[“EPSG”,8802]],PARAMETER[“Scale factor at natural origin”,1,SCALEUNIT[“unity”,1],ID[“EPSG”,8805]],PARAMETER[“False easting”,0,LENGTHUNIT[“metre”,1],ID[“EPSG”,8806]],PARAMETER[“False northing”,0,LENGTHUNIT[“metre”,1],ID[“EPSG”,8807]]],CS[Cartesian,2],AXIS[“easting (X)”,east,ORDER[1],LENGTHUNIT[“metre”,1]],AXIS[“northing (Y)”,north,ORDER[2],LENGTHUNIT[“metre”,1]],USAGE[SCOPE[“Topographic mapping (medium scale).”],AREA[“Portugal - mainland - onshore.”],BBOX[36.95,-9.56,42.16,-6.19]],ID[“EPSG”,3763]] +proj=tmerc +lat_0=39.6682583333333 +lon_0=-8.13310833333333 +k=1 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 1721 3763 EPSG:3763 ETRS89 / Portugal TM06 tmerc EPSG:7019 false"
   },
   {
     "objectID": "casestudy.html",
@@ -156,11 +639,83 @@
     ]
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "micro.html",
+    "href": "micro.html",
+    "title": "Micro Case Study",
     "section": "",
-    "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "You may use an intersection file already prepared to be used with VISSIM, like this one:\nThis file is available at Fenix, for registered students.\nHow did this file was converted from OpenStreetMap? 🧐",
+    "crumbs": [
+      "Home",
+      "Vissim and Visum",
+      "Micro Case Study"
+    ]
+  },
+  {
+    "objectID": "micro.html#from-openstreetmap-to-vissim",
+    "href": "micro.html#from-openstreetmap-to-vissim",
+    "title": "Micro Case Study",
+    "section": "From OpenStreetMap to VISSIM",
+    "text": "From OpenStreetMap to VISSIM\n\nRequirements\nThis will require:\n\nVISSIM installed with an active license\nPython 3.x, and the following packages\n\nwin32com\ngdal\n\nMicrosoft Visual C++ build tools\nOptional: OSGeo4W1\n\n\n\nOpenStreetMap\nGo to OpenStreetMap and zoom into your area.\nSelect Export and save the map.osm file.\n\nYou don’t need to open that file now.\n\n\nOSM2VISSIM tool\n\nGo to the OSM2VISSIM tool Github page, and download this OSM2VISSIM_v0.1.py file.\n\n\n\nCreate a folder (wherever you want) and put there this .py file and the .osm file exported before. Now copy your folder path!\n\n\n\nIf you have OSGeo4W installed2, open the shell. It will look like this:\n\n\n\nNavigate to your created folder, using cd yourfolderpath\nNow, run python OSM2VISSIM_v0.1.py\n\n\n\nThis will open a dialogue window where you are supposed to type your .osm file name.\nMine is gago\n\n\n\nPress Set.\n\n\n\n\n\n\n\nDon’t worry! Things are happening even if you don’t notice. Just be patient and wait.\n\n\n\nThis will create a new file, and open VISSIM automatically.\nNote: If you go to the Network tab and don’t see anything, even after clicking on zoom to network button, close VISSIM, and close the Shell. This happened to me every first time.\n\nRepeat again the steps from 1 to 7.\n\nThis will open VISSIM automatically and now the shell will show things happening:\n\nWait until VISSIM it closes automatically - don’t click anything.\n\nYou may now close the OSGeo4W shell.\n\nA few more files were created now:\n\n\n\nAt VISSIM\nOpen the file name.inpx and close the Start Page.\nAt Network Editor panel, click Show entire network:\n\nAs you may note, your network is not exactly in place, when comparing to a basemap. 🥴\n\nTo adjust this, you may either move the basemap or the network.\nFirst, with the distance tool, measure the distance of one reference point of the network to where it should be placed, in both X and Y directions.\n\nThen Edit ⟶ Move Network\n\nRepeat the process until the network intersection is centred with the intersection in the basemap.\nSave your network file! 🎉\nThis process resulted in the abovementioned file.\nNo go on and adjust the details that require some attention.",
+    "crumbs": [
+      "Home",
+      "Vissim and Visum",
+      "Micro Case Study"
+    ]
+  },
+  {
+    "objectID": "micro.html#footnotes",
+    "href": "micro.html#footnotes",
+    "title": "Micro Case Study",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nThis installation already comes with all the required packages.↩︎\nYou may do everything on the cmd (command line prompt terminal), but some errors may be output.↩︎",
+    "crumbs": [
+      "Home",
+      "Vissim and Visum",
+      "Micro Case Study"
+    ]
+  },
+  {
+    "objectID": "import_osm/OSM2VISSIM-main/LICENSE.html",
+    "href": "import_osm/OSM2VISSIM-main/LICENSE.html",
+    "title": "Modelling of Tranport Systems",
+    "section": "",
+    "text": "MIT License\nCopyright (c) 2023 BME Road Traffic Control Laboratory\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+  },
+  {
+    "objectID": "scenarios.html",
+    "href": "scenarios.html",
+    "title": "Scenarios",
+    "section": "",
+    "text": "With the same method presented in Accessibility, let’s compare the population that can be reach from city center on a peak hour and a Sunday evening, using public transit and max 1 transfer.\n\n\nFirst, we can have a look at the available routes on both time periods. We use tidytransit::filter_feed_by_date() function, to filter our GTFS by day and by hour.\n\n# Example with Carris\ncarris_different_trips_all = length(unique(carris_gtfs$trips$trip_id)) # 31827\n\ncarris_wednesday = carris_gtfs |&gt; filter_feed_by_date(\"2024-11-20\")\ncarris_different_trips_wednesday = length(unique(carris_wednesday$trips$trip_id)) # 11642\ncarris_wednesday_peakh = carris_gtfs |&gt; filter_feed_by_date(\"2024-11-20\",\n                                                            min_departure_time = \"08:00:00\",\n                                                            max_arrival_time = \"09:00:00\")\ncarris_different_trips_wednesday_h = length(unique(carris_wednesday_peakh$trips$trip_id)) # 1345\n\ncarris_sunday = carris_gtfs |&gt; filter_feed_by_date(\"2024-11-24\")\ncarris_different_trips_sunday = length(unique(carris_sunday$trips$trip_id)) # 6424\ncarris_sunday_peakh = carris_gtfs |&gt; filter_feed_by_date(\"2024-11-24\",\n                                                          min_departure_time = \"22:00:00\",\n                                                          max_arrival_time = \"23:00:00\")\ncarris_different_trips_sunday_h = length(unique(carris_sunday_peakh$trips$trip_id)) # 260\n\ncarris_different_trips_sunday/carris_different_trips_wednesday # 55%\ncarris_different_trips_sunday_h/carris_different_trips_wednesday_h # 19%\n\nFor instance, for Carris (bus operator), on a Sunday there are 55% of the departures of a Wednesday, and on a Sunday evening (22h) there are 19% of the departures that are on a Wednesday morning (8h).\n\n\n\nWe use the same code as in Isochrones.\n\n# define some parameters\nmode = c(\"SUBWAY\", \"BUS\") # TRANSIT, BUS, SUBWAY, RAIL, CAR, FERRY, WALK, BIKE, TRAM\nmode_egress = \"WALK\"\nmax_walk_time = 10 # in minutes\nmax_trip_duration = 90 # in minutes\ntime_window = 30 # in minutes\ntime_intervals &lt;- seq(0, 100, 10)\ndeparture_datetime_HP = as.POSIXct(\"20-11-2024 8:00:00\", format = \"%d-%m-%Y %H:%M:%S\") # quarta-feira\n\n# calculate travel time matrix\nttm_zer_PT_wednesday = travel_time_matrix(r5r_network = r5r_lisboa,\n                              origins = BAIXA,\n                              destinations = POINTS,\n                              mode = mode,\n                              mode_egress = mode_egress,\n                              departure_datetime = departure_datetime_HP,\n                              max_walk_time = max_walk_time,\n                              max_trip_duration = max_trip_duration,\n                              time_window = time_window,\n                              max_rides = 3, # max 1 transfer\n                              verbose = FALSE)\n\nsummary(ttm_zer_PT_wednesday$travel_time_p50)\n\n  Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   1.00   30.00   37.00   36.29   43.00   68.00 \n\n\nCode\n# add coordinates of destinations to travel time matrix\nttm_zer_PT_wednesday = ttm_zer_PT_wednesday |&gt;\n  left_join(POINTS, by = c(\"to_id\" = \"id\"))\n\n# interpolate estimates to get spatially smooth result\ntravel_times.interp &lt;- with(na.omit(ttm_zer_PT_wednesday), interp(lon, lat, travel_time_p50)) |&gt;\n  with(cbind(travel_time=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt;\n  as.data.frame() |&gt; na.omit()\n\n# find isochrone's bounding box to crop the map below\nbb_x &lt;- c(min(travel_times.interp$x), max(travel_times.interp$x))\nbb_y &lt;- c(min(travel_times.interp$y), max(travel_times.interp$y))\n# plot\nplotHP = ggplot(travel_times.interp) +\n  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +\n  geom_sf(data = road_network_base, color = \"gray55\", lwd = 0.5, alpha = 0.4) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_color_manual(values = c('Baixa' = 'black')) +\n  scale_x_continuous(expand = c(0, 0)) +\n  scale_y_continuous(expand = c(0, 0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) +\n  labs(\n    title = \"Reaching from Baixa (Carris + Metro)\",\n    subtitle = \"at 8am wednesday - 1 transf max\",\n    fill = \"Trip duration \\n[min]\",\n    color = ''\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\nplotHP\n\n\n\n\n\n\n\ndeparture_datetime_OFF = as.POSIXct(\"24-11-2024 22:00:00\", format = \"%d-%m-%Y %H:%M:%S\") # sunday evening\n\n# calculate travel time matrix\nttm_zer_PT_sunday = travel_time_matrix(r5r_network = r5r_lisboa,\n                              origins = BAIXA,\n                              destinations = POINTS,\n                              mode = mode,\n                              mode_egress = mode_egress,\n                              departure_datetime = departure_datetime_OFF, # new date\n                              max_walk_time = max_walk_time,\n                              max_trip_duration = max_trip_duration,\n                              time_window = time_window,\n                              max_rides = 2, # max 1 transfer\n                              verbose = FALSE)\n\nsummary(ttm_zer_PT_sunday$travel_time_p50)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   1.00   31.00   39.00   39.38   48.00   73.00  \n\n\nCode\n# add coordinates of destinations to travel time matrix\nttm_zer_PT_sunday = ttm_zer_PT_sunday |&gt;\n  left_join(POINTS, by = c(\"to_id\" = \"id\"))\n\n# interpolate estimates to get spatially smooth result\ntravel_times.interp &lt;- with(na.omit(ttm_zer_PT_sunday), interp(lon, lat, travel_time_p50)) |&gt;\n  with(cbind(travel_time=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt;\n  as.data.frame() |&gt; na.omit()\n\n# find isochrone's bounding box to crop the map below\nbb_x &lt;- c(min(travel_times.interp$x), max(travel_times.interp$x))\nbb_y &lt;- c(min(travel_times.interp$y), max(travel_times.interp$y))\n# plot\nplotOFF = ggplot(travel_times.interp) +\n  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +\n  geom_sf(data = road_network_base, color = \"gray55\", lwd = 0.5, alpha = 0.4) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_color_manual(values = c('Baixa' = 'black')) +\n  scale_x_continuous(expand = c(0, 0)) +\n  scale_y_continuous(expand = c(0, 0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) +\n  labs(\n    title = \"Reaching from Baixa (Carris + Metro)\",\n    subtitle = \"at 10pm sunday - 1 transf max\",\n    fill = \"Trip duration \\n[min]\",\n    color = ''\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\nplotOFF\n\n\n\n\n\n\nBased on Census 2021 (INE 2022), we can count how many people are reach.\n\n\nCode\npoplisboa = sum(POINTS$residents) #\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 15]) / poplisboa # 2.7%\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 30]) / poplisboa # 38.9%\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 45]) / poplisboa # 90.0%\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 60]) / poplisboa # 98.7%\n\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 15]) / poplisboa # 1.5%\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 30]) / poplisboa # 31.7%\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 45]) / poplisboa # 76.6%\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 60]) / poplisboa # 95.0%\n\n\n\n\n\nUp to…\nWednesday peak hour\nSunday evening\n\n\n\n\n30 min\n38.9%\n31.7%\n\n\n45 min\n90.0%\n76.6%\n\n\n60 min\n98.7%\n95.0%",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Scenarios"
+    ]
+  },
+  {
+    "objectID": "scenarios.html#work-day-vs.-weekend",
+    "href": "scenarios.html#work-day-vs.-weekend",
+    "title": "Scenarios",
+    "section": "",
+    "text": "With the same method presented in Accessibility, let’s compare the population that can be reach from city center on a peak hour and a Sunday evening, using public transit and max 1 transfer.\n\n\nFirst, we can have a look at the available routes on both time periods. We use tidytransit::filter_feed_by_date() function, to filter our GTFS by day and by hour.\n\n# Example with Carris\ncarris_different_trips_all = length(unique(carris_gtfs$trips$trip_id)) # 31827\n\ncarris_wednesday = carris_gtfs |&gt; filter_feed_by_date(\"2024-11-20\")\ncarris_different_trips_wednesday = length(unique(carris_wednesday$trips$trip_id)) # 11642\ncarris_wednesday_peakh = carris_gtfs |&gt; filter_feed_by_date(\"2024-11-20\",\n                                                            min_departure_time = \"08:00:00\",\n                                                            max_arrival_time = \"09:00:00\")\ncarris_different_trips_wednesday_h = length(unique(carris_wednesday_peakh$trips$trip_id)) # 1345\n\ncarris_sunday = carris_gtfs |&gt; filter_feed_by_date(\"2024-11-24\")\ncarris_different_trips_sunday = length(unique(carris_sunday$trips$trip_id)) # 6424\ncarris_sunday_peakh = carris_gtfs |&gt; filter_feed_by_date(\"2024-11-24\",\n                                                          min_departure_time = \"22:00:00\",\n                                                          max_arrival_time = \"23:00:00\")\ncarris_different_trips_sunday_h = length(unique(carris_sunday_peakh$trips$trip_id)) # 260\n\ncarris_different_trips_sunday/carris_different_trips_wednesday # 55%\ncarris_different_trips_sunday_h/carris_different_trips_wednesday_h # 19%\n\nFor instance, for Carris (bus operator), on a Sunday there are 55% of the departures of a Wednesday, and on a Sunday evening (22h) there are 19% of the departures that are on a Wednesday morning (8h).\n\n\n\nWe use the same code as in Isochrones.\n\n# define some parameters\nmode = c(\"SUBWAY\", \"BUS\") # TRANSIT, BUS, SUBWAY, RAIL, CAR, FERRY, WALK, BIKE, TRAM\nmode_egress = \"WALK\"\nmax_walk_time = 10 # in minutes\nmax_trip_duration = 90 # in minutes\ntime_window = 30 # in minutes\ntime_intervals &lt;- seq(0, 100, 10)\ndeparture_datetime_HP = as.POSIXct(\"20-11-2024 8:00:00\", format = \"%d-%m-%Y %H:%M:%S\") # quarta-feira\n\n# calculate travel time matrix\nttm_zer_PT_wednesday = travel_time_matrix(r5r_network = r5r_lisboa,\n                              origins = BAIXA,\n                              destinations = POINTS,\n                              mode = mode,\n                              mode_egress = mode_egress,\n                              departure_datetime = departure_datetime_HP,\n                              max_walk_time = max_walk_time,\n                              max_trip_duration = max_trip_duration,\n                              time_window = time_window,\n                              max_rides = 3, # max 1 transfer\n                              verbose = FALSE)\n\nsummary(ttm_zer_PT_wednesday$travel_time_p50)\n\n  Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   1.00   30.00   37.00   36.29   43.00   68.00 \n\n\nCode\n# add coordinates of destinations to travel time matrix\nttm_zer_PT_wednesday = ttm_zer_PT_wednesday |&gt;\n  left_join(POINTS, by = c(\"to_id\" = \"id\"))\n\n# interpolate estimates to get spatially smooth result\ntravel_times.interp &lt;- with(na.omit(ttm_zer_PT_wednesday), interp(lon, lat, travel_time_p50)) |&gt;\n  with(cbind(travel_time=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt;\n  as.data.frame() |&gt; na.omit()\n\n# find isochrone's bounding box to crop the map below\nbb_x &lt;- c(min(travel_times.interp$x), max(travel_times.interp$x))\nbb_y &lt;- c(min(travel_times.interp$y), max(travel_times.interp$y))\n# plot\nplotHP = ggplot(travel_times.interp) +\n  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +\n  geom_sf(data = road_network_base, color = \"gray55\", lwd = 0.5, alpha = 0.4) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_color_manual(values = c('Baixa' = 'black')) +\n  scale_x_continuous(expand = c(0, 0)) +\n  scale_y_continuous(expand = c(0, 0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) +\n  labs(\n    title = \"Reaching from Baixa (Carris + Metro)\",\n    subtitle = \"at 8am wednesday - 1 transf max\",\n    fill = \"Trip duration \\n[min]\",\n    color = ''\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\nplotHP\n\n\n\n\n\n\n\ndeparture_datetime_OFF = as.POSIXct(\"24-11-2024 22:00:00\", format = \"%d-%m-%Y %H:%M:%S\") # sunday evening\n\n# calculate travel time matrix\nttm_zer_PT_sunday = travel_time_matrix(r5r_network = r5r_lisboa,\n                              origins = BAIXA,\n                              destinations = POINTS,\n                              mode = mode,\n                              mode_egress = mode_egress,\n                              departure_datetime = departure_datetime_OFF, # new date\n                              max_walk_time = max_walk_time,\n                              max_trip_duration = max_trip_duration,\n                              time_window = time_window,\n                              max_rides = 2, # max 1 transfer\n                              verbose = FALSE)\n\nsummary(ttm_zer_PT_sunday$travel_time_p50)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   1.00   31.00   39.00   39.38   48.00   73.00  \n\n\nCode\n# add coordinates of destinations to travel time matrix\nttm_zer_PT_sunday = ttm_zer_PT_sunday |&gt;\n  left_join(POINTS, by = c(\"to_id\" = \"id\"))\n\n# interpolate estimates to get spatially smooth result\ntravel_times.interp &lt;- with(na.omit(ttm_zer_PT_sunday), interp(lon, lat, travel_time_p50)) |&gt;\n  with(cbind(travel_time=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt;\n  as.data.frame() |&gt; na.omit()\n\n# find isochrone's bounding box to crop the map below\nbb_x &lt;- c(min(travel_times.interp$x), max(travel_times.interp$x))\nbb_y &lt;- c(min(travel_times.interp$y), max(travel_times.interp$y))\n# plot\nplotOFF = ggplot(travel_times.interp) +\n  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +\n  geom_sf(data = road_network_base, color = \"gray55\", lwd = 0.5, alpha = 0.4) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_color_manual(values = c('Baixa' = 'black')) +\n  scale_x_continuous(expand = c(0, 0)) +\n  scale_y_continuous(expand = c(0, 0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) +\n  labs(\n    title = \"Reaching from Baixa (Carris + Metro)\",\n    subtitle = \"at 10pm sunday - 1 transf max\",\n    fill = \"Trip duration \\n[min]\",\n    color = ''\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\nplotOFF\n\n\n\n\n\n\nBased on Census 2021 (INE 2022), we can count how many people are reach.\n\n\nCode\npoplisboa = sum(POINTS$residents) #\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 15]) / poplisboa # 2.7%\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 30]) / poplisboa # 38.9%\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 45]) / poplisboa # 90.0%\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 60]) / poplisboa # 98.7%\n\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 15]) / poplisboa # 1.5%\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 30]) / poplisboa # 31.7%\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 45]) / poplisboa # 76.6%\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 60]) / poplisboa # 95.0%\n\n\n\n\n\nUp to…\nWednesday peak hour\nSunday evening\n\n\n\n\n30 min\n38.9%\n31.7%\n\n\n45 min\n90.0%\n76.6%\n\n\n60 min\n98.7%\n95.0%",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Scenarios"
+    ]
+  },
+  {
+    "objectID": "scenarios.html#new-metro-station-or-metro-line",
+    "href": "scenarios.html#new-metro-station-or-metro-line",
+    "title": "Scenarios",
+    "section": "New metro station or metro line",
+    "text": "New metro station or metro line\nLet’s create a new metro line or a new station in your city.\n\n\n\nNew pink line (expansion in Lisbon)\n\n\n\nMethodology\nFor that, an easy graphic interface software is the PTV Lines.\n\nLogin into PTV Lines (upper right corner) with the credentials that were sent to you.\nCreate a new scenario, and import an existing subway gtfs (.zip) - max 50 lines!\nEdit that scenario by creating stops and lines.\nExport the GTFS file.\nDuplicate your r5r folder (baseline scenario) and delete the network.dat file inside. Rename it as ..._ver1 and replace the gtfs.zip by the one you just exported.\nBuild a new network with that folder path.\n\n\n\nCreate a metro line with PTV Lines\nFirst, create new station points (S) and name them. As many as you need.\n\n\n\n\n\n\n\n\n\n\nThen, create a new line (L), name it something like “Expansion”, and create a new route (R). Name it 0 (you can edit later) and draw that line roughly by selecting an existing start station and connecting to your new stations.\n\n\n\n\n\nAdd trips to it (T), with a proper headway.\n\n\n\n\n\nAfter defining the weekday and weekend trips, go to the Outbound route and “Create opposite direction”, so you can have both directions now. Rename the line routes, something as “Start station - End station”.\n\n\n\n\n\n\n\nExtend a metro line with PTV Lines\nThis tutorial assumes that the stations for which the line will be extended to already exist (if not, see how to create new stations at Create a metro line with PTV Lines).\nThe extension is performed over a route. To access one, click on a transit line, and then on one of its routes.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOn the map, hover the Start/End buttons and click it to enable the extension mode.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOnce the extension mode is activated, your cursor will turn into a pen icon and you just have to click on the station you want to expand your line to.\n\n\n\n\n\n\nRouting modes\n\n\n\nBe aware of the several modes available on the button that is now displayed (automatic routing mode, street routing mode, straight line mode or exclusive PT routing mode). Make sure you use the one that best suits your use case.\n\n\n\n\n\n\n\nOnce you click on the station, you should see the new station in the route window, on the left part of the screen. You should adjust the run and dwell times accordingly.\n\n\n\n\n\n\n\nVisualizing time diagram\nGo to Connections, and click on a connecting station to visualize the time diagram of connections with other routes.\n\n\n\n\n\n\n\nGenerate GTFS\nAfter all your edits, go back to the dashboard, and click on “Export supply”. Export as GTFS (.zip)\n\nYour scenario will be saved in your dashboard. You can edit or duplicate them later.\n\n\n\n\n\n\nYour task\n\n\n\nRun some routing and accessibility analysis, and compare with the baseline scenario.\n\n\nSee Pereira and Herszenhut (2023) Chapter 6 for an example.\nIf you do multi-modal analysis, you may need to use GTFShift::unify() to merge the new gtfs with other modes and create new transfers.",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "Scenarios"
+    ]
   },
   {
     "objectID": "vissim.html",
@@ -199,453 +754,39 @@
     ]
   },
   {
-    "objectID": "software.html",
-    "href": "software.html",
-    "title": "Software",
+    "objectID": "visum.html",
+    "href": "visum.html",
+    "title": "Visum",
     "section": "",
-    "text": "There are several software options for modeling transportation systems.\nTo choose a traffic simulation software to work with can depend on different things to consider. You may use more than one software, depending on the scale you are working with, and on other characteristics.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#macro-vs.-micro",
-    "href": "software.html#macro-vs.-micro",
-    "title": "Software",
-    "section": "Macro vs. Micro",
-    "text": "Macro vs. Micro\n\nMacro simulators\nSome softwares can be more appropriated if using a large scale, such as regional or city-wide area. For instance, the traffic impacts on the development of a new centrality (hospital, airport), or in the introduction of a new bridge or freeway can be simulated with macro simulator software.\nPTV Visum, Aimsun, r5r, and MatSim are examples of software to deal with a large scale simulation.\nFor macro simulations it is essential do consider zoning, flows, etc.\nUsually this type of simulators can smoothly integrate Public Transport information, such as GTFS files.\n\n\nMicro simulators\nWant to simulate changes at a street or neighbourhood level? Then micro simulator software should be used.\nPTV Visim, SUMO, and A/B Street are examples of software to deal with a micro scale simulation.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#paid-licence-vs.-free",
-    "href": "software.html#paid-licence-vs.-free",
-    "title": "Software",
-    "section": "Paid (Licence) vs. Free",
-    "text": "Paid (Licence) vs. Free\n\nPaid\nAvailable commercial software is largely used at many companies and consultants. Universities also usually offer licence access to students and researchers. At IST we provide access to PTV Visum licence for registered students1.\nSome groups provide a student version, which typically does not include all the features.\nPTV Vissim and Visum, and Aimsum are examples of commercial simulation software.\n\n\nFree\nFree and open source software is getting more robust, and should not be overlooked.\nMatSim, r5r, and SUMO are examples of free and open source simulation software.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#operating-system",
-    "href": "software.html#operating-system",
-    "title": "Software",
-    "section": "Operating System",
-    "text": "Operating System\nTo choose a software to work with, you should also consider the operation system of your personal computer (Windows, MacOS, Linux based).\nPTV Visum and Visim are only available for Windows.\nYou may always use virtual machines to have another OS in your PC, but that comes with memory and performance cost.\n\nFor MacOS users, UTM is a good free option. Keep in mind that the University of Lisbon provides Windows stutent’s licences.\nFor Linux (Ubuntu or Debian) users, Gnome Boxes are an interesting option to run Windows.\nFor Windows users, you should have no problem using any software.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#instalation-and-usage",
-    "href": "software.html#instalation-and-usage",
-    "title": "Software",
-    "section": "Instalation and Usage",
-    "text": "Instalation and Usage\nWe only offer guidance to setup some of the available software2.\nPlease see each software page for more details.",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "software.html#footnotes",
-    "href": "software.html#footnotes",
-    "title": "Software",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nContact Filipe Moura or Rosa Félix to access Visum.↩︎\nIf you use other traffic simulation software, you may contribute to this website and create another tutorial 🙂. Fork and Pull Request in this Github repo.↩︎",
-    "crumbs": [
-      "Home",
-      "Software"
-    ]
-  },
-  {
-    "objectID": "rr5r.html",
-    "href": "rr5r.html",
-    "title": "R, RStudio and r5r",
-    "section": "",
-    "text": "In this chapter we will guide you through the installation of R, RStudio and the packages you will need for this course, for the macro network models.\nR and RStudio1 are separate downloads.\n\n\nYou will need R installed on your computer. R stats (how it is also known) is a programming language and free software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing.\nThe download links live at The Comprehensive R Archive Network (aka CRAN). The most recent version is 4.5.1, but you can use &gt;= 4.1.x if you already have it installed.\n\nWindowsMacUbuntu\n\n\nDownload R-4.5.1 for Windows and run the executable file.\n\n\n\n\n\n\nImportant\n\n\n\nYou will also need to install Rtools, which is a collection of tools necessary to build R packages in Windows.\n\n\n\n\nDownload R-4.5.1 for MacOX. You will have to choose between the arm64 or the x86-64 version.\nDownload the .pkg file and install it as usual.\n\n\n\nThese are instructions for Ubuntu. If you use other linux distribution, please follow the instructions on The Comprehensive R Archive Network - CRAN.\n\nYou can look for R in the Ubuntu Software Center or install it via the terminal:\n\n# sudo apt update && sudo apt upgrade -y\nsudo apt install r-base\n\nOr, if you prefer, you can install the latest version of R from CRAN:\n\n# update indices\nsudo apt update -qq\n# install two helper packages we need\nsudo apt install --no-install-recommends software-properties-common dirmngr\n# add the signing key (by Michael Rutter) for these repos\nwget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc\n# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed\nsudo add-apt-repository \"deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/\"\n\nThen run:\n\nsudo apt install r-base r-base-core r-recommended r-base-dev\n\n[Optional] To keep up-to-date r version and packages, you can follow the instructions at r2u\n\n\n\nAfter this installation, you don’t need to open R base. Please proceed to install RStudio.\n\n\n\nRStudio Desktop is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.\nRStudio is available for free download from Posit RStudio.\n\nWindows 10/11MacOSUbuntu\n\n\nDownload RStudio 2025.09 and run the executable file.\n\n\nDownload RStudio 2025.09 and install it as usual.\n\n\n\nThese are instructions for Ubuntu 24. If you use other linux distribution, please follow the instructions on Posit RStudio.\n\nInstall it via the terminal:\n\nsudo apt install libssl-dev libclang-dev\nwget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2025.09.0-387-amd64.deb\nsudo dpkg -i rstudio*\nrm -v rstudio*\n\n\n\n\n\n\n\nYou will need to install some packages to work with the data and scripts in this course.\nYou can install them in RStudio by searching for them in the Packages tab:\n\nor by running the following code in the console:\n\ninstall.packages(\"tidyverse\")\n\ninstall.packages(\"sf\")\ninstall.packages(\"mapview\")\ninstall.packages(\"osmextract\")\ninstall.packages(\"stplanr\")\ninstall.packages(\"h3jsr\")\ninstall.packages(\"od\")\n\ninstall.packages(c(\"remotes\", \"devtools\", \"usethis\")) # optional\n\n\n\n\nThe simplest way to install r5r is by running the code below on RStudio Console. This might take a few minutes if this is the first time you install these packages.\n\npkgs = c(\"r5r\", \"accessibility\", \"rJavaEnv\", \"interp\", \"quantreg\")\n\ninstall.packages(pkgs)\n\n# dev version with latest features - optional\nutils::remove.packages('r5r')\ndevtools::install_github(\"ipeaGIT/r5r\", subdir = \"r-package\")\n\n\n\nTo use the {r5r} package (version v2.0 or higher), you will need to have Java Development Kit (JDK) 21 installed on your computer. There are numerous open-source JDK implementations. The easiest way to install JDK is using the new {rJavaEnv} package in R.\n\n# check version of Java currently installed (if any) \nrJavaEnv::java_check_version_rjava()\n\n## if this is the first time you use {rJavaEnv}, you might need to run this code\n## below to consent the installation of Java.\n# rJavaEnv::rje_consent(provided = TRUE)\n\n# install Java 21\nrJavaEnv::java_quick_install(version = 21)\n\n# check if Java was successfully installed\nrJavaEnv::java_check_version_rjava()\n\nAlternatively, you can manually download and install JDK 21.\n\nWindows and MacOSUbuntu\n\n\nGo to Java Development Kit 21, download the latest 21 build corresponding to your operating system and run the executable file.\n\n\nInstall it via the terminal:\n\nsudo apt install -y openjdk-21-jdk openjdk-21-jre\njava -version",
+    "text": "This tutorial is only for Windows\n\n\n\nIf you do not use Windows, you need to have a Virtual Machine. If you have an Arm processor this won’t work, even with a VM.\nIn this tutorial we will guide you to install and start using Visum.\nPTV Visum is a macro simulation software, non-free, available only for Windows OS.",
     "crumbs": [
       "Home",
       "Software",
-      "R & r5r"
+      "VISUM"
     ]
   },
   {
-    "objectID": "rr5r.html#r",
-    "href": "rr5r.html#r",
-    "title": "R, RStudio and r5r",
-    "section": "",
-    "text": "You will need R installed on your computer. R stats (how it is also known) is a programming language and free software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing.\nThe download links live at The Comprehensive R Archive Network (aka CRAN). The most recent version is 4.5.1, but you can use &gt;= 4.1.x if you already have it installed.\n\nWindowsMacUbuntu\n\n\nDownload R-4.5.1 for Windows and run the executable file.\n\n\n\n\n\n\nImportant\n\n\n\nYou will also need to install Rtools, which is a collection of tools necessary to build R packages in Windows.\n\n\n\n\nDownload R-4.5.1 for MacOX. You will have to choose between the arm64 or the x86-64 version.\nDownload the .pkg file and install it as usual.\n\n\n\nThese are instructions for Ubuntu. If you use other linux distribution, please follow the instructions on The Comprehensive R Archive Network - CRAN.\n\nYou can look for R in the Ubuntu Software Center or install it via the terminal:\n\n# sudo apt update && sudo apt upgrade -y\nsudo apt install r-base\n\nOr, if you prefer, you can install the latest version of R from CRAN:\n\n# update indices\nsudo apt update -qq\n# install two helper packages we need\nsudo apt install --no-install-recommends software-properties-common dirmngr\n# add the signing key (by Michael Rutter) for these repos\nwget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc\n# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed\nsudo add-apt-repository \"deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/\"\n\nThen run:\n\nsudo apt install r-base r-base-core r-recommended r-base-dev\n\n[Optional] To keep up-to-date r version and packages, you can follow the instructions at r2u\n\n\n\nAfter this installation, you don’t need to open R base. Please proceed to install RStudio.",
+    "objectID": "visum.html#installation",
+    "href": "visum.html#installation",
+    "title": "Visum",
+    "section": "Installation",
+    "text": "Installation\nPTV Visum is available to download at: https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Visum\nChoose the most recent version (recommended) ≤ 2024. The file may be more than 1.3 GB.\nIf you don’t have Python installed already in your PC, don’t worry, you can opt to install it along the Visum setup.\nThe available instructions are very straight forward.\n\nLicence activation\n\nYou should have received a server address of where the CERIS licence lives. If not, contact the course teacher.\n\nTo use Visum with the CERIS licence, you need to download PTV Licence Manager (Standard).\n\nIt will ask you to download also another tiny software CodeMeter Runtime. Say yes!\nAfter install it, open PTV Licence Manager, and click on ⚙️ Edit CodeMeter settings:\n\nAdd ➕ CodeMeter server, and insert the server address that was sent to you.\n\nPress close (go back) and now 🔍 Find Licences.\n\nAn available licence row should now appear on the list 🎉. Close it.\n\n\n\n\n\n\nFor any reason 🧙‍♂️ the licence is not accessed if you are connected to the IST DECivil ethernet network.",
     "crumbs": [
       "Home",
       "Software",
-      "R & r5r"
+      "VISUM"
     ]
   },
   {
-    "objectID": "rr5r.html#rstudio",
-    "href": "rr5r.html#rstudio",
-    "title": "R, RStudio and r5r",
-    "section": "",
-    "text": "RStudio Desktop is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.\nRStudio is available for free download from Posit RStudio.\n\nWindows 10/11MacOSUbuntu\n\n\nDownload RStudio 2025.09 and run the executable file.\n\n\nDownload RStudio 2025.09 and install it as usual.\n\n\n\nThese are instructions for Ubuntu 24. If you use other linux distribution, please follow the instructions on Posit RStudio.\n\nInstall it via the terminal:\n\nsudo apt install libssl-dev libclang-dev\nwget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2025.09.0-387-amd64.deb\nsudo dpkg -i rstudio*\nrm -v rstudio*",
+    "objectID": "visum.html#getting-started",
+    "href": "visum.html#getting-started",
+    "title": "Visum",
+    "section": "Getting started",
+    "text": "Getting started\nWhen launching Visum for the first time, you should have something like this. This is a good signal, it means that the connection to the licence server is running smoothly and that you are ready to start working on your projects! 🚀\n\nThe “Tutorial First Steps” may be wise to follow if you are not familiar with the software. It covers the following topics:\n\nNetwork editing (private and public transport)\nProcedure sequence\nGraphic parameters\n\nPTV also offers online tutorials to get familiar with the software.",
     "crumbs": [
       "Home",
       "Software",
-      "R & r5r"
-    ]
-  },
-  {
-    "objectID": "rr5r.html#r-packages",
-    "href": "rr5r.html#r-packages",
-    "title": "R, RStudio and r5r",
-    "section": "",
-    "text": "You will need to install some packages to work with the data and scripts in this course.\nYou can install them in RStudio by searching for them in the Packages tab:\n\nor by running the following code in the console:\n\ninstall.packages(\"tidyverse\")\n\ninstall.packages(\"sf\")\ninstall.packages(\"mapview\")\ninstall.packages(\"osmextract\")\ninstall.packages(\"stplanr\")\ninstall.packages(\"h3jsr\")\ninstall.packages(\"od\")\n\ninstall.packages(c(\"remotes\", \"devtools\", \"usethis\")) # optional",
-    "crumbs": [
-      "Home",
-      "Software",
-      "R & r5r"
-    ]
-  },
-  {
-    "objectID": "rr5r.html#r5r",
-    "href": "rr5r.html#r5r",
-    "title": "R, RStudio and r5r",
-    "section": "",
-    "text": "The simplest way to install r5r is by running the code below on RStudio Console. This might take a few minutes if this is the first time you install these packages.\n\npkgs = c(\"r5r\", \"accessibility\", \"rJavaEnv\", \"interp\", \"quantreg\")\n\ninstall.packages(pkgs)\n\n# dev version with latest features - optional\nutils::remove.packages('r5r')\ndevtools::install_github(\"ipeaGIT/r5r\", subdir = \"r-package\")\n\n\n\nTo use the {r5r} package (version v2.0 or higher), you will need to have Java Development Kit (JDK) 21 installed on your computer. There are numerous open-source JDK implementations. The easiest way to install JDK is using the new {rJavaEnv} package in R.\n\n# check version of Java currently installed (if any) \nrJavaEnv::java_check_version_rjava()\n\n## if this is the first time you use {rJavaEnv}, you might need to run this code\n## below to consent the installation of Java.\n# rJavaEnv::rje_consent(provided = TRUE)\n\n# install Java 21\nrJavaEnv::java_quick_install(version = 21)\n\n# check if Java was successfully installed\nrJavaEnv::java_check_version_rjava()\n\nAlternatively, you can manually download and install JDK 21.\n\nWindows and MacOSUbuntu\n\n\nGo to Java Development Kit 21, download the latest 21 build corresponding to your operating system and run the executable file.\n\n\nInstall it via the terminal:\n\nsudo apt install -y openjdk-21-jdk openjdk-21-jre\njava -version",
-    "crumbs": [
-      "Home",
-      "Software",
-      "R & r5r"
-    ]
-  },
-  {
-    "objectID": "rr5r.html#footnotes",
-    "href": "rr5r.html#footnotes",
-    "title": "R, RStudio and r5r",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nWe will use RStudio, although if you already use other studio such as VScode, that’s also fine.↩︎",
-    "crumbs": [
-      "Home",
-      "Software",
-      "R & r5r"
-    ]
-  },
-  {
-    "objectID": "pois.html",
-    "href": "pois.html",
-    "title": "POIs and Grids",
-    "section": "",
-    "text": "From OSM we can export several different opportunities to use on routing and accessibility exercises.\nFor instance, the 15-min city idea follows the Flowers of Proximity, to categorize the opportinities in 7 different categories, based on Büttner et al. (2022).\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\n\n\n\n\n\n\nScript\n\n\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024): data_extract.R (line 146)\n\n\nYou can explore other OpenStreetMap categories at their Wiki.",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "POIs and Grids"
-    ]
-  },
-  {
-    "objectID": "pois.html#points-of-interest",
-    "href": "pois.html#points-of-interest",
-    "title": "POIs and Grids",
-    "section": "",
-    "text": "From OSM we can export several different opportunities to use on routing and accessibility exercises.\nFor instance, the 15-min city idea follows the Flowers of Proximity, to categorize the opportinities in 7 different categories, based on Büttner et al. (2022).\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\n\n\n\n\n\n\nScript\n\n\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024): data_extract.R (line 146)\n\n\nYou can explore other OpenStreetMap categories at their Wiki.",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "POIs and Grids"
-    ]
-  },
-  {
-    "objectID": "pois.html#grids",
-    "href": "pois.html#grids",
-    "title": "POIs and Grids",
-    "section": "Grids",
-    "text": "Grids\nYou may want to use the original census units, or create a squared oh hexagonal grid.\n\nCreate a grid\nMatch all the Census and POIs to that grid\n\n\nCreate a grid\nWe will use the city of Lisbon as example\n\nlibrary(sf)\nlibrary(tidyverse)\nlibrary(mapview)\n\ncity_limit = st_read(\"data/Lisbon/Lisboa_lim.gpkg\")\nplot(city_limit)\n\n\n\n\n\n\n\nSquared\nMake a grid that covers the city polygon\n\nGRID = city_limit |&gt;\n  st_transform(crs = 3857) |&gt; # to a projected crs\n  st_make_grid(cellsize = 400, # meters, we are using a projected crs\n               what = \"polygons\",\n               square = TRUE) |&gt; # if FALSE, hexagons\n  st_sf() |&gt; # from list to sf\n  st_transform(crs = 4326) |&gt;  # back to WGS84\n  st_intersection(city_limit$geom) # crop (optional)\n\nGRID = GRID |&gt;  \n  rename(geometry = st_make_grid.st_transform.city_limit..crs...3857...cellsize...400..) |&gt; \n  mutate(id = c(1:nrow(GRID))) # just to give an ID to each cell \n  \nmapview(GRID, alpha.regions = 0.2)\n\n\n\n\nThe color is only referent to the ID\n\n\n\n\nHexagonal using h3jsr\n\nlibrary(h3jsr)\n\n# Resolution: https://h3geo.org/docs/core-library/restable/ \n# h3_res = 10 # 150m diameter\nh3_res = 9 # 400m diameter\n# h3_res = 8 # 1060m diameter\n\nGRID_h3 = city_limit |&gt;  \n  polygon_to_cells(res = h3_res, simple = FALSE)\nGRID_h3 = GRID_h3$h3_addresses |&gt;\n  cell_to_polygon(simple = FALSE)\nGRID_h3 = GRID_h3 |&gt;\n  mutate(id = seq(1:nrow(GRID_h3)))  # give an ID to each cell\nh3_index = GRID_h3 |&gt; st_drop_geometry() # save h3_address for later\n\nmapview(GRID_h3)\n\n\n\n\n\n\n\n\n\nAreas with information\nNow, we can associate these areas (and their centroids) with all the information we want.\n\nWith POIs\n\n# Points of interest\nPOIs = st_read(\"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/POIs_Lx.gpkg\")\n\n# count points by type in areas\nGRID_pois = POIs |&gt; st_join(GRID, join = st_within)\n\ncounts_group = GRID_pois |&gt;\n  st_drop_geometry() |&gt;   # drop geometry for counting\n  group_by(id, group) |&gt;\n  summarise(n = n(), .groups = \"drop\") |&gt;\n  tidyr::pivot_wider(names_from = group, values_from = n, values_fill = 0)\n\ncounts_type = GRID_pois |&gt;\n  st_drop_geometry() |&gt;\n  group_by(id, type) |&gt; # too many types!\n  summarise(n = n(), .groups = \"drop\") |&gt;\n  tidyr::pivot_wider(names_from = type, values_from = n, values_fill = 0)\n\nGRID_pois = GRID |&gt;\n  left_join(counts_group, by = \"id\") |&gt;\n  # left_join(counts_type,  by = \"id\") |&gt; # too many\n  mutate(across(where(is.numeric), ~replace_na(.x, 0)))\n\nmapview(GRID_pois, zcol = \"restaurant\") # for instance\n\n\nThe result is a grid with too many columns (one for each type). Consider using only the group.\n\n\nWith Census\n\n# Census data\ncensus = st_read(\"https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Censos_Lx.gpkg\")\n\n# count points by type in areas\nGRID_census = census |&gt; st_join(GRID, join = st_within)\n\ncensus_density = GRID_census |&gt;\n  st_drop_geometry() |&gt;   # drop geometry for counting\n  group_by(id.y) |&gt;\n  summarise(buildings = sum(buildings),\n            families = sum(families),\n            residents = sum(residents)) |&gt; \n  rename(id = id.y) |&gt; \n  filter(!is.na(id))\n\nGRID_census = GRID |&gt;\n  left_join(census_density, by = \"id\") |&gt;\n  mutate(across(where(is.numeric), ~replace_na(.x, 0)))\n\nmapview(GRID_census, zcol = \"residents\")\n\n\n\n\nAll together\n\nGRID_data = GRID_census |&gt; left_join(GRID_pois |&gt; st_drop_geometry())\n\nThe same for Hex grid\n\n# POIs\nGRIDhex_pois = POIs |&gt; st_join(GRID_h3, join = st_within)\n\ncounts_group = GRIDhex_pois |&gt;\n  st_drop_geometry() |&gt;   # drop geometry for counting\n  group_by(id, group) |&gt;\n  summarise(n = n(), .groups = \"drop\") |&gt;\n  tidyr::pivot_wider(names_from = group, values_from = n, values_fill = 0)\n\nGRIDhex_pois = GRID_h3 |&gt;\n  left_join(counts_group, by = \"id\") |&gt;\n  mutate(across(where(is.numeric), ~replace_na(.x, 0)))\n\n#  Census\nGRIDhex_census = census |&gt; st_join(GRID_h3, join = st_within)\n\ncensus_density = GRIDhex_census |&gt;\n  st_drop_geometry() |&gt;   # drop geometry for counting\n  group_by(id.y) |&gt;\n  summarise(buildings = sum(buildings),\n            families = sum(families),\n            residents = sum(residents)) |&gt; \n  rename(id = id.y) |&gt; \n  filter(!is.na(id))\n\nGRIDhex_census = GRID_h3 |&gt;\n  left_join(census_density, by = \"id\") |&gt;\n  mutate(across(where(is.numeric), ~replace_na(.x, 0)))\n\n# All together now\nGRIDhex_data = GRIDhex_census |&gt; left_join(GRIDhex_pois |&gt; st_drop_geometry())\n\nmapview(GRIDhex_data, zcol = \"residents\")",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "POIs and Grids"
-    ]
-  },
-  {
-    "objectID": "pois.html#centroid-coordinates",
-    "href": "pois.html#centroid-coordinates",
-    "title": "POIs and Grids",
-    "section": "Centroid coordinates",
-    "text": "Centroid coordinates\nWe may want to have this information as points, for instance for routing to opportunities.\n\n# squares\nPOINTSsq = GRID_data |&gt; \n  st_centroid()\nGRID_data = GRID_data |&gt; \n  mutate(lon = st_coordinates(POINTSsq)[,1],\n         lat = st_coordinates(POINTSsq)[,2])\n\n# hexagons\nPOINTShex = GRIDhex_data |&gt; \n  st_centroid()\nGRIDhex_data = GRIDhex_data |&gt; \n  mutate(lon = st_coordinates(POINTShex)[,1],\n         lat = st_coordinates(POINTShex)[,2])\n\nYou should stick with just one of them: squares or hexagons.\nDon’t forget to save your data, this will be very useful for the next exercises.\n\nsaveRDS(GRID_data, \"data/Lisbon/GRID_data.rds\")\nsaveRDS(GRIDhex_data, \"data/Lisbon/GRIDhex_data.rds\")",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "POIs and Grids"
-    ]
-  },
-  {
-    "objectID": "network.html",
-    "href": "network.html",
-    "title": "Network setup",
-    "section": "",
-    "text": "In this chapter we will guide you through the data requirements, data collection, and setting up a multi-modal network with r5r.",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#data-requirements",
-    "href": "network.html#data-requirements",
-    "title": "Network setup",
-    "section": "Data requirements",
-    "text": "Data requirements\nYou will need R and r5r (Pereira et al. 2021) package installed on your computer.\nr5r sets-up a network file .dat by combining the following datasets in the same folder:\n\nRoad Network (OpenStreetMap1 as .osm.pbf)\nGTFS2 from PTransit operators (a single .zip or several)\nDigital Elevation Model3 (.tif), to consider impedances for walking and cycling\n\nFor the documentation of data needed, see r5r::build_network",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#road-networks",
-    "href": "network.html#road-networks",
-    "title": "Network setup",
-    "section": "Road Networks",
-    "text": "Road Networks\n\nOpenStreetMap\nThe OpenStreetMap is a collaborative online mapping project that creates a free editable map of the world.\nThis is the most used source of road network data for transportation analysis in academia, since it is available almost everywhere in the world, is open and free to use.\n\n\n\n\n\n\nAlthough it can be not 100% accurate, OSM is a good source of data for most of the cases.\n\n\n\nYou can access it’s visualization tool at www.openstreetmap.org. To edit the map, you can use the Editor, once you register.\nIf you want to download the data, you can use the following tools.\n\nOverpass API\nGeofabrik\n\nThese websites include all the OSM data, with much more information than you need.\n\n\nHOT Export Tool\nThis interactive tool helps you to select the region you want to extract (or import an existing city_limit.geojson4), the type of information to include, and the output data format.\nAccess via export.hotosm.org5. Select format as .gpkg and .pbf.\n\n\nAfter the export, you can read in R using the sf package:\n\nLisbon_roads = sf::st_read(\"data/Lisbon/REDEbase_Lx.gpkg\", quiet = TRUE)\nmapview::mapview(Lisbon_roads, zcol = \"highway\")\n\n\n\n\nOSM in R\nThere are also some R packages that can help you to download and work with OpenStreetMap data, such as:\n\nosmdata\nosmextract\n\nThis is an example of how to download OpenStreetMap road network data using the osmextract package:\n\nlibrary(osmextract)\nOSM_Malta = oe_get_network(place = \"Malta\") # it will geocode the place\n\nMalta_main_roads = OSM_Malta |&gt; \n  filter(highway %in% c(\"primary\", \"secondary\", \"tertiary\", \"trunk\"))\n\nplot(Malta_main_roads[\"highway\"])",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#transportation-services-data",
-    "href": "network.html#transportation-services-data",
-    "title": "Network setup",
-    "section": "Transportation Services’ Data",
-    "text": "Transportation Services’ Data\n\nGTFS\nGeneral Transit Feed Specification (GTFS) is standard format for documenting public transportation information, including: routes, schedules, stop locations, calendar patterns, trips, and possible transfers. Transit agencies are responsible for maintaining the data up-to-date.\nThis information is used in several applications, such as Google Maps, to provide public transportation directions. It can be offered for a city, a region, or even a whole country, depending on the PT agency.\nThe recent version 2 of the GTFS standard includes more information, such as real-time data.\nThe data is usually in a .zip file that includes several .txt files (one for each type of information) with tabular relations.\n\n\n\nSource: trilliumtransit.com\n\n\n\nOnline sources\nYou can find most GTFS data in the following websites:\n\nTransitLand\nMobility Database\n\nSome PT agencies also provide their open-data in their websites.\n\n\nR packages\nThere are some nice R packages to read and manipulate GTFS data, such as:\n\ntidytransit\ngtfstools\nGTFShift\n\n\n\n\n\n\n\nBe aware that they may share the same function names, so it is important to use of of them at the time.\n\n\n\n\n\n\nNational Access Points\nThe European Union has a directive that requires the member states to provide access to transportation data. Data includes not only Public Transportation data, but also road networks, car parking, and other transportation-related information.\nList of the European Union members states with National Access Points for Transportation data\nExample of Bus services data in Belgium:\n\n\n\nSource: Transport Data Belgium",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#elevation",
-    "href": "network.html#elevation",
-    "title": "Network setup",
-    "section": "Elevation",
-    "text": "Elevation\nThis information is useful if your city is somehow hilly, and you are modelling pedestrian and/or bike travel.\nIn the following websites you can export a raster file of Digital Elevation Model (DEM) in .tif format:\n\nelevatr R package\nNasa’s SRTMGL1 website\nCopernicus EU website\n\n\n\n\nExport dem.tiff from Copernicus using a city_limit.geojson\n\n\nVerify in R\n\ndem = terra::rast(\"data/Lisbon/Copernicus_30m.tif\") # rename the extension to .tif !!\nterra::plot(dem)",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#setting-up-a-routable-transport-network",
-    "href": "network.html#setting-up-a-routable-transport-network",
-    "title": "Network setup",
-    "section": "Setting up a routable transport network",
-    "text": "Setting up a routable transport network\nYour folder should contain these files, such as:\n\n\n\n\n\n\n# Load packages\nlibrary(tidyverse)\nlibrary(sf)\noptions(java.parameters = '-Xmx8G') # allocate memory for 8GB \nlibrary(r5r)\n\n\ndata_path= \"data/Lisbon/r5r\" # relative path to your folder containing the required data\nnetwork = build_network(\n  data_path,\n  elevation = \"TOBLER\" # optional. MINETTI or NONE\n)\n\n\n\n\n\n\n\nIf you already have a network.dat file, it will use that pre-build network.\n\n\n\nCheck if your transportation network is correct:\n\ntransit_net = transit_network_to_sf(r5r_lisboa)\nmapview::mapview(transit_net$routes, zcol = \"mode\")",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Network setup"
-    ]
-  },
-  {
-    "objectID": "network.html#footnotes",
-    "href": "network.html#footnotes",
-    "title": "Network setup",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nSee how to export an area with HOT export tool.↩︎\nOptional.↩︎\nOptional.↩︎\nFor instance, see here for Germany: https://opendatalab.de/projects/geojson-utilities/↩︎\nYou need an OSM account to use it.↩︎",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Network setup"
-    ]
-  },
-  {
-    "objectID": "micro.html",
-    "href": "micro.html",
-    "title": "Micro Case Study",
-    "section": "",
-    "text": "You may use an intersection file already prepared to be used with VISSIM, like this one:\nThis file is available at Fenix, for registered students.\nHow did this file was converted from OpenStreetMap? 🧐",
-    "crumbs": [
-      "Home",
-      "Vissim and Visum",
-      "Micro Case Study"
-    ]
-  },
-  {
-    "objectID": "micro.html#from-openstreetmap-to-vissim",
-    "href": "micro.html#from-openstreetmap-to-vissim",
-    "title": "Micro Case Study",
-    "section": "From OpenStreetMap to VISSIM",
-    "text": "From OpenStreetMap to VISSIM\n\nRequirements\nThis will require:\n\nVISSIM installed with an active license\nPython 3.x, and the following packages\n\nwin32com\ngdal\n\nMicrosoft Visual C++ build tools\nOptional: OSGeo4W1\n\n\n\nOpenStreetMap\nGo to OpenStreetMap and zoom into your area.\nSelect Export and save the map.osm file.\n\nYou don’t need to open that file now.\n\n\nOSM2VISSIM tool\n\nGo to the OSM2VISSIM tool Github page, and download this OSM2VISSIM_v0.1.py file.\n\n\n\nCreate a folder (wherever you want) and put there this .py file and the .osm file exported before. Now copy your folder path!\n\n\n\nIf you have OSGeo4W installed2, open the shell. It will look like this:\n\n\n\nNavigate to your created folder, using cd yourfolderpath\nNow, run python OSM2VISSIM_v0.1.py\n\n\n\nThis will open a dialogue window where you are supposed to type your .osm file name.\nMine is gago\n\n\n\nPress Set.\n\n\n\n\n\n\n\nDon’t worry! Things are happening even if you don’t notice. Just be patient and wait.\n\n\n\nThis will create a new file, and open VISSIM automatically.\nNote: If you go to the Network tab and don’t see anything, even after clicking on zoom to network button, close VISSIM, and close the Shell. This happened to me every first time.\n\nRepeat again the steps from 1 to 7.\n\nThis will open VISSIM automatically and now the shell will show things happening:\n\nWait until VISSIM it closes automatically - don’t click anything.\n\nYou may now close the OSGeo4W shell.\n\nA few more files were created now:\n\n\n\nAt VISSIM\nOpen the file name.inpx and close the Start Page.\nAt Network Editor panel, click Show entire network:\n\nAs you may note, your network is not exactly in place, when comparing to a basemap. 🥴\n\nTo adjust this, you may either move the basemap or the network.\nFirst, with the distance tool, measure the distance of one reference point of the network to where it should be placed, in both X and Y directions.\n\nThen Edit ⟶ Move Network\n\nRepeat the process until the network intersection is centred with the intersection in the basemap.\nSave your network file! 🎉\nThis process resulted in the abovementioned file.\nNo go on and adjust the details that require some attention.",
-    "crumbs": [
-      "Home",
-      "Vissim and Visum",
-      "Micro Case Study"
-    ]
-  },
-  {
-    "objectID": "micro.html#footnotes",
-    "href": "micro.html#footnotes",
-    "title": "Micro Case Study",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nThis installation already comes with all the required packages.↩︎\nYou may do everything on the cmd (command line prompt terminal), but some errors may be output.↩︎",
-    "crumbs": [
-      "Home",
-      "Vissim and Visum",
-      "Micro Case Study"
-    ]
-  },
-  {
-    "objectID": "pareto.html",
-    "href": "pareto.html",
-    "title": "Pareto frontier",
-    "section": "",
-    "text": "See the r5r vignettes “Accounting for monetary costs” and “Trade-offs between travel time and monetary cost” (Pereira et al. 2021)",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Pareto frontier"
-    ]
-  },
-  {
-    "objectID": "pareto.html#create-rules-for-an-operator",
-    "href": "pareto.html#create-rules-for-an-operator",
-    "title": "Pareto frontier",
-    "section": "Create rules for an operator",
-    "text": "Create rules for an operator\nIn this case, I am creating random rules for fares, considering the mode, the transfers, and changing between modes.\n\n# create basic fare structure\nfare_structure &lt;- setup_fare_structure(r5r_lisboa, \n                                       base_fare = 1.65,\n                                       by = \"MODE\")\n\n# update the cost of bus and subway fares\nfare_structure$fares_per_type &lt;- fare_structure$fares_per_type |&gt; \n  mutate(fare = case_when(\n    type == \"BUS\"    ~ 1.65,\n    type == \"SUBWAY\" ~ 2.00, # imagine it is more expensive\n    TRUE             ~ fare   # keep existing fare if no condition matches\n  ))\n\n# update the cost of transfers\nfare_structure$fares_per_transfer &lt;- fare_structure$fares_per_transfer |&gt; \n  mutate(fare = case_when(\n    first_leg == \"BUS\" & second_leg == \"BUS\" ~ 2.80, # extra cost for 2 trips\n      first_leg == \"SUBWAY\" & second_leg == \"SUBWAY\" ~ 2.00, # no extra cost\n    first_leg != second_leg                  ~ 3.50,\n    TRUE                                     ~ fare\n  ))\n\n\n# update transfer_time_allowance to 60 minutes\nfare_structure$transfer_time_allowance &lt;- 60\n\nfare_structure$fares_per_type = fare_structure$fares_per_type |&gt;\n  mutate(\n    unlimited_transfers = if_else(type == \"SUBWAY\", TRUE, unlimited_transfers),\n    allow_same_route_transfer = if_else(type == \"SUBWAY\", TRUE, allow_same_route_transfer)\n  )\n\n# save fare rules to temp file\n# r5r::write_fare_structure(fare_structure, file_path = \"data/Lisbon/fares_lisbon.zip\")\n# fare_structure &lt;- r5r::read_fare_structure(\"data/Lisbon/fares_lisbon.zip\")",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Pareto frontier"
-    ]
-  },
-  {
-    "objectID": "pareto.html#calculating-a-pareto_frontier",
-    "href": "pareto.html#calculating-a-pareto_frontier",
-    "title": "Pareto frontier",
-    "section": "Calculating a pareto_frontier()",
-    "text": "Calculating a pareto_frontier()\nIn this example, we calculate the Pareto frontier from all origins to downtown (Baixa) considering multiple cutoffs of monetary costs:\n\n€1, which would only allow for walking trips\n€1.65, which would only allow for bus trips\n€2.00, which would allow for a single or multiple subway trips\n€2.80, which would allow for bus + bus\n€3.50, which would allow for walking + bus + subway\n\n\ndeparture_datetime &lt;- as.POSIXct(\"13-11-2024 10:00:00\", \n                                 format = \"%d-%m-%Y %H:%M:%S\")\n\nprtf &lt;- pareto_frontier(\n  r5r_lisboa,\n  origins = POINTShex,\n  destinations = BAIXA,\n  mode = c(\"WALK\", \"TRANSIT\"),\n  departure_datetime = departure_datetime,\n  fare_structure = fare_structure,\n  fare_cutoffs = c(1, 1.65, 2.0, 2.8, 3.5),\n  progress = TRUE\n  )\n\n\n\nCode\n# select some origin and destinations\npf2 &lt;- prtf |&gt; filter(from_id %in% c(\"717\", \"720\", \"399\"))\n\n# recode modes \npf2 &lt;- pf2 |&gt;\n  mutate(\n    modes = case_when(\n      monetary_cost == 1    ~ \"Walk\",\n      monetary_cost == 1.65 ~ \"Bus\",\n      monetary_cost == 2.0  ~ \"Subway\",\n      monetary_cost == 2.80  ~ \"Bus + Bus\",\n      monetary_cost == 3.5  ~ \"Bus + Subway\"\n      # TRUE                  ~ \"Bus\"\n    )\n  )\n\nggplot(data=pf2, aes(x=monetary_cost, y=travel_time, color=from_id, label = modes)) + \n  geom_step(linetype = \"dashed\") +\n  geom_point() +\n  geom_text(color='gray30', hjust = -.2, nudge_x = 0.05, angle = 45) +\n  labs(title='Pareto frontier of alternative routes to Baixa to:', \n       subtitle = 'Hex 399, 717, and 720',\n       color='Destination') +\n  scale_x_continuous(name=\"Travel cost (€)\", breaks=seq(0,4,1)) +\n  scale_y_continuous(name=\"Travel time (minutes)\", breaks=seq(0,120,20)) +\n  coord_cartesian(xlim = c(1,4), ylim = c(0, 120)) +\n  theme_classic() + theme(legend.position=c(.8,0.8))\n\n\n\n\n\n\n\nAn optimum route alternative means that one cannot make a faster trip without increasing costs, and one cannot make a cheaper trip without increasing travel time.\n\n# calculate travel times function\ncalculate_travel_times &lt;- function(fare) {\n  ttm_df &lt;- travel_time_matrix(\n    r5r_lisboa,\n    origins = POINTShex,\n    destinations = BAIXA,\n    mode = c(\"WALK\", \"TRANSIT\"),\n    departure_datetime = departure_datetime,\n    time_window = 1,\n    fare_structure = fare_structure,\n    max_fare = fare,\n    max_trip_duration = 60,\n    max_walk_time = 15\n  )\n\n  return(ttm_df)\n}\n\n\n# calculate travel times, and combine results\nttm &lt;- calculate_travel_times(fare = Inf) # no budget restriction\nttm_200 &lt;- calculate_travel_times(fare = 2) # 2 euro\n\n# merge results\nttm &lt;- ttm |&gt;\n  left_join(\n    ttm_200 |&gt; select(from_id, to_id, travel_time_p50),\n    by = c(\"from_id\", \"to_id\"),\n    suffix = c(\"\", \"_200\")\n  ) |&gt;\n  mutate(\n    travel_time_200 = travel_time_p50_200,\n    travel_time_unl = travel_time_p50\n  ) |&gt;\n  select(-travel_time_p50, -travel_time_p50_200)\n\n\ntail(ttm, 10)\n\n\n\nCode\n# plot of overall travel time differences between limited and unlimited cost travel time matrices \ntime_difference &lt;- ttm %&gt;%\n  filter(!is.na(travel_time_200)) %&gt;%\n  group_by(travel_time_unl, travel_time_200) %&gt;%\n  summarise(count = n(), .groups = \"drop\")\n\np1 &lt;- ggplot(time_difference, aes(y = travel_time_unl, x = travel_time_200)) +\n  geom_point(size = 0.7) +\n  coord_fixed() +\n  scale_x_continuous(breaks = seq(0, 45, 5)) +\n  scale_y_continuous(breaks = seq(0, 45, 5)) +\n  theme_light() +\n  theme(legend.position = \"none\") +\n  labs(y = \"travel time (minutes)\\nunestricted monetary cost\",\n       x = \"travel time (minutes)\\nmonetary cost restricted to EUR 2.00\"\n       )\n\n# plot of unreachable destinations when the monetary cost limit is too low\nunreachable &lt;- ttm %&gt;%\n  group_by(travel_time_unl, missing = is.na(travel_time_200)) %&gt;%\n  summarise(count = n(), .groups = \"drop_last\") %&gt;%   # keep grouping by travel_time_unl\n  mutate(perc = count / sum(count, na.rm = TRUE)) %&gt;%\n  ungroup() %&gt;%\n  filter(missing) %&gt;%          # keep only rows where travel_time_200 was NA\n  tidyr::drop_na()\n\np2 &lt;- ggplot(unreachable, aes(x=travel_time_unl, y=perc)) +\n  geom_col() +\n  coord_flip() +\n  scale_x_continuous(breaks = seq(0, 60, 5)) +\n  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2), \n                     labels = paste0(seq(0, 100, 20), \"%\")) +\n  theme_light() +\n  labs(x = \"travel time (minutes)\\nwithout monetary cost restriction\",\n       y = \"% of unreachable destinations\\nconsidering a eur 2.00 monetary cost limit\")",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Pareto frontier"
-    ]
-  },
-  {
-    "objectID": "pareto.html#calculating-accessibility-with-monetary-cost",
-    "href": "pareto.html#calculating-accessibility-with-monetary-cost",
-    "title": "Pareto frontier",
-    "section": "Calculating accessibility with monetary cost",
-    "text": "Calculating accessibility with monetary cost\nTo Healthcare facilities\n\nAREAS = readRDS(\"data/Lisbon/GRIDhex_data.rds\")\nAREAS_df = AREAS |&gt; st_drop_geometry()\n\n\n# calculate accessibility function\ncalculate_accessibility &lt;- function(fare, fare_string) {\n  access_df &lt;- accessibility(\n    r5r_lisboa,\n    origins = AREAS_df,\n    destinations = AREAS_df,\n    mode = c(\"WALK\", \"TRANSIT\"),\n    departure_datetime = as.POSIXct(\n      \"13-11-2024 10:00:00\",\n      format = \"%d-%m-%Y %H:%M:%S\"),\n    time_window = 1,\n    opportunities_colname = \"healthcare\",\n    cutoffs = 40,\n    fare_structure = fare_structure,\n    max_fare = fare,\n    max_trip_duration = 60,\n    max_walk_time = 15,\n    progress = FALSE)\n\n  access_df$max_fare &lt;- fare_string\n\n  return(access_df)\n}\n\n# calculate accessibility, combine results, and convert to SF\naccess_165 &lt;- calculate_accessibility(fare=1.65, fare_string=\"EUR 1.65 budget\")\naccess_unl &lt;- calculate_accessibility(fare=Inf, fare_string=\"Unlimited budget\")\n\naccess &lt;- rbind(access_165, access_unl)\n\n# bring geometry\naccess = access |&gt; \n  left_join(AREAS_df |&gt;\n              select(id, h3_address) |&gt;\n              mutate(id = as.character(id)))\naccess$geometry = h3jsr::cell_to_polygon(access$h3_address)\naccess &lt;- st_as_sf(access)\n\n\n\nCode\n# plot accessibility maps\nggplot(data = access) +\n  geom_sf(aes(fill = accessibility), color=NA, size = 0.2) +\n  scale_fill_distiller(palette = \"Spectral\") +\n  facet_wrap(~max_fare) +\n  labs(subtitle = \"Effect of monetary cost on accessibility\") +\n  theme_minimal() +\n  theme(legend.position = \"bottom\",\n        axis.text = element_blank())\n\n\n\n\n\nWith hex grid\n\n\n\n\n\nWith census units\n\n\n\n\n\n\n\n\nReading suggestion\n\n\n\nThe impact of transit monetary costs on transport inequality (Herszenhut et al. 2022)\nThe cost of equity: Assessing transit accessibility and social disparity using total travel cost (El-Geneidy et al. 2016)",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Pareto frontier"
-    ]
-  },
-  {
-    "objectID": "routing.html",
-    "href": "routing.html",
-    "title": "Routing",
-    "section": "",
-    "text": "This page is under construction\n\n\n\nIf you have any suggestions, please contact the course teacher.",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Routing"
-    ]
-  },
-  {
-    "objectID": "routing.html#origins-and-destinations",
-    "href": "routing.html#origins-and-destinations",
-    "title": "Routing",
-    "section": "Origins and Destinations",
-    "text": "Origins and Destinations\nIf you have travel survey data, for some exercises you may use that one.\nFor all the other, we can simply use census data.",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Routing"
-    ]
-  },
-  {
-    "objectID": "routing.html#travel-time-matrix",
-    "href": "routing.html#travel-time-matrix",
-    "title": "Routing",
-    "section": "Travel Time Matrix",
-    "text": "Travel Time Matrix\n\nEgress mode\nThe transport mode used after egress from the last public transport. It can be either WALK, BICYCLE or CAR. Defaults to WALK. Ignored when public transport is not used.\n\n\nLTS\nThe maximum level of traffic stress that cyclists will tolerate. A value of 1 means cyclists will only travel through the quietest streets, while a value of 4 indicates cyclists can travel through any road. Defaults to 2, which can be very restrictive in Lisbon (depends on your case study).\nFrom Pereira et al. (2021):\nWhen cycling is enabled in R5 (by passing the value BIKE to either mode or mode_egress), setting max_lts will allow cycling only on streets with a given level of danger/stress. Setting max_lts to 1, for example, will allow cycling only on separated bicycle infrastructure or low-traffic streets and routing will revert to walking when traversing any links with LTS exceeding 1. Setting max_lts to 3 will allow cycling on links with LTS 1, 2 or 3. Routing also reverts to walking if the street segment is tagged as non-bikable in OSM (e.g. a staircase), independently of the specified max LTS.\nThe default methodology for assigning LTS values to network edges is based on commonly tagged attributes of OSM ways. See more info about LTS in the original documentation of R5 from Conveyal at https://docs.conveyal.com/learn-more/traffic-stress. In summary:\n\nLTS 1: Tolerable for children. This includes low-speed, low-volume streets, as well as those with separated bicycle facilities (such as parking-protected lanes or cycle tracks).\nLTS 2: Tolerable for the mainstream adult population. This includes streets where cyclists have dedicated lanes and only have to interact with traffic at formal crossing.\nLTS 3: Tolerable for “enthused and confident” cyclists. This includes streets which may involve close proximity to moderate- or high-speed vehicular traffic.\nLTS 4: Tolerable only for “strong and fearless” cyclists. This includes streets where cyclists are required to mix with moderate- to high-speed vehicular traffic.\n\nFor advanced users, you can provide custom LTS values by adding a tag &lt;key = \"lts\"&gt; to the osm.pbf file.",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Routing"
-    ]
-  },
-  {
-    "objectID": "routing.html#detailed-itineraries",
-    "href": "routing.html#detailed-itineraries",
-    "title": "Routing",
-    "section": "Detailed itineraries",
-    "text": "Detailed itineraries\n\nMulti-modal legs\n\n\nRoute shapes",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Routing"
-    ]
-  },
-  {
-    "objectID": "routing.html#stop",
-    "href": "routing.html#stop",
-    "title": "Routing",
-    "section": "Stop",
-    "text": "Stop\nr5r objects are still allocated to any amount of memory previously set after they are done with their calculations. In order to remove an existing r5r object and reallocate the memory it had been using, we use the stop_r5 function followed by a call to Java’s garbage collector, as follows:\n\nr5r::stop_r5(r5r_lisboa)\nrJava::.jgc(R.gc = TRUE)",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Routing"
-    ]
-  },
-  {
-    "objectID": "scenarios.html",
-    "href": "scenarios.html",
-    "title": "Scenarios",
-    "section": "",
-    "text": "With the same method presented in Accessibility, let’s compare the population that can be reach from city center on a peak hour and a Sunday evening, using public transit and max 1 transfer.\n\n\nFirst, we can have a loot at the available routes on both time periods. For that, we use the r5r::check_transit_availability()\n\n# load model\nr5r_lisboa = build_network(data_path = \"data/Lisbon/r5r/\") # already existing network model\n\ndates_to_check &lt;- c(\"2024-11-20\", \"2024-11-24\") # wednesday, sunday\navailability &lt;- check_transit_availability(r5r_network = r5r_lisboa,\n                                            dates = dates_to_check)\navailability\n\n\n\n\nWe use the same code as in Isochrones.\n\n# define some parameters\nmode = c(\"SUBWAY\", \"BUS\") # TRANSIT, BUS, SUBWAY, RAIL, CAR, FERRY, WALK, BIKE, TRAM\nmode_egress = \"WALK\"\nmax_walk_time = 10 # in minutes\nmax_trip_duration = 90 # in minutes\ntime_window = 30 # in minutes\ntime_intervals &lt;- seq(0, 100, 10)\ndeparture_datetime_HP = as.POSIXct(\"20-11-2024 8:00:00\", format = \"%d-%m-%Y %H:%M:%S\") # quarta-feira\n\n# calculate travel time matrix\nttm_zer_PT_wednesday = travel_time_matrix(r5r_network = r5r_lisboa,\n                              origins = BAIXA,\n                              destinations = POINTS,\n                              mode = mode,\n                              mode_egress = mode_egress,\n                              departure_datetime = departure_datetime_HP,\n                              max_walk_time = max_walk_time,\n                              max_trip_duration = max_trip_duration,\n                              time_window = time_window,\n                              max_rides = 3, # max 1 transfer\n                              verbose = FALSE)\n\nsummary(ttm_zer_PT_wednesday$travel_time_p50)\n\n  Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   1.00   30.00   37.00   36.29   43.00   68.00 \n\n\nCode\n# add coordinates of destinations to travel time matrix\nttm_zer_PT_wednesday = ttm_zer_PT_wednesday |&gt;\n  left_join(POINTS, by = c(\"to_id\" = \"id\"))\n\n# interpolate estimates to get spatially smooth result\ntravel_times.interp &lt;- with(na.omit(ttm_zer_PT_wednesday), interp(lon, lat, travel_time_p50)) |&gt;\n  with(cbind(travel_time=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt;\n  as.data.frame() |&gt; na.omit()\n\n# find isochrone's bounding box to crop the map below\nbb_x &lt;- c(min(travel_times.interp$x), max(travel_times.interp$x))\nbb_y &lt;- c(min(travel_times.interp$y), max(travel_times.interp$y))\n# plot\nplotHP = ggplot(travel_times.interp) +\n  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +\n  geom_sf(data = REDEbase, color = \"gray55\", lwd = 0.5, alpha = 0.4) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_color_manual(values = c('Baixa' = 'black')) +\n  scale_x_continuous(expand = c(0, 0)) +\n  scale_y_continuous(expand = c(0, 0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) +\n  labs(\n    title = \"Reaching from Baixa (Carris + Metro)\",\n    subtitle = \"at 8am wednesday - 1 transf max\",\n    fill = \"Trip duration \\n[min]\",\n    color = ''\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\nplotHP\n\n\n\n\n\n\n\ndeparture_datetime_OFF = as.POSIXct(\"24-11-2024 22:00:00\", format = \"%d-%m-%Y %H:%M:%S\") # sunday evening\n\n# calculate travel time matrix\nttm_zer_PT_sunday = travel_time_matrix(r5r_network = r5r_lisboa,\n                              origins = BAIXA,\n                              destinations = POINTS,\n                              mode = mode,\n                              mode_egress = mode_egress,\n                              departure_datetime = departure_datetime_OFF, # new date\n                              max_walk_time = max_walk_time,\n                              max_trip_duration = max_trip_duration,\n                              time_window = time_window,\n                              max_rides = 2, # max 1 transfer\n                              verbose = FALSE)\n\nsummary(ttm_zer_PT_sunday$travel_time_p50)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   1.00   31.00   39.00   39.38   48.00   73.00  \n\n\nCode\n# add coordinates of destinations to travel time matrix\nttm_zer_PT_sunday = ttm_zer_PT_sunday |&gt;\n  left_join(POINTS, by = c(\"to_id\" = \"id\"))\n\n# interpolate estimates to get spatially smooth result\ntravel_times.interp &lt;- with(na.omit(ttm_zer_PT_sunday), interp(lon, lat, travel_time_p50)) |&gt;\n  with(cbind(travel_time=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt;\n  as.data.frame() |&gt; na.omit()\n\n# find isochrone's bounding box to crop the map below\nbb_x &lt;- c(min(travel_times.interp$x), max(travel_times.interp$x))\nbb_y &lt;- c(min(travel_times.interp$y), max(travel_times.interp$y))\n# plot\nplotOFF = ggplot(travel_times.interp) +\n  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +\n  geom_sf(data = REDEbase, color = \"gray55\", lwd = 0.5, alpha = 0.4) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_color_manual(values = c('Baixa' = 'black')) +\n  scale_x_continuous(expand = c(0, 0)) +\n  scale_y_continuous(expand = c(0, 0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) +\n  labs(\n    title = \"Reaching from Baixa (Carris + Metro)\",\n    subtitle = \"at 10pm sunday - 1 transf max\",\n    fill = \"Trip duration \\n[min]\",\n    color = ''\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\nplotOFF\n\n\n\n\n\n\nBased on Census 2021 (INE 2022), we can count how many people are reach.\n\n\nCode\npoplisboa = sum(POINTS$residents) #\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 15]) / poplisboa # 2.7%\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 30]) / poplisboa # 38.9%\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 45]) / poplisboa # 90.0%\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 60]) / poplisboa # 98.7%\n\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 15]) / poplisboa # 1.5%\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 30]) / poplisboa # 31.7%\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 45]) / poplisboa # 76.6%\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 60]) / poplisboa # 95.0%\n\n\n\n\n\nUp to…\nWednesday peak hour\nSunday evening\n\n\n\n\n30 min\n38.9%\n31.7%\n\n\n45 min\n90.0%\n76.6%\n\n\n60 min\n98.7%\n95.0%",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Scenarios"
-    ]
-  },
-  {
-    "objectID": "scenarios.html#work-day-vs.-weekend",
-    "href": "scenarios.html#work-day-vs.-weekend",
-    "title": "Scenarios",
-    "section": "",
-    "text": "With the same method presented in Accessibility, let’s compare the population that can be reach from city center on a peak hour and a Sunday evening, using public transit and max 1 transfer.\n\n\nFirst, we can have a loot at the available routes on both time periods. For that, we use the r5r::check_transit_availability()\n\n# load model\nr5r_lisboa = build_network(data_path = \"data/Lisbon/r5r/\") # already existing network model\n\ndates_to_check &lt;- c(\"2024-11-20\", \"2024-11-24\") # wednesday, sunday\navailability &lt;- check_transit_availability(r5r_network = r5r_lisboa,\n                                            dates = dates_to_check)\navailability\n\n\n\n\nWe use the same code as in Isochrones.\n\n# define some parameters\nmode = c(\"SUBWAY\", \"BUS\") # TRANSIT, BUS, SUBWAY, RAIL, CAR, FERRY, WALK, BIKE, TRAM\nmode_egress = \"WALK\"\nmax_walk_time = 10 # in minutes\nmax_trip_duration = 90 # in minutes\ntime_window = 30 # in minutes\ntime_intervals &lt;- seq(0, 100, 10)\ndeparture_datetime_HP = as.POSIXct(\"20-11-2024 8:00:00\", format = \"%d-%m-%Y %H:%M:%S\") # quarta-feira\n\n# calculate travel time matrix\nttm_zer_PT_wednesday = travel_time_matrix(r5r_network = r5r_lisboa,\n                              origins = BAIXA,\n                              destinations = POINTS,\n                              mode = mode,\n                              mode_egress = mode_egress,\n                              departure_datetime = departure_datetime_HP,\n                              max_walk_time = max_walk_time,\n                              max_trip_duration = max_trip_duration,\n                              time_window = time_window,\n                              max_rides = 3, # max 1 transfer\n                              verbose = FALSE)\n\nsummary(ttm_zer_PT_wednesday$travel_time_p50)\n\n  Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   1.00   30.00   37.00   36.29   43.00   68.00 \n\n\nCode\n# add coordinates of destinations to travel time matrix\nttm_zer_PT_wednesday = ttm_zer_PT_wednesday |&gt;\n  left_join(POINTS, by = c(\"to_id\" = \"id\"))\n\n# interpolate estimates to get spatially smooth result\ntravel_times.interp &lt;- with(na.omit(ttm_zer_PT_wednesday), interp(lon, lat, travel_time_p50)) |&gt;\n  with(cbind(travel_time=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt;\n  as.data.frame() |&gt; na.omit()\n\n# find isochrone's bounding box to crop the map below\nbb_x &lt;- c(min(travel_times.interp$x), max(travel_times.interp$x))\nbb_y &lt;- c(min(travel_times.interp$y), max(travel_times.interp$y))\n# plot\nplotHP = ggplot(travel_times.interp) +\n  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +\n  geom_sf(data = REDEbase, color = \"gray55\", lwd = 0.5, alpha = 0.4) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_color_manual(values = c('Baixa' = 'black')) +\n  scale_x_continuous(expand = c(0, 0)) +\n  scale_y_continuous(expand = c(0, 0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) +\n  labs(\n    title = \"Reaching from Baixa (Carris + Metro)\",\n    subtitle = \"at 8am wednesday - 1 transf max\",\n    fill = \"Trip duration \\n[min]\",\n    color = ''\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\nplotHP\n\n\n\n\n\n\n\ndeparture_datetime_OFF = as.POSIXct(\"24-11-2024 22:00:00\", format = \"%d-%m-%Y %H:%M:%S\") # sunday evening\n\n# calculate travel time matrix\nttm_zer_PT_sunday = travel_time_matrix(r5r_network = r5r_lisboa,\n                              origins = BAIXA,\n                              destinations = POINTS,\n                              mode = mode,\n                              mode_egress = mode_egress,\n                              departure_datetime = departure_datetime_OFF, # new date\n                              max_walk_time = max_walk_time,\n                              max_trip_duration = max_trip_duration,\n                              time_window = time_window,\n                              max_rides = 2, # max 1 transfer\n                              verbose = FALSE)\n\nsummary(ttm_zer_PT_sunday$travel_time_p50)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   1.00   31.00   39.00   39.38   48.00   73.00  \n\n\nCode\n# add coordinates of destinations to travel time matrix\nttm_zer_PT_sunday = ttm_zer_PT_sunday |&gt;\n  left_join(POINTS, by = c(\"to_id\" = \"id\"))\n\n# interpolate estimates to get spatially smooth result\ntravel_times.interp &lt;- with(na.omit(ttm_zer_PT_sunday), interp(lon, lat, travel_time_p50)) |&gt;\n  with(cbind(travel_time=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt;\n  as.data.frame() |&gt; na.omit()\n\n# find isochrone's bounding box to crop the map below\nbb_x &lt;- c(min(travel_times.interp$x), max(travel_times.interp$x))\nbb_y &lt;- c(min(travel_times.interp$y), max(travel_times.interp$y))\n# plot\nplotOFF = ggplot(travel_times.interp) +\n  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +\n  geom_sf(data = REDEbase, color = \"gray55\", lwd = 0.5, alpha = 0.4) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_color_manual(values = c('Baixa' = 'black')) +\n  scale_x_continuous(expand = c(0, 0)) +\n  scale_y_continuous(expand = c(0, 0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) +\n  labs(\n    title = \"Reaching from Baixa (Carris + Metro)\",\n    subtitle = \"at 10pm sunday - 1 transf max\",\n    fill = \"Trip duration \\n[min]\",\n    color = ''\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\nplotOFF\n\n\n\n\n\n\nBased on Census 2021 (INE 2022), we can count how many people are reach.\n\n\nCode\npoplisboa = sum(POINTS$residents) #\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 15]) / poplisboa # 2.7%\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 30]) / poplisboa # 38.9%\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 45]) / poplisboa # 90.0%\n100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 &lt;= 60]) / poplisboa # 98.7%\n\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 15]) / poplisboa # 1.5%\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 30]) / poplisboa # 31.7%\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 45]) / poplisboa # 76.6%\n100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 &lt;= 60]) / poplisboa # 95.0%\n\n\n\n\n\nUp to…\nWednesday peak hour\nSunday evening\n\n\n\n\n30 min\n38.9%\n31.7%\n\n\n45 min\n90.0%\n76.6%\n\n\n60 min\n98.7%\n95.0%",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Scenarios"
-    ]
-  },
-  {
-    "objectID": "scenarios.html#new-metro-station-or-metro-line",
-    "href": "scenarios.html#new-metro-station-or-metro-line",
-    "title": "Scenarios",
-    "section": "New metro station or metro line",
-    "text": "New metro station or metro line\nLet’s create a new metro line or a new station in your city.\n\n\n\nNew pink line (expansion in Lisbon)\n\n\n\nMethodology\nFor that, an easy graphic interface software is the PTV Lines.\n\nLogin into PTV Lines (upper right corner) with the credentials that were sent to you.\nCreate a new scenario, and import an existing subway gtfs (.zip) - max 50 lines!\nEdit that scenario by creating stops and lines.\nExport the GTFS file.\nDuplicate your r5r folder (baseline scenario) and delete the network.dat file inside. Rename it as ..._ver1 and replace the gtfs.zip by the one you just exported.\nBuild a new network with that folder path.\n\n\n\nCreate a metro line with PTV Lines\nFirst, create new station points (S) and name them. As many as you need.\n\n\n\n\n\n\n\n\n\n\nThen, create a new line (L), name it something like “Expansion”, and create a new route (R). Name it 0 (you can edit later) and draw that line roughly by selecting an existing start station and connecting to your new stations.\n\n\n\n\n\nAdd trips to it (T), with a proper headway.\n\n\n\n\n\nAfter defining the weekday and weekend trips, go to the Outbound route and “Create opposite direction”, so you can have both directions now. Rename the line routes, something as “Start station - End station”.\n\n\n\n\n\n\n\nExtend a metro line with PTV Lines\nThis tutorial assumes that the stations for which the line will be extended to already exist (if not, see how to create new stations at Create a metro line with PTV Lines).\nThe extension is performed over a route. To access one, click on a transit line, and then on one of its routes.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOn the map, hover the Start/End buttons and click it to enable the extension mode.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOnce the extension mode is activated, your cursor will turn into a pen icon and you just have to click on the station you want to expand your line to.\n\n\n\n\n\n\nRouting modes\n\n\n\nBe aware of the several modes available on the button that is now displayed (automatic routing mode, street routing mode, straight line mode or exclusive PT routing mode). Make sure you use the one that best suits your use case.\n\n\n\n\n\n\n\nOnce you click on the station, you should see the new station in the route window, on the left part of the screen. You should adjust the run and dwell times accordingly.\n\n\n\n\n\n\n\nVisualizing time diagram\nGo to Connections, and click on a connecting station to visualize the time diagram of connections with other routes.\n\n\n\n\n\n\n\nGenerate GTFS\nAfter all your edits, go back to the dashboard, and click on “Export supply”. Export as GTFS (.zip)\n\nYour scenario will be saved in your dashboard. You can edit or duplicate them later.\n\n\n\n\n\n\nYour task\n\n\n\nRun some routing and accessibility analysis, and compare with the baseline scenario.\n\n\nSee Pereira and Herszenhut (2023) Chapter 6 for an example.\nIf you do multi-modal analysis, you may need to use GTFShift::unify() to merge the new gtfs with other modes and create new transfers.",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Scenarios"
+      "VISUM"
     ]
   },
   {
@@ -695,132 +836,5 @@
       "Software",
       "SUMO"
     ]
-  },
-  {
-    "objectID": "visum.html",
-    "href": "visum.html",
-    "title": "Visum",
-    "section": "",
-    "text": "This tutorial is only for Windows\n\n\n\nIf you do not use Windows, you need to have a Virtual Machine. If you have an Arm processor this won’t work, even with a VM.\nIn this tutorial we will guide you to install and start using Visum.\nPTV Visum is a macro simulation software, non-free, available only for Windows OS.",
-    "crumbs": [
-      "Home",
-      "Software",
-      "VISUM"
-    ]
-  },
-  {
-    "objectID": "visum.html#installation",
-    "href": "visum.html#installation",
-    "title": "Visum",
-    "section": "Installation",
-    "text": "Installation\nPTV Visum is available to download at: https://cgi.ptvgroup.com/visionSetups/en/filter;product=PTV%20Visum\nChoose the most recent version (recommended) ≤ 2024. The file may be more than 1.3 GB.\nIf you don’t have Python installed already in your PC, don’t worry, you can opt to install it along the Visum setup.\nThe available instructions are very straight forward.\n\nLicence activation\n\nYou should have received a server address of where the CERIS licence lives. If not, contact the course teacher.\n\nTo use Visum with the CERIS licence, you need to download PTV Licence Manager (Standard).\n\nIt will ask you to download also another tiny software CodeMeter Runtime. Say yes!\nAfter install it, open PTV Licence Manager, and click on ⚙️ Edit CodeMeter settings:\n\nAdd ➕ CodeMeter server, and insert the server address that was sent to you.\n\nPress close (go back) and now 🔍 Find Licences.\n\nAn available licence row should now appear on the list 🎉. Close it.\n\n\n\n\n\n\nFor any reason 🧙‍♂️ the licence is not accessed if you are connected to the IST DECivil ethernet network.",
-    "crumbs": [
-      "Home",
-      "Software",
-      "VISUM"
-    ]
-  },
-  {
-    "objectID": "visum.html#getting-started",
-    "href": "visum.html#getting-started",
-    "title": "Visum",
-    "section": "Getting started",
-    "text": "Getting started\nWhen launching Visum for the first time, you should have something like this. This is a good signal, it means that the connection to the licence server is running smoothly and that you are ready to start working on your projects! 🚀\n\nThe “Tutorial First Steps” may be wise to follow if you are not familiar with the software. It covers the following topics:\n\nNetwork editing (private and public transport)\nProcedure sequence\nGraphic parameters\n\nPTV also offers online tutorials to get familiar with the software.",
-    "crumbs": [
-      "Home",
-      "Software",
-      "VISUM"
-    ]
-  },
-  {
-    "objectID": "accessibility.html",
-    "href": "accessibility.html",
-    "title": "Accessibility",
-    "section": "",
-    "text": "Urban accessibility is defined as how easily people can reach opportunities (jobs, education, services) given the spatial layout of populations, transport networks, and land use.\nIt contrasts with mobility (how people move).\nPlanning should shift focus from maximizing movement to maximizing access (R. H. Pereira and Herszenhut 2023).\n👉 In this exercises we will adapt from r5r vignettes “Isochrones” and “Accessibility” (R. H. M. Pereira et al. 2021)",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Accessibility"
-    ]
-  },
-  {
-    "objectID": "accessibility.html#public-transit",
-    "href": "accessibility.html#public-transit",
-    "title": "Accessibility",
-    "section": "Public Transit",
-    "text": "Public Transit\nOn a Wednesday at 8:00 a.m., how long will it take me to get from downtown using the subway and bus, with 1 transfer allowed?\n\n# define some parameters\nmode = c(\"SUBWAY\", \"BUS\") # TRANSIT, BUS, SUBWAY, RAIL, CAR, FERRY, WALK, BIKE, TRAM\nmode_egress = \"WALK\" # can be BIKE\nmax_walk_time = 10 # in minutes\nmax_trip_duration = 90 # in minutes\ntime_window = 120 # in minutes\ntime_intervals &lt;- seq(0, 100, 10)\ndeparture_datetime_HP = as.POSIXct(\"20-11-2024 8:00:00\", format = \"%d-%m-%Y %H:%M:%S\") # quarta-feira\n\n# calculate travel time matrix\nttm_zer_HP_PT = travel_time_matrix(r5r_network = r5r_lisboa,\n                              origins = BAIXA,\n                              destinations = POINTS,\n                              mode = mode,\n                              mode_egress = mode_egress,\n                              departure_datetime = departure_datetime_HP,\n                              max_walk_time = max_walk_time,\n                              max_trip_duration = max_trip_duration,\n                              time_window = time_window,\n                              max_rides = 2, # max 1 transfer\n                              verbose = FALSE)\n\nsummary(ttm_zer_HP_PT$travel_time_p50)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n    1.0    30.0    38.0    37.7    45.0    77.0 \n\n# add coordinates of destinations to travel time matrix\nttm_zer_HP_PT = ttm_zer_HP_PT |&gt;\n  left_join(POINTS, by = c(\"to_id\" = \"id\"))\n\n# interpolate estimates to get spatially smooth result\ntravel_times.interp &lt;- with(na.omit(ttm_zer_HP_PT), interp(lon, lat, travel_time_p50)) |&gt;\n  with(cbind(travel_time=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt;\n  as.data.frame() |&gt; na.omit()\n\n\n\nCode\n# find isochrone's bounding box to crop the map below\nbb_x &lt;- c(min(travel_times.interp$x), max(travel_times.interp$x))\nbb_y &lt;- c(min(travel_times.interp$y), max(travel_times.interp$y))\n# plot\nplotHP = ggplot(travel_times.interp) +\n  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +\n  geom_sf(data = REDEbase, color = \"gray55\", lwd = 0.5, alpha = 0.4) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_color_manual(values = c('Baixa' = 'black')) +\n  scale_x_continuous(expand = c(0, 0)) +\n  scale_y_continuous(expand = c(0, 0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) +\n  labs(\n    title = \"Reaching from Baixa (Carris + Metro)\",\n    subtitle = \"at 8am wednesday - 1 transf max\",\n    fill = \"Trip duration \\n[min]\",\n    color = ''\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\nplotHP",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Accessibility"
-    ]
-  },
-  {
-    "objectID": "accessibility.html#car",
-    "href": "accessibility.html#car",
-    "title": "Accessibility",
-    "section": "Car",
-    "text": "Car\n\nmode = \"CAR\"\n\n# calculate travel time matrix\nttm_zer_HP_car = travel_time_matrix(r5r_network = r5r_lisboa,\n                              origins = BAIXA,\n                              destinations = POINTS,\n                              mode = mode,\n                              mode_egress = mode_egress,\n                              departure_datetime = departure_datetime_HP,\n                              max_walk_time = max_walk_time, # irrelevant\n                              max_trip_duration = max_trip_duration, \n                              time_window = time_window, # irrelevant\n                              verbose = FALSE)\n\nsummary(ttm_zer_HP_car$travel_time_p50)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   2.00   11.00   13.00   12.87   15.00   34.00\n\n\nCode\n# add coordinates of destinations to travel time matrix\nttm_zer_HP_car = ttm_zer_HP_car |&gt;\n  left_join(POINTS, by = c(\"to_id\" = \"id\"))\n\n# interpolate estimates to get spatially smooth result\ntravel_times.interp &lt;- with(na.omit(ttm_zer_HP_car), interp(lon, lat, travel_time_p50)) |&gt;\n  with(cbind(travel_time=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt;\n  as.data.frame() |&gt; na.omit()\n\n# plot\n# find isochrone's bounding box to crop the map below\nbb_x &lt;- c(min(travel_times.interp$x), max(travel_times.interp$x))\nbb_y &lt;- c(min(travel_times.interp$y), max(travel_times.interp$y))\n# plot\nplotHP_car = ggplot(travel_times.interp) +\n  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +\n  geom_sf(data = REDEbase, color = \"gray55\", lwd = 0.5, alpha = 0.4) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_color_manual(values = c('Baixa' = 'black')) +\n  scale_x_continuous(expand = c(0, 0)) +\n  scale_y_continuous(expand = c(0, 0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) +\n  labs(\n    title = \"Reaching from Baixa (Car)\",\n    subtitle = \"at 8am wednesday\",\n    fill = \"Trip duration \\n[min]\",\n    color = ''\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\nplotHP_car",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Accessibility"
-    ]
-  },
-  {
-    "objectID": "accessibility.html#bike",
-    "href": "accessibility.html#bike",
-    "title": "Accessibility",
-    "section": "Bike",
-    "text": "Bike\n\nmode = \"BICYCLE\"\nmax_lts = 3\n\n# calculate travel time matrix\nttm_zer_HP_bike = travel_time_matrix(r5r_network = r5r_lisboa,\n                              origins = BAIXA,\n                              destinations = POINTS,\n                              mode = mode,\n                              max_lts = max_lts,\n                              mode_egress = mode_egress, # irrelevant\n                              departure_datetime = departure_datetime_HP, # irrelevant\n                              max_walk_time = max_walk_time, # irrelevant\n                              max_trip_duration = max_trip_duration,\n                              time_window = time_window, # irrelevant\n                              verbose = FALSE)\n\nsummary(ttm_zer_HP_bike$travel_time_p50)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   0.00   29.00   41.00   38.96   50.00   76.00 \n\n\nCode\n# add coordinates of destinations to travel time matrix\nttm_zer_HP_bike = ttm_zer_HP_bike |&gt;\n  left_join(POINTS, by = c(\"to_id\" = \"id\"))\n\n# interpolate estimates to get spatially smooth result\ntravel_times.interp &lt;- with(na.omit(ttm_zer_HP_bike), interp(lon, lat, travel_time_p50)) |&gt;\n  with(cbind(travel_time=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt;\n  as.data.frame() |&gt; na.omit()\n\n# plot\n# find isochrone's bounding box to crop the map below\nbb_x &lt;- c(min(travel_times.interp$x), max(travel_times.interp$x))\nbb_y &lt;- c(min(travel_times.interp$y), max(travel_times.interp$y))\n# plot\nplotHP_car = ggplot(travel_times.interp) +\n  geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +\n  geom_sf(data = REDEbase, color = \"gray55\", lwd = 0.5, alpha = 0.4) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_color_manual(values = c('Baixa' = 'black')) +\n  scale_x_continuous(expand = c(0, 0)) +\n  scale_y_continuous(expand = c(0, 0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) +\n  labs(\n    title = \"Reaching from Baixa (Bike)\",\n    subtitle = \"at 8am wednesday - max LTS 3\",\n    fill = \"Trip duration \\n[min]\",\n    color = ''\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\nplotHP_car",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Accessibility"
-    ]
-  },
-  {
-    "objectID": "accessibility.html#easier-approach",
-    "href": "accessibility.html#easier-approach",
-    "title": "Accessibility",
-    "section": "Easier approach",
-    "text": "Easier approach\nThere are other ways of making these maps, but with lower details, such as no destinations. See r5r::isochrones() function.\nThis function also allows to find service areas.\n\n# estimate line-based isochrone from origin\niso_lines = isochrone(\n  r5r_network = r5r_lisboa,\n  origins = BAIXA,\n  mode = \"walk\",\n  polygon_output = FALSE,\n  departure_datetime = departure_datetime_HP,\n  cutoffs = seq(0, 120, 20)\n  )\n\n\n\nCode\n# plot\n# used cols4all::c4a_gui()\ncolors &lt;- c('#FFFFCC','#C7E9B4', '#7FCDBB','#41B6C4','#2C7FB8','#253494','black')\n# last one for the origin point\n\nggplot() +\n  geom_sf(data = iso_lines, aes(color=factor(isochrone))) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +\n  scale_color_manual(values = colors) +\n  labs(\n    title = \"Reaching from Baixa (Walk)\",\n    subtitle = \"Service area\",\n    color = \"Trip duration \\n[min]\"\n  ) +\n  theme_minimal() +\n  theme(axis.title = element_blank())",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Accessibility"
-    ]
-  },
-  {
-    "objectID": "accessibility.html#spatial-interpolation",
-    "href": "accessibility.html#spatial-interpolation",
-    "title": "Accessibility",
-    "section": "Spatial interpolation",
-    "text": "Spatial interpolation\n\n# interpolate estimates to get spatially smooth result\naccess_schools &lt;- access1 %&gt;% \n  filter(opportunity == \"schools\") %&gt;%\n  inner_join(POINTS |&gt; mutate(id = as.integer(id)), by='id') %&gt;%\n  with(interp::interp(lon, lat, accessibility)) %&gt;%\n  with(cbind(acc=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) %&gt;% as.data.frame() %&gt;% na.omit() %&gt;%\n  mutate(opportunity = \"schools\")\n\naccess_health &lt;- access1 %&gt;% \n  filter(opportunity == \"healthcare\") %&gt;%\n  inner_join(POINTS |&gt; mutate(id = as.integer(id)), by='id') %&gt;%\n  with(interp::interp(lon, lat, accessibility)) %&gt;%\n  with(cbind(acc=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) %&gt;% as.data.frame() %&gt;% na.omit() %&gt;%\n  mutate(opportunity = \"healthcare\")\n\naccess_sports &lt;- access1 %&gt;% \n  filter(opportunity == \"sport\") %&gt;%\n  inner_join(POINTS |&gt; mutate(id = as.integer(id)), by='id') %&gt;%\n  with(interp::interp(lon, lat, accessibility)) %&gt;%\n  with(cbind(acc=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) %&gt;% as.data.frame() %&gt;% na.omit() %&gt;%\n  mutate(opportunity = \"sports\")\n\n\naccess.interp &lt;- rbind(access_schools, access_health, access_sports)\n\n# plot\nggplot(na.omit(access.interp)) +\n  geom_contour_filled(aes(x=x, y=y, z=acc), alpha=.7) +\n  geom_sf(data = REDEbase, color = \"gray55\", lwd=0.5, alpha = 0.5) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_x_continuous(expand=c(0,0)) +\n  scale_y_continuous(expand=c(0,0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y, datum = NA) + \n  labs(fill = \"Number of\\nfacilities within\\n20 minutes\") +\n  theme_void() +\n  facet_wrap(~opportunity)",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Accessibility"
-    ]
-  },
-  {
-    "objectID": "accessibility.html#population-estimate",
-    "href": "accessibility.html#population-estimate",
-    "title": "Accessibility",
-    "section": "Population estimate",
-    "text": "Population estimate\nWe can also estimate population reach from downtown with PTransit (1 transfer, peak hour)\n\n\nCode\n# calculate population accessible\naccess &lt;- ttm_zer_HP_PT |&gt; # estimaded before!\n  filter(travel_time_p50 &lt;= 60) |&gt;      # keep trips within 30 minutes\n  group_by(to_id) |&gt;\n  summarise(acc = sum(residents), .groups = \"drop\")\naccess = left_join(access, ttm_zer_HP_PT)\n\n# interpolate estimates to get spatially smooth result\naccess.interp = access |&gt;\n  with(interp(lon, lat, acc)) |&gt;\n  with(cbind(acc=as.vector(z),  # Column-major order\n             x=rep(x, times=length(y)),\n             y=rep(y, each=length(x)))) |&gt; as.data.frame() |&gt; na.omit()\n\n# plot\nggplot(na.omit(access.interp)) +\n  geom_contour_filled(aes(x=x, y=y, z=acc), alpha=.8) +\n  geom_sf(data = REDEbase, color = \"gray55\", lwd=0.5, alpha = 0.5) +\n  geom_sf(data = city_limit, fill = \"transparent\", color = \"grey30\") +\n  scale_fill_viridis_d(direction = -1, option = 'B') +\n  scale_x_continuous(expand=c(0,0)) +\n  scale_y_continuous(expand=c(0,0)) +\n  coord_sf(xlim = bb_x, ylim = bb_y) + \n  labs(\n    title = \"Reaching population from Baixa (Carris + Metro)\",\n    subtitle = \"at 8am wednesday - 1 transf max\",\n    fill = \"Population in\\n60 minutos\") +\n  theme_minimal() +\n  theme(axis.title = element_blank())\n\n\n\n\n\n\n\nHow many residents can reach downtown in 15, 30, 45 and 60 minutes?\n\npoplisboa = sum(POINTS$residents) #\n100* sum(access$residents[access$travel_time_p50 &lt;= 15]) / poplisboa # 2.5%\n100* sum(access$residents[access$travel_time_p50 &lt;= 30]) / poplisboa # 38.6%\n100* sum(access$residents[access$travel_time_p50 &lt;= 45]) / poplisboa # 84.8%\n100* sum(access$residents[access$travel_time_p50 &lt;= 60]) / poplisboa # 97.3%\n\n\n\n\n\n\n\n\nTrip duration\n(up to…)\nResidents\n\n\n\n\n15 min\n2.5 %\n\n\n30 min\n38.6 %\n\n\n45 min\n84.8%\n\n\n60 min\n97.3%\n\n\n\n\n\n\n\n\n\nOther accessibility measures\n\n\n\nRead Chapter 3 from R. H. Pereira and Herszenhut (2023) for other accessibility estimates.\n\n\n\nStop r5r model\n\nr5r::stop_r5(r5r_lisboa)\nrJava::.jgc(R.gc = TRUE)",
-    "crumbs": [
-      "Home",
-      "r5r",
-      "Accessibility"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Modelling of Transport Systems",
-    "section": "",
-    "text": "This website makes available materials, data and tutorials to use at the Modelling of Transport Systems course of the Master in Transportation Systems at Instituto Superior Técnico - University of Lisbon.\n \nSee the Micro modelling home assignment.\n\n\n\n\n\n\nThis website is under construction\n\n\n\nIf you have any suggestions, please contact the course teacher."
   }
 ]
