@@ -16,9 +16,11 @@ First, we can have a look at the available routes on both time periods.
 We use [`tidytransit::filter_feed_by_date()`](https://r-transit.github.io/tidytransit/reference/filter_feed_by_date.html) function, to filter our GTFS by **day** and by **hour**.
 
 ```{r}
+#| code-fold: true
 # Example with Carris
 carris_different_trips_all = length(unique(carris_gtfs$trips$trip_id)) # 31827
 
+# wednesday morning
 carris_wednesday = carris_gtfs |> filter_feed_by_date("2024-11-20")
 carris_different_trips_wednesday = length(unique(carris_wednesday$trips$trip_id)) # 11642
 carris_wednesday_peakh = carris_gtfs |> filter_feed_by_date("2024-11-20",
@@ -26,6 +28,7 @@ carris_wednesday_peakh = carris_gtfs |> filter_feed_by_date("2024-11-20",
                                                             max_arrival_time = "09:00:00")
 carris_different_trips_wednesday_h = length(unique(carris_wednesday_peakh$trips$trip_id)) # 1345
 
+# sunday evening
 carris_sunday = carris_gtfs |> filter_feed_by_date("2024-11-24")
 carris_different_trips_sunday = length(unique(carris_sunday$trips$trip_id)) # 6424
 carris_sunday_peakh = carris_gtfs |> filter_feed_by_date("2024-11-24",
@@ -33,6 +36,7 @@ carris_sunday_peakh = carris_gtfs |> filter_feed_by_date("2024-11-24",
                                                           max_arrival_time = "23:00:00")
 carris_different_trips_sunday_h = length(unique(carris_sunday_peakh$trips$trip_id)) # 260
 
+# comparision
 carris_different_trips_sunday/carris_different_trips_wednesday # 55%
 carris_different_trips_sunday_h/carris_different_trips_wednesday_h # 19%
 ```
@@ -78,7 +82,7 @@ summary(trip_duration_cais$travel_time/60) # in minutos
    0.00   18.64   28.28   28.39   37.39   63.95 
 ```
 
-Not counting the waiting time at *Cais do Sodré* it is possible to reach 931 stops in the network (40%) during rush hour—within the 1 hour time frame defined.
+Not counting the waiting time at *Cais do Sodré* it is possible to reach 931 stops in the network (**40%**) during rush hour—within the 1 hour time frame defined.
 
 ```{r}
 #| code-fold: true
