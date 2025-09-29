@@ -24,9 +24,25 @@ For the [Streets4All](https://streets4all.tecnico.ulisboa.pt/) project, and [Sit
 -   Sport
 -   Tourism
 
-::: {.callout-note appearance="simple"}
+### Hot export tool
+
+Using the HOT Export Tool, you can select a few categories, and export as `.gpkg` or `.geojson`.
+
+::: callout-tip
+## Select 6 to 8 categories
+
+For instance: schools, hospitals, ATMs, parks, supermarkets, and restaurants.
+
+Your analysis will be made by comparing the categories you exported.
+:::
+
+For instance: schools, hospitals, ATMs, parks, supermarkets, and restaurants.
+
 ### Script
 
+More flexible approach, but requires more codding 🧑‍💻
+
+::: {.callout-note appearance="simple"}
 See the script we did for [all Portugal](https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_landuse.gpkg), and the dataset for [Lisbon](https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_lisbon.geojson) (2024): [data_extract.R (line 146)](https://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146)
 :::
 
@@ -54,30 +70,9 @@ plot(city_limit)
 
 ![](images/clipboard-589159366.png){fig-align="center" width="400"}
 
-#### Squared
-
-Make a grid that covers the city polygon
-
-```{r}
-GRID = city_limit |>
-  st_transform(crs = 3857) |> # to a projected crs
-  st_make_grid(cellsize = 400, # meters, we are using a projected crs
-               what = "polygons",
-               square = TRUE) |> # if FALSE, hexagons
-  st_sf() |> # from list to sf
-  st_transform(crs = 4326) |>  # back to WGS84
-  st_intersection(city_limit$geom) # crop (optional)
-
-GRID = GRID |>  
-  rename(geometry = st_make_grid.st_transform.city_limit..crs...3857...cellsize...400..) |> 
-  mutate(id = c(1:nrow(GRID))) # just to give an ID to each cell 
-  
-mapview(GRID, alpha.regions = 0.2)
-```
-
-![The color is only referent to the ID](images/clipboard-2059408309.png){fig-align="center" width="633"}
-
 #### Hexagonal using `h3jsr`
+
+Make an hexagonal grid that covers the city polygon, using the universal [H3 grid](https://h3geo.org/).
 
 ```{r}
 library(h3jsr)
@@ -98,7 +93,36 @@ h3_index = GRID_h3 |> st_drop_geometry() # save h3_address for later
 mapview(GRID_h3)
 ```
 
-![](images/clipboard-738867051.png){fig-align="center" width="623"}
+![The color is only referent to the id](images/clipboard-738867051.png){fig-align="center" width="623"}
+
+#### Squared
+
+Make a squared grid that covers the city polygon
+
+```{r}
+GRID = city_limit |>
+  st_transform(crs = 3857) |> # to a projected crs
+  st_make_grid(cellsize = 400, # meters, we are using a projected crs
+               what = "polygons",
+               square = TRUE) |> # if FALSE, hexagons
+  st_sf() |> # from list to sf
+  st_transform(crs = 4326) |>  # back to WGS84
+  st_intersection(city_limit$geom) # crop (optional)
+
+GRID = GRID |>  
+  rename(geometry = st_make_grid.st_transform.city_limit..crs...3857...cellsize...400..) |> 
+  mutate(id = c(1:nrow(GRID))) # just to give an ID to each cell 
+  
+mapview(GRID, alpha.regions = 0.2)
+```
+
+![The color is only referent to the id](images/clipboard-2059408309.png){fig-align="center" width="633"}
+
+::: callout-tip
+## Tip
+
+You should stick with **just one of them**: squares or hexagons.
+:::
 
 ### Areas with information
 
@@ -107,9 +131,13 @@ Now, we can associate these areas (and their centroids) with all the information
 #### With POIs
 
 ```{r}
-# Points of interest
+# Points of interest from script
 POIs = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/POIs_Lx.gpkg")
+```
 
+```{r}
+#| code-fold: true
+#| code-summary: "Code for squares"
 # count points by type in areas
 GRID_pois = POIs |> st_join(GRID, join = st_within)
 
@@ -135,7 +163,8 @@ mapview(GRID_pois, zcol = "restaurant") # for instance
 
 ![](images/clipboard-1766998803.png)
 
-The result is a grid with too many columns (one for each type). Consider using only the *group*.
+The result is a grid with too many columns (one for each type).
+Consider using only the *group*.
 
 #### With Census
 
@@ -168,12 +197,13 @@ mapview(GRID_census, zcol = "residents")
 
 ```{r}
 GRID_data = GRID_census |> left_join(GRID_pois |> st_drop_geometry())
-
 ```
 
 The same for **Hex grid**
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Code for Hexagons"
 # POIs
 GRIDhex_pois = POIs |> st_join(GRID_h3, join = st_within)
 
@@ -213,30 +243,28 @@ mapview(GRIDhex_data, zcol = "residents")
 
 ## Centroid coordinates
 
-We may want to have this information as points, for instance for routing to opportunities.
+We may want to have this information as **points**, for instance for routing to opportunities.
 
 ```{r}
-# squares
-POINTSsq = GRID_data |> 
-  st_centroid()
-GRID_data = GRID_data |> 
-  mutate(lon = st_coordinates(POINTSsq)[,1],
-         lat = st_coordinates(POINTSsq)[,2])
-
 # hexagons
 POINTShex = GRIDhex_data |> 
   st_centroid()
 GRIDhex_data = GRIDhex_data |> 
   mutate(lon = st_coordinates(POINTShex)[,1],
          lat = st_coordinates(POINTShex)[,2])
-```
 
-You should stick with just one of them: squares or hexagons.
+# squares
+POINTSsq = GRID_data |> 
+  st_centroid()
+GRID_data = GRID_data |> 
+  mutate(lon = st_coordinates(POINTSsq)[,1],
+         lat = st_coordinates(POINTSsq)[,2])
+```
 
 Don't forget to save your data, this will be very useful for the next exercises.
 
 ```{r}
-saveRDS(GRID_data, "data/Lisbon/GRID_data.rds")
+saveRDS(GRID_data, "data/Lisbon/GRIDsq_data.rds")
 saveRDS(GRIDhex_data, "data/Lisbon/GRIDhex_data.rds")
 ```
 
