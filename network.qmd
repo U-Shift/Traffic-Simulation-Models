@@ -8,6 +8,12 @@ engine: knitr
 
 In this chapter we will guide you through the data requirements, data collection, and setting up a multi-modal network with r5r.
 
+::: callout-tip
+## Tip
+
+You should start an R script with all the data preparation, such as `data_prep.R`
+:::
+
 ## Data requirements
 
 You will need **R** and [`r5r`](https://ipeagit.github.io/r5r/index.html) [@pereira2021] package installed on your computer.
@@ -38,7 +44,8 @@ This is the most used source of road network data for transportation analysis in
 Although it can be not 100% accurate, OSM is a good source of data for most of the cases.
 :::
 
-You can access it's visualization tool at [www.openstreetmap.org](https://www.openstreetmap.org/). To edit the map, you can use the [Editor](https://www.openstreetmap.org/edit), once you register.
+You can access it's visualization tool at [www.openstreetmap.org](https://www.openstreetmap.org/).
+To edit the map, you can use the [Editor](https://www.openstreetmap.org/edit), once you register.
 
 If you want to **download** the data, you can use the following tools.
 
@@ -53,7 +60,8 @@ This interactive tool helps you to select the **region** you want to extract (or
 
 [^4]: For instance, see here for Germany: <https://opendatalab.de/projects/geojson-utilities/>
 
-Access via [export.hotosm.org](https://export.hotosm.org/)[^5]. Select format as `.gpkg` and `.pbf`.
+Access via [export.hotosm.org](https://export.hotosm.org/)[^5].
+Select format as `.gpkg` and `.pbf`.
 
 [^5]: You need an OSM account to use it.
 
@@ -67,11 +75,14 @@ After the export, you can read in R using the `sf` package:
 #| fig-format: png
 #| message: false
 #| warnings: false
-Lisbon_roads = sf::st_read("data/Lisbon/REDEbase_Lx.gpkg", quiet = TRUE)
-mapview::mapview(Lisbon_roads, zcol = "highway")
+road_network = sf::st_read("data/Lisbon/Lisbon_road_network.gpkg", quiet = TRUE)
+road_network_base = road_network |>
+  filter(highway %in% c("primary", "secondary", "tertiary", "trunk", "motorway")) |> 
+  select(osm_id, name, highway)
+mapview::mapview(road_network_base, zcol = "highway")
 ```
 
-![](images/clipboard-3335310959.png)
+![](images/clipboard-2775824022.png){fig-align="center"}
 
 ### OSM in R
 
@@ -98,9 +109,11 @@ plot(Malta_main_roads["highway"])
 
 ### GTFS
 
-General Transit Feed Specification (GTFS) is [standard format](https://developers.google.com/transit/gtfs/reference) for documenting public transportation information, including: routes, schedules, stop locations, calendar patterns, trips, and possible transfers. Transit agencies are responsible for maintaining the data up-to-date.
+General Transit Feed Specification (GTFS) is [standard format](https://developers.google.com/transit/gtfs/reference) for documenting public transportation information, including: routes, schedules, stop locations, calendar patterns, trips, and possible transfers.
+Transit agencies are responsible for maintaining the data up-to-date.
 
-This information is used in several applications, such as Google Maps, to provide public transportation directions. It can be offered for a city, a region, or even a whole country, depending on the PT agency.
+This information is used in several applications, such as Google Maps, to provide public transportation directions.
+It can be offered for a city, a region, or even a whole country, depending on the PT agency.
 
 The recent version 2 of the GTFS standard includes more information, such as **real-time data**.
 
@@ -131,7 +144,8 @@ Be aware that they may share the same function names, so it is important to use 
 
 ### National Access Points
 
-The European Union has a directive that requires the member states to provide access to transportation data. Data includes not only **Public Transportation** data, but also **road network**s, car **parking**, and other transportation-related information.
+The European Union has a directive that requires the member states to provide access to transportation data.
+Data includes not only **Public Transportation** data, but also **road network**s, car **parking**, and other transportation-related information.
 
 [List of the European Union members states with National Access Points for Transportation data](https://transport.ec.europa.eu/transport-themes/smart-mobility/road/its-directive-and-action-plan/national-access-points_en)
 

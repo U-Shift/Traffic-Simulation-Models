@@ -41,7 +41,7 @@ BAIXA$lon = st_coordinates(BAIXA)[,1]
 BAIXA$lat = st_coordinates(BAIXA)[,2]
 
 # Road network major roads
-REDEbase = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/REDEbase_Lx.gpkg")
+road_network_base = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/REDEbase_Lx.gpkg")
 
 # City limit
 city_limit = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/Lisboa_lim.gpkg")
@@ -107,7 +107,7 @@ bb_y <- c(min(travel_times.interp$y), max(travel_times.interp$y))
 # plot
 plotHP = ggplot(travel_times.interp) +
   geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +
-  geom_sf(data = REDEbase, color = "gray55", lwd = 0.5, alpha = 0.4) +
+  geom_sf(data = road_network_base, color = "gray55", lwd = 0.5, alpha = 0.4) +
   geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
   geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +
   scale_fill_viridis_d(direction = -1, option = 'B') +
@@ -175,7 +175,7 @@ bb_y <- c(min(travel_times.interp$y), max(travel_times.interp$y))
 # plot
 plotHP_car = ggplot(travel_times.interp) +
   geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +
-  geom_sf(data = REDEbase, color = "gray55", lwd = 0.5, alpha = 0.4) +
+  geom_sf(data = road_network_base, color = "gray55", lwd = 0.5, alpha = 0.4) +
   geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
   geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +
   scale_fill_viridis_d(direction = -1, option = 'B') +
@@ -243,7 +243,7 @@ bb_y <- c(min(travel_times.interp$y), max(travel_times.interp$y))
 # plot
 plotHP_car = ggplot(travel_times.interp) +
   geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +
-  geom_sf(data = REDEbase, color = "gray55", lwd = 0.5, alpha = 0.4) +
+  geom_sf(data = road_network_base, color = "gray55", lwd = 0.5, alpha = 0.4) +
   geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
   geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +
   scale_fill_viridis_d(direction = -1, option = 'B') +
@@ -265,7 +265,8 @@ plotHP_car
 
 ## Easier approach
 
-There are other ways of making these maps, but with lower details, such as **no destinations**. See [`r5r::isochrones()`](https://ipeagit.github.io/r5r/reference/isochrone.html) function.
+There are other ways of making these maps, but with lower details, such as **no destinations**.
+See [`r5r::isochrones()`](https://ipeagit.github.io/r5r/reference/isochrone.html) function.
 
 This function also allows to find service areas.
 
@@ -431,7 +432,7 @@ access.interp <- rbind(access_schools, access_health, access_sports)
 # plot
 ggplot(na.omit(access.interp)) +
   geom_contour_filled(aes(x=x, y=y, z=acc), alpha=.7) +
-  geom_sf(data = REDEbase, color = "gray55", lwd=0.5, alpha = 0.5) +
+  geom_sf(data = road_network_base, color = "gray55", lwd=0.5, alpha = 0.5) +
   geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
   scale_fill_viridis_d(direction = -1, option = 'B') +
   scale_x_continuous(expand=c(0,0)) +
@@ -467,7 +468,7 @@ access.interp = access |>
 # plot
 ggplot(na.omit(access.interp)) +
   geom_contour_filled(aes(x=x, y=y, z=acc), alpha=.8) +
-  geom_sf(data = REDEbase, color = "gray55", lwd=0.5, alpha = 0.5) +
+  geom_sf(data = road_network_base, color = "gray55", lwd=0.5, alpha = 0.5) +
   geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
   scale_fill_viridis_d(direction = -1, option = 'B') +
   scale_x_continuous(expand=c(0,0)) +

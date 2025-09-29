@@ -79,7 +79,7 @@ bb_y <- c(min(travel_times.interp$y), max(travel_times.interp$y))
 # plot
 plotHP = ggplot(travel_times.interp) +
   geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +
-  geom_sf(data = REDEbase, color = "gray55", lwd = 0.5, alpha = 0.4) +
+  geom_sf(data = road_network_base, color = "gray55", lwd = 0.5, alpha = 0.4) +
   geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
   geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +
   scale_fill_viridis_d(direction = -1, option = 'B') +
@@ -147,7 +147,7 @@ bb_y <- c(min(travel_times.interp$y), max(travel_times.interp$y))
 # plot
 plotOFF = ggplot(travel_times.interp) +
   geom_contour_filled(aes(x = x, y = y, z = travel_time), alpha = .7) +
-  geom_sf(data = REDEbase, color = "gray55", lwd = 0.5, alpha = 0.4) +
+  geom_sf(data = road_network_base, color = "gray55", lwd = 0.5, alpha = 0.4) +
   geom_sf(data = city_limit, fill = "transparent", color = "grey30") +
   geom_point(aes(x = lon, y = lat, color = 'Baixa'), data = BAIXA) +
   scale_fill_viridis_d(direction = -1, option = 'B') +
