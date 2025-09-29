@@ -14,36 +14,232 @@ If you have any suggestions, please contact the course teacher.
 
 ## Origins and Destinations
 
+::: callout-note
+### OD data
+
 If you have **travel survey** data, for some exercises you may use that one.
+See also [Jittering](jittering.qmd), if needed.
 
 For all the other, we can simply use **census** data.
+:::
+
+When using census data, for this exercises we can consider all-to-all origins and destinations
+
+```{r}
+library(sf)
+POINTS = st_read("data/Lisbon/Censos_Lx.gpkg")
+nrow(POINTS) # 2822
+sum(POINTS$residents) # 5.457.796
+```
+
+With census data, each statistical unit represents \~300 residents.
+In Lisbon, we have 2822 census units.
+
+Routing between all origins and destinations (2822 x 2822 = 7.963.684 OD pairs) can potentially be a long-duration process.
+Nothing that r5r wouldn't handle!
+
+But here we will consider a `city_center` location, and route our census population to the city center.
+Search in an online map the coordinates for a point that you would like to consider your attractor.
+
+```{r}
+# Create origin point - Baixa / Downtown
+city_center = data.frame(id = "1", lat = 38.711884, lon = -9.137313) |>
+  st_as_sf(coords = c('lon', 'lat'), crs = 4326)
+city_center$lon = st_coordinates(city_center)[,1]
+city_center$lat = st_coordinates(city_center)[,2]
+```
 
 ## Travel Time Matrix
 
-### Egress mode
+```{r}
+# load packages
+library(tidyverse)
+options(java.parameters = '-Xmx16G') # RAM to 16GB
+library(r5r)
 
-The transport mode used after egress from the last public transport. It can be either `WALK`, `BICYCLE` or `CAR`. Defaults to `WALK`. Ignored when public transport is not used.
+# read network
+r5r_lisboa = build_network("data/Lisbon/r5r")
+```
 
-### LTS
+There are many options to choose from when estimating a [`travel_time_matrix`](https://ipeagit.github.io/r5r/reference/travel_time_matrix.html).
 
-The maximum level of traffic stress that cyclists will tolerate. A value of 1 means cyclists will only travel through the quietest streets, while a value of 4 indicates cyclists can travel through any road. **Defaults to 2, which can be very restrictive in Lisbon (depends on your case study).**
+### Car
+
+Let's begin with a uni-modal option: **Car**.
+
+```{r}
+departure_datetime = as.POSIXct("01-10-2025 10:00:00", format = "%d-%m-%Y %H:%M:%S")
+ttm_car = travel_time_matrix(r5r_network = r5r_lisboa,
+                              origins = city_center,
+                              destinations = POINTS,
+                              mode = "CAR",
+                              departure_datetime = departure_datetime,
+                              max_trip_duration = 60,
+                              verbose = FALSE)
+
+nrow(ttm_car) # 2822
+```
+
+It was super fast to estimate the travel time for 2822 trips!
+
+```{r}
+summary(ttm_car$travel_time_p50)
+hist(ttm_car$travel_time_p50)
+```
+
+```         
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00    9.00   12.00   11.41   14.00   26.00 
+```
+
+![](images/clipboard-3389676430.png){fig-align="center"}
+
+By car, all the 2822 points with residents are able to be reach from city center.
+
+In free-flow, the longest trip takes 26 minutes.
+50% of the trips are shorter than 12 minutes.
+
+### Walk
+
+Let's see how it does for walking trips...
+
+```{r}
+ttm_walk = travel_time_matrix(r5r_network = r5r_lisboa,
+                              origins = city_center,
+                              destinations = POINTS,
+                              mode = "WALK",
+                              departure_datetime = departure_datetime,
+                              max_trip_duration = 60,
+                              verbose = FALSE)
+
+nrow(ttm_walk) # 1131
+nrow(ttm_walk) / nrow(POINTS) # 40 %
+POINTS |> 
+  semi_join(ttm_walk, by = c("id" = "to_id"))  |> 
+  pull(residents) |> 
+  sum() # 177.466
+```
+
+Only 1131 destinations were able to be reached in the 1h time window (**40%)**, representing 177,466 residents (**32%**)
+
+```{r}
+#| code-fold: true
+summary(ttm_walk$travel_time_p50)
+hist(ttm_walk$travel_time_p50)
+```
+
+```         
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   18.00   33.00   32.89   47.00   60.00 
+```
+
+![](images/clipboard-3998633297.png){fig-align="center"}
+
+The longest trip takes 60 minutes (equal to the time window).
+The time distribution is pretty even.
+
+### Bike
+
+When considering **bike** trips, we can also set a maximum level of traffic stress [@LTSmineta] that cyclists will tolerate.
+
+#### LTS
+
+A value of 1 means cyclists will only travel through the quietest streets, while a value of 4 indicates cyclists can travel through any road.
+**Defaults to 2, which can be very restrictive in Lisbon (depends on your case study).**
 
 From @Pereira2021r5r:
 
-When cycling is enabled in `R5` (by passing the value `BIKE` to either `mode` or `mode_egress`), setting `max_lts` will allow cycling only on streets with a given level of danger/stress. Setting `max_lts` to 1, for example, will allow cycling only on separated bicycle infrastructure or low-traffic streets and routing will revert to walking when traversing any links with LTS exceeding 1. Setting `max_lts` to 3 will allow cycling on links with LTS 1, 2 or 3. Routing also reverts to walking if the street segment is tagged as non-bikable in OSM (e.g. a staircase), independently of
-the specified max LTS.
+When cycling is enabled in `R5` (by passing the value `BIKE` to either `mode` or `mode_egress`), setting `max_lts` will allow cycling only on streets with a given level of danger/stress.
+Setting `max_lts` to 1, for example, will allow cycling only on separated bicycle infrastructure or low-traffic streets and routing will revert to walking when traversing any links with LTS exceeding 1.
+Setting `max_lts` to 3 will allow cycling on links with LTS 1, 2 or 3.
+Routing also reverts to walking if the street segment is tagged as non-bikable in OSM (e.g. a staircase), independently of the specified max LTS.
 
-The default methodology for assigning LTS values to network edges is based on commonly tagged attributes of OSM ways. See more info about LTS in the original documentation of R5 from Conveyal at <https://docs.conveyal.com/learn-more/traffic-stress>. In summary:
+The default methodology for assigning LTS values to network edges is based on commonly tagged attributes of OSM ways.
+See more info about LTS in the original documentation of R5 from Conveyal at <https://docs.conveyal.com/learn-more/traffic-stress>.
+In summary:
 
--   **LTS 1**: Tolerable for children. This includes low-speed, low-volume streets, as well as those with separated bicycle facilities (such as parking-protected lanes or cycle tracks).
+-   **LTS 1**: Tolerable for children.
+    This includes low-speed, low-volume streets, as well as those with separated bicycle facilities (such as parking-protected lanes or cycle tracks).
 
--   **LTS 2**: Tolerable for the mainstream adult population. This includes streets where cyclists have dedicated lanes and only have to interact with traffic at formal crossing.
+-   **LTS 2**: Tolerable for the mainstream adult population.
+    This includes streets where cyclists have dedicated lanes and only have to interact with traffic at formal crossing.
 
--   **LTS 3**: Tolerable for "enthused and confident" cyclists. This includes streets which may involve close proximity to moderate- or high-speed vehicular traffic.
+-   **LTS 3**: Tolerable for "enthused and confident" cyclists.
+    This includes streets which may involve close proximity to moderate- or high-speed vehicular traffic.
 
--   **LTS 4**: Tolerable only for "strong and fearless" cyclists. This includes streets where cyclists are required to mix with moderate- to high-speed vehicular traffic.
+-   **LTS 4**: Tolerable only for "strong and fearless" cyclists.
+    This includes streets where cyclists are required to mix with moderate- to high-speed vehicular traffic.
 
 For advanced users, you can provide custom LTS values by adding a tag `<key = "lts">` to the `osm.pbf` file.
+
+```{r}
+ttm_bike = travel_time_matrix(r5r_network = r5r_lisboa,
+                              origins = city_center,
+                              destinations = POINTS,
+                              mode = "BICYCLE",
+                              max_lts = 3,
+                              departure_datetime = departure_datetime,
+                              max_trip_duration = 60,
+                              verbose = FALSE)
+
+nrow(ttm_bike) # 2751
+nrow(ttm_bike) / nrow(POINTS) # 40 %
+```
+
+Almost all destinations were able to be reached in the 1h time window (**97%)**.
+
+```{r}
+#| code-fold: true
+summary(ttm_bike$travel_time_p50)
+```
+
+```         
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   16.00   31.00   30.55   46.00   60.00 
+```
+
+50% of the trips are shorter than 31 minutes.
+
+### Public Transit
+
+When estimating travel time with public transit, some considerations should be provided.
+
+-   **Date and time** of the trips
+
+-   How many **transfers** are allowed
+
+-   How to **get to the PT stop**?
+    By foot, bike or car?
+    The same from the last stop to the destination
+
+-   How many minutes it is **reasonable to walk** (of bike) in max during the whole trip?
+
+-   Is my best time-travel estimate the same, if I consider a 5min **time-window** period or a 30min time-window period?
+
+#### Date and time
+
+#### Transfers
+
+#### Egress mode and max walk time
+
+The transport mode used after egress from the last public transport.
+It can be either `WALK`, `BICYCLE` or `CAR`.
+Defaults to `WALK`.
+Ignored when public transport is not used.
+
+#### Time window
+
+To calculate the travel time from A to B, or to calculate the accessibility level at a given location, one has to select a departure time.
+
+Even a small difference, say leaving at `10:00am` or `10:04am` might importantly change travel time and accessibility estimates depending on when a person departs relative to when a public transport vehicle arrives, and how well transfers are coordinated given a service timetable.
+
+When `time_window` is set, R^5^ computes multiple travel times / accessibility estimates starting at the specified `departure_datetime` and within the `time_window` selected by the user.
+By default,
+`r5r` will generate **one estimate per minute**.
+
+By default, r5r results have the **50th percentile** of travel time.
+
+See more in [time_window](https://ipeagit.github.io/r5r/articles/time_window.html) [@Pereira2021r5r].
 
 ## Detailed itineraries
 
@@ -53,7 +249,8 @@ For advanced users, you can provide custom LTS values by adding a tag `<key = "l
 
 ## Stop
 
-`r5r` objects are still allocated to any amount of memory previously set after they are done with their calculations. In order to remove an existing `r5r` object and reallocate the memory it had been using, we use the `stop_r5` function followed by a call to Java’s garbage collector, as follows:
+`r5r` objects are still allocated to any amount of memory previously set after they are done with their calculations.
+In order to remove an existing `r5r` object and reallocate the memory it had been using, we use the `stop_r5` function followed by a call to Java’s garbage collector, as follows:
 
 ```{r}
 r5r::stop_r5(r5r_lisboa)
