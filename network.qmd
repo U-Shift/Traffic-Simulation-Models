@@ -156,9 +156,12 @@ There are some nice R packages to read and manipulate GTFS data, such as:
 Be aware that they may share the same function names, so it is important to use of of them at the time.
 :::
 
-#### Filter gtfs by area
+#### Filter GTFS by area
 
-Using [`tidytransit::filter_feed_by_area()`](https://r-transit.github.io/tidytransit/reference/filter_feed_by_area.html)
+Having a very large GTFS, as a nation-wide, instead of a city-wide one, can hold too much information not required.
+You may want to crop it by using [`tidytransit::filter_feed_by_area()`](https://r-transit.github.io/tidytransit/reference/filter_feed_by_area.html)
+
+This probably does not affect your r5r network model, anyway.
 
 ```{r}
 # example with Gent, Belgium
@@ -185,7 +188,37 @@ write_gtfs(gtfs_crop, "data/r5r/gent_redux.zip") # save for modelling
 
 #### Create `transfers.txt`
 
+Some operators do not include the information regarding where can someone change from bus A to bus B, because this is not a mandatory file.
+
+Anyway, you can create this file with some GIS operations, simplified by [`gtfsrouter::gtfs_transfer_table()`](https://urbananalyst.github.io/gtfsrouter/reference/gtfs_transfer_table.html)
+
+```{r}
+# Donwload and save zip
+carris_url = "https://gateway.carris.pt/gateway/gtfs/api/v2.8/GTFS" # direct link
+download.file(carris_url, destfile = "original/carris_gtfs.zip")
+
+carris_notransfers = gtfsrouter::extract_gtfs("original/carris_gtfs.zip")
+carris_transfers = gtfsrouter::gtfs_transfer_table(carris_notransfers)
+write.csv(carris_transfers[["transfers"]], "original/transfers.txt", row.names = F, quote = F)
+# drag and drop this transfers.txt file into the zip file
+
+carris = tidytransit::read_gtfs("original/carris_gtfs.zip")
+tidytransit::validate_gtfs(carris) # validate
+```
+
 #### Merge GTFS sources
+
+Public transit analysis takes advantage of the standardized GTFS format.
+However, its provision by operator makes it difficult for network aggregated analysis, considering connectivity and multimodality.
+[`GTFShift::unify()`](https://u-shift.github.io/GTFShift/reference/unify.html) proposes a simple solution to this problem, generating an aggregated GTFS file given several instances of these.
+
+The unification produces a single GTFS instance, saved as a ZIP file.
+Option `create_transfers` enables the generation of `transfers.txt`, aggregating close stops, even if from different GTFS.
+
+```{r}
+gtfs_united = GTFShift::unify(gtfs_1, gtfs_2, create_transfers = TRUE)
+write_gtfs(gtfs_united, "data/r5r/gtfs_united.zip") # save for modelling
+```
 
 ## Elevation
 
