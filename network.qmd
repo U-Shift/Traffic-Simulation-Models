@@ -232,6 +232,10 @@ In the following websites you can export a raster file of Digital Elevation Mode
 
 ![Export dem.tiff from Copernicus using a city_limit.geojson](images/clipboard-887278525.png)
 
+::: {.callout-warning appearance="simple"}
+The dem should be renamed to `.tif` (**single F**) instead of `.tiff`, otherwise [it will be ignored](https://github.com/ipeaGIT/r5r/issues/520) in r5r build.
+:::
+
 Verify in R
 
 ```{r}
@@ -275,5 +279,3 @@ mapview::mapview(transit_net$routes, zcol = "mode")
 ```
 
 ![](images/clipboard-115246731.png){fig-align="center" width="535"}
-
-## References
