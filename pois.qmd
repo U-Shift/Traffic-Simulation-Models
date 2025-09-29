@@ -32,11 +32,9 @@ Using the HOT Export Tool, you can select a few categories, and export as `.gpkg
 ## Select 6 to 8 categories
 
 For instance: schools, hospitals, ATMs, parks, supermarkets, and restaurants.
-
-Your analysis will be made by comparing the categories you exported.
 :::
 
-For instance: schools, hospitals, ATMs, parks, supermarkets, and restaurants.
+Your further analysis will be made by comparing the categories you selected and exported.
 
 ### Script
 
