@@ -39,7 +39,67 @@ carris_different_trips_sunday_h/carris_different_trips_wednesday_h # 19%
 
 For instance, for Carris (bus operator), on a Sunday there are **55%** of the departures of a Wednesday, and on a Sunday evening (22h) there are **19%** of the departures that are on a Wednesday morning (8h).
 
-### Peak-hour
+#### Transfers needed to reach all stops
+
+By considering the PTransit stops as destinations (and not population), we can also estimate how many bus stops are reacheble, in total and by number of transfers needed, for each our.
+
+These estimates are based on GTFS data only, and do not rely on r5r.
+
+```{r}
+summary(carris_gtfs)
+```
+
+```         
+tidygtfs object
+files        agency, stops, routes, trips, stop_times, calendar, calendar_dates, shapes, transfers
+agency       Carris
+service      from 2024-11-01 to 2024-12-15
+uses         stop_times (no frequencies)
+# routes       172
+# trips      31827
+# stop_ids    2313
+# stop_names  1116
+# shapes       305
+```
+
+```{r}
+# We will use the Cais Sodré bus stop name
+from_station = "Cais Sodré"
+stop_times_carris = filter_stop_times(carris_gtfs, "2024-11-20", "08:00:00", "09:00:00")
+trip_duration_cais = travel_times(stop_times_carris, from_station, stop_dist_check = FALSE)
+
+nrow(trip_duration_cais) # 931
+
+summary(trip_duration_cais$travel_time/60) # in minutos
+```
+
+```         
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   18.64   28.28   28.39   37.39   63.95 
+```
+
+Not counting the waiting time at *Cais do Sodré* it is possible to reach 931 stops in the network (40%) during rush hour—within the 1 hour time frame defined.
+
+```{r}
+#| code-fold: true
+round(prop.table(table(trip_duration_cais$transfers))*100, 1) # transfers percentage
+```
+
+```         
+   0    1    2    3    4 
+21.3 57.1 19.3  1.8  0.4 
+```
+
+Only **21%** of stops are directly accessible (**without bus transfers**).
+78% are accessible with a maximum of 1 transfer, and 2.2% of stops require at least 4 buses to reach (3 transfers).
+
+::: {.callout-note appearance="simple"}
+#### Your turn
+
+Try to do the same math for a sunday evening.
+:::
+
+### Accessibility Peak-hour
 
 We use the same code as in [Isochrones](accessibility.qmd#isochrones).
 
@@ -116,7 +176,7 @@ plotHP
 
 ![](images/clipboard-529421772.png)
 
-### Off peak-hour
+### Accessibility Off peak-hour
 
 ```{r}
 departure_datetime_OFF = as.POSIXct("24-11-2024 22:00:00", format = "%d-%m-%Y %H:%M:%S") # sunday evening
