@@ -75,10 +75,15 @@ After the export, you can read in R using the `sf` package:
 #| fig-format: png
 #| message: false
 #| warnings: false
+# load osm export in .gpkg
 road_network = sf::st_read("data/Lisbon/Lisbon_road_network.gpkg", quiet = TRUE)
+
+# filter main roads
 road_network_base = road_network |>
   filter(highway %in% c("primary", "secondary", "tertiary", "trunk", "motorway")) |> 
   select(osm_id, name, highway)
+
+# map
 mapview::mapview(road_network_base, zcol = "highway")
 ```
 
@@ -105,9 +110,7 @@ plot(Malta_main_roads["highway"])
 
 ![](images/malta_roads.png){fig-align="center"}
 
-## Transportation Services' Data
-
-### GTFS
+## GTFS - Transportation Services' Data
 
 General Transit Feed Specification (GTFS) is [standard format](https://developers.google.com/transit/gtfs/reference) for documenting public transportation information, including: routes, schedules, stop locations, calendar patterns, trips, and possible transfers.
 Transit agencies are responsible for maintaining the data up-to-date.
@@ -121,7 +124,7 @@ The data is usually in a `.zip` file that includes several `.txt` files (one for
 
 ![Source: [trilliumtransit.com](https://trilliumtransit.com/2016/07/05/gtfs-examples/)](images/clipboard-2676687965.png){fig-align="center" width="493"}
 
-#### Online sources
+### Online sources
 
 You can find most GTFS data in the following websites:
 
@@ -130,7 +133,18 @@ You can find most GTFS data in the following websites:
 
 Some PT agencies also provide their open-data in their websites.
 
-#### R packages
+### National Access Points
+
+The European Union has a directive that requires the member states to provide access to transportation data.
+Data includes not only **Public Transportation** data, but also **road network**s, car **parking**, and other transportation-related information.
+
+[List of the European Union members states with National Access Points for Transportation data](https://transport.ec.europa.eu/transport-themes/smart-mobility/road/its-directive-and-action-plan/national-access-points_en)
+
+Example of Bus services data in Belgium:
+
+![Source: Transport Data Belgium](images/clipboard-3645209787.png)
+
+### R packages
 
 There are some nice R packages to read and manipulate GTFS data, such as:
 
@@ -142,16 +156,36 @@ There are some nice R packages to read and manipulate GTFS data, such as:
 Be aware that they may share the same function names, so it is important to use of of them at the time.
 :::
 
-### National Access Points
+#### Filter gtfs by area
 
-The European Union has a directive that requires the member states to provide access to transportation data.
-Data includes not only **Public Transportation** data, but also **road network**s, car **parking**, and other transportation-related information.
+Using [`tidytransit::filter_feed_by_area()`](https://r-transit.github.io/tidytransit/reference/filter_feed_by_area.html)
 
-[List of the European Union members states with National Access Points for Transportation data](https://transport.ec.europa.eu/transport-themes/smart-mobility/road/its-directive-and-action-plan/national-access-points_en)
+```{r}
+# example with Gent, Belgium
+area = st_read("data/gent.geojson") # city_limit
 
-Example of Bus services data in Belgium:
+# load gtfs
+gtfs_large = tidytransit::read_gtfs("https://data.gtfs.be/delijn/gtfs/be-delijn-gtfs.zip") # direct link
 
-[![Source: Transport Data Belgium](images/clipboard-3645209787.png)](https://www.transportdata.be/en/dataset?tags=Bus)
+# filter by area
+gtfs_crop = tidytransit::filter_feed_by_area(gtfs_large, area)
+
+# get shapes
+gtfs_large_shapes = shapes_as_sf(gtfs_large$shapes)
+gtfs_crop_shapes = shapes_as_sf(gtfs_crop$shapes)
+
+# compare
+plot(gtfs_large_shapes)
+plot(gtfs_crop_shapes)
+
+write_gtfs(gtfs_crop, "data/r5r/gent_redux.zip") # save for modelling
+```
+
+![](images/clipboard-1738221012.png){width="358"} ![](images/clipboard-1516133931.png){width="197"}
+
+#### Create `transfers.txt`
+
+#### Merge GTFS sources
 
 ## Elevation
 
