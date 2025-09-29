@@ -35,8 +35,9 @@ sum(POINTS$residents) # 5.457.796
 With census data, each statistical unit represents \~300 residents.
 In Lisbon, we have 2822 census units.
 
-Routing between all origins and destinations (2822 x 2822 = 7.963.684 OD pairs) can potentially be a long-duration process.
+Routing between all origins and destinations (2822 x 2822 = **7.963.684 OD pairs**) can potentially be a long-duration process.
 Nothing that r5r wouldn't handle!
+🙂
 
 But here we will consider a `city_center` location, and route our census population to the city center.
 Search in an online map the coordinates for a point that you would like to consider your attractor.
