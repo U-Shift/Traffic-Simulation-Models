@@ -335,8 +335,10 @@ div.csl-indent {
   <li><a href="#origins-and-destinations" id="toc-origins-and-destinations" class="nav-link active" data-scroll-target="#origins-and-destinations">Origins and Destinations</a></li>
   <li><a href="#travel-time-matrix" id="toc-travel-time-matrix" class="nav-link" data-scroll-target="#travel-time-matrix">Travel Time Matrix</a>
   <ul class="collapse">
-  <li><a href="#egress-mode" id="toc-egress-mode" class="nav-link" data-scroll-target="#egress-mode">Egress mode</a></li>
-  <li><a href="#lts" id="toc-lts" class="nav-link" data-scroll-target="#lts">LTS</a></li>
+  <li><a href="#car" id="toc-car" class="nav-link" data-scroll-target="#car">Car</a></li>
+  <li><a href="#walk" id="toc-walk" class="nav-link" data-scroll-target="#walk">Walk</a></li>
+  <li><a href="#bike" id="toc-bike" class="nav-link" data-scroll-target="#bike">Bike</a></li>
+  <li><a href="#public-transit" id="toc-public-transit" class="nav-link" data-scroll-target="#public-transit">Public Transit</a></li>
   </ul></li>
   <li><a href="#detailed-itineraries" id="toc-detailed-itineraries" class="nav-link" data-scroll-target="#detailed-itineraries">Detailed itineraries</a>
   <ul class="collapse">
@@ -385,18 +387,122 @@ This page is under construction
 </div>
 <section id="origins-and-destinations" class="level2">
 <h2 class="anchored" data-anchor-id="origins-and-destinations">Origins and Destinations</h2>
-<p>If you have <strong>travel survey</strong> data, for some exercises you may use that one.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+OD data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you have <strong>travel survey</strong> data, for some exercises you may use that one. See also <a href="./jittering.html">Jittering</a>, if needed.</p>
 <p>For all the other, we can simply use <strong>census</strong> data.</p>
+</div>
+</div>
+<p>When using census data, for this exercises we can consider all-to-all origins and destinations</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>POINTS <span class="ot">=</span> <span class="fu">st_read</span>(<span class="st">"data/Lisbon/Censos_Lx.gpkg"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(POINTS) <span class="co"># 2822</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(POINTS<span class="sc">$</span>residents) <span class="co"># 5.457.796</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With census data, each statistical unit represents ~300 residents. In Lisbon, we have 2822 census units.</p>
+<p>Routing between all origins and destinations (2822 x 2822 = 7.963.684 OD pairs) can potentially be a long-duration process. Nothing that r5r wouldn’t handle!</p>
+<p>But here we will consider a <code>city_center</code> location, and route our census population to the city center. Search in an online map the coordinates for a point that you would like to consider your attractor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create origin point - Baixa / Downtown</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>city_center <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="st">"1"</span>, <span class="at">lat =</span> <span class="fl">38.711884</span>, <span class="at">lon =</span> <span class="sc">-</span><span class="fl">9.137313</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">'lon'</span>, <span class="st">'lat'</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>city_center<span class="sc">$</span>lon <span class="ot">=</span> <span class="fu">st_coordinates</span>(city_center)[,<span class="dv">1</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>city_center<span class="sc">$</span>lat <span class="ot">=</span> <span class="fu">st_coordinates</span>(city_center)[,<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="travel-time-matrix" class="level2">
 <h2 class="anchored" data-anchor-id="travel-time-matrix">Travel Time Matrix</h2>
-<section id="egress-mode" class="level3">
-<h3 class="anchored" data-anchor-id="egress-mode">Egress mode</h3>
-<p>The transport mode used after egress from the last public transport. It can be either <code>WALK</code>, <code>BICYCLE</code> or <code>CAR</code>. Defaults to <code>WALK</code>. Ignored when public transport is not used.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">java.parameters =</span> <span class="st">'-Xmx16G'</span>) <span class="co"># RAM to 16GB</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(r5r)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># read network</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>r5r_lisboa <span class="ot">=</span> <span class="fu">build_network</span>(<span class="st">"data/Lisbon/r5r"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are many options to choose from when estimating a <a href="https://ipeagit.github.io/r5r/reference/travel_time_matrix.html"><code>travel_time_matrix</code></a>.</p>
+<section id="car" class="level3">
+<h3 class="anchored" data-anchor-id="car">Car</h3>
+<p>Let’s begin with a uni-modal option: <strong>Car</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>departure_datetime <span class="ot">=</span> <span class="fu">as.POSIXct</span>(<span class="st">"01-10-2025 10:00:00"</span>, <span class="at">format =</span> <span class="st">"%d-%m-%Y %H:%M:%S"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ttm_car <span class="ot">=</span> <span class="fu">travel_time_matrix</span>(<span class="at">r5r_network =</span> r5r_lisboa,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">origins =</span> city_center,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">destinations =</span> POINTS,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">mode =</span> <span class="st">"CAR"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">departure_datetime =</span> departure_datetime,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">max_trip_duration =</span> <span class="dv">60</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(ttm_car) <span class="co"># 2822</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It was super fast to estimate the travel time for 2822 trips!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ttm_car<span class="sc">$</span>travel_time_p50)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ttm_car<span class="sc">$</span>travel_time_p50)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00    9.00   12.00   11.41   14.00   26.00 </code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3389676430.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>By car, all the 2822 points with residents are able to be reach from city center.</p>
+<p>In free-flow, the longest trip takes 26 minutes. 50% of the trips are shorter than 12 minutes.</p>
 </section>
-<section id="lts" class="level3">
-<h3 class="anchored" data-anchor-id="lts">LTS</h3>
-<p>The maximum level of traffic stress that cyclists will tolerate. A value of 1 means cyclists will only travel through the quietest streets, while a value of 4 indicates cyclists can travel through any road. <strong>Defaults to 2, which can be very restrictive in Lisbon (depends on your case study).</strong></p>
+<section id="walk" class="level3">
+<h3 class="anchored" data-anchor-id="walk">Walk</h3>
+<p>Let’s see how it does for walking trips…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ttm_walk <span class="ot">=</span> <span class="fu">travel_time_matrix</span>(<span class="at">r5r_network =</span> r5r_lisboa,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">origins =</span> city_center,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">destinations =</span> POINTS,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">mode =</span> <span class="st">"WALK"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">departure_datetime =</span> departure_datetime,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">max_trip_duration =</span> <span class="dv">60</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(ttm_walk) <span class="co"># 1131</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(ttm_walk) <span class="sc">/</span> <span class="fu">nrow</span>(POINTS) <span class="co"># 40 %</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>POINTS <span class="sc">|&gt;</span> </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(ttm_walk, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span> <span class="ot">=</span> <span class="st">"to_id"</span>))  <span class="sc">|&gt;</span> </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(residents) <span class="sc">|&gt;</span> </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>() <span class="co"># 177.466</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Only 1131 destinations were able to be reached in the 1h time window (<strong>40%)</strong>, representing 177,466 residents (<strong>32%</strong>)</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ttm_walk<span class="sc">$</span>travel_time_p50)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ttm_walk<span class="sc">$</span>travel_time_p50)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   18.00   33.00   32.89   47.00   60.00 </code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3998633297.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>The longest trip takes 60 minutes (equal to the time window). The time distribution is pretty even.</p>
+</section>
+<section id="bike" class="level3">
+<h3 class="anchored" data-anchor-id="bike">Bike</h3>
+<p>When considering <strong>bike</strong> trips, we can also set a maximum level of traffic stress <span class="citation" data-cites="LTSmineta">(<a href="#ref-LTSmineta" role="doc-biblioref">Mekuria, Furth, and Nixon 2012</a>)</span> that cyclists will tolerate.</p>
+<section id="lts" class="level4">
+<h4 class="anchored" data-anchor-id="lts">LTS</h4>
+<p>A value of 1 means cyclists will only travel through the quietest streets, while a value of 4 indicates cyclists can travel through any road. <strong>Defaults to 2, which can be very restrictive in Lisbon (depends on your case study).</strong></p>
 <p>From <span class="citation" data-cites="Pereira2021r5r">Pereira et al. (<a href="#ref-Pereira2021r5r" role="doc-biblioref">2021</a>)</span>:</p>
 <p>When cycling is enabled in <code>R5</code> (by passing the value <code>BIKE</code> to either <code>mode</code> or <code>mode_egress</code>), setting <code>max_lts</code> will allow cycling only on streets with a given level of danger/stress. Setting <code>max_lts</code> to 1, for example, will allow cycling only on separated bicycle infrastructure or low-traffic streets and routing will revert to walking when traversing any links with LTS exceeding 1. Setting <code>max_lts</code> to 3 will allow cycling on links with LTS 1, 2 or 3. Routing also reverts to walking if the street segment is tagged as non-bikable in OSM (e.g.&nbsp;a staircase), independently of the specified max LTS.</p>
 <p>The default methodology for assigning LTS values to network edges is based on commonly tagged attributes of OSM ways. See more info about LTS in the original documentation of R5 from Conveyal at <a href="https://docs.conveyal.com/learn-more/traffic-stress" class="uri">https://docs.conveyal.com/learn-more/traffic-stress</a>. In summary:</p>
@@ -407,6 +513,59 @@ This page is under construction
 <li><p><strong>LTS 4</strong>: Tolerable only for “strong and fearless” cyclists. This includes streets where cyclists are required to mix with moderate- to high-speed vehicular traffic.</p></li>
 </ul>
 <p>For advanced users, you can provide custom LTS values by adding a tag <code>&lt;key = "lts"&gt;</code> to the <code>osm.pbf</code> file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ttm_bike <span class="ot">=</span> <span class="fu">travel_time_matrix</span>(<span class="at">r5r_network =</span> r5r_lisboa,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">origins =</span> city_center,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">destinations =</span> POINTS,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">mode =</span> <span class="st">"BICYCLE"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">max_lts =</span> <span class="dv">3</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">departure_datetime =</span> departure_datetime,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">max_trip_duration =</span> <span class="dv">60</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(ttm_bike) <span class="co"># 2751</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(ttm_bike) <span class="sc">/</span> <span class="fu">nrow</span>(POINTS) <span class="co"># 40 %</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Almost all destinations were able to be reached in the 1h time window (<strong>97%)</strong>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ttm_bike<span class="sc">$</span>travel_time_p50)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   16.00   31.00   30.55   46.00   60.00 </code></pre>
+<p>50% of the trips are shorter than 31 minutes.</p>
+</section>
+</section>
+<section id="public-transit" class="level3">
+<h3 class="anchored" data-anchor-id="public-transit">Public Transit</h3>
+<p>When estimating travel time with public transit, some considerations should be provided.</p>
+<ul>
+<li><p><strong>Date and time</strong> of the trips</p></li>
+<li><p>How many <strong>transfers</strong> are allowed</p></li>
+<li><p>How to <strong>get to the PT stop</strong>? By foot, bike or car? The same from the last stop to the destination</p></li>
+<li><p>How many minutes it is <strong>reasonable to walk</strong> (of bike) in max during the whole trip?</p></li>
+<li><p>Is my best time-travel estimate the same, if I consider a 5min <strong>time-window</strong> period or a 30min time-window period?</p></li>
+</ul>
+<section id="date-and-time" class="level4">
+<h4 class="anchored" data-anchor-id="date-and-time">Date and time</h4>
+</section>
+<section id="transfers" class="level4">
+<h4 class="anchored" data-anchor-id="transfers">Transfers</h4>
+</section>
+<section id="egress-mode-and-max-walk-time" class="level4">
+<h4 class="anchored" data-anchor-id="egress-mode-and-max-walk-time">Egress mode and max walk time</h4>
+<p>The transport mode used after egress from the last public transport. It can be either <code>WALK</code>, <code>BICYCLE</code> or <code>CAR</code>. Defaults to <code>WALK</code>. Ignored when public transport is not used.</p>
+</section>
+<section id="time-window" class="level4">
+<h4 class="anchored" data-anchor-id="time-window">Time window</h4>
+<p>To calculate the travel time from A to B, or to calculate the accessibility level at a given location, one has to select a departure time.</p>
+<p>Even a small difference, say leaving at <code>10:00am</code> or <code>10:04am</code> might importantly change travel time and accessibility estimates depending on when a person departs relative to when a public transport vehicle arrives, and how well transfers are coordinated given a service timetable.</p>
+<p>When <code>time_window</code> is set, R<sup>5</sup> computes multiple travel times / accessibility estimates starting at the specified <code>departure_datetime</code> and within the <code>time_window</code> selected by the user. By default, <code>r5r</code> will generate <strong>one estimate per minute</strong>.</p>
+<p>By default, r5r results have the <strong>50th percentile</strong> of travel time.</p>
+<p>See more in <a href="https://ipeagit.github.io/r5r/articles/time_window.html">time_window</a> <span class="citation" data-cites="Pereira2021r5r">(<a href="#ref-Pereira2021r5r" role="doc-biblioref">Pereira et al. 2021</a>)</span>.</p>
+</section>
 </section>
 </section>
 <section id="detailed-itineraries" class="level2">
@@ -422,8 +581,8 @@ This page is under construction
 <h2 class="anchored" data-anchor-id="stop">Stop</h2>
 <p><code>r5r</code> objects are still allocated to any amount of memory previously set after they are done with their calculations. In order to remove an existing <code>r5r</code> object and reallocate the memory it had been using, we use the <code>stop_r5</code> function followed by a call to Java’s garbage collector, as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>r5r<span class="sc">::</span><span class="fu">stop_r5</span>(r5r_lisboa)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>rJava<span class="sc">::</span><span class="fu">.jgc</span>(<span class="at">R.gc =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>r5r<span class="sc">::</span><span class="fu">stop_r5</span>(r5r_lisboa)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>rJava<span class="sc">::</span><span class="fu">.jgc</span>(<span class="at">R.gc =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -431,6 +590,9 @@ This page is under construction
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-LTSmineta" class="csl-entry" role="listitem">
+Mekuria, Maaza C, Peter G Furth, and Hilary Nixon. 2012. <span>“Low-Stress Bicycling and Network Connectivity.”</span> <a href="https://transweb.sjsu.edu/research/Low-Stress-Bicycling-and-Network-Connectivity">https://transweb.sjsu.edu/research/Low-Stress-Bicycling-and-Network-Connectivity</a>.
+</div>
 <div id="ref-Pereira2021r5r" class="csl-entry" role="listitem">
 Pereira, Rafael H. M., Marcus Saraiva, Daniel Herszenhut, Carlos Kaue Vieira Braga, and Matthew Wigginton Conway. 2021. <span>“R5r: Rapid Realistic Routing on Multimodal Transport Networks with r<sup>5</sup> in r.”</span> <em>Findings</em>, March. <a href="https://doi.org/10.32866/001c.21262">https://doi.org/10.32866/001c.21262</a>.
 </div>

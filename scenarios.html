@@ -386,25 +386,31 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="public-transit---services-available">Public transit - services available</h3>
 <p>First, we can have a look at the available routes on both time periods. We use <a href="https://r-transit.github.io/tidytransit/reference/filter_feed_by_date.html"><code>tidytransit::filter_feed_by_date()</code></a> function, to filter our GTFS by <strong>day</strong> and by <strong>hour</strong>.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example with Carris</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>carris_different_trips_all <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_gtfs<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 31827</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>carris_wednesday <span class="ot">=</span> carris_gtfs <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2024-11-20"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>carris_different_trips_wednesday <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_wednesday<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 11642</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>carris_wednesday_peakh <span class="ot">=</span> carris_gtfs <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2024-11-20"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                                                            <span class="at">min_departure_time =</span> <span class="st">"08:00:00"</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                                                            <span class="at">max_arrival_time =</span> <span class="st">"09:00:00"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>carris_different_trips_wednesday_h <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_wednesday_peakh<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 1345</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>carris_sunday <span class="ot">=</span> carris_gtfs <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2024-11-24"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_sunday<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 6424</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>carris_sunday_peakh <span class="ot">=</span> carris_gtfs <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2024-11-24"</span>,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                                                          <span class="at">min_departure_time =</span> <span class="st">"22:00:00"</span>,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                                                          <span class="at">max_arrival_time =</span> <span class="st">"23:00:00"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday_h <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_sunday_peakh<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 260</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday<span class="sc">/</span>carris_different_trips_wednesday <span class="co"># 55%</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday_h<span class="sc">/</span>carris_different_trips_wednesday_h <span class="co"># 19%</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># wednesday morning</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>carris_wednesday <span class="ot">=</span> carris_gtfs <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2024-11-20"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>carris_different_trips_wednesday <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_wednesday<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 11642</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>carris_wednesday_peakh <span class="ot">=</span> carris_gtfs <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2024-11-20"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                                                            <span class="at">min_departure_time =</span> <span class="st">"08:00:00"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                                                            <span class="at">max_arrival_time =</span> <span class="st">"09:00:00"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>carris_different_trips_wednesday_h <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_wednesday_peakh<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 1345</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># sunday evening</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>carris_sunday <span class="ot">=</span> carris_gtfs <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2024-11-24"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_sunday<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 6424</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>carris_sunday_peakh <span class="ot">=</span> carris_gtfs <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2024-11-24"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                                                          <span class="at">min_departure_time =</span> <span class="st">"22:00:00"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                                                          <span class="at">max_arrival_time =</span> <span class="st">"23:00:00"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday_h <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_sunday_peakh<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 260</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># comparision</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday<span class="sc">/</span>carris_different_trips_wednesday <span class="co"># 55%</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday_h<span class="sc">/</span>carris_different_trips_wednesday_h <span class="co"># 19%</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>For instance, for Carris (bus operator), on a Sunday there are <strong>55%</strong> of the departures of a Wednesday, and on a Sunday evening (22h) there are <strong>19%</strong> of the departures that are on a Wednesday morning (8h).</p>
 <section id="transfers-needed-to-reach-all-stops" class="level4">
@@ -436,7 +442,7 @@ uses         stop_times (no frequencies)
 </div>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    0.00   18.64   28.28   28.39   37.39   63.95 </code></pre>
-<p>Not counting the waiting time at <em>Cais do Sodré</em> it is possible to reach 931 stops in the network (40%) during rush hour—within the 1 hour time frame defined.</p>
+<p>Not counting the waiting time at <em>Cais do Sodré</em> it is possible to reach 931 stops in the network (<strong>40%</strong>) during rush hour—within the 1 hour time frame defined.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
