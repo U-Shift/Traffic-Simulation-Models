@@ -42,7 +42,7 @@ library(mapview)
 mapview(census_poitns) + mapview(census)
 ```
 
-![](images/clipboard-2902263528.png)
+![](images/clipboard-2902263528.png){fig-align="center"}
 
 ### Dissolve - City limit
 
@@ -85,9 +85,61 @@ For instance: schools, hospitals, ATMs, parks, supermarkets, and restaurants.
 
 Your further analysis will be made by comparing the categories you selected and exported.
 
+#### Dealing with points and polygons from OSM
+
+If your export brings both polygons and points, you should convert the polygons to points (centroids).
+
+```{r}
+pois_raw = st_read("data/pois.gpkg") # downloaded from HOT export
+
+pois_cat = pois_raw |> 
+  mutate(type = case_when(
+      !is.na(shop) & shop %in% c("supermarket", "convenience") ~ "grocery",
+      amenity == "marketplace" ~ "grocery",
+      !is.na(leisure) ~ leisure,
+      amenity %in% c("restaurant", "pub", "cafe", "bar", "fast_food") ~ "restaurant",
+      TRUE ~ amenity
+    )) |> 
+  select(osm_id, type, name)
+
+table(pois_cat$type)
+```
+
+```         
+       atm    grocery   hospital       park restaurant     school 
+       316        799         42        503       4956        445 
+```
+
+```{r}
+# separate points form polygons
+pois_points = pois_cat |> st_collection_extract("POINT")
+pois_polygons = pois_cat |>  st_collection_extract("POLYGON")
+
+# transform polygons in points
+pois_polygons = st_centroid(pois_polygons)
+
+# bind them
+pois = bind_rows(pois_points, pois_polygons)
+
+mapview(pois, zcol = "type")
+```
+
+![](images/clipboard-1318694128.png){fig-align="center"}
+
+#### Geometric filter
+
+To keep only the POIs relative to your city limit, you can make a **geometrical filter**, as:
+
+```{r}
+pois = pois[city_limit,]
+
+# export for later
+st_write(pois, "data/Lisbon/pois_osm_points.gpkg", delete_dsn = TRUE)
+```
+
 ### Script
 
-More flexible approach, but requires more codding 🧑‍💻
+A more flexible approach to download the data, but requires more codding 🧑‍💻
 
 ::: {.callout-note appearance="simple"}
 See the script we did for [all Portugal](https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_landuse.gpkg), and the dataset for [Lisbon](https://github.com/U-Shift/SiteSelection/releases/download/0.1/osm_poi_lisbon.geojson) (2024): [data_extract.R (line 146)](https://github.com/U-Shift/SiteSelection/blob/cced36b055495dc9db6c0c815b410e8f4f5c16ba/code/data_extract.R#L146)
@@ -95,11 +147,6 @@ See the script we did for [all Portugal](https://github.com/U-Shift/SiteSelectio
 
 You can explore other OpenStreetMap categories at [their Wiki](https://wiki.openstreetmap.org/wiki/Map_features).
 
-To keep only the POIs relative to your city limit, you can make a geometrical filtering, as:
-
-```{r}
-points_poi = points_poi[city_limit,]
-```
 
 ## Grids
 
