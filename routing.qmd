@@ -235,8 +235,7 @@ To calculate the travel time from A to B, or to calculate the accessibility leve
 Even a small difference, say leaving at `10:00am` or `10:04am` might importantly change travel time and accessibility estimates depending on when a person departs relative to when a public transport vehicle arrives, and how well transfers are coordinated given a service timetable.
 
 When `time_window` is set, R^5^ computes multiple travel times / accessibility estimates starting at the specified `departure_datetime` and within the `time_window` selected by the user.
-By default,
-`r5r` will generate **one estimate per minute**.
+By default, `r5r` will generate **one estimate per minute**.
 
 By default, r5r results have the **50th percentile** of travel time.
 
