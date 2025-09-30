@@ -78,7 +78,19 @@
     "href": "pois.html",
     "title": "POIs and Grids",
     "section": "",
-    "text": "From OSM we can export several different opportunities to use on routing and accessibility exercises.\nFor instance, the 15-min city idea follows the Flowers of Proximity, to categorize the opportinities in 7 different categories, based on Büttner et al. (2022).\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\n\n\n\nUsing the HOT Export Tool, you can select a few categories, and export as .gpkg or .geojson.\n\n\n\n\n\n\nSelect 6 to 8 categories\n\n\n\nFor instance: schools, hospitals, ATMs, parks, supermarkets, and restaurants.\n\n\nYour further analysis will be made by comparing the categories you selected and exported.\n\n\n\nMore flexible approach, but requires more codding 🧑‍💻\n\n\n\n\n\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024): data_extract.R (line 146)\n\n\n\nYou can explore other OpenStreetMap categories at their Wiki.",
+    "text": "Search and download your census data from official sources.\n\nIn Portugal: https://mapas.ine.pt/download/index2021.phtml\n\n\n\n\n\n\n\nFor this exercises, you just need the population associated with a statistical unit, as smaller as possible\n\n\n\n\nlibrary(tidyverse)\nlibrary(sf)\n\ncensus = st_read(\"data/Lisbon/BGRI2021_1106.gpkg\") # census units in polygons\nplot(census$geom)\n\n# from polygons to points\ncensus_poitns = census |&gt; \n  st_transform(4326) |&gt; # make sue it is in universal CRS\n  st_centroid()\nplot(census_poitns) # census units in points\nnames(census_poitns)\n\ncensus_poitns = census_poitns |&gt;\n  select(BGRI2021, N_INDIVIDUOS) |&gt; # only my code area and population\n  rename(id = BGRI2021,\n         residents = N_INDIVIDUOS) # rename variables\nst_write(census_poitns, \"data/census_poitns.gpkg\") # save for later\n\n\n\nCode\nlibrary(mapview)\nmapview(census_poitns) + mapview(census)\n\n\n\n\n\nIn the case you don’t have already a city limit, you can create one based on the “dissolve” of the inner boundaries of your census data, as follows\n\n#dissolve \ncity_limit = census |&gt; st_union() |&gt; st_as_sf()\nplot(city_limit)",
+    "crumbs": [
+      "Home",
+      "r5r",
+      "POIs and Grids"
+    ]
+  },
+  {
+    "objectID": "pois.html#census-data",
+    "href": "pois.html#census-data",
+    "title": "POIs and Grids",
+    "section": "",
+    "text": "Search and download your census data from official sources.\n\nIn Portugal: https://mapas.ine.pt/download/index2021.phtml\n\n\n\n\n\n\n\nFor this exercises, you just need the population associated with a statistical unit, as smaller as possible\n\n\n\n\nlibrary(tidyverse)\nlibrary(sf)\n\ncensus = st_read(\"data/Lisbon/BGRI2021_1106.gpkg\") # census units in polygons\nplot(census$geom)\n\n# from polygons to points\ncensus_poitns = census |&gt; \n  st_transform(4326) |&gt; # make sue it is in universal CRS\n  st_centroid()\nplot(census_poitns) # census units in points\nnames(census_poitns)\n\ncensus_poitns = census_poitns |&gt;\n  select(BGRI2021, N_INDIVIDUOS) |&gt; # only my code area and population\n  rename(id = BGRI2021,\n         residents = N_INDIVIDUOS) # rename variables\nst_write(census_poitns, \"data/census_poitns.gpkg\") # save for later\n\n\n\nCode\nlibrary(mapview)\nmapview(census_poitns) + mapview(census)\n\n\n\n\n\nIn the case you don’t have already a city limit, you can create one based on the “dissolve” of the inner boundaries of your census data, as follows\n\n#dissolve \ncity_limit = census |&gt; st_union() |&gt; st_as_sf()\nplot(city_limit)",
     "crumbs": [
       "Home",
       "r5r",
@@ -89,8 +101,8 @@
     "objectID": "pois.html#points-of-interest",
     "href": "pois.html#points-of-interest",
     "title": "POIs and Grids",
-    "section": "",
-    "text": "From OSM we can export several different opportunities to use on routing and accessibility exercises.\nFor instance, the 15-min city idea follows the Flowers of Proximity, to categorize the opportinities in 7 different categories, based on Büttner et al. (2022).\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\n\n\n\nUsing the HOT Export Tool, you can select a few categories, and export as .gpkg or .geojson.\n\n\n\n\n\n\nSelect 6 to 8 categories\n\n\n\nFor instance: schools, hospitals, ATMs, parks, supermarkets, and restaurants.\n\n\nYour further analysis will be made by comparing the categories you selected and exported.\n\n\n\nMore flexible approach, but requires more codding 🧑‍💻\n\n\n\n\n\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024): data_extract.R (line 146)\n\n\n\nYou can explore other OpenStreetMap categories at their Wiki.",
+    "section": "Points of Interest",
+    "text": "Points of Interest\n\nOpenStreetMap\nFrom OSM we can export several different opportunities to use on routing and accessibility exercises.\nFor instance, the 15-min city idea follows the Flowers of Proximity, to categorize the opportinities in 7 different categories, based on Büttner et al. (2022).\n\n\n\n\n\n\n\nThe Flowers of Proximity\n\n\nFor the Streets4All project, and SiteSelection package (Rosa Félix and Gabriel Valença 2024), we divided in:\n\nAmenities\nHealthcare\nLeisure\nShop\nSport\nTourism\n\n\n\nHot export tool\nUsing the HOT Export Tool, you can select a few categories, and export as .gpkg or .geojson.\n\n\n\n\n\n\nSelect 6 to 8 categories\n\n\n\nFor instance: schools, hospitals, ATMs, parks, supermarkets, and restaurants.\n\n\nYour further analysis will be made by comparing the categories you selected and exported.\n\n\nScript\nMore flexible approach, but requires more codding 🧑‍💻\n\n\n\n\n\n\nSee the script we did for all Portugal, and the dataset for Lisbon (2024): data_extract.R (line 146)\n\n\n\nYou can explore other OpenStreetMap categories at their Wiki.\nTo keep only the POIs relative to your city limit, you can make a geometrical filtering, as:\n\npoints_poi = points_poi[city_limit,]",
     "crumbs": [
       "Home",
       "r5r",
