@@ -5,6 +5,55 @@ code-fold: false
 engine: knitr
 ---
 
+## Census data
+
+Search and download your census data from official sources.
+
+> In Portugal: <https://mapas.ine.pt/download/index2021.phtml>
+
+::: {.callout-note appearance="simple"}
+For this exercises, you just need the **population** associated with a **statistical unit**, as **smaller** as possible
+:::
+
+```{r}
+library(tidyverse)
+library(sf)
+
+census = st_read("data/Lisbon/BGRI2021_1106.gpkg") # census units in polygons
+plot(census$geom)
+
+# from polygons to points
+census_poitns = census |> 
+  st_transform(4326) |> # make sue it is in universal CRS
+  st_centroid()
+plot(census_poitns) # census units in points
+names(census_poitns)
+
+census_poitns = census_poitns |>
+  select(BGRI2021, N_INDIVIDUOS) |> # only my code area and population
+  rename(id = BGRI2021,
+         residents = N_INDIVIDUOS) # rename variables
+st_write(census_poitns, "data/census_poitns.gpkg") # save for later
+```
+
+```{r}
+#| code-fold: true
+library(mapview)
+mapview(census_poitns) + mapview(census)
+```
+
+![](images/clipboard-2902263528.png)
+
+### Dissolve - City limit
+
+In the case you don't have already a city limit, you can create one based on the "dissolve" of the inner boundaries of your census data, as follows
+
+```{r}
+#dissolve 
+city_limit = census |> st_union() |> st_as_sf()
+plot(city_limit)
+```
+
 ## Points of Interest
 
 ### OpenStreetMap
@@ -45,6 +94,12 @@ See the script we did for [all Portugal](https://github.com/U-Shift/SiteSelectio
 :::
 
 You can explore other OpenStreetMap categories at [their Wiki](https://wiki.openstreetmap.org/wiki/Map_features).
+
+To keep only the POIs relative to your city limit, you can make a geometrical filtering, as:
+
+```{r}
+points_poi = points_poi[city_limit,]
+```
 
 ## Grids
 
