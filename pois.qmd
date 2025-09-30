@@ -232,8 +232,10 @@ Now, we can associate these areas (and their centroids) with all the information
 
 ```{r}
 # Points of interest from script
-POIs = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/POIs_Lx.gpkg")
+POIs = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/download/2025/pois_osm_points.gpkg")
 ```
+
+<!-- CONTINUAR DAQUI -->
 
 ```{r}
 #| code-fold: true
@@ -241,21 +243,14 @@ POIs = st_read("https://github.com/U-Shift/Traffic-Simulation-Models/releases/do
 # count points by type in areas
 GRID_pois = POIs |> st_join(GRID, join = st_within)
 
-counts_group = GRID_pois |>
-  st_drop_geometry() |>   # drop geometry for counting
-  group_by(id, group) |>
-  summarise(n = n(), .groups = "drop") |>
-  tidyr::pivot_wider(names_from = group, values_from = n, values_fill = 0)
-
 counts_type = GRID_pois |>
-  st_drop_geometry() |>
-  group_by(id, type) |> # too many types!
-  summarise(n = n(), .groups = "drop") |>
-  tidyr::pivot_wider(names_from = type, values_from = n, values_fill = 0)
+     st_drop_geometry() |>   # drop geometry for counting
+     group_by(id, type) |>
+     summarise(n = n(), .groups = "drop") |>
+     tidyr::pivot_wider(names_from = type, values_from = n, values_fill = 0)
 
 GRID_pois = GRID |>
-  left_join(counts_group, by = "id") |>
-  # left_join(counts_type,  by = "id") |> # too many
+  left_join(counts_type, by = "id") |>
   mutate(across(where(is.numeric), ~replace_na(.x, 0)))
 
 mapview(GRID_pois, zcol = "restaurant") # for instance
@@ -307,14 +302,14 @@ The same for **Hex grid**
 # POIs
 GRIDhex_pois = POIs |> st_join(GRID_h3, join = st_within)
 
-counts_group = GRIDhex_pois |>
-  st_drop_geometry() |>   # drop geometry for counting
-  group_by(id, group) |>
-  summarise(n = n(), .groups = "drop") |>
-  tidyr::pivot_wider(names_from = group, values_from = n, values_fill = 0)
+counts_type = GRIDhex_pois |>
+     st_drop_geometry() |>   # drop geometry for counting
+     group_by(id, type) |>
+     summarise(n = n(), .groups = "drop") |>
+     tidyr::pivot_wider(names_from = type, values_from = n, values_fill = 0)
 
 GRIDhex_pois = GRID_h3 |>
-  left_join(counts_group, by = "id") |>
+  left_join(counts_type, by = "id") |>
   mutate(across(where(is.numeric), ~replace_na(.x, 0)))
 
 #  Census
