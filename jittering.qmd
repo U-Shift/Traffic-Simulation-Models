@@ -6,6 +6,12 @@ code-fold: false
 bibliography: references.bib
 ---
 
+::: callout-warning
+## Note
+
+This page is only relevant when using **travel survey** data.
+:::
+
 When having OD pairs with a macro-scale zoning, we can *jitter* these desire lines by randomly spread the origins and destinations points at a given area, making the trips (in particular **active modes**) more realistic [@Lovelace2022].
 
 For that, **zones**, OD **pairs**, as well as the **trip volume** are needed.
