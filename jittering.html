@@ -338,10 +338,7 @@ div.csl-indent {
   <li><a href="#with-od-package" id="toc-with-od-package" class="nav-link" data-scroll-target="#with-od-package">With <code>od</code> package</a></li>
   <li><a href="#with-odjitter-package" id="toc-with-odjitter-package" class="nav-link" data-scroll-target="#with-odjitter-package">With <code>odjitter</code> package</a></li>
   </ul></li>
-  <li><a href="#jittered-origins-and-destinations" id="toc-jittered-origins-and-destinations" class="nav-link" data-scroll-target="#jittered-origins-and-destinations">Jittered origins and destinations</a>
-  <ul class="collapse">
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul></li>
+  <li><a href="#jittered-origins-and-destinations" id="toc-jittered-origins-and-destinations" class="nav-link" data-scroll-target="#jittered-origins-and-destinations">Jittered origins and destinations</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/jittering.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -373,6 +370,19 @@ div.csl-indent {
 </header>
 
 
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This page is only relevant when using <strong>travel survey</strong> data.</p>
+</div>
+</div>
 <p>When having OD pairs with a macro-scale zoning, we can <em>jitter</em> these desire lines by randomly spread the origins and destinations points at a given area, making the trips (in particular <strong>active modes</strong>) more realistic <span class="citation" data-cites="Lovelace2022">(<a href="#ref-Lovelace2022" role="doc-biblioref">Lovelace, Félix, and Carlino 2022</a>)</span>.</p>
 <p>For that, <strong>zones</strong>, OD <strong>pairs</strong>, as well as the <strong>trip volume</strong> are needed.</p>
 <section id="jittered-desire-lines" class="level2">
@@ -545,12 +555,9 @@ div.csl-indent {
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>od_lisbon_jittered_r5r <span class="ot">=</span> <span class="fu">st_as_sf</span>(<span class="fu">as.data.frame</span>(<span class="fu">st_drop_geometry</span>(od_lisbon_jittered_r5r)),</span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">geometry =</span> od_lisbon_jittered_r5r<span class="sc">$</span>geometry)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="references" class="level3">
 
 
 
-
-</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
@@ -1129,7 +1136,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <p>Instituto Superior Técnico - University of Lisbon</p>
 </div>   
     <div class="nav-footer-center">
-<p>TModelling of Tranport Systems</p>
+<p>Modelling of Tranport Systems</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/jittering.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>2025-2026</p>

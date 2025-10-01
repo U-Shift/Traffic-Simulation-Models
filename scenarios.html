@@ -336,8 +336,8 @@ div.csl-indent {
   <li><a href="#work-day-vs.-weekend" id="toc-work-day-vs.-weekend" class="nav-link active" data-scroll-target="#work-day-vs.-weekend">Work day vs.&nbsp;weekend</a>
   <ul class="collapse">
   <li><a href="#public-transit---services-available" id="toc-public-transit---services-available" class="nav-link" data-scroll-target="#public-transit---services-available">Public transit - services available</a></li>
-  <li><a href="#accessibility-peak-hour" id="toc-accessibility-peak-hour" class="nav-link" data-scroll-target="#accessibility-peak-hour">Accessibility Peak-hour</a></li>
-  <li><a href="#accessibility-off-peak-hour" id="toc-accessibility-off-peak-hour" class="nav-link" data-scroll-target="#accessibility-off-peak-hour">Accessibility Off peak-hour</a></li>
+  <li><a href="#mobility-peak-hour" id="toc-mobility-peak-hour" class="nav-link" data-scroll-target="#mobility-peak-hour">Mobility Peak-hour</a></li>
+  <li><a href="#mobility-off-peak-hour" id="toc-mobility-off-peak-hour" class="nav-link" data-scroll-target="#mobility-off-peak-hour">Mobility Off peak-hour</a></li>
   <li><a href="#compare-population" id="toc-compare-population" class="nav-link" data-scroll-target="#compare-population">Compare population</a></li>
   </ul></li>
   <li><a href="#new-metro-station-or-metro-line" id="toc-new-metro-station-or-metro-line" class="nav-link" data-scroll-target="#new-metro-station-or-metro-line">New metro station or metro line</a>
@@ -467,8 +467,8 @@ Your turn
 </div>
 </section>
 </section>
-<section id="accessibility-peak-hour" class="level3">
-<h3 class="anchored" data-anchor-id="accessibility-peak-hour">Accessibility Peak-hour</h3>
+<section id="mobility-peak-hour" class="level3">
+<h3 class="anchored" data-anchor-id="mobility-peak-hour">Mobility Peak-hour</h3>
 <p>We use the same code as in <a href="./accessibility.html#isochrones">Isochrones</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define some parameters</span></span>
@@ -539,8 +539,8 @@ Your turn
 </div>
 <p><img src="images/clipboard-529421772.png" class="img-fluid"></p>
 </section>
-<section id="accessibility-off-peak-hour" class="level3">
-<h3 class="anchored" data-anchor-id="accessibility-off-peak-hour">Accessibility Off peak-hour</h3>
+<section id="mobility-off-peak-hour" class="level3">
+<h3 class="anchored" data-anchor-id="mobility-off-peak-hour">Mobility Off peak-hour</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>departure_datetime_OFF <span class="ot">=</span> <span class="fu">as.POSIXct</span>(<span class="st">"24-11-2024 22:00:00"</span>, <span class="at">format =</span> <span class="st">"%d-%m-%Y %H:%M:%S"</span>) <span class="co"># sunday evening</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -792,6 +792,7 @@ Your task
 </div>
 <div class="callout-body-container callout-body">
 <p>Run some routing and accessibility analysis, and compare with the baseline scenario.</p>
+<p>Consider comparing the estimated cost of your new infrastructure and the mobility gains.</p>
 </div>
 </div>
 <p>See <span class="citation" data-cites="accessibility">Pereira and Herszenhut (<a href="#ref-accessibility" role="doc-biblioref">2023</a>)</span> <a href="https://ipeagit.github.io/intro_access_book/6_cenarios_transporte.en.html">Chapter 6</a> for an example.</p>
@@ -1378,7 +1379,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <p>Instituto Superior Técnico - University of Lisbon</p>
 </div>   
     <div class="nav-footer-center">
-<p>TModelling of Tranport Systems</p>
+<p>Modelling of Tranport Systems</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/scenarios.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>2025-2026</p>

@@ -337,7 +337,10 @@ div.csl-indent {
   <li><a href="#public-transit" id="toc-public-transit" class="nav-link" data-scroll-target="#public-transit">Public Transit</a></li>
   <li><a href="#car" id="toc-car" class="nav-link" data-scroll-target="#car">Car</a></li>
   <li><a href="#bike" id="toc-bike" class="nav-link" data-scroll-target="#bike">Bike</a></li>
-  <li><a href="#easier-approach" id="toc-easier-approach" class="nav-link" data-scroll-target="#easier-approach">Easier approach</a></li>
+  <li><a href="#easier-approach" id="toc-easier-approach" class="nav-link" data-scroll-target="#easier-approach">Easier approach</a>
+  <ul class="collapse">
+  <li><a href="#service-area" id="toc-service-area" class="nav-link" data-scroll-target="#service-area">Service area</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#accessibility" id="toc-accessibility" class="nav-link" data-scroll-target="#accessibility">Accessibility</a>
   <ul class="collapse">
@@ -618,7 +621,9 @@ div.csl-indent {
 <section id="easier-approach" class="level2">
 <h2 class="anchored" data-anchor-id="easier-approach">Easier approach</h2>
 <p>There are other ways of making these maps, but with lower details, such as <strong>no destinations</strong>. See <a href="https://ipeagit.github.io/r5r/reference/isochrone.html"><code>r5r::isochrones()</code></a> function.</p>
-<p>This function also allows to find service areas.</p>
+<section id="service-area" class="level3">
+<h3 class="anchored" data-anchor-id="service-area">Service area</h3>
+<p>This function also allows to find <strong>service areas</strong>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate line-based isochrone from origin</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>iso_lines <span class="ot">=</span> <span class="fu">isochrone</span>(</span>
@@ -657,6 +662,7 @@ div.csl-indent {
 <p><img src="images/clipboard-3138341673.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
+</section>
 </section>
 </section>
 <section id="accessibility" class="level1">
@@ -846,7 +852,7 @@ div.csl-indent {
 <table class="caption-top table">
 <colgroup>
 <col style="width: 23%">
-<col style="width: 18%">
+<col style="width: 19%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1476,7 +1482,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <p>Instituto Superior Técnico - University of Lisbon</p>
 </div>   
     <div class="nav-footer-center">
-<p>TModelling of Tranport Systems</p>
+<p>Modelling of Tranport Systems</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/edit/main/accessibility.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/U-Shift/Traffic-Simulation-Models/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>2025-2026</p>
