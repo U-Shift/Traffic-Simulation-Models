@@ -183,5 +183,3 @@ od_lisbon_jittered_r5r = od_lisbon_jittered_r5r |>
 od_lisbon_jittered_r5r = st_as_sf(as.data.frame(st_drop_geometry(od_lisbon_jittered_r5r)),
                                   geometry = od_lisbon_jittered_r5r$geometry)
 ```
-
-### References
