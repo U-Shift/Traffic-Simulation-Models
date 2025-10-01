@@ -147,7 +147,6 @@ See the script we did for [all Portugal](https://github.com/U-Shift/SiteSelectio
 
 You can explore other OpenStreetMap categories at [their Wiki](https://wiki.openstreetmap.org/wiki/Map_features).
 
-
 ## Grids
 
 You may want to use the original census units, or create a squared oh hexagonal grid.
@@ -356,7 +355,11 @@ GRID_data = GRID_data |>
          lat = st_coordinates(POINTSsq)[,2])
 ```
 
-Don't forget to save your data, this will be very useful for the next exercises.
+::: callout-tip
+## Tip
+
+Don't forget to **save your data**, this will be very useful for the next exercises.
+:::
 
 ```{r}
 saveRDS(GRID_data, "data/Lisbon/GRIDsq_data.rds")
