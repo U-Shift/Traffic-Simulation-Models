@@ -268,7 +268,9 @@ plotHP_car
 There are other ways of making these maps, but with lower details, such as **no destinations**.
 See [`r5r::isochrones()`](https://ipeagit.github.io/r5r/reference/isochrone.html) function.
 
-This function also allows to find service areas.
+### Service area
+
+This function also allows to find **service areas**.
 
 ```{r}
 # estimate line-based isochrone from origin
@@ -494,18 +496,18 @@ poplisboa = sum(POINTS$residents) #
 100* sum(access$residents[access$travel_time_p50 <= 60]) / poplisboa # 97.3%
 ```
 
-+----------------+------------+
-| Trip duration\ | Residents  |
-| (up to...)     |            |
-+:==============:+:==========:+
-| 15 min         | **2.5 %**  |
-+----------------+------------+
-| 30 min         | **38.6 %** |
-+----------------+------------+
-| 45 min         | **84.8%**  |
-+----------------+------------+
-| 60 min         | **97.3%**  |
-+----------------+------------+
++----------------+-------------+
+| Trip duration\ | Residents   |
+| (up to...)     |             |
++:==============:+:===========:+
+| 15 min         | **2.5 %**   |
++----------------+-------------+
+| 30 min         | **38.6 %**  |
++----------------+-------------+
+| 45 min         | **84.8%**   |
++----------------+-------------+
+| 60 min         | **97.3%**   |
++----------------+-------------+
 
 ::: {.callout-tip appearance="simple"}
 ## Other accessibility measures
