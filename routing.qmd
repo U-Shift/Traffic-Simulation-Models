@@ -300,6 +300,7 @@ See more in [`time_window`](https://ipeagit.github.io/r5r/articles/time_window.h
 Let's see an example:
 
 ```{r}
+
 ttm_transit = travel_time_matrix(
   r5r_network = r5r_lisboa,
   origins = city_center,
@@ -347,7 +348,40 @@ Try to change some parameters, such as the `max_rides` or the `max_trip_duration
 
 ## Detailed itineraries
 
+With the [`detailed_itineraries`](https://ipeagit.github.io/r5r/reference/detailed_itineraries.html)`()`, we can extract more information about each trip, such as:
+
+-   Which modes were used for trip *x*?
+    In which order?
+
+-   What is the duration for each leg?
+
+-   Which route (shape) was estimated?
+
+This function is also pretty flexible and allows to see more details.
+Also, because of this, it may require some **more processing cost**.
+
 ### Multi-modal legs
+
+Using the same parameters as the `ttm_transit`, let's see more details
+
+```{r}
+detailed_transit = detailed_itineraries(
+  r5r_network = r5r_lisboa,
+  origins = city_center,
+  destinations = POINTS,
+  mode = "TRANSIT",
+  mode_egress = "WALK",
+  departure_datetime = departure_datetime,
+  max_rides = 3, # 2 transfers
+  # time_window = 10, # the default
+  max_walk_time = 30,
+  max_trip_duration = 60,
+  verbose = FALSE
+)
+
+View(detailed_transit)
+# table(detailed_transit$mode)
+```
 
 ### Route shapes
 
