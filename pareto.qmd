@@ -192,17 +192,17 @@ p2 <- ggplot(unreachable, aes(x=travel_time_unl, y=perc)) +
 
 ```
 
-![](images/clipboard-1392517926.png){fig-align="center" width="444"}
+![](images/clipboard-1335925211.png){fig-align="center"}
 
-![](images/clipboard-1743970520.png){fig-align="center" width="577"}
+![](images/clipboard-3175145660.png){fig-align="center"}
 
 ## Calculating accessibility with monetary cost
 
 To **Healthcare** facilities
 
 ```{r}
-AREAS = readRDS("data/Lisbon/GRIDhex_data.rds")
-AREAS_df = AREAS |> st_drop_geometry()
+GRID_data = readRDS("data/Lisbon/GRIDhex_data.rds")
+GRID_df = GRID_data |> st_drop_geometry()
 ```
 
 ```{r}
@@ -210,12 +210,10 @@ AREAS_df = AREAS |> st_drop_geometry()
 calculate_accessibility <- function(fare, fare_string) {
   access_df <- accessibility(
     r5r_lisboa,
-    origins = AREAS_df,
-    destinations = AREAS_df,
+    origins = GRID_df,
+    destinations = GRID_df,
     mode = c("WALK", "TRANSIT"),
-    departure_datetime = as.POSIXct(
-      "13-11-2024 10:00:00",
-      format = "%d-%m-%Y %H:%M:%S"),
+    departure_datetime = departure_datetime,
     time_window = 1,
     opportunities_colname = "healthcare",
     cutoffs = 40,
@@ -238,7 +236,7 @@ access <- rbind(access_165, access_unl)
 
 # bring geometry
 access = access |> 
-  left_join(AREAS_df |>
+  left_join(GRID_df |>
               select(id, h3_address) |>
               mutate(id = as.character(id)))
 access$geometry = h3jsr::cell_to_polygon(access$h3_address)
@@ -258,7 +256,7 @@ ggplot(data = access) +
         axis.text = element_blank())
 ```
 
-![With hex grid](images/clipboard-2680957931.png){fig-align="center"}
+![](images/clipboard-1695260692.png)
 
 ![With census units](images/clipboard-2837442883.png){fig-align="center"}
 
