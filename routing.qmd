@@ -29,7 +29,7 @@ When using census data, for this exercises we can consider all-to-all origins an
 library(sf)
 POINTS = st_read("data/Lisbon/Censos_Lx.gpkg")
 nrow(POINTS) # 2822
-sum(POINTS$residents) # 5.457.796
+sum(POINTS$residents) # 545.796
 ```
 
 With census data, each statistical unit represents \~300 residents.
@@ -66,7 +66,7 @@ There are many options to choose from when estimating a [`travel_time_matrix`](h
 
 ### Car
 
-Let's begin with a uni-modal option: **Car**.
+Let's begin with a uni-modal option: **Car**, and no time restrictions.
 
 ```{r}
 departure_datetime = as.POSIXct("01-10-2025 10:00:00", format = "%d-%m-%Y %H:%M:%S")
@@ -75,7 +75,6 @@ ttm_car = travel_time_matrix(r5r_network = r5r_lisboa,
                               destinations = POINTS,
                               mode = "CAR",
                               departure_datetime = departure_datetime,
-                              max_trip_duration = 60,
                               verbose = FALSE)
 
 nrow(ttm_car) # 2822
@@ -110,18 +109,18 @@ ttm_walk = travel_time_matrix(r5r_network = r5r_lisboa,
                               destinations = POINTS,
                               mode = "WALK",
                               departure_datetime = departure_datetime,
-                              max_trip_duration = 60,
+                              max_trip_duration = 120, # 2 hours
                               verbose = FALSE)
 
-nrow(ttm_walk) # 1131
-nrow(ttm_walk) / nrow(POINTS) # 40 %
+nrow(ttm_walk) # 2073
+nrow(ttm_walk) / nrow(POINTS) # 73 %
 POINTS |> 
   semi_join(ttm_walk, by = c("id" = "to_id"))  |> 
   pull(residents) |> 
-  sum() # 177.466
+  sum() # 391.358
 ```
 
-Only 1131 destinations were able to be reached in the 1h time window (**40%)**, representing 177,466 residents (**32%**)
+Only 2073 destinations were able to be reached in the 2h time window (**73%)**, representing 177,466 residents (**72%**)
 
 ```{r}
 #| code-fold: true
@@ -131,12 +130,12 @@ hist(ttm_walk$travel_time_p50)
 
 ```         
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   0.00   18.00   33.00   32.89   47.00   60.00 
+   0.00   31.00   56.00   59.13   88.00  120.00 
 ```
 
-![](images/clipboard-3998633297.png){fig-align="center"}
+![](images/clipboard-2894920258.png){fig-align="center"}
 
-The longest trip takes 60 minutes (equal to the time window).
+The longest trip takes 120 minutes (equal to the max travel time).
 The time distribution is pretty even.
 
 ### Bike
@@ -184,7 +183,7 @@ ttm_bike = travel_time_matrix(r5r_network = r5r_lisboa,
                               verbose = FALSE)
 
 nrow(ttm_bike) # 2751
-nrow(ttm_bike) / nrow(POINTS) # 40 %
+nrow(ttm_bike) / nrow(POINTS) # 97 %
 ```
 
 Almost all destinations were able to be reached in the 1h time window (**97%)**.
@@ -196,7 +195,7 @@ summary(ttm_bike$travel_time_p50)
 
 ```         
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   0.00   16.00   31.00   30.55   46.00   60.00 
+   0.00   16.00   31.00   30.54   46.00   60.00 
 ```
 
 50% of the trips are shorter than 31 minutes.
@@ -229,28 +228,28 @@ If your selected date is not part of your GTFS calendar, you will not be able to
 
 ```{r}
 library(tidytransit)
-# gtfs = tidytransit::read_gtfs("data/Lisbon/r5r/carris_gtfs.zip")
-summary(gtfs)
+# gtfs_carris = tidytransit::read_gtfs("data/Lisbon/r5r/carris_gtfs.zip")
+summary(gtfs_carris)
 ```
 
 ```         
 tidygtfs object
 files        agency, stops, routes, trips, stop_times, calendar, calendar_dates, shapes, transfers
 agency       Carris
-service      from 2024-11-01 to 2024-12-15
+service      from 2025-09-01 to 2025-12-01
 uses         stop_times (no frequencies)
-# routes       172
-# trips      31827
-# stop_ids    2313
-# stop_names  1116
-# shapes       305
+# routes       175
+# trips      53028
+# stop_ids    2341
+# stop_names  1139
+# shapes       307
 ```
 
-My GTFS runs from **2024-11-01** to **2024-12-15**.
+My GTFS runs from **2025-09-01** to **2025-12-01**.
 I will select a **working day**, and a **peak hour** for this exercises.
 
 ```{r}
-departure_datetime = as.POSIXct("20-11-2024 08:00:00", # wednesday
+departure_datetime = as.POSIXct("01-10-2025 08:00:00", # wednesday
                                 format = "%d-%m-%Y %H:%M:%S")
 ```
 
@@ -261,8 +260,7 @@ When I change this parameter, my results may be totally different.
 `R5` allows for multiple combinations of transport modes.
 The options include:
 
--   **Transit modes:** `TRAM`, `SUBWAY`, `RAIL`, `BUS`, `FERRY`, `CABLE_CAR`, `GONDOLA`, `FUNICULAR`.
-    \
+-   **Transit modes:** `TRAM`, `SUBWAY`, `RAIL`, `BUS`, `FERRY`, `CABLE_CAR`, `GONDOLA`, `FUNICULAR`.\
     The option `TRANSIT` automatically considers **all public transport modes** available.
 
 -   **Non transit modes:** `WALK`, `BICYCLE`, `CAR`, `BICYCLE_RENT`, `CAR_PARK`.
@@ -316,30 +314,30 @@ ttm_transit = travel_time_matrix(
   verbose = FALSE
 )
 
-nrow(ttm_transit) # 1402
-nrow(ttm_transit) / nrow(POINTS) # 49 %
+nrow(ttm_transit) # 2795
+nrow(ttm_transit) / nrow(POINTS) # 99 %
 POINTS |> 
   semi_join(ttm_transit, by = c("id" = "to_id"))  |> 
   pull(residents) |> 
   sum() # 269.539
 ```
 
-Only 1402 destinations were able to be reached in the 1h time window (**50%)**, representing 269,539 residents (**49%**)
+Almost all destinations were able to be reached in the 1h time window (**99%)**.
 
 ```{r}
 #| code-fold: true
 summary(ttm_transit$travel_time_p50)
-hist(ttm_transit$travel_time_p50)
+
 ```
 
 ```         
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   0.00   19.00   25.00   25.52   32.00   50.00 
+   0.00   24.00   31.00   31.63   41.00   59.00 
 ```
 
-![](images/clipboard-3051882919.png)
+![](images/clipboard-2721979667.png)
 
-50% of the trips take less than 25 minutes.
+50% of the trips take less than 31 minutes.
 The distribution is pretty normal.
 
 ::: {.callout-tip appearance="simple"}
@@ -372,18 +370,84 @@ detailed_transit = detailed_itineraries(
   mode = "TRANSIT",
   mode_egress = "WALK",
   departure_datetime = departure_datetime,
-  max_rides = 3, # 2 transfers
+  max_rides = 2, # 1 transfers
   # time_window = 10, # the default
   max_walk_time = 30,
   max_trip_duration = 60,
+  drop_geometry = TRUE, # no geometry this time (processig time)
   verbose = FALSE
 )
 
+table(detailed_transit$mode)
 View(detailed_transit)
-# table(detailed_transit$mode)
+```
+
+```         
+   BUS SUBWAY   WALK 
+  1653   2646   7058 
+```
+
+```         
+    from_id from_lat  from_lon  to_id   to_lat    to_lon option departure_time total_duration total_distance segment   mode
+     <char>    <num>     <num> <char>    <num>     <num>  <int>         <char>          <num>          <int>   <int> <char>
+ 1:       1 38.71188 -9.137313      1 38.73367 -9.131977      1       08:07:58           16.4           3241       1   WALK
+ 2:       1 38.71188 -9.137313      1 38.73367 -9.131977      1       08:07:58           16.4           3241       2 SUBWAY
+ 3:       1 38.71188 -9.137313      1 38.73367 -9.131977      1       08:07:58           16.4           3241       3   WALK
+ 4:       1 38.71188 -9.137313      2 38.73378 -9.147983      1       08:07:58           19.7           3297       1   WALK
+ 5:       1 38.71188 -9.137313      2 38.73378 -9.147983      1       08:07:58           19.7           3297       2 SUBWAY
+ 6:       1 38.71188 -9.137313      2 38.73378 -9.147983      1       08:07:58           19.7           3297       3   WALK
+ 7:       1 38.71188 -9.137313      3 38.69891 -9.219046      1       08:04:02           52.1           8471       1   WALK
+ 8:       1 38.71188 -9.137313      3 38.69891 -9.219046      1       08:04:02           52.1           8471       2 SUBWAY
+ 9:       1 38.71188 -9.137313      3 38.69891 -9.219046      1       08:04:02           52.1           8471       3   WALK
+10:       1 38.71188 -9.137313      3 38.69891 -9.219046      1       08:04:02           52.1           8471       4    BUS
+11:       1 38.71188 -9.137313      3 38.69891 -9.219046      1       08:04:02           52.1           8471       5   WALK
+12:       1 38.71188 -9.137313      4 38.69910 -9.220512      1       08:04:02           52.4           8492       1   WALK
+13:       1 38.71188 -9.137313      4 38.69910 -9.220512      1       08:04:02           52.4           8492       2 SUBWAY
+14:       1 38.71188 -9.137313      4 38.69910 -9.220512      1       08:04:02           52.4           8492       3   WALK
+15:       1 38.71188 -9.137313      4 38.69910 -9.220512      1       08:04:02           52.4           8492       4    BUS
+16:       1 38.71188 -9.137313      4 38.69910 -9.220512      1       08:04:02           52.4           8492       5   WALK
+    segment_duration  wait distance  route
+               <num> <num>    <int> <char>
+ 1:              4.5   0.0      343       
+ 2:              5.9   1.5     2640      C
+ 3:              4.5   0.0      258       
+ 4:              4.5   0.0      343       
+ 5:              5.1   1.1     2429      A
+ 6:              9.0   0.0      525       
+ 7:              4.5   0.0      343       
+ 8:              1.3   1.5      719      C
+ 9:              1.6   0.0      109       
+10:             32.0   3.1     6821   76_0
+11:              8.1   0.0      479       
+12:              4.5   0.0      343       
+13:              1.3   1.5      719      C
+14:              1.6   0.0      109       
+15:             32.0   3.1     6821   76_0
+16:              8.5   0.0      500       
 ```
 
 ### Route shapes
+
+```{r}
+detailed_transit_sample = detailed_itineraries(
+  r5r_network = r5r_lisboa,
+  origins = city_center,
+  destinations = POINTS[c(1:4),], # only the first 4 points
+  mode = "TRANSIT",
+  mode_egress = "WALK",
+  departure_datetime = departure_datetime,
+  max_rides = 2, # 1 transfers
+  # time_window = 10, # the default
+  max_walk_time = 30,
+  max_trip_duration = 60,
+  # drop_geometry = TRUE, # no geometry this time (processig time)
+  verbose = FALSE
+)
+
+mapview::mapview(detailed_transit_sample, zcol = "mode")
+```
+
+![](images/clipboard-787321110.png){fig-align="center"}
 
 ## Stop
 
