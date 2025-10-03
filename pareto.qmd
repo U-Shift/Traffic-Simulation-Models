@@ -71,12 +71,12 @@ r5r_lisboa = build_network("data/Lisbon/r5r/")
 ```
 
 ```{r}
-departure_datetime <- as.POSIXct("13-11-2024 10:00:00", 
+departure_datetime <- as.POSIXct("01-10-2025 10:00:00", 
                                  format = "%d-%m-%Y %H:%M:%S")
 
 prtf <- pareto_frontier(
   r5r_lisboa,
-  origins = POINTShex,
+  origins = POINTS,
   destinations = BAIXA,
   mode = c("WALK", "TRANSIT"),
   departure_datetime = departure_datetime,
@@ -89,7 +89,7 @@ prtf <- pareto_frontier(
 ```{r}
 #| code-fold: true
 # select some origin and destinations
-pf2 <- prtf |> filter(from_id %in% c("717", "720", "399"))
+pf2 <- prtf |> filter(from_id %in% c("727", "1979", "772"))
 
 # recode modes 
 pf2 <- pf2 |>
@@ -104,20 +104,10 @@ pf2 <- pf2 |>
     )
   )
 
-ggplot(data=pf2, aes(x=monetary_cost, y=travel_time, color=from_id, label = modes)) + 
-  geom_step(linetype = "dashed") +
-  geom_point() +
-  geom_text(color='gray30', hjust = -.2, nudge_x = 0.05, angle = 45) +
-  labs(title='Pareto frontier of alternative routes to Baixa to:', 
-       subtitle = 'Hex 399, 717, and 720',
-       color='Destination') +
-  scale_x_continuous(name="Travel cost (€)", breaks=seq(0,4,1)) +
-  scale_y_continuous(name="Travel time (minutes)", breaks=seq(0,120,20)) +
-  coord_cartesian(xlim = c(1,4), ylim = c(0, 120)) +
-  theme_classic() + theme(legend.position=c(.8,0.8))
+
 ```
 
-![](images/clipboard-3634180098.png){fig-align="center" width="683"}
+![](images/clipboard-1774758362.png){fig-align="center"}
 
 An optimum route alternative means that one cannot make a faster trip without increasing costs, and one cannot make a cheaper trip without increasing travel time.
 
