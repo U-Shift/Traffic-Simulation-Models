@@ -18,30 +18,30 @@ We use [`tidytransit::filter_feed_by_date()`](https://r-transit.github.io/tidytr
 ```{r}
 #| code-fold: true
 # Example with Carris
-carris_different_trips_all = length(unique(carris_gtfs$trips$trip_id)) # 31827
+carris_different_trips_all = length(unique(gtfs_carris$trips$trip_id)) # 53028
 
 # wednesday morning
-carris_wednesday = carris_gtfs |> filter_feed_by_date("2024-11-20")
-carris_different_trips_wednesday = length(unique(carris_wednesday$trips$trip_id)) # 11642
-carris_wednesday_peakh = carris_gtfs |> filter_feed_by_date("2024-11-20",
+carris_wednesday = gtfs_carris |> filter_feed_by_date("2025-10-01")
+carris_different_trips_wednesday = length(unique(carris_wednesday$trips$trip_id)) # 11504
+carris_wednesday_peakh = gtfs_carris |> filter_feed_by_date("2025-10-01",
                                                             min_departure_time = "08:00:00",
                                                             max_arrival_time = "09:00:00")
-carris_different_trips_wednesday_h = length(unique(carris_wednesday_peakh$trips$trip_id)) # 1345
+carris_different_trips_wednesday_h = length(unique(carris_wednesday_peakh$trips$trip_id)) # 1352
 
 # sunday evening
-carris_sunday = carris_gtfs |> filter_feed_by_date("2024-11-24")
-carris_different_trips_sunday = length(unique(carris_sunday$trips$trip_id)) # 6424
-carris_sunday_peakh = carris_gtfs |> filter_feed_by_date("2024-11-24",
+carris_sunday = gtfs_carris |> filter_feed_by_date("2025-10-05")
+carris_different_trips_sunday = length(unique(carris_sunday$trips$trip_id)) # 6268
+carris_sunday_peakh = gtfs_carris |> filter_feed_by_date("2025-10-05",
                                                           min_departure_time = "22:00:00",
                                                           max_arrival_time = "23:00:00")
-carris_different_trips_sunday_h = length(unique(carris_sunday_peakh$trips$trip_id)) # 260
+carris_different_trips_sunday_h = length(unique(carris_sunday_peakh$trips$trip_id)) # 264
 
 # comparision
-carris_different_trips_sunday/carris_different_trips_wednesday # 55%
+carris_different_trips_sunday/carris_different_trips_wednesday # 54%
 carris_different_trips_sunday_h/carris_different_trips_wednesday_h # 19%
 ```
 
-For instance, for Carris (bus operator), on a Sunday there are **55%** of the departures of a Wednesday, and on a Sunday evening (22h) there are **19%** of the departures that are on a Wednesday morning (8h).
+For instance, for Carris (bus operator), on a Sunday there are **54%** of the departures of a Wednesday, and on a Sunday evening (22h) there are **19%** of the departures that are on a Wednesday morning (8h).
 
 #### Transfers needed to reach all stops
 
@@ -50,39 +50,39 @@ By considering the PTransit stops as destinations (and not population), we can a
 These estimates are based on GTFS data only, and do not rely on r5r.
 
 ```{r}
-summary(carris_gtfs)
+summary(gtfs_carris)
 ```
 
 ```         
 tidygtfs object
 files        agency, stops, routes, trips, stop_times, calendar, calendar_dates, shapes, transfers
 agency       Carris
-service      from 2024-11-01 to 2024-12-15
+service      from 2025-09-01 to 2025-12-01
 uses         stop_times (no frequencies)
-# routes       172
-# trips      31827
-# stop_ids    2313
-# stop_names  1116
-# shapes       305
+# routes       175
+# trips      53028
+# stop_ids    2341
+# stop_names  1139
+# shapes       307
 ```
 
 ```{r}
 # We will use the Cais Sodré bus stop name
 from_station = "Cais Sodré"
-stop_times_carris = filter_stop_times(carris_gtfs, "2024-11-20", "08:00:00", "09:00:00")
+stop_times_carris = filter_stop_times(gtfs_carris, "2025-10-01", "08:00:00", "09:00:00")
 trip_duration_cais = travel_times(stop_times_carris, from_station, stop_dist_check = FALSE)
 
-nrow(trip_duration_cais) # 931
+nrow(trip_duration_cais) # 989
 
 summary(trip_duration_cais$travel_time/60) # in minutos
 ```
 
 ```         
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   0.00   18.64   28.28   28.39   37.39   63.95 
+   0.00   19.85   29.87   29.72   40.02   62.30 
 ```
 
-Not counting the waiting time at *Cais do Sodré* it is possible to reach 931 stops in the network (**40%**) during rush hour—within the 1 hour time frame defined.
+Not counting the waiting time at *Cais do Sodré* it is possible to reach 989 stops in the network (**42%**) during rush hour—within the 1 hour time frame defined.
 
 ```{r}
 #| code-fold: true
@@ -90,12 +90,12 @@ round(prop.table(table(trip_duration_cais$transfers))*100, 1) # transfers percen
 ```
 
 ```         
-   0    1    2    3    4 
-21.3 57.1 19.3  1.8  0.4 
+   0    1    2    3 
+22.6 55.5 19.7  2.1 
 ```
 
-Only **21%** of stops are directly accessible (**without bus transfers**).
-78% are accessible with a maximum of 1 transfer, and 2.2% of stops require at least 4 buses to reach (3 transfers).
+Only **22%** of stops are directly accessible (**without bus transfers**).
+78% are accessible with a maximum of 1 transfer, and 2.1% of stops require at least 4 buses to reach (3 transfers).
 
 ::: {.callout-note appearance="simple"}
 #### Your turn
@@ -115,7 +115,7 @@ max_walk_time = 10 # in minutes
 max_trip_duration = 90 # in minutes
 time_window = 30 # in minutes
 time_intervals <- seq(0, 100, 10)
-departure_datetime_HP = as.POSIXct("20-11-2024 8:00:00", format = "%d-%m-%Y %H:%M:%S") # quarta-feira
+departure_datetime_HP = as.POSIXct("01-10-2025 8:00:00", format = "%d-%m-%Y %H:%M:%S") # quarta-feira
 
 # calculate travel time matrix
 ttm_zer_PT_wednesday = travel_time_matrix(r5r_network = r5r_lisboa,
@@ -134,8 +134,8 @@ summary(ttm_zer_PT_wednesday$travel_time_p50)
 ```
 
 ```         
-  Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   1.00   30.00   37.00   36.29   43.00   68.00 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00   29.00   37.00   36.24   43.00   65.00 
 ```
 
 ```{r}
@@ -178,12 +178,12 @@ plotHP = ggplot(travel_times.interp) +
 plotHP
 ```
 
-![](images/clipboard-529421772.png)
+![](images/clipboard-1346996124.png){fig-align="center"}
 
 ### Mobility Off peak-hour
 
 ```{r}
-departure_datetime_OFF = as.POSIXct("24-11-2024 22:00:00", format = "%d-%m-%Y %H:%M:%S") # sunday evening
+departure_datetime_OFF = as.POSIXct("05-10-2025 22:00:00", format = "%d-%m-%Y %H:%M:%S") # sunday evening
 
 # calculate travel time matrix
 ttm_zer_PT_sunday = travel_time_matrix(r5r_network = r5r_lisboa,
@@ -203,7 +203,7 @@ summary(ttm_zer_PT_sunday$travel_time_p50)
 
 ```         
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   1.00   31.00   39.00   39.38   48.00   73.00  
+   1.00   32.00   41.00   40.81   50.00   79.00 
 ```
 
 ```{r}
@@ -246,7 +246,7 @@ plotOFF = ggplot(travel_times.interp) +
 plotOFF
 ```
 
-![](images/clipboard-457034943.png)
+![](images/clipboard-1092287702.png){fig-align="center"}
 
 ### Compare population
 
@@ -255,22 +255,22 @@ Based on Census 2021 [@INEcensus], we can count how many people are reach.
 ```{r}
 #| code-fold: true
 poplisboa = sum(POINTS$residents) #
-100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 <= 15]) / poplisboa # 2.7%
-100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 <= 30]) / poplisboa # 38.9%
-100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 <= 45]) / poplisboa # 90.0%
-100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 <= 60]) / poplisboa # 98.7%
+100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 <= 15]) / poplisboa # 2.8%
+100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 <= 30]) / poplisboa # 4.4%
+100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 <= 45]) / poplisboa # 90.7%
+100* sum(ttm_zer_PT_wednesday$residents[ttm_zer_PT_wednesday$travel_time_p50 <= 60]) / poplisboa # 98.9%
 
-100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 <= 15]) / poplisboa # 1.5%
-100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 <= 30]) / poplisboa # 31.7%
-100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 <= 45]) / poplisboa # 76.6%
-100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 <= 60]) / poplisboa # 95.0%
+100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 <= 15]) / poplisboa # 1.3%
+100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 <= 30]) / poplisboa # 29.6%
+100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 <= 45]) / poplisboa # 73.5%
+100* sum(ttm_zer_PT_sunday$residents[ttm_zer_PT_sunday$travel_time_p50 <= 60]) / poplisboa # 93.5%
 ```
 
 | Up to... | Wednesday peak hour | Sunday evening |
 |----------|---------------------|----------------|
-| 30 min   | **38.9%**           | **31.7%**      |
-| 45 min   | **90.0%**           | **76.6%**      |
-| 60 min   | **98.7%**           | **95.0%**      |
+| 30 min   | **42.3%**           | **29.6%**      |
+| 45 min   | **90.7%**           | **73.5%**      |
+| 60 min   | **98.9%**           | **93.5%**      |
 
 ## New metro station or metro line
 
