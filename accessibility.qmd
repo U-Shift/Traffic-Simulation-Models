@@ -63,7 +63,7 @@ max_walk_time = 10 # in minutes
 max_trip_duration = 90 # in minutes
 time_window = 120 # in minutes
 time_intervals <- seq(0, 100, 10)
-departure_datetime_HP = as.POSIXct("20-11-2024 8:00:00", format = "%d-%m-%Y %H:%M:%S") # quarta-feira
+departure_datetime_HP = as.POSIXct("01-10-2025 8:00:00", format = "%d-%m-%Y %H:%M:%S") # quarta-feira
 
 # calculate travel time matrix
 ttm_zer_HP_PT = travel_time_matrix(r5r_network = r5r_lisboa,
@@ -83,13 +83,14 @@ summary(ttm_zer_HP_PT$travel_time_p50)
 
 ```         
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    1.0    30.0    38.0    37.7    45.0    77.0 
+   1.00   29.00   37.00   37.86   45.25   85.00 
 ```
 
 ```{r}
 # add coordinates of destinations to travel time matrix
 ttm_zer_HP_PT = ttm_zer_HP_PT |>
-  left_join(POINTS, by = c("to_id" = "id"))
+  mutate(id = as.integer(to_id)) |> 
+  left_join(GRID_data)
 
 # interpolate estimates to get spatially smooth result
 travel_times.interp <- with(na.omit(ttm_zer_HP_PT), interp(lon, lat, travel_time_p50)) |>
@@ -127,7 +128,7 @@ plotHP = ggplot(travel_times.interp) +
 plotHP
 ```
 
-![](images/clipboard-2760696520.png){fig-align="center"}
+![](images/clipboard-2179978347.png){fig-align="center"}
 
 ## Car
 
@@ -379,7 +380,7 @@ We can use our grid directly to visualize results
 ```{r}
 #| code-fold: true
 # merge accessibility estimates
-access_sf <- left_join(GRID, access1, by = c('id'))
+access_sf <- left_join(GRID_h3, access1, by = c('id'))
 
 # plot
 ggplot() +
@@ -496,18 +497,18 @@ poplisboa = sum(POINTS$residents) #
 100* sum(access$residents[access$travel_time_p50 <= 60]) / poplisboa # 97.3%
 ```
 
-+----------------+------------+
-| Trip duration\ | Residents  |
-| (up to...)     |            |
-+:==============:+:==========:+
-| 15 min         | **2.5 %**  |
-+----------------+------------+
-| 30 min         | **38.6 %** |
-+----------------+------------+
-| 45 min         | **84.8%**  |
-+----------------+------------+
-| 60 min         | **97.3%**  |
-+----------------+------------+
++----------------+-------------+
+| Trip duration\ | Residents   |
+| (up to...)     |             |
++:==============:+:===========:+
+| 15 min         | **2.5 %**   |
++----------------+-------------+
+| 30 min         | **38.6 %**  |
++----------------+-------------+
+| 45 min         | **84.8%**   |
++----------------+-------------+
+| 60 min         | **97.3%**   |
++----------------+-------------+
 
 ::: {.callout-tip appearance="simple"}
 ## Other accessibility measures
