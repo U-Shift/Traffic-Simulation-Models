@@ -55,14 +55,25 @@ piggyback::pb_upload("data/Lisbon/REDEbase_Lx.gpkg", "REDEbase_Lx.gpkg", repo = 
 # https://github.com/rosamfelix/PGmob360/releases/download/2024.11/metro_gtfs.zip
 # https://github.com/rosamfelix/PGmob360/releases/download/2024.11/carris_gtfs.zip
 
+# 2025
+# Passei a usar:
+# "https://gateway.carris.pt/gateway/gtfs/api/v2.8/GTFS")
+# "https://www.metrolisboa.pt/google_transit/googleTransit.zip")
+
+
+
+
 # preciso de declives
 # copia de /media/rosa/Dados/GIS/R5R/data/LisboaIST_clip_r1.tif
+# /media/rosa/Dados/GIS/OSM/DEM_COPERNICUS_30_2025_Lisbon.tif
+
 
 # coloquei tudo em data/r5r
 r5r_lisboa = build_network(data_path = "data/Lisbon/r5r/", elevation = "TOBLER")
+# também não lê bem a elevação, algo se passa (ver https://github.com/ipeaGIT/r5r/issues/520)
 # fiz um r5r_lisboa.zip só com os ficheiros network
 # Rede modelada com r5r
-piggyback::pb_upload("data/Lisbon/r5r/r5r_Lisboa.zip", "r5r_lisboa.zip", repo = "U-Shift/Traffic-Simulation-Models", tag = "2025")
+piggyback::pb_upload("data/Lisbon/r5r_Lisboa.zip", "r5r_lisboa.zip", repo = "U-Shift/Traffic-Simulation-Models", tag = "2025")
 
 
 
