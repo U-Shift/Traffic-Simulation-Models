@@ -1,79 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/routing.html</loc>
-    <lastmod>2025-09-30T17:10:44.551Z</lastmod>
-  </url>
-  <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/index.html</loc>
-    <lastmod>2025-10-01T15:09:25.489Z</lastmod>
-  </url>
-  <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/matsim.html</loc>
-    <lastmod>2024-07-18T14:35:17.137Z</lastmod>
-  </url>
-  <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/about.html</loc>
-    <lastmod>2025-09-24T14:26:52.341Z</lastmod>
-  </url>
-  <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/pois.html</loc>
-    <lastmod>2025-10-01T14:35:14.944Z</lastmod>
-  </url>
-  <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/rr5r.html</loc>
-    <lastmod>2025-09-29T13:31:27.711Z</lastmod>
-  </url>
-  <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/pareto.html</loc>
-    <lastmod>2025-09-29T13:44:01.439Z</lastmod>
-  </url>
-  <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/network.html</loc>
-    <lastmod>2025-09-29T15:02:23.170Z</lastmod>
-  </url>
-  <url>
     <loc>https://U-Shift.github.io/Traffic-Simulation-Models/jittering.html</loc>
-    <lastmod>2025-10-01T14:08:12.814Z</lastmod>
-  </url>
-  <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/accessibility.html</loc>
-    <lastmod>2025-10-01T11:30:52.658Z</lastmod>
-  </url>
-  <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/software.html</loc>
-    <lastmod>2025-09-29T13:22:20.510Z</lastmod>
-  </url>
-  <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/Oeiras2024/Alfragide_Zonas_2021.html</loc>
-    <lastmod>2024-09-12T15:51:40.620Z</lastmod>
+    <lastmod>2025-10-05T17:18:27.328Z</lastmod>
   </url>
   <url>
     <loc>https://U-Shift.github.io/Traffic-Simulation-Models/casestudy.html</loc>
-    <lastmod>2025-09-24T14:26:52.342Z</lastmod>
+    <lastmod>2025-09-25T11:16:40.151Z</lastmod>
   </url>
   <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/micro.html</loc>
-    <lastmod>2025-09-24T14:26:52.361Z</lastmod>
-  </url>
-  <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/import_osm/OSM2VISSIM-main/LICENSE.html</loc>
-    <lastmod>2023-04-08T09:24:50.000Z</lastmod>
-  </url>
-  <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/scenarios.html</loc>
-    <lastmod>2025-10-01T11:29:55.276Z</lastmod>
+    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/about.html</loc>
+    <lastmod>2025-09-25T11:16:40.151Z</lastmod>
   </url>
   <url>
     <loc>https://U-Shift.github.io/Traffic-Simulation-Models/vissim.html</loc>
-    <lastmod>2025-09-24T14:26:52.361Z</lastmod>
+    <lastmod>2025-09-25T11:16:40.557Z</lastmod>
   </url>
   <url>
-    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/visum.html</loc>
-    <lastmod>2025-01-22T18:21:30.200Z</lastmod>
+    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/software.html</loc>
+    <lastmod>2025-09-28T20:51:21.149Z</lastmod>
+  </url>
+  <url>
+    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/rr5r.html</loc>
+    <lastmod>2025-10-05T17:44:31.620Z</lastmod>
+  </url>
+  <url>
+    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/pois.html</loc>
+    <lastmod>2025-10-05T17:18:27.328Z</lastmod>
+  </url>
+  <url>
+    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/network.html</loc>
+    <lastmod>2025-10-05T17:18:27.328Z</lastmod>
+  </url>
+  <url>
+    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/matsim.html</loc>
+    <lastmod>2025-09-25T11:16:37.742Z</lastmod>
+  </url>
+  <url>
+    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/micro.html</loc>
+    <lastmod>2025-09-25T11:16:40.556Z</lastmod>
+  </url>
+  <url>
+    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/pareto.html</loc>
+    <lastmod>2025-10-05T17:18:27.328Z</lastmod>
+  </url>
+  <url>
+    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/routing.html</loc>
+    <lastmod>2025-10-05T20:24:23.860Z</lastmod>
+  </url>
+  <url>
+    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/scenarios.html</loc>
+    <lastmod>2025-10-05T17:18:27.328Z</lastmod>
   </url>
   <url>
     <loc>https://U-Shift.github.io/Traffic-Simulation-Models/sumo.html</loc>
-    <lastmod>2024-09-11T16:19:09.225Z</lastmod>
+    <lastmod>2025-09-25T11:16:37.743Z</lastmod>
+  </url>
+  <url>
+    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/visum.html</loc>
+    <lastmod>2025-09-25T11:16:40.591Z</lastmod>
+  </url>
+  <url>
+    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/accessibility.html</loc>
+    <lastmod>2025-10-05T17:18:26.585Z</lastmod>
+  </url>
+  <url>
+    <loc>https://U-Shift.github.io/Traffic-Simulation-Models/index.html</loc>
+    <lastmod>2025-10-05T17:18:27.328Z</lastmod>
   </url>
 </urlset>

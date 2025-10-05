@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -90,12 +90,12 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7cefdf45bc0291904e5ed04695f6b7cc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-d4f02f0447084e69b8c50d187391575c.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -389,69 +389,69 @@ div.csl-indent {
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example with Carris</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>carris_different_trips_all <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_gtfs<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 31827</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>carris_different_trips_all <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(gtfs_carris<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 53028</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># wednesday morning</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>carris_wednesday <span class="ot">=</span> carris_gtfs <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2024-11-20"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>carris_different_trips_wednesday <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_wednesday<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 11642</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>carris_wednesday_peakh <span class="ot">=</span> carris_gtfs <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2024-11-20"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>carris_wednesday <span class="ot">=</span> gtfs_carris <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2025-10-01"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>carris_different_trips_wednesday <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_wednesday<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 11504</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>carris_wednesday_peakh <span class="ot">=</span> gtfs_carris <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2025-10-01"</span>,</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                                                            <span class="at">min_departure_time =</span> <span class="st">"08:00:00"</span>,</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                                                            <span class="at">max_arrival_time =</span> <span class="st">"09:00:00"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>carris_different_trips_wednesday_h <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_wednesday_peakh<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 1345</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>carris_different_trips_wednesday_h <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_wednesday_peakh<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 1352</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># sunday evening</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>carris_sunday <span class="ot">=</span> carris_gtfs <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2024-11-24"</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_sunday<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 6424</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>carris_sunday_peakh <span class="ot">=</span> carris_gtfs <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2024-11-24"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>carris_sunday <span class="ot">=</span> gtfs_carris <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2025-10-05"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_sunday<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 6268</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>carris_sunday_peakh <span class="ot">=</span> gtfs_carris <span class="sc">|&gt;</span> <span class="fu">filter_feed_by_date</span>(<span class="st">"2025-10-05"</span>,</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                                                          <span class="at">min_departure_time =</span> <span class="st">"22:00:00"</span>,</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                                                          <span class="at">max_arrival_time =</span> <span class="st">"23:00:00"</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday_h <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_sunday_peakh<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 260</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday_h <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">unique</span>(carris_sunday_peakh<span class="sc">$</span>trips<span class="sc">$</span>trip_id)) <span class="co"># 264</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># comparision</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday<span class="sc">/</span>carris_different_trips_wednesday <span class="co"># 55%</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday<span class="sc">/</span>carris_different_trips_wednesday <span class="co"># 54%</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>carris_different_trips_sunday_h<span class="sc">/</span>carris_different_trips_wednesday_h <span class="co"># 19%</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>For instance, for Carris (bus operator), on a Sunday there are <strong>55%</strong> of the departures of a Wednesday, and on a Sunday evening (22h) there are <strong>19%</strong> of the departures that are on a Wednesday morning (8h).</p>
+<p>For instance, for Carris (bus operator), on a Sunday there are <strong>54%</strong> of the departures of a Wednesday, and on a Sunday evening (22h) there are <strong>19%</strong> of the departures that are on a Wednesday morning (8h).</p>
 <section id="transfers-needed-to-reach-all-stops" class="level4">
 <h4 class="anchored" data-anchor-id="transfers-needed-to-reach-all-stops">Transfers needed to reach all stops</h4>
 <p>By considering the PTransit stops as destinations (and not population), we can also estimate how many bus stops are reacheble, in total and by number of transfers needed, for each our.</p>
 <p>These estimates are based on GTFS data only, and do not rely on r5r.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(carris_gtfs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gtfs_carris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code>tidygtfs object
 files        agency, stops, routes, trips, stop_times, calendar, calendar_dates, shapes, transfers
 agency       Carris
-service      from 2024-11-01 to 2024-12-15
+service      from 2025-09-01 to 2025-12-01
 uses         stop_times (no frequencies)
-# routes       172
-# trips      31827
-# stop_ids    2313
-# stop_names  1116
-# shapes       305</code></pre>
+# routes       175
+# trips      53028
+# stop_ids    2341
+# stop_names  1139
+# shapes       307</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We will use the Cais Sodré bus stop name</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>from_station <span class="ot">=</span> <span class="st">"Cais Sodré"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>stop_times_carris <span class="ot">=</span> <span class="fu">filter_stop_times</span>(carris_gtfs, <span class="st">"2024-11-20"</span>, <span class="st">"08:00:00"</span>, <span class="st">"09:00:00"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>stop_times_carris <span class="ot">=</span> <span class="fu">filter_stop_times</span>(gtfs_carris, <span class="st">"2025-10-01"</span>, <span class="st">"08:00:00"</span>, <span class="st">"09:00:00"</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>trip_duration_cais <span class="ot">=</span> <span class="fu">travel_times</span>(stop_times_carris, from_station, <span class="at">stop_dist_check =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(trip_duration_cais) <span class="co"># 931</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(trip_duration_cais) <span class="co"># 989</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(trip_duration_cais<span class="sc">$</span>travel_time<span class="sc">/</span><span class="dv">60</span>) <span class="co"># in minutos</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   0.00   18.64   28.28   28.39   37.39   63.95 </code></pre>
-<p>Not counting the waiting time at <em>Cais do Sodré</em> it is possible to reach 931 stops in the network (<strong>40%</strong>) during rush hour—within the 1 hour time frame defined.</p>
+   0.00   19.85   29.87   29.72   40.02   62.30 </code></pre>
+<p>Not counting the waiting time at <em>Cais do Sodré</em> it is possible to reach 989 stops in the network (<strong>42%</strong>) during rush hour—within the 1 hour time frame defined.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">prop.table</span>(<span class="fu">table</span>(trip_duration_cais<span class="sc">$</span>transfers))<span class="sc">*</span><span class="dv">100</span>, <span class="dv">1</span>) <span class="co"># transfers percentage</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<pre><code>   0    1    2    3    4 
-21.3 57.1 19.3  1.8  0.4 </code></pre>
-<p>Only <strong>21%</strong> of stops are directly accessible (<strong>without bus transfers</strong>). 78% are accessible with a maximum of 1 transfer, and 2.2% of stops require at least 4 buses to reach (3 transfers).</p>
+<pre><code>   0    1    2    3 
+22.6 55.5 19.7  2.1 </code></pre>
+<p>Only <strong>22%</strong> of stops are directly accessible (<strong>without bus transfers</strong>). 78% are accessible with a maximum of 1 transfer, and 2.1% of stops require at least 4 buses to reach (3 transfers).</p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -478,7 +478,7 @@ Your turn
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>max_trip_duration <span class="ot">=</span> <span class="dv">90</span> <span class="co"># in minutes</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>time_window <span class="ot">=</span> <span class="dv">30</span> <span class="co"># in minutes</span></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>time_intervals <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">10</span>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>departure_datetime_HP <span class="ot">=</span> <span class="fu">as.POSIXct</span>(<span class="st">"20-11-2024 8:00:00"</span>, <span class="at">format =</span> <span class="st">"%d-%m-%Y %H:%M:%S"</span>) <span class="co"># quarta-feira</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>departure_datetime_HP <span class="ot">=</span> <span class="fu">as.POSIXct</span>(<span class="st">"01-10-2025 8:00:00"</span>, <span class="at">format =</span> <span class="st">"%d-%m-%Y %H:%M:%S"</span>) <span class="co"># quarta-feira</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate travel time matrix</span></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>ttm_zer_PT_wednesday <span class="ot">=</span> <span class="fu">travel_time_matrix</span>(<span class="at">r5r_network =</span> r5r_lisboa,</span>
@@ -495,8 +495,8 @@ Your turn
 <span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<pre><code>  Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   1.00   30.00   37.00   36.29   43.00   68.00 </code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00   29.00   37.00   36.24   43.00   65.00 </code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -537,12 +537,16 @@ Your turn
 <span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>plotHP</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p><img src="images/clipboard-529421772.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1346996124.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 </section>
 <section id="mobility-off-peak-hour" class="level3">
 <h3 class="anchored" data-anchor-id="mobility-off-peak-hour">Mobility Off peak-hour</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>departure_datetime_OFF <span class="ot">=</span> <span class="fu">as.POSIXct</span>(<span class="st">"24-11-2024 22:00:00"</span>, <span class="at">format =</span> <span class="st">"%d-%m-%Y %H:%M:%S"</span>) <span class="co"># sunday evening</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>departure_datetime_OFF <span class="ot">=</span> <span class="fu">as.POSIXct</span>(<span class="st">"05-10-2025 22:00:00"</span>, <span class="at">format =</span> <span class="st">"%d-%m-%Y %H:%M:%S"</span>) <span class="co"># sunday evening</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate travel time matrix</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>ttm_zer_PT_sunday <span class="ot">=</span> <span class="fu">travel_time_matrix</span>(<span class="at">r5r_network =</span> r5r_lisboa,</span>
@@ -560,7 +564,7 @@ Your turn
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   1.00   31.00   39.00   39.38   48.00   73.00  </code></pre>
+   1.00   32.00   41.00   40.81   50.00   79.00 </code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -601,7 +605,11 @@ Your turn
 <span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>plotOFF</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p><img src="images/clipboard-457034943.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1092287702.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 </section>
 <section id="compare-population" class="level3">
 <h3 class="anchored" data-anchor-id="compare-population">Compare population</h3>
@@ -610,15 +618,15 @@ Your turn
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>poplisboa <span class="ot">=</span> <span class="fu">sum</span>(POINTS<span class="sc">$</span>residents) <span class="co">#</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_wednesday<span class="sc">$</span>residents[ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">15</span>]) <span class="sc">/</span> poplisboa <span class="co"># 2.7%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_wednesday<span class="sc">$</span>residents[ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">30</span>]) <span class="sc">/</span> poplisboa <span class="co"># 38.9%</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_wednesday<span class="sc">$</span>residents[ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">45</span>]) <span class="sc">/</span> poplisboa <span class="co"># 90.0%</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_wednesday<span class="sc">$</span>residents[ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">60</span>]) <span class="sc">/</span> poplisboa <span class="co"># 98.7%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_wednesday<span class="sc">$</span>residents[ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">15</span>]) <span class="sc">/</span> poplisboa <span class="co"># 2.8%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_wednesday<span class="sc">$</span>residents[ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">30</span>]) <span class="sc">/</span> poplisboa <span class="co"># 4.4%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_wednesday<span class="sc">$</span>residents[ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">45</span>]) <span class="sc">/</span> poplisboa <span class="co"># 90.7%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_wednesday<span class="sc">$</span>residents[ttm_zer_PT_wednesday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">60</span>]) <span class="sc">/</span> poplisboa <span class="co"># 98.9%</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">15</span>]) <span class="sc">/</span> poplisboa <span class="co"># 1.5%</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">30</span>]) <span class="sc">/</span> poplisboa <span class="co"># 31.7%</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">45</span>]) <span class="sc">/</span> poplisboa <span class="co"># 76.6%</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">60</span>]) <span class="sc">/</span> poplisboa <span class="co"># 95.0%</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">15</span>]) <span class="sc">/</span> poplisboa <span class="co"># 1.3%</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">30</span>]) <span class="sc">/</span> poplisboa <span class="co"># 29.6%</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">45</span>]) <span class="sc">/</span> poplisboa <span class="co"># 73.5%</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span> <span class="fu">sum</span>(ttm_zer_PT_sunday<span class="sc">$</span>residents[ttm_zer_PT_sunday<span class="sc">$</span>travel_time_p50 <span class="sc">&lt;=</span> <span class="dv">60</span>]) <span class="sc">/</span> poplisboa <span class="co"># 93.5%</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <table class="caption-top table">
@@ -632,18 +640,18 @@ Your turn
 <tbody>
 <tr class="odd">
 <td>30 min</td>
-<td><strong>38.9%</strong></td>
-<td><strong>31.7%</strong></td>
+<td><strong>42.3%</strong></td>
+<td><strong>29.6%</strong></td>
 </tr>
 <tr class="even">
 <td>45 min</td>
-<td><strong>90.0%</strong></td>
-<td><strong>76.6%</strong></td>
+<td><strong>90.7%</strong></td>
+<td><strong>73.5%</strong></td>
 </tr>
 <tr class="odd">
 <td>60 min</td>
-<td><strong>98.7%</strong></td>
-<td><strong>95.0%</strong></td>
+<td><strong>98.9%</strong></td>
+<td><strong>93.5%</strong></td>
 </tr>
 </tbody>
 </table>
@@ -1037,6 +1045,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1147,6 +1157,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
