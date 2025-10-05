@@ -772,10 +772,10 @@ C = \frac{d_{\text{network}}}{d_{\text{euclidean}}}
 \]</span></p>
 <p>where:</p>
 <ul>
-<li>(d_{}) — distance or travel length along the actual transport network</li>
-<li>(d_{}) — straight-line (Euclidean) distance between the same points</li>
+<li><span class="math inline">\(d_{network}\)</span> — distance or travel length along the actual transport network</li>
+<li><span class="math inline">\(d_{euclidean}\)</span> — straight-line (Euclidean) distance between the same points</li>
 </ul>
-<p>A circuity value of <strong>1</strong> indicates a perfectly direct route (<em>as the crow flies</em>), while higher values indicate more detoured paths due to network layout, barriers, or design.</p>
+<p>A circuity value of <strong>1</strong> indicates a perfectly direct route (<em>as the crow flies</em>), while higher values indicate more detoured paths due to <strong>network layout, barriers, or design</strong>.</p>
 <p>In this exercise, circuity will be estimated separately for <strong>car, walking, cycling, and public transport</strong> networks, allowing comparison of how each mode’s infrastructure shapes travel efficiency and accessibility.</p>
 <section id="euclidean-distances" class="level3">
 <h3 class="anchored" data-anchor-id="euclidean-distances">Euclidean distances</h3>
@@ -860,30 +860,35 @@ C = \frac{d_{\text{network}}}{d_{\text{euclidean}}}
 <span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">circ_bike =</span> bike_dist <span class="sc">/</span> distance)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<pre><code>&gt; summary(DISTANCES$circ_walk)
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DISTANCES<span class="sc">$</span>circ_walk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
   1.018   1.131   1.186   1.252   1.302   4.024     757 
-  
-&gt; summary(DISTANCES$circ_car)
-    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
- 0.04975  1.36537  1.59976  1.90545  1.96105 51.04878        3 
- 
-&gt; summary(DISTANCES$circ_bike)
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  </code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DISTANCES<span class="sc">$</span>circ_car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>  Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
+ 0.04975  1.36537  1.59976  1.90545  1.96105 51.04878        3 </code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DISTANCES<span class="sc">$</span>circ_bike)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
   1.059   1.252   1.320   1.383   1.446   4.780       1 </code></pre>
-<ul>
-<li>Circuity &gt;1 indicates that network routes are longer than straight-line distances.</li>
-</ul>
+<blockquote class="blockquote">
+<p>Circuity &gt;1 indicates that network routes are longer than straight-line distances.</p>
+</blockquote>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">=</span> DISTANCES <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(distance, walk_dist, bike_dist, car_dist) <span class="sc">|&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="co"># remove the ones that were not estimated for all modes</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(data2, <span class="at">main=</span><span class="st">"Distance by Mode"</span>,</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">"Distance (meters)"</span>,</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">c</span>(<span class="st">"lightblue"</span>, <span class="st">"lightgreen"</span>, <span class="st">"lightpink"</span>, <span class="st">"lightyellow"</span>),</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">names=</span><span class="fu">c</span>(<span class="st">"Euclidean"</span>, <span class="st">"Walk"</span>, <span class="st">"Bike"</span>, <span class="st">"Car"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">=</span> DISTANCES <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(distance, walk_dist, bike_dist, car_dist) <span class="sc">|&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="co"># remove the ones that were not estimated for all modes</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(data2, <span class="at">main=</span><span class="st">"Distance by Mode"</span>,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">"Distance (meters)"</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">c</span>(<span class="st">"lightblue"</span>, <span class="st">"lightgreen"</span>, <span class="st">"lightpink"</span>, <span class="st">"lightyellow"</span>),</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">names=</span><span class="fu">c</span>(<span class="st">"Euclidean"</span>, <span class="st">"Walk"</span>, <span class="st">"Bike"</span>, <span class="st">"Car"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -893,36 +898,36 @@ C = \frac{d_{\text{network}}}{d_{\text{euclidean}}}
 </div>
 <p>Let’s visualize for one example</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># id = 1594</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Walk</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>dist_walk_example <span class="ot">=</span> <span class="fu">detailed_itineraries</span>(</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">r5r_network =</span> r5r_lisboa,</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">origins =</span> city_center,</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">destinations =</span> POINTS[<span class="dv">1594</span>,],</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"WALK"</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Car</span></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>dist_car_example <span class="ot">=</span> <span class="fu">detailed_itineraries</span>(</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">r5r_network =</span> r5r_lisboa,</span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">origins =</span> city_center,</span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">destinations =</span> POINTS[<span class="dv">1594</span>,],</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"CAR"</span></span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Bike</span></span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>dist_bike_example <span class="ot">=</span> <span class="fu">detailed_itineraries</span>(</span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">r5r_network =</span> r5r_lisboa,</span>
-<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">origins =</span> city_center,</span>
-<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">destinations =</span> POINTS[<span class="dv">1594</span>,],</span>
-<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"BICYCLE"</span>,</span>
-<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_lts =</span> <span class="dv">3</span></span>
-<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(dist_walk_example, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> <span class="co"># 984 meters</span></span>
-<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(dist_bike_example, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span> <span class="co"># 1262 meters</span></span>
-<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(dist_car_example, <span class="at">color =</span> <span class="st">"red"</span>) <span class="co"># 3161 meters</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># id = 1594</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Walk</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>dist_walk_example <span class="ot">=</span> <span class="fu">detailed_itineraries</span>(</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">r5r_network =</span> r5r_lisboa,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">origins =</span> city_center,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">destinations =</span> POINTS[<span class="dv">1594</span>,],</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"WALK"</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Car</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>dist_car_example <span class="ot">=</span> <span class="fu">detailed_itineraries</span>(</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">r5r_network =</span> r5r_lisboa,</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">origins =</span> city_center,</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">destinations =</span> POINTS[<span class="dv">1594</span>,],</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"CAR"</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Bike</span></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>dist_bike_example <span class="ot">=</span> <span class="fu">detailed_itineraries</span>(</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">r5r_network =</span> r5r_lisboa,</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">origins =</span> city_center,</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">destinations =</span> POINTS[<span class="dv">1594</span>,],</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"BICYCLE"</span>,</span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_lts =</span> <span class="dv">3</span></span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(dist_walk_example, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> <span class="co"># 984 meters</span></span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(dist_bike_example, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span> <span class="co"># 1262 meters</span></span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(dist_car_example, <span class="at">color =</span> <span class="st">"red"</span>) <span class="co"># 3161 meters</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -936,36 +941,36 @@ C = \frac{d_{\text{network}}}{d_{\text{euclidean}}}
 <p>We can add <strong>population</strong> or other information to the routes, to visualize which ones could potentially have more demand.</p>
 <p>For that, I’ll run the process for 300 random destinations, by <code>WALK</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>detailed_walk_sample_300 <span class="ot">=</span> <span class="fu">detailed_itineraries</span>(</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">r5r_network =</span> r5r_lisboa,</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">origins =</span> city_center,</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">destinations =</span> POINTS <span class="sc">|&gt;</span> <span class="fu">sample_n</span>(<span class="dv">300</span>), <span class="co"># 300 sample</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"WALK"</span>,</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># drop_geometry = TRUE, # no geometry this time (processig time)</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">progress =</span> <span class="cn">TRUE</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(detailed_transit_sample_300)</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(detailed_transit_sample_300, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>detailed_walk_sample_300 <span class="ot">=</span> <span class="fu">detailed_itineraries</span>(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">r5r_network =</span> r5r_lisboa,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">origins =</span> city_center,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">destinations =</span> POINTS <span class="sc">|&gt;</span> <span class="fu">sample_n</span>(<span class="dv">300</span>), <span class="co"># 300 sample</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"WALK"</span>,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># drop_geometry = TRUE, # no geometry this time (processig time)</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">progress =</span> <span class="cn">TRUE</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(detailed_transit_sample_300)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(detailed_transit_sample_300, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/clipboard-483525296.png" class="img-fluid"></p>
 <p>Now, join this information with the population</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>detailed_walk_sample_300 <span class="ot">=</span> detailed_walk_sample_300 <span class="sc">|&gt;</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(POINTS <span class="sc">|&gt;</span> <span class="fu">st_drop_geometry</span>(), <span class="co"># can't be an sf</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"to_id"</span> <span class="ot">=</span> <span class="st">"id"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>detailed_walk_sample_300 <span class="ot">=</span> detailed_walk_sample_300 <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(POINTS <span class="sc">|&gt;</span> <span class="fu">st_drop_geometry</span>(), <span class="co"># can't be an sf</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"to_id"</span> <span class="ot">=</span> <span class="st">"id"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s <code>overline</code> all the linestrings, by adding the “<strong>residents</strong>” variable <span class="citation" data-cites="stplanr">(<a href="#ref-stplanr" role="doc-biblioref">Lovelace and Ellison 2018</a>)</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stplanr)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>detailed_walk_sample_300_overline <span class="ot">=</span> detailed_walk_sample_300 <span class="sc">|&gt;</span> </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">overline2</span>(<span class="at">attrib =</span> <span class="st">"residents"</span>,</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">fun =</span> sum)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(detailed_walk_sample_300_overline<span class="sc">$</span>residents)</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(detailed_walk_sample_300_overline)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stplanr)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>detailed_walk_sample_300_overline <span class="ot">=</span> detailed_walk_sample_300 <span class="sc">|&gt;</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">overline2</span>(<span class="at">attrib =</span> <span class="st">"residents"</span>,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">fun =</span> sum)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(detailed_walk_sample_300_overline<span class="sc">$</span>residents)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(detailed_walk_sample_300_overline)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/clipboard-878104305.png" class="img-fluid"></p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -992,22 +997,22 @@ Note
 <li><p>Compute <strong>travel time matrices</strong> for different modes and interpret their outputs.</p></li>
 <li><p>Adjust routing parameters such as:</p>
 <ul>
-<li><p><code>departure_datetime</code></p></li>
-<li><p><code>max_trip_duration</code></p></li>
-<li><p><code>max_lts</code> (Level of Traffic Stress)</p></li>
-<li><p><code>max_rides</code>, <code>mode_egress</code>, and <code>max_walk_time</code> for public transport</p></li>
+<li><code>departure_datetime</code></li>
+<li><code>max_trip_duration</code></li>
+<li><code>max_lts</code> (Level of Traffic Stress)</li>
+<li><code>max_rides</code>, <code>mode_egress</code>, and <code>max_walk_time</code> for public transport</li>
 </ul></li>
 <li><p>Extract <strong>detailed itineraries</strong> with <code>detailed_itineraries()</code> to understand trip segments, modes, distances, and durations.</p></li>
 <li><p>Compare <strong>Euclidean</strong> and <strong>network distances</strong>, and compute <strong>circuity</strong> to quantify the efficiency of different travel modes</p></li>
 </ul>
-<p>Finally, we visualized and aggregated routes using <strong><code>stplanr::overline()</code></strong>, combining spatial and population data to identify segments with potentially higher travel demand.</p>
+<p>Finally, we visualized and aggregated routes using <code>stplanr::overline()</code>, combining spatial and population data to identify segments with potentially <strong>higher travel demand</strong>.</p>
 </section>
 <section id="stop" class="level2">
 <h2 class="anchored" data-anchor-id="stop">Stop</h2>
 <p><code>r5r</code> objects are still allocated to any amount of memory previously set after they are done with their calculations. In order to remove an existing <code>r5r</code> object and reallocate the memory it had been using, we use the <code>stop_r5</code> function followed by a call to Java’s garbage collector, as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>r5r<span class="sc">::</span><span class="fu">stop_r5</span>(r5r_lisboa)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>rJava<span class="sc">::</span><span class="fu">.jgc</span>(<span class="at">R.gc =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>r5r<span class="sc">::</span><span class="fu">stop_r5</span>(r5r_lisboa)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>rJava<span class="sc">::</span><span class="fu">.jgc</span>(<span class="at">R.gc =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
