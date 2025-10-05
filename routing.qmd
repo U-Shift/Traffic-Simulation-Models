@@ -419,10 +419,10 @@ $$
 
 where:
 
--   (d\_{\text{network}}) — distance or travel length along the actual transport network
--   (d\_{\text{euclidean}}) — straight-line (Euclidean) distance between the same points
+-   $d_{network}$ — distance or travel length along the actual transport network
+-   $d_{euclidean}$ — straight-line (Euclidean) distance between the same points
 
-A circuity value of **1** indicates a perfectly direct route (*as the crow flies*), while higher values indicate more detoured paths due to network layout, barriers, or design.
+A circuity value of **1** indicates a perfectly direct route (*as the crow flies*), while higher values indicate more detoured paths due to **network layout, barriers, or design**.
 
 In this exercise, circuity will be estimated separately for **car, walking, cycling, and public transport** networks, allowing comparison of how each mode’s infrastructure shapes travel efficiency and accessibility.
 
@@ -513,21 +513,35 @@ DISTANCES = DISTANCES |>
         circ_bike = bike_dist / distance)
 ```
 
+```{r}
+summary(DISTANCES$circ_walk)
+```
+
 ```         
-> summary(DISTANCES$circ_walk)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
   1.018   1.131   1.186   1.252   1.302   4.024     757 
   
-> summary(DISTANCES$circ_car)
-    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
+```
+
+```{r}
+summary(DISTANCES$circ_car)
+```
+
+```         
+  Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
  0.04975  1.36537  1.59976  1.90545  1.96105 51.04878        3 
- 
-> summary(DISTANCES$circ_bike)
+```
+
+```{r}
+summary(DISTANCES$circ_bike)
+```
+
+```         
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
   1.059   1.252   1.320   1.383   1.446   4.780       1 
 ```
 
--   Circuity \>1 indicates that network routes are longer than straight-line distances.
+> Circuity \>1 indicates that network routes are longer than straight-line distances.
 
 ```{r}
 #| code-fold: true
@@ -644,18 +658,15 @@ We learned to:
 -   Adjust routing parameters such as:
 
     -   `departure_datetime`
-
     -   `max_trip_duration`
-
     -   `max_lts` (Level of Traffic Stress)
-
     -   `max_rides`, `mode_egress`, and `max_walk_time` for public transport
 
 -   Extract **detailed itineraries** with `detailed_itineraries()` to understand trip segments, modes, distances, and durations.
 
 -   Compare **Euclidean** and **network distances**, and compute **circuity** to quantify the efficiency of different travel modes
 
-Finally, we visualized and aggregated routes using **`stplanr::overline()`**, combining spatial and population data to identify segments with potentially higher travel demand.
+Finally, we visualized and aggregated routes using `stplanr::overline()`, combining spatial and population data to identify segments with potentially **higher travel demand**.
 
 ## Stop
 
