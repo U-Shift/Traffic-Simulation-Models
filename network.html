@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -90,12 +90,12 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-7cefdf45bc0291904e5ed04695f6b7cc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-d4f02f0447084e69b8c50d187391575c.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -528,29 +528,60 @@ Tip
 </div>
 </div>
 </div>
+<section id="create-shapes.txt" class="level4">
+<h4 class="anchored" data-anchor-id="create-shapes.txt">Create <code>shapes.txt</code></h4>
+<p>Some operators do not include the information, because this is not a mandatory file.</p>
+<p>Anyway, you can create this file with some GIS operations, simplified by <code>GTFSwizard::read_gtfs()</code></p>
+<p><code>GTFSwizard::get_shapes</code> reconstructs the shapes table using euclidean <strong>approximation</strong>, based on the coordinates and sequence of stops for each trip, and may not be accurate.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Install GTFSwizard</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"hrbrmstr/hrbrthemes"</span>) <span class="co"># in 10.2025 this dependency was missing</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">'OPATP/GTFSwizard@main'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>If your <code>zip</code> contains <code>shapes.txt</code> that exist but are empty, delete that file before proceeding.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GTFSwizard)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>gtfs_noshapes <span class="ot">=</span> <span class="fu">read_gtfs</span>(<span class="st">"original/gtfs_without_shapes.zip"</span>) <span class="co"># it will recrreate shapes</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gtfs_noshapes)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_gtfs</span>(gtfs_noshapes, <span class="st">"data/r5r/gtfs_with_shapes.zip"</span>) <span class="co"># save the result</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-warning">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Sometimes, event this will not work because other information is missing in the <code>.zip</code></p>
+<p>Consider searching for another data source, or changing to another city.</p>
+</div>
+</div>
+</div>
+</section>
 <section id="filter-gtfs-by-area" class="level4">
 <h4 class="anchored" data-anchor-id="filter-gtfs-by-area">Filter GTFS by area</h4>
 <p>Having a very large GTFS, as a nation-wide, instead of a city-wide one, can hold too much information not required. You may want to crop it by using <a href="https://r-transit.github.io/tidytransit/reference/filter_feed_by_area.html"><code>tidytransit::filter_feed_by_area()</code></a></p>
 <p>This probably does not affect your r5r network model, anyway.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example with Gent, Belgium</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>area <span class="ot">=</span> <span class="fu">st_read</span>(<span class="st">"data/gent.geojson"</span>) <span class="co"># city_limit</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># load gtfs</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>gtfs_large <span class="ot">=</span> tidytransit<span class="sc">::</span><span class="fu">read_gtfs</span>(<span class="st">"https://data.gtfs.be/delijn/gtfs/be-delijn-gtfs.zip"</span>) <span class="co"># direct link</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># filter by area</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>gtfs_crop <span class="ot">=</span> tidytransit<span class="sc">::</span><span class="fu">filter_feed_by_area</span>(gtfs_large, area)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># get shapes</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>gtfs_large_shapes <span class="ot">=</span> <span class="fu">shapes_as_sf</span>(gtfs_large<span class="sc">$</span>shapes)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>gtfs_crop_shapes <span class="ot">=</span> <span class="fu">shapes_as_sf</span>(gtfs_crop<span class="sc">$</span>shapes)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># compare</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gtfs_large_shapes)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gtfs_crop_shapes)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">write_gtfs</span>(gtfs_crop, <span class="st">"data/r5r/gent_redux.zip"</span>) <span class="co"># save for modelling</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example with Gent, Belgium</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>area <span class="ot">=</span> <span class="fu">st_read</span>(<span class="st">"data/gent.geojson"</span>) <span class="co"># city_limit</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># load gtfs</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>gtfs_large <span class="ot">=</span> tidytransit<span class="sc">::</span><span class="fu">read_gtfs</span>(<span class="st">"https://data.gtfs.be/delijn/gtfs/be-delijn-gtfs.zip"</span>) <span class="co"># direct link</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># filter by area</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>gtfs_crop <span class="ot">=</span> tidytransit<span class="sc">::</span><span class="fu">filter_feed_by_area</span>(gtfs_large, area)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># get shapes</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>gtfs_large_shapes <span class="ot">=</span> <span class="fu">shapes_as_sf</span>(gtfs_large<span class="sc">$</span>shapes)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>gtfs_crop_shapes <span class="ot">=</span> <span class="fu">shapes_as_sf</span>(gtfs_crop<span class="sc">$</span>shapes)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># compare</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gtfs_large_shapes)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gtfs_crop_shapes)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="fu">write_gtfs</span>(gtfs_crop, <span class="st">"data/r5r/gent_redux.zip"</span>) <span class="co"># save for modelling</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/clipboard-1738221012.png" class="img-fluid" width="358"> <img src="images/clipboard-1516133931.png" class="img-fluid" width="197"></p>
 </section>
@@ -559,17 +590,17 @@ Tip
 <p>Some operators do not include the information regarding where can someone change from bus A to bus B, because this is not a mandatory file.</p>
 <p>Anyway, you can create this file with some GIS operations, simplified by <a href="https://urbananalyst.github.io/gtfsrouter/reference/gtfs_transfer_table.html"><code>gtfsrouter::gtfs_transfer_table()</code></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Donwload and save zip</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>carris_url <span class="ot">=</span> <span class="st">"https://gateway.carris.pt/gateway/gtfs/api/v2.8/GTFS"</span> <span class="co"># direct link</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(carris_url, <span class="at">destfile =</span> <span class="st">"original/carris_gtfs.zip"</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>carris_notransfers <span class="ot">=</span> gtfsrouter<span class="sc">::</span><span class="fu">extract_gtfs</span>(<span class="st">"original/carris_gtfs.zip"</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>carris_transfers <span class="ot">=</span> gtfsrouter<span class="sc">::</span><span class="fu">gtfs_transfer_table</span>(carris_notransfers)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(carris_transfers[[<span class="st">"transfers"</span>]], <span class="st">"original/transfers.txt"</span>, <span class="at">row.names =</span> F, <span class="at">quote =</span> F)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># drag and drop this transfers.txt file into the zip file</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>carris <span class="ot">=</span> tidytransit<span class="sc">::</span><span class="fu">read_gtfs</span>(<span class="st">"original/carris_gtfs.zip"</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>tidytransit<span class="sc">::</span><span class="fu">validate_gtfs</span>(carris) <span class="co"># validate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Donwload and save zip</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>carris_url <span class="ot">=</span> <span class="st">"https://gateway.carris.pt/gateway/gtfs/api/v2.8/GTFS"</span> <span class="co"># direct link</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(carris_url, <span class="at">destfile =</span> <span class="st">"original/carris_gtfs.zip"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>carris_notransfers <span class="ot">=</span> gtfsrouter<span class="sc">::</span><span class="fu">extract_gtfs</span>(<span class="st">"original/carris_gtfs.zip"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>carris_transfers <span class="ot">=</span> gtfsrouter<span class="sc">::</span><span class="fu">gtfs_transfer_table</span>(carris_notransfers)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(carris_transfers[[<span class="st">"transfers"</span>]], <span class="st">"original/transfers.txt"</span>, <span class="at">row.names =</span> F, <span class="at">quote =</span> F)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># drag and drop this transfers.txt file into the zip file</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>carris <span class="ot">=</span> tidytransit<span class="sc">::</span><span class="fu">read_gtfs</span>(<span class="st">"original/carris_gtfs.zip"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>tidytransit<span class="sc">::</span><span class="fu">validate_gtfs</span>(carris) <span class="co"># validate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="merge-gtfs-sources" class="level4">
@@ -577,8 +608,8 @@ Tip
 <p>Public transit analysis takes advantage of the standardized GTFS format. However, its provision by operator makes it difficult for network aggregated analysis, considering connectivity and multimodality. <a href="https://u-shift.github.io/GTFShift/reference/unify.html"><code>GTFShift::unify()</code></a> proposes a simple solution to this problem, generating an aggregated GTFS file given several instances of these.</p>
 <p>The unification produces a single GTFS instance, saved as a ZIP file. Option <code>create_transfers</code> enables the generation of <code>transfers.txt</code>, aggregating close stops, even if from different GTFS.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>gtfs_united <span class="ot">=</span> GTFShift<span class="sc">::</span><span class="fu">unify</span>(gtfs_1, gtfs_2, <span class="at">create_transfers =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_gtfs</span>(gtfs_united, <span class="st">"data/r5r/gtfs_united.zip"</span>) <span class="co"># save for modelling</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gtfs_united <span class="ot">=</span> GTFShift<span class="sc">::</span><span class="fu">unify</span>(gtfs_1, gtfs_2, <span class="at">create_transfers =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_gtfs</span>(gtfs_united, <span class="st">"data/r5r/gtfs_united.zip"</span>) <span class="co"># save for modelling</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -610,8 +641,8 @@ Tip
 </div>
 <p>Verify in R</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dem <span class="ot">=</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="st">"data/Lisbon/Copernicus_30m.tif"</span>) <span class="co"># rename the extension to .tif !!</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(dem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dem <span class="ot">=</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="st">"data/Lisbon/Copernicus_30m.tif"</span>) <span class="co"># rename the extension to .tif !!</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(dem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -628,18 +659,18 @@ Tip
 </figure>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">java.parameters =</span> <span class="st">'-Xmx8G'</span>) <span class="co"># allocate memory for 8GB </span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(r5r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">java.parameters =</span> <span class="st">'-Xmx8G'</span>) <span class="co"># allocate memory for 8GB </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(r5r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_path<span class="ot">=</span> <span class="st">"data/Lisbon/r5r"</span> <span class="co"># relative path to your folder containing the required data</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>network <span class="ot">=</span> <span class="fu">build_network</span>(</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  data_path,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">elevation =</span> <span class="st">"TOBLER"</span> <span class="co"># optional. MINETTI or NONE</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data_path<span class="ot">=</span> <span class="st">"data/Lisbon/r5r"</span> <span class="co"># relative path to your folder containing the required data</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>network <span class="ot">=</span> <span class="fu">build_network</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  data_path,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">elevation =</span> <span class="st">"TOBLER"</span> <span class="co"># optional. MINETTI or NONE</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
@@ -653,8 +684,8 @@ Tip
 </div>
 <p>Check if your transportation network is correct:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>transit_net <span class="ot">=</span> <span class="fu">transit_network_to_sf</span>(r5r_lisboa)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>mapview<span class="sc">::</span><span class="fu">mapview</span>(transit_net<span class="sc">$</span>routes, <span class="at">zcol =</span> <span class="st">"mode"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>transit_net <span class="ot">=</span> <span class="fu">transit_network_to_sf</span>(r5r_lisboa)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>mapview<span class="sc">::</span><span class="fu">mapview</span>(transit_net<span class="sc">$</span>routes, <span class="at">zcol =</span> <span class="st">"mode"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -907,8 +938,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1019,7 +1048,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
