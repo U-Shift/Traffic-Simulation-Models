@@ -172,9 +172,13 @@ remotes::install_github("hrbrmstr/hrbrthemes") # in 10.2025 this dependency was 
 remotes::install_github('OPATP/GTFSwizard@main')
 ```
 
+If your `zip` contains `shapes.txt` that exist but are empty, delete that file before proceeding.
+
 ```{r}
-gtfs_noshapes = GTFSwizard::read_gtfs("original/gtfs_without_shapes.zip") # it will recrreate shapes
-GTFSwizard::write_gtfs("data/r5r/gtfs_with_shapes.zip") # save the result
+library(GTFSwizard)
+gtfs_noshapes = read_gtfs("original/gtfs_without_shapes.zip") # it will recrreate shapes
+summary(gtfs_noshapes)
+write_gtfs(gtfs_noshapes, "data/r5r/gtfs_with_shapes.zip") # save the result
 ```
 
 ::: {.callout-warning appearance="simple"}
