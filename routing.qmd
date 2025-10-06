@@ -63,8 +63,8 @@ library(dplyr)
 city_limit <- st_read("data/city_limit.gpkg") |> st_transform(4326)
 
 # 2. Set parameters
-set.seed(123) # for reproducibility
-total_pop <- 545000
+set.seed(42) # for reproducibility
+total_pop <- 545000 # your city population
 avg_residents <- 300 # a census block average
 n_points <- round(total_pop / avg_residents)
 
