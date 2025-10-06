@@ -156,6 +156,33 @@ There are some nice R packages to read and manipulate GTFS data, such as:
 Be aware that they may share the same function names, so it is important to use of of them at the time.
 :::
 
+#### Create `shapes.txt`
+
+Some operators do not include the information, because this is not a mandatory file.
+
+Anyway, you can create this file with some GIS operations, simplified by `GTFSwizard::read_gtfs()`
+
+`GTFSwizard::get_shapes` reconstructs the shapes table using euclidean **approximation**, based on the coordinates and sequence of stops for each trip, and may not be accurate.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Install GTFSwizard"
+
+remotes::install_github("hrbrmstr/hrbrthemes") # in 10.2025 this dependency was missing
+remotes::install_github('OPATP/GTFSwizard@main')
+```
+
+```{r}
+gtfs_noshapes = GTFSwizard::read_gtfs("original/gtfs_without_shapes.zip") # it will recrreate shapes
+GTFSwizard::write_gtfs("data/r5r/gtfs_with_shapes.zip") # save the result
+```
+
+::: {.callout-warning appearance="simple"}
+Sometimes, event this will not work because other information is missing in the `.zip`
+
+Consider searching for another data source, or changing to another city.
+:::
+
 #### Filter GTFS by area
 
 Having a very large GTFS, as a nation-wide, instead of a city-wide one, can hold too much information not required.
