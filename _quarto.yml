@@ -51,8 +51,8 @@ website:
           - pois.qmd
           - jittering.qmd
           - routing.qmd
-          - pareto.qmd
           - accessibility.qmd
+          - pareto.qmd
           - scenarios.qmd
 
   page-footer:
