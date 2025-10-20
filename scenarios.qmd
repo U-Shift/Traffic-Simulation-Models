@@ -45,7 +45,7 @@ For instance, for Carris (bus operator), on a Sunday there are **54%** of the de
 
 #### Transfers needed to reach all stops
 
-By considering the PTransit stops as destinations (and not population), we can also estimate how many bus stops are reacheble, in total and by number of transfers needed, for each our.
+By considering the PTransit stops as destinations (and not population), we can also estimate how many bus stops are reachable, in total and by number of transfers needed, for each our.
 
 These estimates are based on GTFS data only, and do not rely on r5r.
 
