@@ -415,7 +415,7 @@ div.csl-indent {
 <p>For instance, for Carris (bus operator), on a Sunday there are <strong>54%</strong> of the departures of a Wednesday, and on a Sunday evening (22h) there are <strong>19%</strong> of the departures that are on a Wednesday morning (8h).</p>
 <section id="transfers-needed-to-reach-all-stops" class="level4">
 <h4 class="anchored" data-anchor-id="transfers-needed-to-reach-all-stops">Transfers needed to reach all stops</h4>
-<p>By considering the PTransit stops as destinations (and not population), we can also estimate how many bus stops are reacheble, in total and by number of transfers needed, for each our.</p>
+<p>By considering the PTransit stops as destinations (and not population), we can also estimate how many bus stops are reachable, in total and by number of transfers needed, for each our.</p>
 <p>These estimates are based on GTFS data only, and do not rely on r5r.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gtfs_carris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -671,7 +671,7 @@ Your turn
 <p>For that, an easy graphic interface software is the PTV Lines.</p>
 <ol type="1">
 <li>Login into <a href="https://www.ptvgroup.com/en/products/ptv-lines">PTV Lines</a> (upper right corner) with the credentials that were sent to you.</li>
-<li>Create a new scenario, and import an existing subway gtfs (<code>.zip</code>) - <strong>max 50 lines</strong>!</li>
+<li>Create a new scenario, and import an existing subway gtfs (<code>.zip</code>) - <strong>max 50 lines</strong>!<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
 <li>Edit that scenario by creating stops and lines.</li>
 <li>Export the GTFS file.</li>
 <li>Duplicate your r5r folder (baseline scenario) and delete the <code>network.dat</code> file inside. Rename it as <code>..._ver1</code> and replace the <code>gtfs.zip</code> by the one you just exported.</li>
@@ -805,11 +805,23 @@ Your task
 </div>
 <p>See <span class="citation" data-cites="accessibility">Pereira and Herszenhut (<a href="#ref-accessibility" role="doc-biblioref">2023</a>)</span> <a href="https://ipeagit.github.io/intro_access_book/6_cenarios_transporte.en.html">Chapter 6</a> for an example.</p>
 <p>If you do multi-modal analysis, you <strong>may need</strong> to use <a href="https://u-shift.github.io/GTFShift/reference/unify.html"><code>GTFShift::unify()</code></a> to merge the new gtfs with other modes and create new transfers.</p>
+<p>If you have more than 50 lines, consider filtering your GTFS by area or by <strong>mode</strong>, and use that one as the <em>baseline scenario</em>, and the improved one (PTV lines) as you <em>comparison scenario</em>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code example to filter a gtfs by mode</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example to filter a gtfs by mode = TRAM</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>gtfs_all_modes <span class="ot">=</span> gtfstools<span class="sc">::</span><span class="fu">read_gtfs</span>(<span class="st">"data/gtfs_all.zip"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>gtfs_tram <span class="ot">=</span> gtfstools<span class="sc">::</span><span class="fu">filter_by_route_type</span>(gtfs_all_modes,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">route_type =</span> <span class="dv">0</span>) <span class="co"># see the documentation for the other modes' code</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>gtfstools<span class="sc">::</span><span class="fu">write_gtfs</span>(<span class="st">"data/gtfs_tram-zip"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 
 
 
 </section>
 </section>
+
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-INEcensus" class="csl-entry" role="listitem">
@@ -818,7 +830,12 @@ INE. 2022. <span>“<span class="nocase">Censos 2021- XVI Recenseamento Geral da
 <div id="ref-accessibility" class="csl-entry" role="listitem">
 Pereira, Rafael HM, and Daniel Herszenhut. 2023. <em>Introduction to Urban Accessibility: A Practical Guide with r</em>. Instituto de Pesquisa Econ<span>ô</span>mica Aplicada (Ipea). <a href="https://ipeagit.github.io/intro_access_book/">https://ipeagit.github.io/intro_access_book/</a>.
 </div>
-</div></section></div></main> <!-- /main -->
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Tip: you may need to filter by a mode (tram, or subway) to avoid having more than 50 lines.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
