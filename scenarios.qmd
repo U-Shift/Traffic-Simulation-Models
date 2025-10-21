@@ -283,11 +283,13 @@ Let's create a new metro line or a new station in your city.
 For that, an easy graphic interface software is the PTV Lines.
 
 1.  Login into [PTV Lines](https://www.ptvgroup.com/en/products/ptv-lines) (upper right corner) with the credentials that were sent to you.
-2.  Create a new scenario, and import an existing subway gtfs (`.zip`) - **max 50 lines**!
+2.  Create a new scenario, and import an existing subway gtfs (`.zip`) - **max 50 lines**![^1]
 3.  Edit that scenario by creating stops and lines.
 4.  Export the GTFS file.
 5.  Duplicate your r5r folder (baseline scenario) and delete the `network.dat` file inside. Rename it as `..._ver1` and replace the `gtfs.zip` by the one you just exported.
 6.  Build a new network with that folder path.
+
+[^1]: Tip: you may need to filter by a mode (tram, or subway) to avoid having more than 50 lines.
 
 ### Create a metro line with PTV Lines {#create-a-metro-line-with-ptv-lines}
 
@@ -390,3 +392,15 @@ Consider comparing the estimated cost of your new infrastructure and the mobilit
 See @accessibility [Chapter 6](https://ipeagit.github.io/intro_access_book/6_cenarios_transporte.en.html) for an example.
 
 If you do multi-modal analysis, you **may need** to use [`GTFShift::unify()`](https://u-shift.github.io/GTFShift/reference/unify.html) to merge the new gtfs with other modes and create new transfers.
+
+If you have more than 50 lines, consider filtering your GTFS by area or by **mode**, and use that one as the *baseline scenario*, and the improved one (PTV lines) as you *comparison scenario*.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Code example to filter a gtfs by mode"
+# example to filter a gtfs by mode = TRAM
+gtfs_all_modes = gtfstools::read_gtfs("data/gtfs_all.zip")
+gtfs_tram = gtfstools::filter_by_route_type(gtfs_all_modes,
+                                            route_type = 0) # see the documentation for the other modes' code
+gtfstools::write_gtfs("data/gtfs_tram-zip")
+```
