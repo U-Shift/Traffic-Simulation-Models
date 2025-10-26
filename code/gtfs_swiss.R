@@ -29,12 +29,13 @@ mapview::mapview(geneve_shapes, zcol = "mode")
 
 
 
-# Method 2 - from OSM -----------------------------------------------------
-library(osmdata)
+# luxemburg ---------------------------------------------------------------
+lux_url = "https://download.data.public.lu/resources/horaires-et-arrets-des-transport-publics-gtfs/20251002-061636/gtfs-20251001-20251031.zip"
 
-geneve_transit_osm = opq(bbox = st_bbox(geneve_limit)) |> 
-  add_osm_feature(key = "route", value = "bus")
-  # add_osm_feature(key = "network") |> 
+# library(gtfstools)
+gtfs_lux = gtfstools::read_gtfs(lux_url)
+summary(gtfs_lux)
+table(gtfs_lux$routes$route_type)
+gtfs_lux_modes = gtfstools::filter_by_route_type(gtfs_lux, route_type = 0) # tram only
+write_gtfs(gtfs_lux_modes, "data/gtfs_lux_tram.zip")
 
-trips_geometry_osm = GTFShift::osm_trips_to_routes(geneve_gtfs_wshapes, geneve_transit_osm)
-# not working
