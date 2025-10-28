@@ -102,16 +102,20 @@ See the [`od::od_jitter()`](https://itsleeds.github.io/od/reference/od_jitter.ht
 
 ### With `odjitter` package
 
-The same but with [Rust](https://github.com/dabreegster/odjitter), wich is faster:
+The same but with [Rust](https://github.com/dabreegster/odjitter), which is faster:
 
 ```{sh}
+sudo apt install cargo
+# (restart current shell)
+# sudo apt install cmake
 # install odjitter in rust
-git clone https://github.com/dabreegster/odjitter && cd odjitter && cargo build --release && cp ./target/release/odjitter /usr/local/bin/
+cargo install odjitter
+# git clone https://github.com/dabreegster/odjitter && cd odjitter && cargo build --release && cp ./target/release/odjitter /usr/local/bin/
 ```
 
 ```{r}
 # install odjitter in R
-remotes::install_github("dabreegster/odjitter", subdir = "r")
+remotes::install_github("itsleeds/odjitter", subdir = "r")
 # Load packages
 library(odjitter)
 ```
