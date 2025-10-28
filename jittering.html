@@ -477,14 +477,18 @@ Note
 </section>
 <section id="with-odjitter-package" class="level3">
 <h3 class="anchored" data-anchor-id="with-odjitter-package">With <code>odjitter</code> package</h3>
-<p>The same but with <a href="https://github.com/dabreegster/odjitter">Rust</a>, wich is faster:</p>
+<p>The same but with <a href="https://github.com/dabreegster/odjitter">Rust</a>, which is faster:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install odjitter in rust</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/dabreegster/odjitter <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> odjitter <span class="kw">&amp;&amp;</span> <span class="ex">cargo</span> build <span class="at">--release</span> <span class="kw">&amp;&amp;</span> <span class="fu">cp</span> ./target/release/odjitter /usr/local/bin/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install cargo</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (restart current shell)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sudo apt install cmake</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># install odjitter in rust</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> install odjitter</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># git clone https://github.com/dabreegster/odjitter &amp;&amp; cd odjitter &amp;&amp; cargo build --release &amp;&amp; cp ./target/release/odjitter /usr/local/bin/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install odjitter in R</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"dabreegster/odjitter"</span>, <span class="at">subdir =</span> <span class="st">"r"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"itsleeds/odjitter"</span>, <span class="at">subdir =</span> <span class="st">"r"</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(odjitter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
