@@ -34,8 +34,11 @@ Accept the defaults and install.
 
 In debian based (ubuntu, kubuntu, popOS, debian) follow this instructions.
 
-> soon.
-> 🐧
+```sh
+sudo add apt-repository ppa:sumo/stable
+sudo apt update
+sudo apt install sumo sumo-tools sumo-doc
+```
 
 ## Getting started
 
